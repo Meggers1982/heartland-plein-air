@@ -266,6 +266,11 @@ const Index = () => {
 
       <BrushStrokeDivider className="py-4" />
 
+      {/* Artists */}
+      <ArtistsSection />
+
+      <BrushStrokeDivider className="py-4" />
+
       {/* Gallery */}
       <GallerySection />
 
