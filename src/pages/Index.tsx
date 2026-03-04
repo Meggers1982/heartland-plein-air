@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
-import { Palette, MapPin, Users, Eye, ShoppingBag } from "lucide-react";
+import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -101,8 +101,7 @@ const Index = () => {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <Palette className="h-6 w-6 text-primary-foreground" />
+          <div>
             <span className="font-display text-lg font-semibold text-primary-foreground">
               Heartland Plein Air Arts Festival
             </span>
@@ -338,8 +337,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border bg-background py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
-          <div className="flex items-center gap-2">
-            <Palette className="h-5 w-5 text-primary" />
+          <div>
             <span className="font-display text-lg font-semibold text-foreground">
               Heartland Plein Air Arts Festival
             </span>
