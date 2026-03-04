@@ -17,6 +17,7 @@ import ScheduleSection from "@/components/ScheduleSection";
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Highlights", href: "#highlights" },
+  { label: "Schedule", href: "#schedule" },
   { label: "Gallery", href: "#gallery" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
@@ -256,6 +257,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Schedule */}
+      <ScheduleSection />
 
       <BrushStrokeDivider className="py-4" />
 
