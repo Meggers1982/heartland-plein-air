@@ -13,11 +13,14 @@ import CountdownBanner from "@/components/CountdownBanner";
 import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import ScheduleSection from "@/components/ScheduleSection";
+import ArtistsSection from "@/components/ArtistsSection";
+import SponsorsSection from "@/components/SponsorsSection";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Highlights", href: "#highlights" },
   { label: "Schedule", href: "#schedule" },
+  { label: "Artists", href: "#artists" },
   { label: "Gallery", href: "#gallery" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
@@ -324,6 +327,8 @@ const Index = () => {
           </form>
         </AnimatedSection>
       </section>
+      {/* Sponsors */}
+      <SponsorsSection />
 
       {/* Footer */}
       <footer className="border-t border-border bg-background py-10">
