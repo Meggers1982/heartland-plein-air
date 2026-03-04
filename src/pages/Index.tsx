@@ -12,6 +12,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import CountdownBanner from "@/components/CountdownBanner";
 import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
+import ScheduleSection from "@/components/ScheduleSection";
 
 const navLinks = [
   { label: "About", href: "#about" },
