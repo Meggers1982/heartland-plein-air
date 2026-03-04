@@ -1,16 +1,22 @@
+import { useEffect, useRef, useState } from "react";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
-import { Palette, MapPin, Calendar, Users, Eye, ShoppingBag } from "lucide-react";
+import { Palette, MapPin, Users, Eye, ShoppingBag } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import AnimatedSection from "@/components/AnimatedSection";
+import CountdownBanner from "@/components/CountdownBanner";
+import GallerySection from "@/components/GallerySection";
+import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Highlights", href: "#highlights" },
+  { label: "Gallery", href: "#gallery" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
@@ -66,6 +72,25 @@ const faqs = [
 ];
 
 const Index = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -82,6 +107,7 @@ const Index = () => {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleNav(e, link.href)}
                 className="font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:text-primary-foreground"
               >
                 {link.label}
@@ -91,12 +117,13 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative flex min-h-screen items-end">
+      {/* Hero with parallax */}
+      <section className="relative flex min-h-screen items-end overflow-hidden">
         <img
           src={heroImage}
           alt="Plein air painting of the heartland landscape at golden hour"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-[120%] w-full object-cover will-change-transform"
+          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
         />
         <div
           className="absolute inset-0"
@@ -104,28 +131,39 @@ const Index = () => {
         />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40">
           <p
-            className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary"
-            style={{ animationDelay: "0.1s" }}
+            className={`mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "200ms" }}
           >
             September 13–19, 2026
           </p>
-          <h1 className="mb-6 max-w-3xl font-display text-5xl font-bold leading-tight text-secondary md:text-7xl">
+          <h1
+            className={`hero-title mb-6 max-w-3xl font-display text-5xl font-bold leading-tight text-secondary md:text-7xl transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "400ms" }}
+          >
             Heartland Plein Air Arts Festival
           </h1>
-          <p className="mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85">
+          <p
+            className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "600ms" }}
+          >
             Art, out in the open. Experience nationally recognized artists
             painting the beauty of Douglas & Sarpy County.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div
+            className={`flex flex-wrap gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "800ms" }}
+          >
             <a
               href="#about"
-              className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-opacity hover:opacity-90"
+              onClick={(e) => handleNav(e, "#about")}
+              className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
             >
               Learn More
             </a>
             <a
               href="#highlights"
-              className="inline-flex items-center rounded border border-secondary/40 px-6 py-3 font-body text-sm font-semibold tracking-wide text-secondary transition-colors hover:bg-secondary/10"
+              onClick={(e) => handleNav(e, "#highlights")}
+              className="inline-flex items-center rounded border border-secondary/40 px-6 py-3 font-body text-sm font-semibold tracking-wide text-secondary transition-all hover:bg-secondary/10 hover:scale-105"
             >
               Festival Highlights
             </a>
@@ -133,20 +171,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Save the Date Banner */}
-      <section className="bg-primary py-6 text-center">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-3 px-6">
-          <Calendar className="h-5 w-5 text-primary-foreground" />
-          <p className="font-display text-xl font-semibold text-primary-foreground">
-            Save the Date — September 13–19, 2026
-          </p>
-        </div>
-      </section>
+      {/* Countdown */}
+      <CountdownBanner />
 
       {/* About */}
       <section id="about" className="py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 md:grid-cols-2">
-          <div>
+          <AnimatedSection>
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               About the Festival
             </p>
@@ -179,78 +210,90 @@ const Index = () => {
                 region.
               </p>
             </div>
-          </div>
-          <div className="overflow-hidden rounded-lg shadow-xl">
-            <img
-              src={artistImage}
-              alt="An artist painting outdoors at an easel on a charming street"
-              className="h-full w-full object-cover"
-            />
-          </div>
+          </AnimatedSection>
+          <AnimatedSection delay={200}>
+            <div className="overflow-hidden rounded-lg shadow-xl transition-transform duration-500 hover:scale-[1.02]">
+              <img
+                src={artistImage}
+                alt="An artist painting outdoors at an easel on a charming street"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </AnimatedSection>
         </div>
       </section>
+
+      <BrushStrokeDivider />
 
       {/* Highlights */}
       <section id="highlights" className="bg-secondary/50 py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="mb-16 text-center">
+          <AnimatedSection className="mb-16 text-center">
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               What to Expect
             </p>
             <h2 className="font-display text-4xl font-bold text-foreground">
               Festival Highlights
             </h2>
-          </div>
+          </AnimatedSection>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {highlights.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-lg bg-card p-8 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <item.icon className="h-6 w-6 text-primary" />
+            {highlights.map((item, i) => (
+              <AnimatedSection key={item.title} delay={i * 100}>
+                <div className="group rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
+                    <item.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="font-body text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
-                  {item.title}
-                </h3>
-                <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
+      <BrushStrokeDivider className="py-4" />
+
+      {/* Gallery */}
+      <GallerySection />
+
+      <BrushStrokeDivider className="py-4" />
+
       {/* FAQ */}
       <section id="faq" className="py-24">
         <div className="mx-auto max-w-3xl px-6">
-          <div className="mb-12 text-center">
+          <AnimatedSection className="mb-12 text-center">
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Questions?
             </p>
             <h2 className="font-display text-4xl font-bold text-foreground">
               Frequently Asked Questions
             </h2>
-          </div>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="font-display text-lg font-semibold text-foreground">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          </AnimatedSection>
+          <AnimatedSection delay={100}>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger className="font-display text-lg font-semibold text-foreground">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Contact / Newsletter */}
       <section id="contact" className="bg-foreground py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+        <AnimatedSection className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="mb-4 font-display text-3xl font-bold text-background">
             Stay in the Loop
           </h2>
@@ -269,12 +312,12 @@ const Index = () => {
             />
             <button
               type="submit"
-              className="rounded bg-primary px-6 py-3 font-body text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              className="rounded bg-primary px-6 py-3 font-body text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
             >
               Subscribe
             </button>
           </form>
-        </div>
+        </AnimatedSection>
       </section>
 
       {/* Footer */}
