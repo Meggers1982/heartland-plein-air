@@ -106,4 +106,8 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .hero-title {
+    text-shadow: 0 2px 20px hsla(30, 10%, 10%, 0.5);
+  }
 }
