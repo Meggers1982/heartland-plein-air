@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
-import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
+import { MapPin, Users, Eye, ShoppingBag, Menu, X } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -79,6 +79,7 @@ const faqs = [
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -93,6 +94,7 @@ const Index = () => {
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    setMobileMenuOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -106,13 +108,38 @@ const Index = () => {
               Heartland Plein Air Arts Festival
             </span>
           </div>
-          <div className="hidden gap-6 md:flex">
+           <div className="hidden gap-6 md:flex">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNav(e, link.href)}
                 className="font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:text-primary-foreground"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <button
+            className="md:hidden text-primary-foreground"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-96 border-t border-primary-foreground/10" : "max-h-0"}`}
+        >
+          <div className="flex flex-col gap-1 px-6 py-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => handleNav(e, link.href)}
+                className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
               >
                 {link.label}
               </a>
