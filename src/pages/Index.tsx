@@ -104,7 +104,7 @@ const Index = () => {
           <div className="flex items-center gap-2">
             <Palette className="h-6 w-6 text-primary-foreground" />
             <span className="font-display text-lg font-semibold text-primary-foreground">
-              Heartland Plein Air
+              Heartland Plein Air Arts Festival
             </span>
           </div>
           <div className="hidden gap-6 md:flex">
