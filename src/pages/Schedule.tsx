@@ -289,6 +289,9 @@ const Schedule = () => {
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <div className="mb-12">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Browse by day
+              </p>
               <ScheduleJumpNav items={weekItems} />
             </div>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
