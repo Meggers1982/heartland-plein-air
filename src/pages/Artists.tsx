@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import artist1 from "@/assets/artist-1.jpg";
 import artist2 from "@/assets/artist-2.jpg";
 import artist3 from "@/assets/artist-3.jpg";
@@ -40,6 +41,8 @@ const artists = [
 const awardsJudge = { name: "Rick J. Delanty", location: "California" };
 
 const Artists = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const active = openIndex !== null ? artists[openIndex] : null;
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Artists | Heartland Plein Air Arts Festival";
@@ -96,7 +99,11 @@ const Artists = () => {
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {artists.map((artist, i) => (
                 <AnimatedSection key={artist.name} delay={i * 80}>
-                  <div className="group overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(i)}
+                    className="group block w-full text-left overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
                     <div className="aspect-square overflow-hidden">
                       <img
                         src={artist.src}
@@ -112,13 +119,8 @@ const Artists = () => {
                       <p className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
                         {artist.location}
                       </p>
-                      {artist.bio && (
-                        <p className="mt-3 font-body text-sm leading-relaxed text-muted-foreground">
-                          {artist.bio}
-                        </p>
-                      )}
                     </div>
-                  </div>
+                  </button>
                 </AnimatedSection>
               ))}
             </div>
@@ -145,6 +147,36 @@ const Artists = () => {
         </section>
       </main>
       <SiteFooter />
+      <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
+        <DialogContent className="max-w-2xl overflow-hidden p-0">
+          {active && (
+            <div className="grid md:grid-cols-2">
+              <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
+                <img src={active.src} alt={active.name} className="h-full w-full object-cover" />
+              </div>
+              <div className="p-6 md:p-8">
+                <DialogHeader>
+                  <DialogTitle className="font-display text-2xl font-semibold text-foreground">
+                    {active.name}
+                  </DialogTitle>
+                  <DialogDescription className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                    {active.location}
+                  </DialogDescription>
+                </DialogHeader>
+                {active.bio ? (
+                  <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground">
+                    {active.bio}
+                  </p>
+                ) : (
+                  <p className="mt-4 font-body text-sm italic leading-relaxed text-muted-foreground">
+                    Bio coming soon.
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
