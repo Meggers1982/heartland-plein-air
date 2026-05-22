@@ -183,15 +183,9 @@ const Schedule = () => {
       {/* Page header */}
       <header className="bg-foreground pt-32 pb-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            September 12 – October 2, 2026
-          </p>
-          <h1 className="mb-4 font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
+          <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
             Schedule of Events
           </h1>
-          <p className="font-body text-base text-secondary/75">
-            Heartland Plein Air Arts Festival
-          </p>
         </div>
       </header>
 
