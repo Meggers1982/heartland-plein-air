@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
 import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
@@ -84,11 +83,6 @@ const Index = () => {
     return () => clearTimeout(t);
   }, []);
 
-  const scrollToHash = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
@@ -125,25 +119,6 @@ const Index = () => {
             Art, out in the open. Twenty-five nationally recognized artists,
             painting Douglas and Sarpy County exactly as it looks in September.
           </p>
-          <div
-            className={`flex flex-wrap gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
-            style={{ transitionDelay: "800ms" }}
-          >
-            <a
-              href="#about"
-              onClick={(e) => scrollToHash(e, "#about")}
-              className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
-            >
-              Learn More
-            </a>
-            <a
-              href="#highlights"
-              onClick={(e) => scrollToHash(e, "#highlights")}
-              className="inline-flex items-center rounded border border-secondary/40 px-6 py-3 font-body text-sm font-semibold tracking-wide text-secondary transition-all hover:bg-secondary/10 hover:scale-105"
-            >
-              Festival Highlights
-            </a>
-          </div>
         </div>
       </section>
 
@@ -171,12 +146,6 @@ const Index = () => {
                 Every piece in the final exhibition was made that week, on-site. What you're seeing — and buying — is a record of a specific place at a specific moment in September 2026. That's not something you can replicate.
               </p>
             </div>
-            <Link
-              to="/about"
-              className="mt-8 inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
-            >
-              Learn More About the Festival
-            </Link>
           </AnimatedSection>
           <AnimatedSection delay={200}>
             <div className="overflow-hidden rounded-lg shadow-xl transition-transform duration-500 hover:scale-[1.02]">
@@ -225,14 +194,6 @@ const Index = () => {
 
       {/* Schedule */}
       <ScheduleSection />
-      <div className="bg-secondary/50 pb-16 text-center">
-        <Link
-          to="/schedule"
-          className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
-        >
-          View Full Schedule
-        </Link>
-      </div>
 
       <BrushStrokeDivider className="py-4" />
 
