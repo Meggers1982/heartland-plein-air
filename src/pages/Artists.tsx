@@ -167,6 +167,17 @@ const Artists = () => {
                   {awardsJudge.location}
                 </span>
               </p>
+              {awardsJudge.website && (
+                <a
+                  href={awardsJudge.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 font-body text-sm text-primary transition-colors hover:bg-primary/20"
+                >
+                  <Globe className="h-4 w-4" />
+                  Website
+                </a>
+              )}
             </AnimatedSection>
           </div>
         </section>
