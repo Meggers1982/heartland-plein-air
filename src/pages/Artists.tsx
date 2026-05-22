@@ -4,7 +4,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Globe, Facebook } from "lucide-react";
+import { Globe, Facebook, Instagram } from "lucide-react";
 
 import artist1 from "@/assets/artist-1.jpg";
 import artist2 from "@/assets/artist-2.jpg";
@@ -38,33 +38,33 @@ import jeffWilliams from "@/assets/artists/jeff-williams.webp";
 import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
 
 const artists = [
-  { name: "Hector Acuna", src: artist1, location: "Wisconsin", website: "https://www.acunaarts.com" },
-  { name: "Jason Bailey", src: artist2, location: "Kentucky", website: "https://www.jasonbaileyfineart.com" },
-  { name: "Jacalyn Beam", src: jacalynBeam, location: "Delaware", website: "https://www.jacalynbeam.com" },
+  { name: "Hector Acuna", src: artist1, location: "Wisconsin", website: "https://www.acunaarts.com", instagram: "https://www.instagram.com/hectoracuna.pleinair/", facebook: "https://www.facebook.com/AcunaArt/" },
+  { name: "Jason Bailey", src: artist2, location: "Kentucky", website: "https://www.jasonbaileyfineart.com", instagram: "https://www.instagram.com/jasonbaileyfineart/", facebook: "https://www.facebook.com/jasonbaileyfineart/" },
+  { name: "Jacalyn Beam", src: jacalynBeam, location: "Delaware", website: "https://www.jacalynbeam.com", instagram: "https://www.instagram.com/jacalynbeam/" },
   { name: "Bob Beck", src: artist4, location: "Wisconsin", website: "https://www.bobbeckartist.com" },
-  { name: "Michele Byrne", src: artist5, location: "New Mexico", website: "https://www.michelebyrne.com" },
-  { name: "Robin Cheers", src: artist6, location: "Texas", website: "https://www.robincheers.com" },
-  { name: "Larry DeGraff", src: artist1, location: "Kansas", website: "https://www.larrydegraff.com" },
-  { name: "John Evans", src: artist2, location: "Iowa", website: "https://www.johnevans.faso.com" },
-  { name: "Debra Joy Groesser", src: artist3, location: "Nebraska", website: "https://www.debrajoygroesser.com" },
-  { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "https://www.kristinhosbein.com", facebook: "https://www.facebook.com/kristinkhosbeinfineart" },
+  { name: "Michele Byrne", src: artist5, location: "New Mexico", website: "https://www.michelebyrne.com", instagram: "https://www.instagram.com/michelebyrneart/", facebook: "https://www.facebook.com/michelebyrneart/" },
+  { name: "Robin Cheers", src: artist6, location: "Texas", website: "https://www.robincheers.com", instagram: "https://www.instagram.com/robincheers/" },
+  { name: "Larry DeGraff", src: artist1, location: "Kansas", website: "https://www.larrydegraff.com", instagram: "https://www.instagram.com/larrydegraff/", facebook: "https://www.facebook.com/degrafffineart/" },
+  { name: "John Evans", src: artist2, location: "Iowa", website: "https://www.johnevans.faso.com", instagram: "https://www.instagram.com/johnevans1016/", facebook: "https://www.facebook.com/JohnEvans.Studio61/" },
+  { name: "Debra Joy Groesser", src: artist3, location: "Nebraska", website: "https://www.debrajoygroesser.com", instagram: "https://www.instagram.com/debrajoygroesser/", facebook: "https://www.facebook.com/DebraJoyGroesserFineArt/" },
+  { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "https://www.kristinhosbein.com", instagram: "https://www.instagram.com/kristinkkh/", facebook: "https://www.facebook.com/kristinkhosbeinfineart/" },
   { name: "Ann Larsen", src: artist5, location: "New York", website: "https://www.annlarsen.com" },
-  { name: "John Lasater", src: artist6, location: "Arkansas", website: "https://www.lasaterart.com" },
-  { name: "Dan Marshall", src: artist1, location: "Colorado", website: "https://www.danmarshallart.com" },
-  { name: "Fernando Micheli", src: artist2, location: "California", website: "https://www.fernandomicheli.faso.com" },
-  { name: "Brenda Pinnick", src: artist3, location: "Arkansas", website: "https://www.brendapinnick.com" },
-  { name: "Radhika Srinivas", src: artist4, location: "Pennsylvania", website: "https://www.radhikasrinivas.com" },
-  { name: "Steve Stauffer", src: artist5, location: "Utah", website: "https://www.stevestauffer.com" },
-  { name: "Jill Stefani Wagner", src: artist6, location: "Michigan", website: "https://www.jillwagnerart.com" },
-  { name: "Durre Waseem", src: artist1, location: "California", website: "https://www.dwaseem.faso.com" },
-  { name: "Ann Watcher", src: artist2, location: "North Carolina", website: "https://www.annwatcher.com" },
-  { name: "Robin Weiss", src: artist3, location: "Washington", website: "https://www.robinweissfineart.com" },
-  { name: "Chris Willey", src: artist4, location: "Missouri", website: "https://www.chriswilley.com" },
-  { name: "Jeff Williams", src: artist5, location: "Oklahoma", website: "https://www.jeffwilliamswatercolor.com" },
-  { name: "Stephen Wysocki", src: artist6, location: "Wisconsin", website: "https://www.swysockiart.faso.com" },
+  { name: "John Lasater", src: artist6, location: "Arkansas", website: "https://www.lasaterart.com", instagram: "https://www.instagram.com/johnplasater/", facebook: "https://www.facebook.com/lasaterart/" },
+  { name: "Dan Marshall", src: artist1, location: "Colorado", website: "https://www.danmarshallart.com", instagram: "https://www.instagram.com/danmarshallart/" },
+  { name: "Fernando Micheli", src: artist2, location: "California", website: "https://fernandomicheli.faso.com", instagram: "https://www.instagram.com/fernando1951micheli/", facebook: "https://www.facebook.com/p/Fernando-Micheli-Fine-Art-100036867775846/" },
+  { name: "Brenda Pinnick", src: artist3, location: "Arkansas", website: "https://www.brendapinnick.com", instagram: "https://www.instagram.com/brendapinnickfinearts/", facebook: "https://www.facebook.com/brendapinnickartist/" },
+  { name: "Radhika Srinivas", src: artist4, location: "Pennsylvania", website: "https://www.radhikasrinivas.com", instagram: "https://www.instagram.com/radhikasrinivasfineart/", facebook: "https://www.facebook.com/rswatercolors/" },
+  { name: "Steve Stauffer", src: artist5, location: "Utah", website: "https://www.stevestauffer.com", instagram: "https://www.instagram.com/staufferstephen/", facebook: "https://www.facebook.com/p/Stauffer-Studios-100063588282297/" },
+  { name: "Jill Stefani Wagner", src: artist6, location: "Michigan", website: "https://www.jillwagnerart.com", instagram: "https://www.instagram.com/jillwagnerart/", facebook: "https://www.facebook.com/jill.s.wagner/" },
+  { name: "Durre Waseem", src: artist1, location: "California", website: "https://dwaseem.faso.com", instagram: "https://www.instagram.com/waseemdurre/" },
+  { name: "Ann Watcher", src: artist2, location: "North Carolina", website: "https://www.annwatcher.com", instagram: "https://www.instagram.com/annwatcherart/" },
+  { name: "Robin Weiss", src: artist3, location: "Washington", website: "https://www.robinweissfineart.com", facebook: "https://www.facebook.com/p/Robin-Weiss-Fine-Art-100064944795231/" },
+  { name: "Chris Willey", src: artist4, location: "Missouri", website: "https://www.chriswilley.com", instagram: "https://www.instagram.com/willey_chris/" },
+  { name: "Jeff Williams", src: artist5, location: "Oklahoma", website: "https://www.jeffwilliamswatercolor.com", instagram: "https://www.instagram.com/jeffwilliamswatercolor/", facebook: "https://www.facebook.com/people/Jeff-Williams-Watercolor/100063542743670/" },
+  { name: "Stephen Wysocki", src: artist6, location: "Wisconsin", website: "https://swysockiart.fineartstudioonline.com", instagram: "https://www.instagram.com/swysockiart/" },
 ];
 
-const awardsJudge = { name: "Rick J. Delanty", location: "California", website: "https://www.delantyfineart.com", src: artist5, bio: "Bio coming soon." };
+const awardsJudge = { name: "Rick J. Delanty", location: "California", website: "https://www.delantyfineart.com", instagram: "https://www.instagram.com/rickj.delanty/", facebook: "https://www.facebook.com/RickDelantyFineArt/", src: artist5, bio: "Bio coming soon." };
 
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -197,17 +197,23 @@ const Artists = () => {
                         </p>
                       ))}
                     </div>
-                    {awardsJudge.website && (
-                      <a
-                        href={awardsJudge.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 font-body text-sm text-primary transition-colors hover:bg-primary/20 w-fit"
-                      >
-                        <Globe className="h-4 w-4" />
-                        Website
-                      </a>
-                    )}
+                    <div className="mt-6 flex gap-3">
+                      {awardsJudge.website && (
+                        <a href={awardsJudge.website} target="_blank" rel="noopener noreferrer" aria-label="Website" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+                          <Globe className="h-5 w-5" />
+                        </a>
+                      )}
+                      {awardsJudge.instagram && (
+                        <a href={awardsJudge.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+                          <Instagram className="h-5 w-5" />
+                        </a>
+                      )}
+                      {awardsJudge.facebook && (
+                        <a href={awardsJudge.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+                          <Facebook className="h-5 w-5" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -246,7 +252,7 @@ const Artists = () => {
                     Bio coming soon.
                   </p>
                 )}
-                {(active.website || active.facebook) && (
+                {(active.website || active.instagram || active.facebook) && (
                   <div className="mt-6 flex gap-3">
                     {active.website && (
                       <a
@@ -257,6 +263,17 @@ const Artists = () => {
                         aria-label="Website"
                       >
                         <Globe className="h-5 w-5" />
+                      </a>
+                    )}
+                    {active.instagram && (
+                      <a
+                        href={active.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                        aria-label="Instagram"
+                      >
+                        <Instagram className="h-5 w-5" />
                       </a>
                     )}
                     {active.facebook && (
