@@ -268,8 +268,8 @@ const Schedule = () => {
     if (d.id === "day-online") {
       return { id: d.id, weekday: "Sep 19+", label: "Online" };
     }
-    const [weekday, , date] = d.dayShort.split(" ");
-    return { id: d.id, weekday, date };
+    const parts = d.dayShort.split(" ");
+    return { id: d.id, weekday: parts[0], date: parts[parts.length - 1] };
   });
 
   return (
