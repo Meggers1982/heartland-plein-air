@@ -129,13 +129,18 @@ const Artists = () => {
                     onClick={() => setOpenIndex(i)}
                     className="group block w-full text-left overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    <div className="aspect-square overflow-hidden">
+                    <div className="aspect-square overflow-hidden relative">
                       <img
                         src={artist.src}
                         alt={artist.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                        <span className="font-body text-sm font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-wide">
+                          View Bio
+                        </span>
+                      </div>
                     </div>
                     <div className="p-6">
                       <h2 className="font-display text-xl font-semibold text-foreground">
@@ -143,6 +148,9 @@ const Artists = () => {
                       </h2>
                       <p className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
                         {artist.location}
+                      </p>
+                      <p className="mt-2 font-body text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        Click to see more
                       </p>
                     </div>
                   </button>
