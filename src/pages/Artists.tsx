@@ -13,29 +13,14 @@ import artist4 from "@/assets/artist-4.jpg";
 import artist5 from "@/assets/artist-5.jpg";
 import artist6 from "@/assets/artist-6.jpg";
 import jacalynBeam from "@/assets/artists/jacalyn-beam.webp";
-import hectorAcuna from "@/assets/artists/hector-acuna.webp";
-import jasonBailey from "@/assets/artists/jason-bailey.webp";
-import bobBeck from "@/assets/artists/bob-beck.webp";
 import micheleByrne from "@/assets/artists/michele-byrne.webp";
-import robinCheers from "@/assets/artists/robin-cheers.webp";
-import larryDeGraff from "@/assets/artists/larry-degraff.webp";
-import johnEvans from "@/assets/artists/john-evans.webp";
-import debraJoyGroesser from "@/assets/artists/debra-joy-groesser.webp";
-import kristinHosbein from "@/assets/artists/kristin-hosbein.webp";
 import annLarsen from "@/assets/artists/ann-larsen.webp";
 import johnLasater from "@/assets/artists/john-lasater.webp";
 import danMarshall from "@/assets/artists/dan-marshall.webp";
-import fernandoMicheli from "@/assets/artists/fernando-micheli.webp";
-import brendaPinnick from "@/assets/artists/brenda-pinnick.webp";
 import radhikaSrinivas from "@/assets/artists/radhika-srinivas.webp";
 import steveStauffer from "@/assets/artists/steve-stauffer.webp";
-import jillStefaniWagner from "@/assets/artists/jill-stefani-wagner.webp";
 import durreWaseem from "@/assets/artists/durre-waseem.webp";
 import annWatcher from "@/assets/artists/ann-watcher.webp";
-import robinWeiss from "@/assets/artists/robin-weiss.webp";
-import chrisWilley from "@/assets/artists/chris-willey.webp";
-import jeffWilliams from "@/assets/artists/jeff-williams.webp";
-import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
 
 const artists = [
   { name: "Hector Acuna", src: artist1, location: "Wisconsin", website: "https://www.acunaarts.com", instagram: "https://www.instagram.com/hectoracuna.pleinair/", facebook: "https://www.facebook.com/AcunaArt/" },
@@ -44,7 +29,7 @@ const artists = [
   { name: "Bob Beck", src: artist4, location: "Wisconsin", website: "https://www.bobbeckartist.com" },
   { name: "Michele Byrne", src: micheleByrne, alt: "woman with curly blonde hair wearing glasses and a wide-brim hat smiling outdoors", location: "New Mexico", bio: "Michele Byrne is an award-winning impressionistic oil painter known for energetic palette knife work, bold color, and what she calls \"The Art of Conversation\" — lively cafés, bustling street scenes, and atmospheric landscapes filled with movement and human connection. Her work was featured on the cover of PleinAir Magazine in January 2020.\n\nA Royal Talens Artist Ambassador and sought-after instructor, Michele teaches workshops across the U.S. and internationally in Europe. She is a Signature Member of the American Impressionist Society and Plein Air Artists of New Mexico, and exhibits with Reinert Fine Art in South Carolina and James R. Ross Fine Art in Indiana.", website: "https://www.michelebyrne.com", instagram: "https://www.instagram.com/michelebyrneart/", facebook: "https://www.facebook.com/michelebyrneart/" },
   { name: "Robin Cheers", src: artist6, location: "Texas", website: "https://www.robincheers.com", instagram: "https://www.instagram.com/robincheers/", facebook: "https://www.facebook.com/Robin-Cheers-71815508131/" },
-  { name: "Larry DeGraff", src: larryDeGraff, alt: "man with dark curly hair and beard wearing a striped button-down shirt outdoors", location: "Kansas", bio: "After a successful career as a greeting card artist at Hallmark Cards, Larry DeGraff transitioned into fine art — bringing with him a refined eye for composition and emotional nuance developed at the Kansas City Art Institute. Working primarily in oils, he's best known for atmospheric landscapes centered on water, quiet natural settings, and the understated beauty of places that transform under the right light.\n\nHis work has been featured in Southwest Art and PleinAir Magazine. He is a Signature Member of the National Oil and Acrylic Painters Society.", website: "https://www.larrydegraff.com", instagram: "https://www.instagram.com/larrydegraff/", facebook: "https://www.facebook.com/degrafffineart/" },
+  { name: "Larry DeGraff", src: artist1, alt: "man with dark curly hair and beard wearing a striped button-down shirt outdoors", location: "Kansas", bio: "After a successful career as a greeting card artist at Hallmark Cards, Larry DeGraff transitioned into fine art — bringing with him a refined eye for composition and emotional nuance developed at the Kansas City Art Institute. Working primarily in oils, he's best known for atmospheric landscapes centered on water, quiet natural settings, and the understated beauty of places that transform under the right light.\n\nHis work has been featured in Southwest Art and PleinAir Magazine. He is a Signature Member of the National Oil and Acrylic Painters Society.", website: "https://www.larrydegraff.com", instagram: "https://www.instagram.com/larrydegraff/", facebook: "https://www.facebook.com/degrafffineart/" },
   { name: "John Evans", src: artist2, location: "Iowa", website: "https://www.johnevans.faso.com", instagram: "https://www.instagram.com/johnevans1016/", facebook: "https://www.facebook.com/JohnEvans.Studio61/" },
   { name: "Debra Joy Groesser", src: artist3, location: "Nebraska", website: "https://www.debrajoygroesser.com", instagram: "https://www.instagram.com/debrajoygroesser/", facebook: "https://www.facebook.com/DebraJoyGroesserFineArt/" },
   { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "https://www.kristinhosbein.com", instagram: "https://www.instagram.com/kristinkkh/", facebook: "https://www.facebook.com/kristinkhosbeinfineart/" },
