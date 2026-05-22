@@ -7,6 +7,7 @@ import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
+import LocationsMap from "@/components/LocationsMap";
 import riversideValleyImage from "@/assets/sunlit-riverside-valley-plein-air-oil-painting.webp";
 
 type Audience = "public" | "ticketed" | "artists";
@@ -341,6 +342,18 @@ const Schedule = () => {
               <p className="font-display text-xl italic text-primary">
                 Here's what's happening and when.
               </p>
+            </div>
+            <div className="mt-12">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Where to find us
+              </p>
+              <h2 className="mb-4 font-display text-3xl font-bold text-foreground">
+                Festival locations
+              </h2>
+              <p className="mb-6 font-body text-base text-muted-foreground">
+                Click any marker to see what's happening at that location and jump to the day in the schedule.
+              </p>
+              <LocationsMap />
             </div>
           </AnimatedSection>
         </div>
