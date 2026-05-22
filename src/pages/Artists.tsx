@@ -8,11 +8,12 @@ import artist3 from "@/assets/artist-3.jpg";
 import artist4 from "@/assets/artist-4.jpg";
 import artist5 from "@/assets/artist-5.jpg";
 import artist6 from "@/assets/artist-6.jpg";
+import jacalynBeam from "@/assets/artists/jacalyn-beam.webp";
 
 const artists = [
   { name: "Hector Acuna", src: artist1, location: "Wisconsin" },
   { name: "Jason Bailey", src: artist2, location: "Kentucky" },
-  { name: "Jacalyn Beam", src: artist3, location: "Delaware" },
+  { name: "Jacalyn Beam", src: jacalynBeam, location: "Delaware" },
   { name: "Bob Beck", src: artist4, location: "Wisconsin" },
   { name: "Michele Byrne", src: artist5, location: "New Mexico" },
   { name: "Robin Cheers", src: artist6, location: "Texas" },
