@@ -143,7 +143,7 @@ const About = () => {
             </h2>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                The festival is presented by the <strong>Ralston HINGE Creative District</strong>, a 501(c)(3) nonprofit that uses arts and culture to drive economic growth in Ralston. The district was founded in 2021 and is led by <strong>Deb Groesser</strong>, owner of Debra Joy Groesser Fine Art.
+                The festival is presented by the <a href="https://ralstonarts.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Ralston HINGE Creative District</a>, a 501(c)(3) nonprofit that uses arts and culture to drive economic growth in Ralston. The district was founded in 2021 and is led by <strong>Deb Groesser</strong>, owner of Debra Joy Groesser Fine Art.
               </p>
               <p>
                 It's also grant-supported: Ralston was selected as one of just 13 recipients of a <strong>Nebraska Arts Council Creative District Development Grant</strong> — funding designed for projects that attract visitors, create jobs, and strengthen Nebraska communities.
