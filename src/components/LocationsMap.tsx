@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { festivalLocations, type FestivalLocation } from "@/data/locations";
 
 declare global {
@@ -83,6 +84,7 @@ const LocationsMap = () => {
   const googleRef = useRef<any>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [dayFilter, setDayFilter] = useState<string>("all");
+  const [listOpen, setListOpen] = useState(false);
   const dayOptions = useMemo(getDayOptions, []);
   const visibleLocations = useMemo(
     () =>
@@ -246,46 +248,57 @@ const LocationsMap = () => {
 
       {/* Text fallback list — also useful when map renders */}
       <div>
-        <h3 className="mb-4 text-center font-display text-xl font-bold text-foreground">
+        <button
+          type="button"
+          onClick={() => setListOpen((o) => !o)}
+          className="flex w-full items-center justify-center gap-2 py-2 font-display text-xl font-bold text-foreground transition-colors hover:text-primary"
+        >
           All locations
-        </h3>
-        <ul className="grid gap-4 sm:grid-cols-2">
-          {visibleLocations.map((loc) => {
-            const events =
-              dayFilter === "all" ? loc.events : loc.events.filter((e) => e.dayId === dayFilter);
-            return (
-              <li
-                key={loc.key}
-                className="rounded-lg border border-border bg-card p-4 shadow-sm"
-              >
-                <p className="font-display text-lg font-bold text-foreground">{loc.name}</p>
-                <p className="mb-3 font-body text-xs text-muted-foreground">{loc.address}</p>
-                <ul className="space-y-2 font-body text-sm">
-                  {events.map((e, i) => (
-                    <li key={`${e.dayId}-${i}`}>
-                      <a
-                        href={`#${e.dayId}`}
-                        onClick={(ev) => {
-                          ev.preventDefault();
-                          smoothScrollToDay(e.dayId);
-                        }}
-                        className="font-semibold text-primary hover:underline"
-                      >
-                        {e.dayLabel}
-                      </a>
-                      {e.time && <span className="text-muted-foreground"> · {e.time}</span>}
-                      <div className="text-foreground">{e.name}</div>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            );
-          })}
-        </ul>
-        {visibleLocations.length === 0 && (
-          <p className="text-center font-body text-sm text-muted-foreground">
-            No locations scheduled for that day.
-          </p>
+          <ChevronDown
+            className={`h-5 w-5 transition-transform duration-300 ${listOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+        {listOpen && (
+          <>
+            <ul className="grid gap-4 sm:grid-cols-2">
+              {visibleLocations.map((loc) => {
+                const events =
+                  dayFilter === "all" ? loc.events : loc.events.filter((e) => e.dayId === dayFilter);
+                return (
+                  <li
+                    key={loc.key}
+                    className="rounded-lg border border-border bg-card p-4 shadow-sm"
+                  >
+                    <p className="font-display text-lg font-bold text-foreground">{loc.name}</p>
+                    <p className="mb-3 font-body text-xs text-muted-foreground">{loc.address}</p>
+                    <ul className="space-y-2 font-body text-sm">
+                      {events.map((e, i) => (
+                        <li key={`${e.dayId}-${i}`}>
+                          <a
+                            href={`#${e.dayId}`}
+                            onClick={(ev) => {
+                              ev.preventDefault();
+                              smoothScrollToDay(e.dayId);
+                            }}
+                            className="font-semibold text-primary hover:underline"
+                          >
+                            {e.dayLabel}
+                          </a>
+                          {e.time && <span className="text-muted-foreground"> · {e.time}</span>}
+                          <div className="text-foreground">{e.name}</div>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              })}
+            </ul>
+            {visibleLocations.length === 0 && (
+              <p className="text-center font-body text-sm text-muted-foreground">
+                No locations scheduled for that day.
+              </p>
+            )}
+          </>
         )}
       </div>
     </div>
