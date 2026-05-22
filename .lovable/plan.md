@@ -1,38 +1,32 @@
-## Update Festival Schedule
+## Polish Festival Schedule formatting
 
-Replace the `schedule` array in `src/components/ScheduleSection.tsx` with the 8 day entries from the attached markdown. The timeline layout, animations, and styling stay the same — only data changes.
+Edit `src/components/ScheduleSection.tsx` only.
 
-### New schedule entries
+### 1. Restructure data
+New shape per day:
+```ts
+{ date: string; weekday: string; title: string; icon: LucideIcon;
+  description: string; events: { time: string; location: string }[];
+  links?: { label: string; href: string }[] }
+```
+- Sept 12 — Pre-Festival Youth Paint Out → 2 events (Wildwood Park 10–2; Baright Library 5–7).
+- Sept 13 — Artist Orientation → single event, no time, location only.
+- Sept 14 — Quick Paint: Benson → 1 event.
+- Sept 15 — Quick Paint: Dundee → 1 event.
+- Sept 16 — Cathedral & Castle + Youth Mentors → 2 events (Quick Paint lunchtime, 40th St; Mentor Sessions 4–5:30).
+- Sept 17 — Artist Lecture & Evening Quick Paint → 2 events (Lecture 5–6 at Library; Quick Paint 6–8 at Main & 77th).
+- Sept 18 — Collector's Soirée → 1 event at The Granary.
+- Sept 19 — Public Exhibition & Auction → 1 event at The Granary.
+- Sept 19 – Oct 2 — Online Art Sales → no time row; `links` to ralstonarts.org and heartlandpleinair.org.
 
-1. **Sept 12 — Pre-Festival Youth Paint Out** (icon: Paintbrush)
-   - 10 AM–2 PM Wildwood Park (Ralston Ave & 78th St) + 5–7 PM Youth Exhibition at Baright Library (5555 S. 77th St., Ralston)
+### 2. Card layout
+- Header: eyebrow `date` (uppercase tracked primary text-xs) over `weekday` (display, text-xl, foreground). Title h3 stays below at text-lg.
+- Description unchanged.
+- Events list separated from description by `border-t border-border/60 mt-4 pt-4`, with `space-y-2` between sub-events.
+- Each sub-event row: `Calendar` icon + bold time (`text-sm font-semibold text-foreground`), `MapPin` icon + location (`text-sm text-muted-foreground`). Stack vertically on mobile, inline-flex with gap-4 on `sm:`.
+- For right-aligned (odd index) cards: keep `md:text-right` and reverse icon order so icons stay on the outer edge using `md:flex-row-reverse`.
+- Online Sales entry: no Calendar/MapPin row; render `links` as anchor tags `text-primary hover:underline`, separated by `·`.
 
-2. **Sept 13 — Artist Orientation** (icon: Users)
-   - Kickoff orientation for participating artists.
-
-3. **Sept 14 — Quick Paint: Benson** (icon: Paintbrush)
-   - Artists painting across the metro; Lunchtime Quick Paint Competition at Benson (62nd & Maple, Omaha).
-
-4. **Sept 15 — Quick Paint: Dundee** (icon: Paintbrush)
-   - Artists painting across the metro; Lunchtime Quick Paint Competition at Dundee (50th & Underwood, Omaha).
-
-5. **Sept 16 — Quick Paint: Cathedral & Castle + Youth Mentor Sessions** (icon: Users)
-   - Lunchtime Quick Paint along 40th St (Cuming–Davenport); 4–5:30 PM Youth–Professional Artist Mentor Sessions.
-
-6. **Sept 17 — Artist Lecture & Evening Quick Paint** (icon: Gavel→swap to Paintbrush)
-   - 5–6 PM Artist Lecture by Plein Air Judge at the Library (5555 S. 77th St.); 6–8 PM Evening Quick Paint during Concert (Main & 77th, Ralston).
-
-7. **Sept 18 — Collector's Soirée** (icon: PartyPopper)
-   - 5–8 PM music, food, award ceremony, and auction at The Granary (7401 Main St., Ralston).
-
-8. **Sept 19 — Public Exhibition & Auction** (icon: Gavel)
-   - 1–4 PM at The Granary (7401 Main St., Ralston).
-
-9. **Sept 19 – Oct 2 — Online Art Sales** (icon: ShoppingBag)
-   - Remaining artworks available at ralstonarts.org and heartlandpleinair.org.
-
-### Technical notes
-
-- Each entry uses the existing `{ day, title, icon, description, time, location }` shape so the rendered card layout is unchanged.
-- Add `ShoppingBag` to the lucide-react import for the online sales entry.
-- No changes to `Index.tsx` or other components.
+### 3. Polish
+- Card: add `ring-1 ring-border/40`, bump padding to `p-7`.
+- Keep existing AnimatedSection wrapper, timeline dot, and alternating layout untouched.
