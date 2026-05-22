@@ -159,34 +159,25 @@ const Index = () => {
               About the Festival
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Painting the Spirit of a Community
+              Art Made Here
             </h2>
             <div className="space-y-4 font-body text-base leading-relaxed text-muted-foreground">
               <p>
-                "Plein air" is a French term meaning "open air." Unlike studio
-                painting, plein air artists create their work outdoors,
-                capturing the light, atmosphere, architecture, and natural
-                beauty of a place in real time. This immersive approach results
-                in vibrant, one-of-a-kind pieces that reflect the true spirit
-                of a community.
+                Plein air is French for "open air" — painting done outside, on location, in direct response to the light and landscape in front of you. No studio, no reference photos. Just the artist and the scene as it actually is.
               </p>
               <p>
-                Throughout the week, approximately 25 nationally recognized
-                artists will paint at more than 20 scenic locations across
-                Douglas County and Sarpy County. These will include historic
-                neighborhoods, tourist attractions, scenic vistas, and more.
-                Visitors are encouraged to explore these sites, observe the
-                artists at work, and experience the creative process up close.
+                During festival week, 25 nationally recognized artists spread out across more than 20 locations in Douglas and Sarpy Counties — historic neighborhoods, scenic overlooks, landmarks, and everyday places made interesting by the right set of eyes. The public is welcome to follow along, watch the work happen, and talk to the artists as they paint.
               </p>
               <p>
-                The festival culminates in a public exhibition and auction,
-                where attendees can view the complete collection and purchase
-                original works that showcase the beauty and character of the
-                greater metro area. Each painting is created on-site during the
-                festival, making every piece a unique and lasting tribute to the
-                region.
+                Every piece in the final exhibition was made that week, on-site. What you're seeing — and buying — is a record of a specific place at a specific moment in September 2026. That's not something you can replicate.
               </p>
             </div>
+            <Link
+              to="/about"
+              className="mt-8 inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
+            >
+              Learn More About the Festival
+            </Link>
           </AnimatedSection>
           <AnimatedSection delay={200}>
             <div className="overflow-hidden rounded-lg shadow-xl transition-transform duration-500 hover:scale-[1.02]">
