@@ -113,7 +113,7 @@ const About = () => {
                 Artists spread out across the metro each day to paint. The public is free to follow along, watch them work, and ask questions — that's part of the point. Throughout the week, artists also give lectures at Ralston Public Schools and lead workshops for children in foster care.
               </p>
               <p>
-                The week closes with a <strong>public exhibition and auction on September 19</strong>, where every painting created during the festival goes on display and is available for purchase. A separate <strong>Collector's Soirée</strong> on the same day gives collectors early access to the full collection.
+                The week closes with a public exhibition and auction on September 19, where every painting created during the festival goes on display and is available for purchase. A separate Collector's Soirée on the same day gives collectors early access to the full collection.
               </p>
               <p>
                 Every piece is painted on-site during festival week, so every piece is one of a kind.
