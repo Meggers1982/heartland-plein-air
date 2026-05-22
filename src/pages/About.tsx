@@ -113,6 +113,12 @@ const About = () => {
                 Every piece is painted on-site during festival week, so every piece is one of a kind.
               </p>
             </div>
+            <Link
+              to="/schedule"
+              className="mt-8 inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
+            >
+              View Full Schedule
+            </Link>
           </AnimatedSection>
         </div>
       </section>
