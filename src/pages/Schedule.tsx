@@ -434,9 +434,9 @@ const Schedule = () => {
                           <button
                             type="button"
                             onClick={handleAddToCalendar}
-                            className="mt-1 inline-flex w-fit items-center gap-1.5 font-body text-xs font-semibold uppercase tracking-wide text-primary transition-colors hover:text-primary/80 hover:underline"
+                            className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-md border border-primary/30 bg-primary/10 px-3 py-1.5 font-body text-xs font-semibold uppercase tracking-wide text-primary transition-all hover:bg-primary/20 hover:scale-[1.02]"
                           >
-                            <CalendarPlus className="h-3.5 w-3.5" />
+                            <CalendarPlus className="h-4 w-4" />
                             Add to calendar
                           </button>
                         )}
