@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
 import { MapPin, Users, Eye, ShoppingBag, Menu, X, Facebook, Instagram, Youtube } from "lucide-react";
@@ -19,7 +20,7 @@ import SponsorsSection from "@/components/SponsorsSection";
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Highlights", href: "#highlights" },
-  { label: "Schedule", href: "#schedule" },
+  { label: "Schedule", href: "/schedule", route: true },
   { label: "Artists", href: "#artists" },
   { label: "Gallery", href: "#gallery" },
   { label: "FAQ", href: "#faq" },
@@ -80,6 +81,7 @@ const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -95,6 +97,10 @@ const Index = () => {
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    if (href.startsWith("/")) {
+      navigate(href);
+      return;
+    }
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
