@@ -295,6 +295,14 @@ const Index = () => {
 
       {/* Schedule */}
       <ScheduleSection />
+      <div className="bg-secondary/50 pb-16 text-center">
+        <Link
+          to="/schedule"
+          className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
+        >
+          View Full Schedule
+        </Link>
+      </div>
 
       <BrushStrokeDivider className="py-4" />
 
