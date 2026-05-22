@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { MapPin, Clock, ExternalLink, ArrowUp } from "lucide-react";
+import { MapPin, Clock, ExternalLink, ArrowUp, CalendarPlus } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import riversideValleyImage from "@/assets/sunlit-riverside-valley-plein-air-oil-painting.webp";
 
 type Audience = "public" | "ticketed" | "artists";
@@ -197,6 +198,19 @@ const audienceStyle: Record<Audience, string> = {
 
 const mapUrl = (address: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
+// Map day.id like "day-sep-12" / "day-sep-18" to YYYYMMDD in 2026.
+const dayIdToDate = (id: string): string | null => {
+  const m = id.match(/^day-sep-(\d{1,2})$/);
+  if (!m) return null;
+  return `202609${String(m[1]).padStart(2, "0")}`;
+};
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
 const Schedule = () => {
   useEffect(() => {
