@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import NewsletterCTA from "@/components/NewsletterCTA";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook } from "lucide-react";
 
@@ -214,6 +215,7 @@ const Artists = () => {
           </div>
         </section>
       </main>
+      <NewsletterCTA />
       <SiteFooter />
       <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
         <DialogContent className="max-w-2xl overflow-hidden p-0">
