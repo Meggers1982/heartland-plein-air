@@ -400,39 +400,6 @@ const Schedule = () => {
 
       <BrushStrokeDivider />
 
-      {/* Online sales CTA */}
-      <section className="py-20">
-        <AnimatedSection className="mx-auto max-w-2xl px-6 text-center">
-          <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Online Sales
-          </p>
-          <h2 className="mb-4 font-display text-3xl font-bold text-foreground">
-            Browse from wherever you are
-          </h2>
-          <p className="mb-8 font-body text-base text-muted-foreground">
-            Unsold works remain available online through October 2.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="https://www.ralstonarts.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
-            >
-              ralstonarts.org <ExternalLink className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.heartlandpleinair.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded border border-primary/40 px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary transition-all hover:bg-primary/10 hover:scale-105"
-            >
-              heartlandpleinair.org <ExternalLink className="h-4 w-4" />
-            </a>
-          </div>
-        </AnimatedSection>
-      </section>
-
       <NewsletterCTA />
 
       <SiteFooter />
