@@ -1,78 +1,112 @@
+import type { LucideIcon } from "lucide-react";
+import { Calendar, Paintbrush, MapPin, Users, PartyPopper, Gavel, ShoppingBag, Globe } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
-import { Calendar, Paintbrush, MapPin, Users, PartyPopper, Gavel, ShoppingBag } from "lucide-react";
 
-const schedule = [
+type SubEvent = { time?: string; location: string };
+type Link = { label: string; href: string };
+type Day = {
+  date: string;
+  weekday: string;
+  title: string;
+  icon: LucideIcon;
+  description: string;
+  events?: SubEvent[];
+  links?: Link[];
+};
+
+const schedule: Day[] = [
   {
-    day: "Saturday, Sept 12",
+    date: "Sept 12, 2026",
+    weekday: "Saturday",
     title: "Pre-Festival Youth Paint Out",
     icon: Paintbrush,
-    description: "Youth paint-out sessions at Wildwood Park, followed by an evening youth exhibition at the Baright Library.",
-    time: "10:00 AM – 2:00 PM & 5:00 – 7:00 PM",
-    location: "Wildwood Park & Baright Library, Ralston",
+    description:
+      "The festival kicks off early with youth paint-out sessions and an evening exhibition celebrating young artists.",
+    events: [
+      { time: "10:00 AM – 2:00 PM", location: "Wildwood Park · Ralston Ave & 78th St, Ralston" },
+      { time: "5:00 – 7:00 PM", location: "Youth Exhibition · Baright Library, 5555 S. 77th St., Ralston" },
+    ],
   },
   {
-    day: "Sunday, Sept 13",
+    date: "Sept 13, 2026",
+    weekday: "Sunday",
     title: "Artist Orientation",
     icon: Users,
-    description: "Participating artists gather for orientation and the official kickoff of festival week.",
-    time: "All Day",
-    location: "Festival Headquarters",
+    description:
+      "Participating artists gather for orientation and the official kickoff of festival week.",
+    events: [{ location: "Festival Headquarters" }],
   },
   {
-    day: "Monday, Sept 14",
+    date: "Sept 14, 2026",
+    weekday: "Monday",
     title: "Quick Paint: Benson",
     icon: Paintbrush,
-    description: "Artists paint across the metro area, then converge for a lunchtime Quick Paint Competition in Benson.",
-    time: "Lunchtime",
-    location: "62nd & Maple, Omaha",
+    description:
+      "Artists paint across the metro area, then converge for a lunchtime Quick Paint Competition in Benson.",
+    events: [{ time: "Lunchtime", location: "62nd & Maple, Omaha" }],
   },
   {
-    day: "Tuesday, Sept 15",
+    date: "Sept 15, 2026",
+    weekday: "Tuesday",
     title: "Quick Paint: Dundee",
     icon: Paintbrush,
-    description: "Artists paint across the metro area, with a lunchtime Quick Paint Competition in historic Dundee.",
-    time: "Lunchtime",
-    location: "50th & Underwood, Omaha",
+    description:
+      "Artists continue painting throughout the metro, with a lunchtime Quick Paint Competition in historic Dundee.",
+    events: [{ time: "Lunchtime", location: "50th & Underwood, Omaha" }],
   },
   {
-    day: "Wednesday, Sept 16",
+    date: "Sept 16, 2026",
+    weekday: "Wednesday",
     title: "Cathedral & Castle + Youth Mentors",
     icon: Users,
-    description: "Lunchtime Quick Paint along 40th Street, followed by Youth–Professional Artist Mentor Sessions in the afternoon.",
-    time: "Lunchtime & 4:00 – 5:30 PM",
-    location: "40th St (Cuming–Davenport), Omaha",
+    description:
+      "A midday Quick Paint along 40th Street, followed by afternoon Youth–Professional Artist Mentor Sessions.",
+    events: [
+      { time: "Lunchtime", location: "40th Street between Cuming & Davenport, Omaha" },
+      { time: "4:00 – 5:30 PM", location: "Youth–Professional Mentor Sessions" },
+    ],
   },
   {
-    day: "Thursday, Sept 17",
+    date: "Sept 17, 2026",
+    weekday: "Thursday",
     title: "Artist Lecture & Evening Quick Paint",
     icon: Paintbrush,
-    description: "Artist lecture by the Plein Air Judge at the Library, then an Evening Quick Paint Competition during the concert in Ralston.",
-    time: "5:00 – 6:00 PM & 6:00 – 8:00 PM",
-    location: "Baright Library & Main and 77th, Ralston",
+    description:
+      "An evening lecture from the Plein Air Judge, followed by an Evening Quick Paint Competition during the Ralston concert.",
+    events: [
+      { time: "5:00 – 6:00 PM", location: "Artist Lecture · Baright Library, 5555 S. 77th St., Ralston" },
+      { time: "6:00 – 8:00 PM", location: "Evening Quick Paint · Main & 77th Street, Ralston" },
+    ],
   },
   {
-    day: "Friday, Sept 18",
+    date: "Sept 18, 2026",
+    weekday: "Friday",
     title: "Collector's Soirée",
     icon: PartyPopper,
-    description: "An evening of music, food, an award ceremony, and the collector's auction at The Granary.",
-    time: "5:00 – 8:00 PM",
-    location: "The Granary, 7401 Main St., Ralston",
+    description:
+      "An evening of music, food, an award ceremony, and the collector's auction at The Granary.",
+    events: [{ time: "5:00 – 8:00 PM", location: "The Granary · 7401 Main St., Ralston" }],
   },
   {
-    day: "Saturday, Sept 19",
+    date: "Sept 19, 2026",
+    weekday: "Saturday",
     title: "Public Exhibition & Auction",
     icon: Gavel,
-    description: "The grand finale — browse the full collection and bid on original paintings created during the festival.",
-    time: "1:00 – 4:00 PM",
-    location: "The Granary, 7401 Main St., Ralston",
+    description:
+      "The grand finale — browse the full collection and bid on original paintings created during the festival.",
+    events: [{ time: "1:00 – 4:00 PM", location: "The Granary · 7401 Main St., Ralston" }],
   },
   {
-    day: "Sept 19 – Oct 2",
+    date: "Sept 19 – Oct 2, 2026",
+    weekday: "Online",
     title: "Online Art Sales",
     icon: ShoppingBag,
-    description: "Remaining artworks are available for purchase online at ralstonarts.org and heartlandpleinair.org.",
-    time: "Two Weeks",
-    location: "Online",
+    description:
+      "Remaining artworks are available for purchase online for two weeks following the festival.",
+    links: [
+      { label: "ralstonarts.org", href: "https://www.ralstonarts.org" },
+      { label: "heartlandpleinair.org", href: "https://www.heartlandpleinair.org" },
+    ],
   },
 ];
 
@@ -94,33 +128,83 @@ const ScheduleSection = () => {
           <div className="absolute left-6 top-0 bottom-0 hidden w-px bg-border md:left-1/2 md:block" />
 
           <div className="space-y-8">
-            {schedule.map((event, i) => {
+            {schedule.map((day, i) => {
               const isLeft = i % 2 === 0;
+              const alignText = isLeft ? "md:text-right" : "";
+              const rowReverse = isLeft ? "md:flex-row-reverse" : "";
               return (
-                <AnimatedSection key={event.title} delay={i * 80}>
-                  <div className={`relative flex flex-col gap-4 md:flex-row md:items-start ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}>
+                <AnimatedSection key={day.date + day.title} delay={i * 80}>
+                  <div
+                    className={`relative flex flex-col gap-4 md:flex-row md:items-start ${
+                      isLeft ? "md:flex-row" : "md:flex-row-reverse"
+                    }`}
+                  >
                     {/* Content card */}
-                    <div className={`flex-1 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                      <div className="rounded-lg bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
-                        <p className="mb-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                          {event.day}
+                    <div className={`flex-1 ${isLeft ? "md:pr-12" : "md:pl-12"}`}>
+                      <div
+                        className={`rounded-lg bg-card p-7 shadow-sm ring-1 ring-border/40 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${alignText}`}
+                      >
+                        <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                          {day.date}
                         </p>
-                        <h3 className="mb-2 font-display text-xl font-semibold text-foreground">
-                          {event.title}
+                        <p className="mt-1 font-display text-2xl font-semibold leading-tight text-foreground">
+                          {day.weekday}
+                        </p>
+                        <h3 className="mt-3 font-display text-lg font-semibold text-foreground">
+                          {day.title}
                         </h3>
-                        <p className="mb-3 font-body text-sm leading-relaxed text-muted-foreground">
-                          {event.description}
+                        <p className="mt-2 font-body text-sm leading-relaxed text-muted-foreground">
+                          {day.description}
                         </p>
-                        <div className={`flex gap-4 font-body text-xs text-muted-foreground/80 ${isLeft ? "md:justify-end" : ""}`}>
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {event.time}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="h-3 w-3" />
-                            {event.location}
-                          </span>
-                        </div>
+
+                        {day.events && day.events.length > 0 && (
+                          <ul className="mt-4 space-y-2 border-t border-border/60 pt-4">
+                            {day.events.map((ev, idx) => (
+                              <li
+                                key={idx}
+                                className={`flex flex-col gap-1 font-body text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-1 ${
+                                  isLeft ? "sm:justify-end" : ""
+                                } ${rowReverse}`}
+                              >
+                                {ev.time && (
+                                  <span className="inline-flex items-center gap-1.5 font-semibold text-foreground">
+                                    <Calendar className="h-3.5 w-3.5 text-primary" />
+                                    {ev.time}
+                                  </span>
+                                )}
+                                <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                                  <MapPin className="h-3.5 w-3.5 text-primary" />
+                                  {ev.location}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        {day.links && day.links.length > 0 && (
+                          <div
+                            className={`mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border/60 pt-4 font-body text-sm ${
+                              isLeft ? "md:justify-end" : ""
+                            }`}
+                          >
+                            <Globe className="h-3.5 w-3.5 text-primary" />
+                            {day.links.map((link, idx) => (
+                              <span key={link.href} className="inline-flex items-center gap-3">
+                                <a
+                                  href={link.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="font-semibold text-primary hover:underline"
+                                >
+                                  {link.label}
+                                </a>
+                                {idx < day.links!.length - 1 && (
+                                  <span className="text-muted-foreground/60">·</span>
+                                )}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
 
