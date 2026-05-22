@@ -414,6 +414,8 @@ const Schedule = () => {
         </AnimatedSection>
       </section>
 
+      <NewsletterCTA />
+
       <SiteFooter />
     </div>
   );
