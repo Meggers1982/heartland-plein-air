@@ -383,7 +383,23 @@ const Schedule = () => {
                 )}
                 {d.events && d.events.length > 0 && (
                   <ul className="space-y-4 border-t border-border pt-6">
-                    {d.events.map((ev) => (
+                    {d.events.map((ev) => {
+                      const date = dayIdToDate(d.id);
+                      const canDownload = !!date;
+                      const handleAddToCalendar = () => {
+                        if (!date) return;
+                        const ics = buildEventIcs({
+                          uid: `${d.id}-${slugify(ev.name)}`,
+                          date,
+                          time: ev.time,
+                          name: ev.name,
+                          location: ev.location,
+                          address: ev.address,
+                          description: d.narrative,
+                        });
+                        downloadIcs(`${d.id}-${slugify(ev.name)}.ics`, ics);
+                      };
+                      return (
                       <li key={`${d.id}-${ev.name}`} className="flex flex-col gap-1">
                         <div className="flex flex-wrap items-baseline gap-x-3">
                           {ev.time && (
@@ -414,8 +430,19 @@ const Schedule = () => {
                             )}
                           </div>
                         )}
+                        {canDownload && (
+                          <button
+                            type="button"
+                            onClick={handleAddToCalendar}
+                            className="mt-1 inline-flex w-fit items-center gap-1.5 font-body text-xs font-semibold uppercase tracking-wide text-primary transition-colors hover:text-primary/80 hover:underline"
+                          >
+                            <CalendarPlus className="h-3.5 w-3.5" />
+                            Add to calendar
+                          </button>
+                        )}
                       </li>
-                    ))}
+                      );
+                    })}
                   </ul>
                 )}
               </article>
