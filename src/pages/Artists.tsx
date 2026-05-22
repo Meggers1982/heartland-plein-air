@@ -3,7 +3,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Globe, Facebook, Instagram } from "lucide-react";
+import { Globe, Facebook } from "lucide-react";
 
 import artist1 from "@/assets/artist-1.jpg";
 import artist2 from "@/assets/artist-2.jpg";
@@ -201,7 +201,7 @@ const Artists = () => {
                     Bio coming soon.
                   </p>
                 )}
-                {(active.website || active.instagram || active.facebook) && (
+                {(active.website || active.facebook) && (
                   <div className="mt-6 flex gap-3">
                     {active.website && (
                       <a
@@ -212,17 +212,6 @@ const Artists = () => {
                         aria-label="Website"
                       >
                         <Globe className="h-5 w-5" />
-                      </a>
-                    )}
-                    {active.instagram && (
-                      <a
-                        href={active.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
-                        aria-label="Instagram"
-                      >
-                        <Instagram className="h-5 w-5" />
                       </a>
                     )}
                     {active.facebook && (
