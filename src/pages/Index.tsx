@@ -123,8 +123,8 @@ const Index = () => {
             className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "600ms" }}
           >
-            Art, out in the open. Experience nationally recognized artists
-            painting the beauty of Douglas & Sarpy County.
+            Art, out in the open. Twenty-five nationally recognized artists,
+            painting Douglas and Sarpy County exactly as it looks in September.
           </p>
           <div
             className={`flex flex-wrap gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
