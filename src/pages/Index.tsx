@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
 import { MapPin, Users, Eye, ShoppingBag, Menu, X, Facebook, Instagram, Youtube } from "lucide-react";
@@ -19,7 +20,7 @@ import SponsorsSection from "@/components/SponsorsSection";
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Highlights", href: "#highlights" },
-  { label: "Schedule", href: "#schedule" },
+  { label: "Schedule", href: "/schedule", route: true },
   { label: "Artists", href: "#artists" },
   { label: "Gallery", href: "#gallery" },
   { label: "FAQ", href: "#faq" },
@@ -80,6 +81,7 @@ const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -95,6 +97,10 @@ const Index = () => {
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    if (href.startsWith("/")) {
+      navigate(href);
+      return;
+    }
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -289,6 +295,14 @@ const Index = () => {
 
       {/* Schedule */}
       <ScheduleSection />
+      <div className="bg-secondary/50 pb-16 text-center">
+        <Link
+          to="/schedule"
+          className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
+        >
+          View Full Schedule
+        </Link>
+      </div>
 
       <BrushStrokeDivider className="py-4" />
 
