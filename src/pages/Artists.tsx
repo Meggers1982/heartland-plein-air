@@ -37,33 +37,33 @@ import jeffWilliams from "@/assets/artists/jeff-williams.webp";
 import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
 
 const artists = [
-  { name: "Hector Acuna", src: artist1, location: "Wisconsin" },
-  { name: "Jason Bailey", src: artist2, location: "Kentucky" },
-  { name: "Jacalyn Beam", src: jacalynBeam, location: "Delaware" },
-  { name: "Bob Beck", src: artist4, location: "Wisconsin" },
-  { name: "Michele Byrne", src: artist5, location: "New Mexico" },
-  { name: "Robin Cheers", src: artist6, location: "Texas" },
-  { name: "Larry DeGraff", src: artist1, location: "Kansas" },
-  { name: "John Evans", src: artist2, location: "Iowa" },
-  { name: "Debra Joy Groesser", src: artist3, location: "Nebraska" },
-  { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "http://www.kristinkhosbein.com/", facebook: "https://www.facebook.com/kristinkhosbeinfineart" },
-  { name: "Ann Larsen", src: artist5, location: "New York" },
-  { name: "John Lasater", src: artist6, location: "Arkansas" },
-  { name: "Dan Marshall", src: artist1, location: "Colorado" },
-  { name: "Fernando Micheli", src: artist2, location: "California" },
-  { name: "Brenda Pinnick", src: artist3, location: "Arkansas" },
-  { name: "Radhika Srinivas", src: artist4, location: "Pennsylvania" },
-  { name: "Steve Stauffer", src: artist5, location: "Utah" },
-  { name: "Jill Stefani Wagner", src: artist6, location: "Michigan" },
-  { name: "Durre Waseem", src: artist1, location: "California" },
-  { name: "Ann Watcher", src: artist2, location: "North Carolina" },
-  { name: "Robin Weiss", src: artist3, location: "Washington" },
-  { name: "Chris Willey", src: artist4, location: "Missouri" },
-  { name: "Jeff Williams", src: artist5, location: "Oklahoma" },
-  { name: "Stephen Wysocki", src: artist6, location: "Wisconsin" },
+  { name: "Hector Acuna", src: artist1, location: "Wisconsin", website: "https://www.acunaarts.com" },
+  { name: "Jason Bailey", src: artist2, location: "Kentucky", website: "https://www.jasonbaileyfineart.com" },
+  { name: "Jacalyn Beam", src: jacalynBeam, location: "Delaware", website: "https://www.jacalynbeam.com" },
+  { name: "Bob Beck", src: artist4, location: "Wisconsin", website: "https://www.bobbeckartist.com" },
+  { name: "Michele Byrne", src: artist5, location: "New Mexico", website: "https://www.michelebyrne.com" },
+  { name: "Robin Cheers", src: artist6, location: "Texas", website: "https://www.robincheers.com" },
+  { name: "Larry DeGraff", src: artist1, location: "Kansas", website: "https://www.larrydegraff.com" },
+  { name: "John Evans", src: artist2, location: "Iowa", website: "https://www.johnevans.faso.com" },
+  { name: "Debra Joy Groesser", src: artist3, location: "Nebraska", website: "https://www.debrajoygroesser.com" },
+  { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "https://www.kristinhosbein.com", facebook: "https://www.facebook.com/kristinkhosbeinfineart" },
+  { name: "Ann Larsen", src: artist5, location: "New York", website: "https://www.annlarsen.com" },
+  { name: "John Lasater", src: artist6, location: "Arkansas", website: "https://www.lasaterart.com" },
+  { name: "Dan Marshall", src: artist1, location: "Colorado", website: "https://www.danmarshallart.com" },
+  { name: "Fernando Micheli", src: artist2, location: "California", website: "https://www.fernandomicheli.faso.com" },
+  { name: "Brenda Pinnick", src: artist3, location: "Arkansas", website: "https://www.brendapinnick.com" },
+  { name: "Radhika Srinivas", src: artist4, location: "Pennsylvania", website: "https://www.radhikasrinivas.com" },
+  { name: "Steve Stauffer", src: artist5, location: "Utah", website: "https://www.stevestauffer.com" },
+  { name: "Jill Stefani Wagner", src: artist6, location: "Michigan", website: "https://www.jillwagnerart.com" },
+  { name: "Durre Waseem", src: artist1, location: "California", website: "https://www.dwaseem.faso.com" },
+  { name: "Ann Watcher", src: artist2, location: "North Carolina", website: "https://www.annwatcher.com" },
+  { name: "Robin Weiss", src: artist3, location: "Washington", website: "https://www.robinweissfineart.com" },
+  { name: "Chris Willey", src: artist4, location: "Missouri", website: "https://www.chriswilley.com" },
+  { name: "Jeff Williams", src: artist5, location: "Oklahoma", website: "https://www.jeffwilliamswatercolor.com" },
+  { name: "Stephen Wysocki", src: artist6, location: "Wisconsin", website: "https://www.swysockiart.faso.com" },
 ];
 
-const awardsJudge = { name: "Rick J. Delanty", location: "California" };
+const awardsJudge = { name: "Rick J. Delanty", location: "California", website: "https://www.delantyfineart.com" };
 
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
