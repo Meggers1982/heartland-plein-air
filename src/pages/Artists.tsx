@@ -3,7 +3,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Globe, Facebook, Instagram } from "lucide-react";
+import { Globe, Facebook } from "lucide-react";
 
 import artist1 from "@/assets/artist-1.jpg";
 import artist2 from "@/assets/artist-2.jpg";
@@ -46,7 +46,7 @@ const artists = [
   { name: "Larry DeGraff", src: artist1, location: "Kansas" },
   { name: "John Evans", src: artist2, location: "Iowa" },
   { name: "Debra Joy Groesser", src: artist3, location: "Nebraska" },
-  { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "http://www.kristinkhosbein.com/", instagram: "https://instagram.com/kristinhosbein", facebook: "https://facebook.com/KristinHosbeinArt" },
+  { name: "Kristin K. Hosbein", src: artist4, location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "http://www.kristinkhosbein.com/", facebook: "https://www.facebook.com/kristinkhosbeinfineart" },
   { name: "Ann Larsen", src: artist5, location: "New York" },
   { name: "John Lasater", src: artist6, location: "Arkansas" },
   { name: "Dan Marshall", src: artist1, location: "Colorado" },
@@ -201,7 +201,7 @@ const Artists = () => {
                     Bio coming soon.
                   </p>
                 )}
-                {(active.website || active.instagram || active.facebook) && (
+                {(active.website || active.facebook) && (
                   <div className="mt-6 flex gap-3">
                     {active.website && (
                       <a
@@ -212,17 +212,6 @@ const Artists = () => {
                         aria-label="Website"
                       >
                         <Globe className="h-5 w-5" />
-                      </a>
-                    )}
-                    {active.instagram && (
-                      <a
-                        href={active.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
-                        aria-label="Instagram"
-                      >
-                        <Instagram className="h-5 w-5" />
                       </a>
                     )}
                     {active.facebook && (
