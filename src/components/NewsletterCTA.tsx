@@ -63,8 +63,9 @@ const NewsletterCTA = () => {
           Be the First to Know
         </h2>
         <p className="mx-auto mb-10 max-w-xl font-body text-base leading-relaxed text-background/75 md:text-lg">
-          Artist reveals, paint-out locations, exhibition previews, and
-          exclusive festival access — delivered the moment they're announced.
+          Be the first to know — get artist announcements, paint-out locations,
+          exhibition previews, and exclusive festival access, straight to your
+          inbox.
         </p>
 
         <ul className="mb-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-body text-sm text-background/80">
