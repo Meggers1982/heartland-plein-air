@@ -112,6 +112,11 @@ const Artists = () => {
                       <p className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
                         {artist.location}
                       </p>
+                      {artist.bio && (
+                        <p className="mt-3 font-body text-sm leading-relaxed text-muted-foreground">
+                          {artist.bio}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </AnimatedSection>
