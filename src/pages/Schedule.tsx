@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { MapPin, Clock, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MapPin, Clock, ExternalLink, ArrowUp } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
