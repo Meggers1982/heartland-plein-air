@@ -259,10 +259,22 @@ const Schedule = () => {
     script.text = JSON.stringify(ld);
     document.head.appendChild(script);
 
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll);
+
     return () => {
       document.getElementById("schedule-jsonld")?.remove();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const [showTopBtn, setShowTopBtn] = useState(false);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const weekItems = days.map((d) => {
     if (d.id === "day-online") {
