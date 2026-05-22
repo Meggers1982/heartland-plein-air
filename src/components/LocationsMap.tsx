@@ -39,7 +39,7 @@ function popupHtml(loc: FestivalLocation): string {
     .map(
       (e) => `
         <li style="margin-bottom:6px;">
-          <a href="#${e.dayId}" style="color:#8b5a2b;font-weight:600;text-decoration:none;">${e.dayLabel}</a>
+          <a href="#${e.dayId}" data-day-id="${e.dayId}" class="festival-map-day-link" style="color:#8b5a2b;font-weight:600;text-decoration:none;cursor:pointer;">${e.dayLabel}</a>
           ${e.time ? `<span style="color:#6b6b6b;"> · ${e.time}</span>` : ""}
           <div style="color:#1f1f1f;">${e.name}</div>
         </li>`,
@@ -86,6 +86,21 @@ const LocationsMap = () => {
         });
 
         map.fitBounds(bounds, 60);
+
+        g.maps.event.addListener(infoWindow, "domready", () => {
+          document.querySelectorAll<HTMLAnchorElement>(".festival-map-day-link").forEach((a) => {
+            a.onclick = (ev) => {
+              ev.preventDefault();
+              const id = a.dataset.dayId;
+              if (!id) return;
+              const target = document.getElementById(id);
+              if (!target) return;
+              infoWindow.close();
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+              history.replaceState(null, "", `#${id}`);
+            };
+          });
+        });
       })
       .catch((err) => {
         console.error(err);
