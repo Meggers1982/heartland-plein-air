@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { festivalLocations, type FestivalLocation } from "@/data/locations";
 
 declare global {
@@ -34,8 +34,9 @@ function loadMapsScript(): Promise<any> {
   });
 }
 
-function popupHtml(loc: FestivalLocation): string {
-  const eventsHtml = loc.events
+function popupHtml(loc: FestivalLocation, dayFilter: string): string {
+  const events = dayFilter === "all" ? loc.events : loc.events.filter((e) => e.dayId === dayFilter);
+  const eventsHtml = events
     .map(
       (e) => `
         <li style="margin-bottom:6px;">
@@ -53,14 +54,50 @@ function popupHtml(loc: FestivalLocation): string {
     </div>`;
 }
 
+function smoothScrollToDay(id: string) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  history.replaceState(null, "", `#${id}`);
+}
+
+type DayOption = { id: string; label: string };
+
+function getDayOptions(): DayOption[] {
+  const seen = new Map<string, string>();
+  festivalLocations.forEach((loc) =>
+    loc.events.forEach((e) => {
+      if (!seen.has(e.dayId)) seen.set(e.dayId, e.dayLabel);
+    }),
+  );
+  return Array.from(seen.entries())
+    .map(([id, label]) => ({ id, label }))
+    .sort((a, b) => a.id.localeCompare(b.id));
+}
+
 const LocationsMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const infoWindowRef = useRef<any>(null);
+  const markersRef = useRef<Array<{ marker: any; loc: FestivalLocation }>>([]);
+  const googleRef = useRef<any>(null);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [dayFilter, setDayFilter] = useState<string>("all");
+  const dayOptions = useMemo(getDayOptions, []);
+  const visibleLocations = useMemo(
+    () =>
+      dayFilter === "all"
+        ? festivalLocations
+        : festivalLocations.filter((l) => l.events.some((e) => e.dayId === dayFilter)),
+    [dayFilter],
+  );
 
   useEffect(() => {
     let cancelled = false;
     loadMapsScript()
       .then((g) => {
         if (cancelled || !mapRef.current) return;
+        googleRef.current = g;
         const bounds = new g.maps.LatLngBounds();
         const map = new g.maps.Map(mapRef.current, {
           center: { lat: 41.24, lng: -96.0 },
@@ -69,7 +106,9 @@ const LocationsMap = () => {
           streetViewControl: false,
           fullscreenControl: false,
         });
+        mapInstanceRef.current = map;
         const infoWindow = new g.maps.InfoWindow();
+        infoWindowRef.current = infoWindow;
 
         festivalLocations.forEach((loc) => {
           const position = { lat: loc.lat, lng: loc.lng };
@@ -80,9 +119,10 @@ const LocationsMap = () => {
             title: loc.name,
           });
           marker.addListener("click", () => {
-            infoWindow.setContent(popupHtml(loc));
+            infoWindow.setContent(popupHtml(loc, "all"));
             infoWindow.open({ anchor: marker, map });
           });
+          markersRef.current.push({ marker, loc });
         });
 
         map.fitBounds(bounds, 60);
@@ -93,17 +133,16 @@ const LocationsMap = () => {
               ev.preventDefault();
               const id = a.dataset.dayId;
               if (!id) return;
-              const target = document.getElementById(id);
-              if (!target) return;
               infoWindow.close();
-              target.scrollIntoView({ behavior: "smooth", block: "start" });
-              history.replaceState(null, "", `#${id}`);
+              smoothScrollToDay(id);
             };
           });
         });
+        setStatus("ready");
       })
       .catch((err) => {
         console.error(err);
+        if (!cancelled) setStatus("error");
       });
 
     return () => {
@@ -111,9 +150,144 @@ const LocationsMap = () => {
     };
   }, []);
 
+  // Apply day filter: show/hide markers, refit bounds, update open popup
+  useEffect(() => {
+    const g = googleRef.current;
+    const map = mapInstanceRef.current;
+    if (!g || !map || markersRef.current.length === 0) return;
+    const bounds = new g.maps.LatLngBounds();
+    let visibleCount = 0;
+    markersRef.current.forEach(({ marker, loc }) => {
+      const visible = dayFilter === "all" || loc.events.some((e) => e.dayId === dayFilter);
+      marker.setMap(visible ? map : null);
+      marker.__loc = loc;
+      // Re-bind click to use current filter
+      g.maps.event.clearListeners(marker, "click");
+      marker.addListener("click", () => {
+        infoWindowRef.current.setContent(popupHtml(loc, dayFilter));
+        infoWindowRef.current.open({ anchor: marker, map });
+      });
+      if (visible) {
+        bounds.extend(marker.getPosition());
+        visibleCount++;
+      }
+    });
+    infoWindowRef.current?.close();
+    if (visibleCount > 0) {
+      if (visibleCount === 1) {
+        map.setCenter(bounds.getCenter());
+        map.setZoom(13);
+      } else {
+        map.fitBounds(bounds, 60);
+      }
+    }
+  }, [dayFilter]);
+
   return (
-    <div className="overflow-hidden rounded-lg border border-border shadow-sm">
-      <div ref={mapRef} className="h-[480px] w-full bg-muted" aria-label="Map of festival locations" />
+    <div className="space-y-6">
+      {/* Day filter */}
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => setDayFilter("all")}
+          className={`rounded-full border px-4 py-1.5 font-body text-sm font-semibold transition-colors ${
+            dayFilter === "all"
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-border bg-card text-foreground hover:bg-muted"
+          }`}
+        >
+          All days
+        </button>
+        {dayOptions.map((d) => (
+          <button
+            key={d.id}
+            type="button"
+            onClick={() => setDayFilter(d.id)}
+            className={`rounded-full border px-4 py-1.5 font-body text-sm font-semibold transition-colors ${
+              dayFilter === d.id
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-card text-foreground hover:bg-muted"
+            }`}
+          >
+            {d.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Map container */}
+      <div className="relative overflow-hidden rounded-lg border border-border shadow-sm">
+        <div
+          ref={mapRef}
+          className="h-[480px] w-full bg-muted"
+          aria-label="Map of festival locations"
+          role="application"
+        />
+        {status === "loading" && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-muted/80">
+            <div className="flex items-center gap-3 font-body text-sm text-muted-foreground">
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              Loading map…
+            </div>
+          </div>
+        )}
+        {status === "error" && (
+          <div className="absolute inset-0 flex items-center justify-center bg-muted px-6">
+            <div className="max-w-sm text-center">
+              <p className="mb-2 font-display text-lg font-bold text-foreground">
+                Map couldn't load
+              </p>
+              <p className="font-body text-sm text-muted-foreground">
+                We can't reach the map service right now. You can still browse every location and event in the list below.
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Text fallback list — also useful when map renders */}
+      <div>
+        <h3 className="mb-4 text-center font-display text-xl font-bold text-foreground">
+          All locations
+        </h3>
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {visibleLocations.map((loc) => {
+            const events =
+              dayFilter === "all" ? loc.events : loc.events.filter((e) => e.dayId === dayFilter);
+            return (
+              <li
+                key={loc.key}
+                className="rounded-lg border border-border bg-card p-4 shadow-sm"
+              >
+                <p className="font-display text-lg font-bold text-foreground">{loc.name}</p>
+                <p className="mb-3 font-body text-xs text-muted-foreground">{loc.address}</p>
+                <ul className="space-y-2 font-body text-sm">
+                  {events.map((e, i) => (
+                    <li key={`${e.dayId}-${i}`}>
+                      <a
+                        href={`#${e.dayId}`}
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          smoothScrollToDay(e.dayId);
+                        }}
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        {e.dayLabel}
+                      </a>
+                      {e.time && <span className="text-muted-foreground"> · {e.time}</span>}
+                      <div className="text-foreground">{e.name}</div>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
+        {visibleLocations.length === 0 && (
+          <p className="text-center font-body text-sm text-muted-foreground">
+            No locations scheduled for that day.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
