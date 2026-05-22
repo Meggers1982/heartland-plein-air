@@ -3,14 +3,14 @@ import { festivalLocations, type FestivalLocation } from "@/data/locations";
 
 declare global {
   interface Window {
-    google?: typeof google;
+    google?: any;
     __initFestivalMap?: () => void;
   }
 }
 
 const SCRIPT_ID = "google-maps-js";
 
-function loadMapsScript(): Promise<typeof google> {
+function loadMapsScript(): Promise<any> {
   return new Promise((resolve, reject) => {
     if (window.google?.maps) {
       resolve(window.google);
