@@ -345,7 +345,7 @@ const Schedule = () => {
                 Where to find us
               </p>
               <h2 className="mb-4 font-display text-3xl font-bold text-foreground md:text-4xl">
-                Festival locations
+                Festival Locations
               </h2>
               <p className="mx-auto max-w-2xl font-body text-base text-muted-foreground">
                 Click any marker to see what's happening at that location and jump to the day in the schedule.
