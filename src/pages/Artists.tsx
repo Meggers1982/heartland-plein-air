@@ -63,7 +63,7 @@ const artists = [
   { name: "Stephen Wysocki", src: artist6, location: "Wisconsin", website: "https://www.swysockiart.faso.com" },
 ];
 
-const awardsJudge = { name: "Rick J. Delanty", location: "California", website: "https://www.delantyfineart.com" };
+const awardsJudge = { name: "Rick J. Delanty", location: "California", website: "https://www.delantyfineart.com", src: artist5, bio: "Bio coming soon." };
 
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
