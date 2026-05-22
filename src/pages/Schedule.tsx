@@ -331,9 +331,6 @@ const Schedule = () => {
               <p>
                 All week-long painting events are <strong>free and open to the public</strong>. Artists will be working at locations throughout Douglas and Sarpy Counties — follow along on social media for daily location updates. There's no velvet rope. No admission fee. Just artists at work, and you're invited to watch.
               </p>
-              <p className="font-display text-xl italic text-primary">
-                Here's what's happening and when.
-              </p>
             </div>
           </AnimatedSection>
         </div>
