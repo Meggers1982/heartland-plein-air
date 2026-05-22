@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
-import { MapPin, Users, Eye, ShoppingBag, Menu, X, Facebook, Instagram, Youtube } from "lucide-react";
+import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -16,16 +16,8 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import ScheduleSection from "@/components/ScheduleSection";
 import ArtistsSection from "@/components/ArtistsSection";
 import SponsorsSection from "@/components/SponsorsSection";
-
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Highlights", href: "#highlights" },
-  { label: "Schedule", href: "/schedule", route: true },
-  { label: "Artists", href: "#artists" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-];
+import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 
 const highlights = [
   {
@@ -80,8 +72,6 @@ const faqs = [
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -94,65 +84,14 @@ const Index = () => {
     return () => clearTimeout(t);
   }, []);
 
-  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const scrollToHash = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
-    if (href.startsWith("/")) {
-      navigate(href);
-      return;
-    }
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div>
-            <span className="font-display text-lg font-semibold text-primary-foreground">
-              Heartland Plein Air Arts Festival
-            </span>
-          </div>
-           <div className="hidden gap-6 md:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNav(e, link.href)}
-                className="font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:text-primary-foreground"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <button
-            className="md:hidden text-primary-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-
-        {/* Mobile menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? "max-h-96 border-t border-primary-foreground/10" : "max-h-0"}`}
-        >
-          <div className="flex flex-col gap-1 px-6 py-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNav(e, link.href)}
-                className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero with parallax */}
       <section className="relative flex min-h-screen items-end overflow-hidden">
@@ -192,14 +131,14 @@ const Index = () => {
           >
             <a
               href="#about"
-              onClick={(e) => handleNav(e, "#about")}
+              onClick={(e) => scrollToHash(e, "#about")}
               className="inline-flex items-center rounded bg-primary px-6 py-3 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
             >
               Learn More
             </a>
             <a
               href="#highlights"
-              onClick={(e) => handleNav(e, "#highlights")}
+              onClick={(e) => scrollToHash(e, "#highlights")}
               className="inline-flex items-center rounded border border-secondary/40 px-6 py-3 font-body text-sm font-semibold tracking-wide text-secondary transition-all hover:bg-secondary/10 hover:scale-105"
             >
               Festival Highlights
@@ -375,33 +314,7 @@ const Index = () => {
       {/* Sponsors */}
       <SponsorsSection />
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-background py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
-          <div>
-            <span className="font-display text-lg font-semibold text-foreground">
-              Heartland Plein Air Arts Festival
-            </span>
-          </div>
-          <p className="font-body text-sm text-muted-foreground">
-            September 13–19, 2026 · Douglas & Sarpy County
-          </p>
-          <div className="flex gap-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="Facebook">
-              <Facebook className="h-5 w-5" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="Instagram">
-              <Instagram className="h-5 w-5" />
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="YouTube">
-              <Youtube className="h-5 w-5" />
-            </a>
-          </div>
-          <p className="font-body text-xs text-muted-foreground/60">
-            © 2026 Heartland Plein Air Arts Festival. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 };
