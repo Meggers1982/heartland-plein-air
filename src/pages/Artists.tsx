@@ -108,17 +108,33 @@ const Artists = () => {
                       <h2 className="font-display text-xl font-semibold text-foreground">
                         {artist.name}
                       </h2>
-                      <p className="mb-3 font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                      <p className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
                         {artist.location}
-                      </p>
-                      <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                        {artist.bio}
                       </p>
                     </div>
                   </div>
                 </AnimatedSection>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="pb-24">
+          <div className="mx-auto max-w-4xl px-6 text-center">
+            <AnimatedSection>
+              <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                Awards
+              </p>
+              <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+                Awards Judge
+              </h2>
+              <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
+                <span className="font-display text-xl font-semibold text-foreground">{awardsJudge.name}</span>
+                <span className="block font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                  {awardsJudge.location}
+                </span>
+              </p>
+            </AnimatedSection>
           </div>
         </section>
       </main>
