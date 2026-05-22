@@ -6,7 +6,7 @@ const schedule = [
     day: "Saturday, September 12",
     title: "Youth Paint Out Session",
     icon: Sunrise,
-    description: "Pre-Festival Youth Paint Out — young artists paint en plein air in a welcoming park setting.",
+    description: "Young artists paint en plein air in the park.",
     time: "10 AM – 2 PM",
     location: "Wildwood Park (Ralston Ave. & 78th St., Ralston, NE)",
   },
