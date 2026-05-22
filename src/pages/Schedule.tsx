@@ -335,18 +335,26 @@ const Schedule = () => {
                 Here's what's happening and when.
               </p>
             </div>
-            <div className="mt-12">
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Festival locations map */}
+      <section className="pb-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <AnimatedSection>
+            <div className="mb-6 text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Where to find us
               </p>
-              <h2 className="mb-4 font-display text-3xl font-bold text-foreground">
+              <h2 className="mb-4 font-display text-3xl font-bold text-foreground md:text-4xl">
                 Festival locations
               </h2>
-              <p className="mb-6 font-body text-base text-muted-foreground">
+              <p className="mx-auto max-w-2xl font-body text-base text-muted-foreground">
                 Click any marker to see what's happening at that location and jump to the day in the schedule.
               </p>
-              <LocationsMap />
             </div>
+            <LocationsMap />
           </AnimatedSection>
         </div>
       </section>
