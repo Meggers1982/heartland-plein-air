@@ -5,6 +5,7 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
+import NewsletterCTA from "@/components/NewsletterCTA";
 
 type Audience = "public" | "ticketed" | "artists";
 
@@ -327,6 +328,14 @@ const Schedule = () => {
                 <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground">
                   {d.narrative}
                 </p>
+                {d.id === "day-online" && (
+                  <a
+                    href="#newsletter"
+                    className="mb-2 inline-flex items-center gap-2 rounded bg-primary px-5 py-2.5 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
+                  >
+                    Notify me when online sales open
+                  </a>
+                )}
                 {d.events && d.events.length > 0 && (
                   <ul className="space-y-4 border-t border-border pt-6">
                     {d.events.map((ev) => (
@@ -404,6 +413,8 @@ const Schedule = () => {
           </div>
         </AnimatedSection>
       </section>
+
+      <NewsletterCTA />
 
       <SiteFooter />
     </div>
