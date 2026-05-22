@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { festivalLocations, type FestivalLocation } from "@/data/locations";
 
 declare global {
