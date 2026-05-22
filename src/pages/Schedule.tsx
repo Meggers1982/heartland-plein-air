@@ -364,9 +364,6 @@ const Schedule = () => {
                     {audienceLabel[d.audience]}
                   </span>
                 </div>
-                <p className="mb-2 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  {d.dayLong}
-                </p>
                 <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
                   {d.title}
                 </h2>
