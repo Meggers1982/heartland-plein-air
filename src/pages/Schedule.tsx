@@ -6,6 +6,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import riversideValleyImage from "@/assets/sunlit-riverside-valley-plein-air-oil-painting.webp";
 
 type Audience = "public" | "ticketed" | "artists";
 
@@ -290,6 +291,14 @@ const Schedule = () => {
               <p>
                 For one week each September, 25 nationally recognized plein air artists descend on the Omaha metro to paint the neighborhoods, landmarks, and hidden corners that make this place worth capturing. Every painting is created on-site, in real time, in front of anyone who happens to wander by.
               </p>
+              <figure className="my-8 -mx-6 md:mx-0">
+                <img
+                  src={riversideValleyImage}
+                  alt="plein air oil painting of a sunlit riverside valley"
+                  loading="lazy"
+                  className="w-full rounded-md shadow-md"
+                />
+              </figure>
               <p>
                 All week-long painting events are <strong>free and open to the public</strong>. Artists will be working at locations throughout Douglas and Sarpy Counties — follow along on social media for daily location updates. There's no velvet rope. No admission fee. Just artists at work, and you're invited to watch.
               </p>
