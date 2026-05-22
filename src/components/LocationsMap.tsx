@@ -253,7 +253,7 @@ const LocationsMap = () => {
           onClick={() => setListOpen((o) => !o)}
           className="flex w-full items-center justify-center gap-2 py-2 font-display text-xl font-bold text-foreground transition-colors hover:text-primary"
         >
-          All locations
+          All Locations
           <ChevronDown
             className={`h-5 w-5 transition-transform duration-300 ${listOpen ? "rotate-180" : ""}`}
           />
