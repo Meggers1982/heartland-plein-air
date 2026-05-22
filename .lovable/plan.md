@@ -1,32 +1,40 @@
-## Plan: Schedule Page
+## Schedule page improvements
 
-Create a dedicated `/schedule` route featuring the full narrative copy from the uploaded document, while keeping the existing condensed `ScheduleSection` on the home page as a teaser.
+### 1. Extract shared chrome
+- New `src/components/SiteNav.tsx` — current nav from `Index`/`Schedule`, with router-aware link handling.
+- New `src/components/SiteFooter.tsx` — current footer markup.
+- Replace nav/footer in `src/pages/Index.tsx` and `src/pages/Schedule.tsx` with these components. Fix footer date drift to **September 13–19, 2026** (canonical, per project memory).
 
-### New file: `src/pages/Schedule.tsx`
-- Shared nav + footer styling matching `Index.tsx` (reusing same markup; mobile hamburger included)
-- Hero header band with title "Schedule of Events" and date range "September 12 – October 2, 2026"
-- Intro section with the three opening paragraphs about plein air and the festival
-- Day-by-day sections (Sept 12, 13, 14, 15, 16, 17, 18, 19, and Sept 19–Oct 2), each with:
-  - Day label (eyebrow)
-  - Headline (e.g., "It Starts with the Kids")
-  - Narrative paragraph
-  - Bulleted event list with time, name, and location
-- `BrushStrokeDivider` between days for visual rhythm
-- `AnimatedSection` for scroll reveals
-- Closing CTA linking to ralstonarts.org / heartlandpleinair.org for online sales
-- SEO: `<title>`, meta description, single H1
+### 2. Schedule page UX
+- **Jump-to-day chip strip** under the header: sticky on scroll, one chip per day (Sat 12, Sun 13, … Sep 19–Oct 2), smooth-scrolls to `#day-N` anchors on each `<article>`.
+- **Event badges** on each day card:
+  - "Free · Public" — youth events, quick paints, lecture, public exhibition
+  - "Tickets required" — Collector's Soirée
+  - "Artists only" — Sunday orientation, mentor session
+- **Map links**: turn each `ev.location` into an external Google Maps search link (`https://www.google.com/maps/search/?api=1&query=<encoded address>`), opens in new tab. No API/connector needed — just link out.
+- **Date treatment**: replace tiny uppercase eyebrow with a larger left-aligned display date ("SAT · SEP 12") for better scanning. Keep current card structure otherwise.
 
-### Routing: `src/App.tsx`
-- Add `<Route path="/schedule" element={<Schedule />} />` above the catch-all
+### 3. Content/consistency fixes
+- Soften "every September" → "each September" in intro paragraph 2 (festival is new).
+- Stable list keys: `${d.day}-${ev.name}` instead of index.
+- Mobile menu: swap `max-h-96` for `max-h-[32rem]` in the shared nav to avoid clipping.
 
-### Navigation update: `src/pages/Index.tsx`
-- Change the "Schedule" nav link from `#schedule` anchor to `/schedule` route (using `react-router` `Link`), so both desktop and mobile nav point to the new page
-- Keep the existing on-page `ScheduleSection` as a teaser; add a "View full schedule" link/button beneath it pointing to `/schedule`
-
-### Schedule page nav behavior
-- Nav links that point to home-page sections (#about, #highlights, etc.) navigate to `/#about`, etc., so they work from the schedule route
-- "Schedule" link stays as `/schedule`
+### 4. SEO
+- Add `<link rel="canonical" href="/schedule">` via the existing `useEffect` head-management block.
+- Inject `Event` JSON-LD (one `Event` per public schedule entry) into the document head on mount; remove on unmount.
 
 ### Out of scope
-- No changes to copy on the existing `ScheduleSection` cards
-- No design system / token changes
+- No design-system token changes.
+- No new colors/fonts.
+- No changes to `ScheduleSection` card on the homepage.
+- No print stylesheet, no .ics download, no timeline rail, no hero texture (can do in a follow-up if wanted).
+
+### Technical notes
+- New files:
+  - `src/components/SiteNav.tsx`
+  - `src/components/SiteFooter.tsx`
+  - `src/components/ScheduleJumpNav.tsx` (sticky chip strip)
+- Edited files:
+  - `src/pages/Schedule.tsx` — use new components, add badges/map links/anchors/JSON-LD/canonical, date treatment.
+  - `src/pages/Index.tsx` — use shared nav + footer.
+- Event data gets two new optional fields: `audience: "public" | "ticketed" | "artists"` on the day (or per-event), and addresses parsed out of existing `location` strings for the maps URL (regex to grab the parenthesized address).
