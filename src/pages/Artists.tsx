@@ -10,6 +10,29 @@ import artist4 from "@/assets/artist-4.jpg";
 import artist5 from "@/assets/artist-5.jpg";
 import artist6 from "@/assets/artist-6.jpg";
 import jacalynBeam from "@/assets/artists/jacalyn-beam.webp";
+import hectorAcuna from "@/assets/artists/hector-acuna.webp";
+import jasonBailey from "@/assets/artists/jason-bailey.webp";
+import bobBeck from "@/assets/artists/bob-beck.webp";
+import micheleByrne from "@/assets/artists/michele-byrne.webp";
+import robinCheers from "@/assets/artists/robin-cheers.webp";
+import larryDeGraff from "@/assets/artists/larry-degraff.webp";
+import johnEvans from "@/assets/artists/john-evans.webp";
+import debraJoyGroesser from "@/assets/artists/debra-joy-groesser.webp";
+import kristinHosbein from "@/assets/artists/kristin-hosbein.webp";
+import annLarsen from "@/assets/artists/ann-larsen.webp";
+import johnLasater from "@/assets/artists/john-lasater.webp";
+import danMarshall from "@/assets/artists/dan-marshall.webp";
+import fernandoMicheli from "@/assets/artists/fernando-micheli.webp";
+import brendaPinnick from "@/assets/artists/brenda-pinnick.webp";
+import radhikaSrinivas from "@/assets/artists/radhika-srinivas.webp";
+import steveStauffer from "@/assets/artists/steve-stauffer.webp";
+import jillStefaniWagner from "@/assets/artists/jill-stefani-wagner.webp";
+import durreWaseem from "@/assets/artists/durre-waseem.webp";
+import annWatcher from "@/assets/artists/ann-watcher.webp";
+import robinWeiss from "@/assets/artists/robin-weiss.webp";
+import chrisWilley from "@/assets/artists/chris-willey.webp";
+import jeffWilliams from "@/assets/artists/jeff-williams.webp";
+import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
 
 const artists = [
   { name: "Hector Acuna", src: artist1, location: "Wisconsin" },
