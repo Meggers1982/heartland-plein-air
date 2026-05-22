@@ -187,9 +187,13 @@ const Artists = () => {
                   </DialogDescription>
                 </DialogHeader>
                 {active.bio ? (
-                  <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground">
-                    {active.bio}
-                  </p>
+                  <div className="mt-4 space-y-3">
+                    {active.bio.split("\n\n").map((paragraph, idx) => (
+                      <p key={idx} className="font-body text-sm leading-relaxed text-muted-foreground">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 ) : (
                   <p className="mt-4 font-body text-sm italic leading-relaxed text-muted-foreground">
                     Bio coming soon.
