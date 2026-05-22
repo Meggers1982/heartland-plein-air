@@ -194,7 +194,7 @@ const Index = () => {
       <BrushStrokeDivider />
 
       {/* Highlights */}
-      <section id="highlights" className="bg-secondary/50 py-24">
+      <section id="highlights" className="bg-secondary/50 pt-24 pb-12">
         <div className="mx-auto max-w-6xl px-6">
           <AnimatedSection className="mb-16 text-center">
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
