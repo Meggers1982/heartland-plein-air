@@ -10,13 +10,33 @@ import artist5 from "@/assets/artist-5.jpg";
 import artist6 from "@/assets/artist-6.jpg";
 
 const artists = [
-  { name: "Catherine Morales", src: artist1, location: "Santa Fe, NM", bio: "Known for her luminous landscapes and bold use of color, Catherine has exhibited in galleries across the Southwest for over 20 years." },
-  { name: "Henry Aldrich", src: artist2, location: "Burlington, VT", bio: "A master of atmospheric perspective, Henry captures the quiet poetry of rural America with a classical plein air approach." },
-  { name: "Lily Chen", src: artist3, location: "Portland, OR", bio: "Lily brings a fresh, contemporary eye to plein air painting, blending impressionist technique with modern composition." },
-  { name: "Marcus Webb", src: artist4, location: "Nashville, TN", bio: "Marcus's vibrant street scenes and architectural studies have earned him national recognition and multiple plein air awards." },
-  { name: "Eleanor Hastings", src: artist5, location: "Savannah, GA", bio: "Eleanor's serene waterscapes and garden scenes reflect decades of dedicated outdoor painting across the American South." },
-  { name: "Diego Ramirez", src: artist6, location: "Austin, TX", bio: "An emerging voice in the plein air world, Diego's energetic brushwork and bold palettes bring urban landscapes to life." },
+  { name: "Hector Acuna", src: artist1, location: "Wisconsin" },
+  { name: "Jason Bailey", src: artist2, location: "Kentucky" },
+  { name: "Jacalyn Beam", src: artist3, location: "Delaware" },
+  { name: "Bob Beck", src: artist4, location: "Wisconsin" },
+  { name: "Michele Byrne", src: artist5, location: "New Mexico" },
+  { name: "Robin Cheers", src: artist6, location: "Texas" },
+  { name: "Larry DeGraff", src: artist1, location: "Kansas" },
+  { name: "John Evans", src: artist2, location: "Iowa" },
+  { name: "Debra Joy Groesser", src: artist3, location: "Nebraska" },
+  { name: "Kristin Hosbein", src: artist4, location: "Michigan" },
+  { name: "Ann Larsen", src: artist5, location: "New York" },
+  { name: "John Lasater", src: artist6, location: "Arkansas" },
+  { name: "Dan Marshall", src: artist1, location: "Colorado" },
+  { name: "Fernando Micheli", src: artist2, location: "California" },
+  { name: "Brenda Pinnick", src: artist3, location: "Arkansas" },
+  { name: "Radhika Srinivas", src: artist4, location: "Pennsylvania" },
+  { name: "Steve Stauffer", src: artist5, location: "Utah" },
+  { name: "Jill Stefani Wagner", src: artist6, location: "Michigan" },
+  { name: "Durre Waseem", src: artist1, location: "California" },
+  { name: "Ann Watcher", src: artist2, location: "North Carolina" },
+  { name: "Robin Weiss", src: artist3, location: "Washington" },
+  { name: "Chris Willey", src: artist4, location: "Missouri" },
+  { name: "Jeff Williams", src: artist5, location: "Oklahoma" },
+  { name: "Stephen Wysocki", src: artist6, location: "Wisconsin" },
 ];
+
+const awardsJudge = { name: "Rick J. Delanty", location: "California" };
 
 const Artists = () => {
   useEffect(() => {
