@@ -201,6 +201,43 @@ const Artists = () => {
                     Bio coming soon.
                   </p>
                 )}
+                {(active.website || active.instagram || active.facebook) && (
+                  <div className="mt-6 flex gap-3">
+                    {active.website && (
+                      <a
+                        href={active.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                        aria-label="Website"
+                      >
+                        <Globe className="h-5 w-5" />
+                      </a>
+                    )}
+                    {active.instagram && (
+                      <a
+                        href={active.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                        aria-label="Instagram"
+                      >
+                        <Instagram className="h-5 w-5" />
+                      </a>
+                    )}
+                    {active.facebook && (
+                      <a
+                        href={active.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                        aria-label="Facebook"
+                      >
+                        <Facebook className="h-5 w-5" />
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           )}
