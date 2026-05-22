@@ -264,7 +264,13 @@ const Schedule = () => {
     };
   }, []);
 
-  const jumpItems = days.map((d) => ({ id: d.id, short: d.dayShort }));
+  const weekItems = days.map((d) => {
+    if (d.id === "day-online") {
+      return { id: d.id, weekday: "Sep 19+", label: "Online" };
+    }
+    const parts = d.dayShort.split(" ");
+    return { id: d.id, weekday: parts[0], date: parts[parts.length - 1] };
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -278,12 +284,13 @@ const Schedule = () => {
         </div>
       </header>
 
-      <ScheduleJumpNav items={jumpItems} />
-
       {/* Intro */}
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
+            <div className="mb-12">
+              <ScheduleJumpNav items={weekItems} />
+            </div>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 <em className="font-display text-primary">Plein air</em> — French for "open air" — is exactly what it sounds like. No studio, no reference photos, no do-overs. Just an artist, an easel, and whatever the light is doing right now.
