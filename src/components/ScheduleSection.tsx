@@ -1,159 +1,86 @@
 import AnimatedSection from "@/components/AnimatedSection";
-import { Calendar, Paintbrush, MapPin, Users, PartyPopper, Gavel, Sunrise, BookOpen, Award, GraduationCap, ShoppingCart, Monitor } from "lucide-react";
+import { Calendar, Paintbrush, MapPin, PartyPopper, Gavel, Sunrise, BookOpen, GraduationCap, Monitor, Users } from "lucide-react";
 
-interface ScheduleEvent {
-  time: string;
-  description: string;
-  location?: string;
-}
-
-interface ScheduleDay {
-  day: string;
-  title: string;
-  icon: React.ElementType;
-  events: ScheduleEvent[];
-}
-
-const schedule: ScheduleDay[] = [
+const schedule = [
   {
     day: "Saturday, September 12",
-    title: "Pre-Festival Youth Paint Out",
+    title: "Youth Paint Out Session",
     icon: Sunrise,
-    events: [
-      {
-        time: "10 AM – 2 PM",
-        description: "Youth Paint Out Session",
-        location: "Wildwood Park (Ralston Ave. & 78th St., Ralston, NE)",
-      },
-      {
-        time: "5 – 7 PM",
-        description: "Youth Exhibition",
-        location: "Baright Public Library (5555 S. 77th St., Ralston, NE)",
-      },
-    ],
+    description: "Pre-Festival Youth Paint Out — young artists paint en plein air in a welcoming park setting.",
+    time: "10 AM – 2 PM",
+    location: "Wildwood Park (Ralston Ave. & 78th St., Ralston, NE)",
+  },
+  {
+    day: "Saturday, September 12",
+    title: "Youth Exhibition",
+    icon: Users,
+    description: "Celebrate the work of young plein air painters at a public exhibition.",
+    time: "5 – 7 PM",
+    location: "Baright Public Library (5555 S. 77th St., Ralston, NE)",
   },
   {
     day: "Sunday, September 13",
     title: "Artist Orientation",
     icon: BookOpen,
-    events: [
-      {
-        time: "All Day",
-        description: "Welcome and orientation for participating artists",
-      },
-    ],
+    description: "Welcome and orientation for participating artists as the festival week begins.",
+    time: "All Day",
+    location: "Festival Headquarters",
   },
   {
     day: "Monday, September 14",
     title: "Open Painting + Quick Paint",
     icon: Paintbrush,
-    events: [
-      {
-        time: "Morning – Afternoon",
-        description: "Artists paint freely across the metro area",
-      },
-      {
-        time: "Lunchtime",
-        description: "Quick Paint Competition",
-        location: "Benson (62nd & Maple, Omaha, NE)",
-      },
-    ],
+    description: "Artists paint freely across the metro area, with a lunchtime Quick Paint Competition.",
+    time: "Lunchtime",
+    location: "Benson (62nd & Maple, Omaha, NE)",
   },
   {
     day: "Tuesday, September 15",
     title: "Open Painting + Quick Paint",
     icon: Paintbrush,
-    events: [
-      {
-        time: "Morning – Afternoon",
-        description: "Artists paint freely across the metro area",
-      },
-      {
-        time: "Lunchtime",
-        description: "Quick Paint Competition",
-        location: "Dundee (50th & Underwood, Omaha, NE)",
-      },
-    ],
+    description: "Artists paint freely across the metro area, with a lunchtime Quick Paint Competition.",
+    time: "Lunchtime",
+    location: "Dundee (50th & Underwood, Omaha, NE)",
   },
   {
     day: "Wednesday, September 16",
-    title: "Open Painting + Quick Paint + Youth Mentorship",
+    title: "Quick Paint + Youth Mentorship",
     icon: GraduationCap,
-    events: [
-      {
-        time: "Morning – Afternoon",
-        description: "Artists paint freely across the metro area",
-      },
-      {
-        time: "Lunchtime",
-        description: "Quick Paint Competition",
-        location: "Cathedral & Castle District (Along 40th St. between Cuming & Davenport, Omaha, NE)",
-      },
-      {
-        time: "4 – 5:30 PM",
-        description: "Youth–Professional Artist Mentor Sessions",
-      },
-    ],
+    description: "Open painting and a lunchtime Quick Paint Competition, followed by Youth–Professional Artist Mentor Sessions from 4 – 5:30 PM.",
+    time: "Lunchtime",
+    location: "Cathedral & Castle District (Along 40th St. between Cuming & Davenport, Omaha, NE)",
   },
   {
     day: "Thursday, September 17",
-    title: "Open Painting + Evening Quick Paint",
+    title: "Artist Lecture & Evening Quick Paint",
     icon: Paintbrush,
-    events: [
-      {
-        time: "Morning – Afternoon",
-        description: "Artists paint freely across the metro area",
-      },
-      {
-        time: "5 – 6 PM",
-        description: "Artist Lecture by the Plein Air Judge",
-        location: "Baright Public Library (5555 S. 77th St., Ralston, NE)",
-      },
-      {
-        time: "6 – 8 PM",
-        description: "Evening Quick Paint Competition during Concert",
-        location: "Downtown Ralston (Main St. & 77th St.)",
-      },
-    ],
+    description: "Open painting all day, an artist lecture by the Plein Air Judge from 5 – 6 PM at Baright Public Library, then an Evening Quick Paint Competition during the concert from 6 – 8 PM.",
+    time: "5 – 8 PM",
+    location: "Downtown Ralston (Main St. & 77th St.)",
   },
   {
     day: "Friday, September 18",
-    title: "Open Painting + Collector's Soirée",
+    title: "Collector's Soirée",
     icon: PartyPopper,
-    events: [
-      {
-        time: "Morning – Afternoon",
-        description: "Artists paint freely across the metro area",
-      },
-      {
-        time: "5 – 8 PM",
-        description: "Collector's Soirée — Featuring live music, food, awards ceremony, and art auction",
-        location: "The Granary (7401 Main St., Ralston, NE)",
-      },
-    ],
+    description: "Artists paint freely during the day. In the evening, join us for live music, food, the awards ceremony, and art auction.",
+    time: "5 – 8 PM",
+    location: "The Granary (7401 Main St., Ralston, NE)",
   },
   {
     day: "Saturday, September 19",
     title: "Public Exhibition & Auction",
     icon: Gavel,
-    events: [
-      {
-        time: "1 – 4 PM",
-        description: "Public Exhibition and Auction",
-        location: "The Granary (7401 Main St., Ralston, NE)",
-      },
-    ],
+    description: "The grand finale — browse the full collection and bid on original paintings created during the festival.",
+    time: "1 – 4 PM",
+    location: "The Granary (7401 Main St., Ralston, NE)",
   },
   {
     day: "September 19 – October 2",
     title: "Online Sales",
     icon: Monitor,
-    events: [
-      {
-        time: "All Day",
-        description: "Unsold works available for purchase online",
-      },
-    ],
+    description: "Unsold works available for purchase online.",
+    time: "All Day",
+    location: "Online",
   },
 ];
 
@@ -175,39 +102,32 @@ const ScheduleSection = () => {
           <div className="absolute left-6 top-0 bottom-0 hidden w-px bg-border md:left-1/2 md:block" />
 
           <div className="space-y-8">
-            {schedule.map((day, i) => {
+            {schedule.map((event, i) => {
               const isLeft = i % 2 === 0;
-              const Icon = day.icon;
               return (
-                <AnimatedSection key={day.title + day.day} delay={i * 80}>
+                <AnimatedSection key={event.day + event.title} delay={i * 80}>
                   <div className={`relative flex flex-col gap-4 md:flex-row md:items-start ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}>
                     {/* Content card */}
                     <div className={`flex-1 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
                       <div className="rounded-lg bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
                         <p className="mb-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                          {day.day}
+                          {event.day}
                         </p>
                         <h3 className="mb-2 font-display text-xl font-semibold text-foreground">
-                          {day.title}
+                          {event.title}
                         </h3>
-                        <div className="space-y-3">
-                          {day.events.map((event, j) => (
-                            <div key={j} className="border-t border-border/60 pt-3 first:border-0 first:pt-0">
-                              <div className={`flex items-center gap-2 font-body text-xs text-primary/80 ${isLeft ? "md:justify-end" : ""}`}>
-                                <Calendar className="h-3 w-3 shrink-0" />
-                                <span className="font-semibold">{event.time}</span>
-                              </div>
-                              <p className={`mt-1 font-body text-sm leading-relaxed text-muted-foreground ${isLeft ? "md:text-right" : ""}`}>
-                                {event.description}
-                              </p>
-                              {event.location && (
-                                <div className={`mt-1 flex items-start gap-1 font-body text-xs text-muted-foreground/80 ${isLeft ? "md:justify-end" : ""}`}>
-                                  <MapPin className="mt-0.5 h-3 w-3 shrink-0" />
-                                  <span>{event.location}</span>
-                                </div>
-                              )}
-                            </div>
-                          ))}
+                        <p className="mb-3 font-body text-sm leading-relaxed text-muted-foreground">
+                          {event.description}
+                        </p>
+                        <div className={`flex flex-wrap gap-4 font-body text-xs text-muted-foreground/80 ${isLeft ? "md:justify-end" : ""}`}>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {event.time}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            {event.location}
+                          </span>
                         </div>
                       </div>
                     </div>
