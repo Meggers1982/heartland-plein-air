@@ -15,7 +15,6 @@ import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import ScheduleSection from "@/components/ScheduleSection";
 import ArtistsSection from "@/components/ArtistsSection";
-import SponsorsSection from "@/components/SponsorsSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
@@ -279,8 +278,6 @@ const Index = () => {
       <div id="contact">
         <NewsletterCTA />
       </div>
-      {/* Sponsors */}
-      <SponsorsSection />
 
       <SiteFooter />
     </div>
