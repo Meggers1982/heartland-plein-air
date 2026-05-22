@@ -153,31 +153,55 @@ const Artists = () => {
         </section>
 
         <section className="pb-24">
-          <div className="mx-auto max-w-4xl px-6 text-center">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-12 text-center">
+              <AnimatedSection>
+                <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                  Awards
+                </p>
+                <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+                  Awards Judge
+                </h2>
+              </AnimatedSection>
+            </div>
             <AnimatedSection>
-              <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-                Awards
-              </p>
-              <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
-                Awards Judge
-              </h2>
-              <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
-                <span className="font-display text-xl font-semibold text-foreground">{awardsJudge.name}</span>
-                <span className="block font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                  {awardsJudge.location}
-                </span>
-              </p>
-              {awardsJudge.website && (
-                <a
-                  href={awardsJudge.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 font-body text-sm text-primary transition-colors hover:bg-primary/20"
-                >
-                  <Globe className="h-4 w-4" />
-                  Website
-                </a>
-              )}
+              <div className="overflow-hidden rounded-lg bg-card shadow-sm">
+                <div className="grid md:grid-cols-2">
+                  <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
+                    <img
+                      src={awardsJudge.src}
+                      alt={awardsJudge.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center p-8 md:p-10">
+                    <h3 className="font-display text-2xl font-semibold text-foreground">
+                      {awardsJudge.name}
+                    </h3>
+                    <p className="mt-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                      {awardsJudge.location}
+                    </p>
+                    <div className="mt-4 space-y-3">
+                      {awardsJudge.bio?.split("\n\n").map((paragraph, idx) => (
+                        <p key={idx} className="font-body text-sm leading-relaxed text-muted-foreground">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                    {awardsJudge.website && (
+                      <a
+                        href={awardsJudge.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 font-body text-sm text-primary transition-colors hover:bg-primary/20 w-fit"
+                      >
+                        <Globe className="h-4 w-4" />
+                        Website
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             </AnimatedSection>
           </div>
         </section>
