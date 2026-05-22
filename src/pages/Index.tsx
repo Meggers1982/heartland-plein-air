@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
 import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
@@ -83,11 +82,6 @@ const Index = () => {
     const t = setTimeout(() => setHeroLoaded(true), 100);
     return () => clearTimeout(t);
   }, []);
-
-  const scrollToHash = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="min-h-screen bg-background">
