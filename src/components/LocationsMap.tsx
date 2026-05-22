@@ -84,6 +84,7 @@ const LocationsMap = () => {
   const googleRef = useRef<any>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [dayFilter, setDayFilter] = useState<string>("all");
+  const [listOpen, setListOpen] = useState(false);
   const dayOptions = useMemo(getDayOptions, []);
   const visibleLocations = useMemo(
     () =>
