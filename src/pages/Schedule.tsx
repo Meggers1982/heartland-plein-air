@@ -415,6 +415,15 @@ const Schedule = () => {
       <NewsletterCTA />
 
       <SiteFooter />
+
+      {/* Back to top */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${showTopBtn ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        aria-label="Back to top"
+      >
+        <ArrowUp size={20} />
+      </button>
     </div>
   );
 };
