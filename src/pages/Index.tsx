@@ -25,25 +25,25 @@ const highlights = [
     icon: Users,
     title: "25 National Artists",
     description:
-      "Approximately 25 nationally recognized painters will converge on the greater metro area for a week of outdoor painting.",
+      "25 nationally recognized painters, working outdoors across the metro for a full week.",
   },
   {
     icon: MapPin,
     title: "20+ Scenic Locations",
     description:
-      "From historic neighborhoods to scenic vistas, artists will paint at more than 20 locations across Douglas and Sarpy County.",
+      "Parks, historic neighborhoods, scenic overlooks, and everyday places made interesting by the right set of eyes.",
   },
   {
     icon: Eye,
     title: "Watch Artists Create",
     description:
-      "Visitors are encouraged to explore painting sites, observe artists at work, and experience the creative process up close.",
+      "Follow artists across the metro, watch the work happen in real time, and talk to them as they paint.",
   },
   {
     icon: ShoppingBag,
     title: "Exhibition & Auction",
     description:
-      "The festival culminates in a public exhibition and auction where attendees can purchase original works created during the week.",
+      "Every painting in the exhibition was made on-site that week — what you're buying is a record of this place in September 2026.",
   },
 ];
 
