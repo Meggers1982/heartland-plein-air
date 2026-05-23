@@ -212,6 +212,9 @@ const Index = () => {
             <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
               More than 20 scenic spots across Douglas & Sarpy County — historic neighborhoods, parks, overlooks, and everyday places worth a second look.
             </p>
+            <p className="mx-auto mt-3 max-w-2xl font-body text-sm leading-relaxed text-muted-foreground/80">
+              Filter by day to see where artists will be painting, then click a pin on the map for location details and directions.
+            </p>
           </AnimatedSection>
           <AnimatedSection delay={100}>
             <LocationsMap />
