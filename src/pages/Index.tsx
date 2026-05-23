@@ -209,6 +209,7 @@ const Index = () => {
             <h2 className="font-display text-4xl font-bold text-foreground">
               Painting Locations
             </h2>
+            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-primary/60" />
             <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
               More than 20 scenic spots across Douglas & Sarpy County — historic neighborhoods, parks, overlooks, and everyday places worth a second look.
             </p>
