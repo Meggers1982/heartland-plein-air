@@ -45,59 +45,81 @@ const ArtistSpotlight = () => {
         </AnimatedSection>
 
         <AnimatedSection delay={100}>
-          <div
-            className="relative overflow-hidden rounded-lg bg-card shadow-sm"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-          >
-            <div className="grid md:grid-cols-2 md:h-[520px]">
-              <div className="aspect-square md:aspect-auto md:h-full overflow-hidden bg-muted">
-                <img
-                  key={artist.name}
-                  src={artist.src}
-                  alt={artist.alt ?? artist.name}
-                  className="h-full w-full object-cover animate-in fade-in duration-500"
-                  style={{ objectPosition: artist.objectPosition ?? "center" }}
-                  onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
-                />
-              </div>
-              <div className="flex flex-col justify-center p-8 md:p-10 md:h-full md:overflow-hidden">
-                <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-                  <h3 className="font-display text-3xl font-semibold text-foreground">
-                    {artist.name}
-                  </h3>
-                  <p className="mt-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                    {artist.location}
-                  </p>
-                  <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground line-clamp-5">
-                    {bioPreview}
-                  </p>
-                </div>
-                <div className="mt-6 flex items-center gap-4">
-                  <Link
-                    to="/artists"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-                  >
-                    Meet all {artists.length} artists →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Prev / next */}
+          <div className="flex items-center gap-3">
+            {/* Prev */}
             <button
               type="button"
               onClick={() => go(-1)}
               aria-label="Previous artist"
-              className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground shadow ring-1 ring-border backdrop-blur transition-colors hover:bg-background"
+              className="hidden md:inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background text-foreground shadow ring-1 ring-border transition-colors hover:bg-muted"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
+
+            <div
+              className="relative flex-1 overflow-hidden rounded-lg bg-card shadow-sm"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <div className="grid md:grid-cols-2 md:h-[520px]">
+                <div className="aspect-square md:aspect-auto md:h-full overflow-hidden bg-muted">
+                  <img
+                    key={artist.name}
+                    src={artist.src}
+                    alt={artist.alt ?? artist.name}
+                    className="h-full w-full object-cover animate-in fade-in duration-500"
+                    style={{ objectPosition: artist.objectPosition ?? "center" }}
+                    onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
+                  />
+                </div>
+                <div className="flex flex-col justify-center p-8 md:p-10 md:h-full md:overflow-hidden">
+                  <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <h3 className="font-display text-3xl font-semibold text-foreground">
+                      {artist.name}
+                    </h3>
+                    <p className="mt-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                      {artist.location}
+                    </p>
+                    <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground line-clamp-5">
+                      {bioPreview}
+                    </p>
+                  </div>
+                  <div className="mt-6 flex items-center gap-4">
+                    <Link
+                      to="/artists"
+                      className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                    >
+                      Meet all {artists.length} artists →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile arrows inside */}
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                aria-label="Previous artist"
+                className="md:hidden absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground shadow ring-1 ring-border backdrop-blur transition-colors hover:bg-background"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => go(1)}
+                aria-label="Next artist"
+                className="md:hidden absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground shadow ring-1 ring-border backdrop-blur transition-colors hover:bg-background"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Next */}
             <button
               type="button"
               onClick={() => go(1)}
               aria-label="Next artist"
-              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground shadow ring-1 ring-border backdrop-blur transition-colors hover:bg-background"
+              className="hidden md:inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background text-foreground shadow ring-1 ring-border transition-colors hover:bg-muted"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
