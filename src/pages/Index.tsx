@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AnimatedSection from "@/components/AnimatedSection";
+import { Link } from "react-router-dom";
 import CountdownBanner from "@/components/CountdownBanner";
 import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
