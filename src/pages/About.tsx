@@ -4,6 +4,7 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import CountdownBanner from "@/components/CountdownBanner";
 
 const About = () => {
   useEffect(() => {
@@ -141,6 +142,7 @@ const About = () => {
         </div>
       </section>
 
+      <CountdownBanner />
       <NewsletterCTA />
       <SiteFooter />
     </div>
