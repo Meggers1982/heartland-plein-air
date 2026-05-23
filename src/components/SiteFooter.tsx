@@ -100,7 +100,7 @@ const SiteFooter = () => {
             <Link
               to="/"
               aria-label="Heartland Plein Air Arts Festival home"
-              className="relative block w-full overflow-hidden aspect-[1376/729]"
+              className="relative block w-full overflow-hidden rounded-lg bg-background aspect-[1376/729]"
             >
               <img
                 src={heartlandLogo}
