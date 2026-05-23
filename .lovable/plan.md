@@ -1,41 +1,63 @@
-# Homepage Restructure: Replace Artists Section
+# Apply the Official Festival Palette to the Site
 
-Pull the full Artists grid off the homepage (it lives on `/artists`) and replace it with three sections that give the homepage more purpose.
+Map the brand colors to semantic design tokens in `src/index.css` so every component re-themes automatically — no per-component edits needed.
 
-## New homepage section order
+## Color-to-token mapping
 
-```text
-Hero → Countdown → About → Highlights →
-Schedule → Painting Locations (map) →
-Featured Artist Spotlight (rotating) →
-Gallery → Sponsors → FAQ → Newsletter → Footer
-```
+| Token | Role | Hex | HSL |
+|---|---|---|---|
+| `--background` | Page background | `#FFE7C2` cream | `34 100% 88%` |
+| `--foreground` | Body text | `#37484B` dark teal | `194 16% 26%` |
+| `--card` / `--popover` | Cards, modals (slightly lighter than bg) | `#FFFFFF` | `0 0% 100%` |
+| `--card-foreground` / `--popover-foreground` | Card text | `#37484B` | `194 16% 26%` |
+| `--primary` | Buttons, links, accents | `#C46A3B` burnt orange | `19 55% 50%` |
+| `--primary-foreground` | Text on primary | `#FFFFFF` | `0 0% 100%` |
+| `--secondary` | Section bands, soft fills | `#D4B56A` soft gold | `42 53% 62%` |
+| `--secondary-foreground` | Text on secondary | `#37484B` | `194 16% 26%` |
+| `--muted` | Subtle backgrounds | warm cream tint `#F5DDB8` | `34 67% 84%` |
+| `--muted-foreground` | Secondary text | `#692D4A` dark plum | `327 41% 29%` |
+| `--accent` | Highlights, CTAs that pop | `#EA8832` gold orange (sun) | `27 82% 56%` |
+| `--accent-foreground` | Text on accent | `#FFFFFF` | `0 0% 100%` |
+| `--border` / `--input` | Hairlines, inputs | warm gold-tan `#D4B56A` at 60% mix → `42 35% 75%` |
+| `--ring` | Focus rings | `#C46A3B` | `19 55% 50%` |
+| Brand extras (new tokens) | | | |
+| `--brand-dark-brown` | Foreground grass, deep accents | `#6B3A2A` | `15 43% 29%` |
+| `--brand-plum` | Editorial text accent | `#692D4A` | `327 41% 29%` |
+| `--brand-sun` | Highlight pop | `#EA8832` | `27 82% 56%` |
+| `--brand-soft-gold` | Highlight pop | `#D4B56A` | `42 53% 62%` |
 
 ## What changes
 
-1. **Remove `<ArtistsSection />`** from `src/pages/Index.tsx` (and its import). Keep the file for now in case it's reused.
+1. **`src/index.css`** — rewrite the `:root` color block with the HSL values above. Update `--hero-overlay` to use dark teal (`hsla(194, 16%, 18%, …)`) instead of warm brown so the hero image grades into the new dark text color.
 
-2. **Add Painting Locations section** using the existing `LocationsMap.tsx` component. Wrap with a section heading ("Where the Art Happens / 20+ Scenic Locations across Douglas & Sarpy County") and a CTA button linking to the Schedule page where locations are detailed.
+2. **Dark mode** (`.dark`) — recolor with the same brand palette inverted: background `#37484B` dark teal, foreground cream `#FFE7C2`, primary stays burnt orange (slightly lifted lightness for contrast), accent stays gold orange, card slightly lighter than bg.
 
-3. **Add Featured Artist Spotlight** — a new `ArtistSpotlight.tsx` component:
-   - Rotates through all 6 artists from the current `ArtistsSection` data (extract to `src/data/artists.ts` so both homepage spotlight and `/artists` page share one source).
-   - Auto-advances every ~6 seconds with fade/slide transition (existing Tailwind + AnimatedSection patterns, no new deps).
-   - Prev/next arrows + dot indicators for manual control; pauses auto-rotate on hover.
-   - Layout: large artist photo left, name/location/bio right, "Meet all 25 artists →" CTA button linking to `/artists`.
-   - Respects `prefers-reduced-motion` (no auto-rotate).
+3. **`tailwind.config.ts`** — extend `colors` with brand utilities so we can opt into raw brand colors when needed:
+   ```ts
+   brand: {
+     teal: "hsl(var(--foreground))",
+     burntOrange: "hsl(var(--primary))",
+     sun: "hsl(var(--accent))",
+     softGold: "hsl(var(--secondary))",
+     darkBrown: "hsl(var(--brand-dark-brown))",
+     plum: "hsl(var(--brand-plum))",
+     cream: "hsl(var(--background))",
+   }
+   ```
 
-4. **Add Sponsors section** using the existing `SponsorsSection.tsx` component, placed after Gallery. (Confirm it's styled to fit; minor heading/spacing tweaks only if needed.)
+4. **Spot fixes for hardcoded colors** — sweep components for any non-token color references (e.g. `#8b5a2b`, `#1f1f1f`, `#6b6b6b`) and swap to tokens:
+   - `src/components/LocationsMap.tsx` popup HTML inline styles → use brand hexes (`#C46A3B` for links, `#37484B` for body text).
+   - Any other `text-white`, hardcoded greys, or stale hexes flagged by a quick grep.
 
-5. **Brush stroke dividers** between the new sections to match existing rhythm.
+## Accessibility check
 
-## Technical notes
-
-- New file: `src/data/artists.ts` exporting the artist array (name, src, location, bio).
-- New file: `src/components/ArtistSpotlight.tsx` — client component with `useState` + `useEffect` interval, cleanup on unmount, `useReducedMotion`-style check via `window.matchMedia`.
-- `src/components/ArtistsSection.tsx` updated to import from `src/data/artists.ts` (kept intact for the `/artists` page if used there; otherwise left untouched).
-- No backend, no new deps, no design-token changes — all earthy palette + Playfair/Source Sans 3 + existing animation patterns.
+- Cream `#FFE7C2` + dark teal `#37484B` body text → ~10:1 contrast ✓
+- Burnt orange `#C46A3B` + white → ~3.8:1 (large text / buttons only — fine for ≥18px bold)
+- Gold orange `#EA8832` reserved for accents/highlights, not body text
+- Soft gold `#D4B56A` reserved for fills, not text-on-cream
 
 ## Out of scope
 
-- No changes to `/artists` page content.
-- No changes to nav, footer, or other sections beyond ordering on `Index.tsx`.
+- No layout, copy, or component structure changes
+- No logo/image edits
+- No font changes (Playfair Display / Source Sans 3 stay)
