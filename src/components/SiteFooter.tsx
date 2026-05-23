@@ -90,23 +90,6 @@ const FooterSignup = () => {
 };
 
 const SiteFooter = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleQuickLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.startsWith("/#")) return;
-    e.preventDefault();
-    const hash = href.slice(1);
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      }, 60);
-    } else {
-      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <footer className="bg-foreground text-primary-foreground">
       <BrushStrokeDivider className="pt-6" />
