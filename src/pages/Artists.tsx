@@ -125,6 +125,7 @@ const Artists = () => {
                         alt={artist.alt ?? artist.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
+                        onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                         <span className="font-body text-sm font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-wide">
