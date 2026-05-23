@@ -313,8 +313,9 @@ const Artists = () => {
               </div>
             </div>
           </div>
-        )}
-        </DialogContent>
+        </div>
+      )}
+      </DialogContent>
       </Dialog>
     </div>
   );
