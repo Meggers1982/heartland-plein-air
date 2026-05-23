@@ -43,7 +43,7 @@ const SiteNav = () => {
           <img
             src={heartlandLogo}
             alt="heartland plein air festival sunset artist logo"
-            className="h-12 w-auto md:h-14 brightness-0 invert"
+            className="h-12 w-auto md:h-14"
           />
         </Link>
         <div className="hidden gap-6 md:flex">
