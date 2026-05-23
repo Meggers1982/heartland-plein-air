@@ -168,7 +168,7 @@ const Artists = () => {
           </div>
         </section>
 
-        <section id="awards-judge" className="pb-24">
+        <section id="awards-judge" className="scroll-mt-24 pb-24">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
               <AnimatedSection>
