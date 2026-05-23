@@ -118,6 +118,9 @@ const Artists = () => {
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
                 Every painter at the Heartland Plein Air Arts Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
+              <a href="#awards-judge" className="mt-4 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
+                View Awards Judge →
+              </a>
             </AnimatedSection>
           </div>
         </section>
@@ -165,7 +168,7 @@ const Artists = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section id="awards-judge" className="pb-24">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
               <AnimatedSection>
