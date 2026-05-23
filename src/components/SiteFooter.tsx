@@ -131,8 +131,7 @@ const SiteFooter = () => {
               />
             </Link>
             <p className="font-body text-sm leading-relaxed text-primary-foreground/70">
-              A week-long celebration of plein air painting across Douglas & Sarpy County,
-              September 13–19, 2026.
+              The Heartland Plein Air Arts Festival brings 25 nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
             </p>
           </div>
 
