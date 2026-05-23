@@ -24,6 +24,9 @@ import debraJoyGroesser from "@/assets/artists/debra-joy-groesser.webp";
 import durreWaseem from "@/assets/artists/durre-waseem.webp";
 import annWatcher from "@/assets/artists/ann-watcher.webp";
 import hectorAcuna from "@/assets/artists/hector-acuna.webp";
+import robinCheers from "@/assets/artists/robin-cheers.webp";
+import johnEvans from "@/assets/artists/john-evans.webp";
+import larryDegraff from "@/assets/artists/larry-degraff.webp";
 import placeholderHeadshot from "@/assets/artists/placeholder-headshot.svg";
 
 const artists = [
