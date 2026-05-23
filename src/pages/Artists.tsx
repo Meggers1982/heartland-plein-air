@@ -165,7 +165,7 @@ const Artists = () => {
                   <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
                     <img
                       src={awardsJudge.src}
-                      alt={awardsJudge.name}
+                      alt={awardsJudge.alt ?? awardsJudge.name}
                       className="h-full w-full object-cover"
                     />
                   </div>
