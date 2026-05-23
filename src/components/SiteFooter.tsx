@@ -127,7 +127,7 @@ const SiteFooter = () => {
               <img
                 src={heartlandLogo}
                 alt="Heartland Plein Air Arts Festival sunset artist logo"
-                className="h-16 w-auto"
+                className="h-24 w-auto"
               />
             </Link>
             <p className="font-body text-sm leading-relaxed text-primary-foreground/70">
