@@ -123,11 +123,11 @@ const SiteFooter = () => {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="flex flex-col gap-4">
-            <Link to="/" aria-label="Heartland Plein Air Arts Festival home" className="inline-flex">
+            <Link to="/" aria-label="Heartland Plein Air Arts Festival home" className="block w-full">
               <img
                 src={heartlandLogo}
                 alt="Heartland Plein Air Arts Festival sunset artist logo"
-                className="h-24 w-auto"
+                className="w-full h-auto"
               />
             </Link>
             <p className="font-body text-sm leading-relaxed text-primary-foreground/70">
