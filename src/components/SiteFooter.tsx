@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Facebook, Instagram, MapPin, Phone, Check } from "lucide-react";
 import { z } from "zod";
 import heartlandLogo from "@/assets/heartland-logo.png";
