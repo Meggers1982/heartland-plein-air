@@ -39,11 +39,15 @@ const SiteNav = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" aria-label="Heartland Plein Air Festival home" className="flex items-center">
+        <Link
+          to="/"
+          aria-label="Heartland Plein Air Festival home"
+          className="relative block h-10 md:h-12 aspect-[1376/729] overflow-hidden"
+        >
           <img
             src={heartlandLogo}
             alt="heartland plein air festival sunset artist logo"
-            className="h-12 w-auto md:h-14"
+            className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
           />
         </Link>
         <div className="hidden gap-6 md:flex">
