@@ -19,11 +19,11 @@
     --primary: 19 55% 50%;                /* #C46A3B burnt orange */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 42 53% 62%;              /* #D4B56A soft gold */
+    --secondary: 38 55% 80%;              /* softened warm tan — subtle for bg-secondary/40 bands, still warm at full */
     --secondary-foreground: 194 16% 26%;
 
-    --muted: 34 67% 84%;                  /* warm cream tint */
-    --muted-foreground: 327 41% 29%;      /* #692D4A dark plum */
+    --muted: 34 70% 92%;                  /* very soft cream */
+    --muted-foreground: 194 14% 38%;      /* muted teal — readable, on-brand */
 
     --accent: 27 82% 56%;                 /* #EA8832 gold orange (sun) */
     --accent-foreground: 0 0% 100%;
@@ -31,8 +31,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 42 35% 75%;
-    --input: 42 35% 75%;
+    --border: 38 35% 78%;
+    --input: 38 35% 78%;
     --ring: 19 55% 50%;
 
     /* Brand extras */
