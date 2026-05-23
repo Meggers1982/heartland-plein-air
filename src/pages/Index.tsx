@@ -281,8 +281,10 @@ const Index = () => {
                   <AccordionTrigger className="font-display text-lg font-semibold text-foreground">
                     {faq.q}
                   </AccordionTrigger>
-                  <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground">
-                    {faq.a}
+                  <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
+                    {faq.a.map((paragraph, pi) => (
+                      <p key={pi}>{paragraph}</p>
+                    ))}
                   </AccordionContent>
                 </AccordionItem>
               ))}
