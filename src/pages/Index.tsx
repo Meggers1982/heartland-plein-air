@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AnimatedSection from "@/components/AnimatedSection";
+import { Link } from "react-router-dom";
 import CountdownBanner from "@/components/CountdownBanner";
 import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
@@ -121,6 +122,23 @@ const Index = () => {
             Art, out in the open. Twenty-five nationally recognized artists,
             painting Douglas and Sarpy County exactly as it looks in September.
           </p>
+          <div
+            className={`flex flex-wrap gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "800ms" }}
+          >
+            <Link
+              to="/schedule"
+              className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              View Schedule
+            </Link>
+            <Link
+              to="/artists"
+              className="inline-flex items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground"
+            >
+              Meet the Artists
+            </Link>
+          </div>
         </div>
       </section>
 
