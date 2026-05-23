@@ -97,14 +97,18 @@ const SiteFooter = () => {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {/* Brand */}
           <div className="flex flex-col">
-            <Link to="/" aria-label="Heartland Plein Air Arts Festival home" className="block w-full">
+            <Link
+              to="/"
+              aria-label="Heartland Plein Air Arts Festival home"
+              className="relative block w-full overflow-hidden aspect-[1376/729]"
+            >
               <img
                 src={heartlandLogo}
                 alt="Heartland Plein Air Arts Festival sunset artist logo"
-                className="w-full h-auto"
+                className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
               />
             </Link>
-            <p className="-mt-8 font-body text-sm leading-relaxed text-primary-foreground/70 md:-mt-12">
+            <p className="mt-4 font-body text-sm leading-relaxed text-primary-foreground/70">
               The Heartland Plein Air Arts Festival brings 25 nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
             </p>
           </div>
