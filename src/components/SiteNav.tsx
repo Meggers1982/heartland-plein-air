@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import heartlandLogo from "@/assets/heartland-logo.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -38,8 +39,12 @@ const SiteNav = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="font-display text-lg font-semibold text-primary-foreground">
-          Heartland Plein Air Arts Festival
+        <Link to="/" aria-label="Heartland Plein Air Festival home" className="flex items-center">
+          <img
+            src={heartlandLogo}
+            alt="heartland plein air festival sunset artist logo"
+            className="h-12 w-auto md:h-14"
+          />
         </Link>
         <div className="hidden gap-6 md:flex">
           {navLinks.map((link) => (
