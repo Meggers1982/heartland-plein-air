@@ -1,19 +1,41 @@
-## Goal
+# Homepage Restructure: Replace Artists Section
 
-Make the Heartland logo in the top nav actually visible. Right now it renders the full 1920×1920 PNG (which is mostly transparent padding) inside an `h-12 md:h-14` box, so the visible artwork shrinks to a tiny smudge in the corner.
+Pull the full Artists grid off the homepage (it lives on `/artists`) and replace it with three sections that give the homepage more purpose.
 
-## Change (src/components/SiteNav.tsx, logo only)
+## New homepage section order
 
-Apply the same crop-via-wrapper approach already used in the footer:
+```text
+Hero → Countdown → About → Highlights →
+Schedule → Painting Locations (map) →
+Featured Artist Spotlight (rotating) →
+Gallery → Sponsors → FAQ → Newsletter → Footer
+```
 
-- Replace the `<img className="h-12 w-auto md:h-14" />` with a fixed-height wrapper that crops the PNG's transparent padding so only the visible artwork shows.
-- Wrapper: `relative h-10 md:h-12 aspect-[1376/729] overflow-hidden` (sized by height so it fits the nav bar; width derived from the visible-art aspect ratio).
-- Inner `<img>`: absolutely positioned, scaled up to `139.53%` of the wrapper, shifted `left-[-20.86%] top-[-65.71%]` to expose just the artwork (numbers from the PNG's content bbox 287/479 → 1663/1208 in a 1920² canvas).
-- Keep the `<Link>` wrapper and aria-label as-is.
+## What changes
 
-No other nav structure, no other files, no asset edits.
+1. **Remove `<ArtistsSection />`** from `src/pages/Index.tsx` (and its import). Keep the file for now in case it's reused.
 
-## Verification
+2. **Add Painting Locations section** using the existing `LocationsMap.tsx` component. Wrap with a section heading ("Where the Art Happens / 20+ Scenic Locations across Douglas & Sarpy County") and a CTA button linking to the Schedule page where locations are detailed.
 
-- Reload `/`: header logo renders at a clearly readable size, vertically centered in the nav bar, no big empty box around it.
-- Desktop and mobile widths both look right; nav height unchanged.
+3. **Add Featured Artist Spotlight** — a new `ArtistSpotlight.tsx` component:
+   - Rotates through all 6 artists from the current `ArtistsSection` data (extract to `src/data/artists.ts` so both homepage spotlight and `/artists` page share one source).
+   - Auto-advances every ~6 seconds with fade/slide transition (existing Tailwind + AnimatedSection patterns, no new deps).
+   - Prev/next arrows + dot indicators for manual control; pauses auto-rotate on hover.
+   - Layout: large artist photo left, name/location/bio right, "Meet all 25 artists →" CTA button linking to `/artists`.
+   - Respects `prefers-reduced-motion` (no auto-rotate).
+
+4. **Add Sponsors section** using the existing `SponsorsSection.tsx` component, placed after Gallery. (Confirm it's styled to fit; minor heading/spacing tweaks only if needed.)
+
+5. **Brush stroke dividers** between the new sections to match existing rhythm.
+
+## Technical notes
+
+- New file: `src/data/artists.ts` exporting the artist array (name, src, location, bio).
+- New file: `src/components/ArtistSpotlight.tsx` — client component with `useState` + `useEffect` interval, cleanup on unmount, `useReducedMotion`-style check via `window.matchMedia`.
+- `src/components/ArtistsSection.tsx` updated to import from `src/data/artists.ts` (kept intact for the `/artists` page if used there; otherwise left untouched).
+- No backend, no new deps, no design-token changes — all earthy palette + Playfair/Source Sans 3 + existing animation patterns.
+
+## Out of scope
+
+- No changes to `/artists` page content.
+- No changes to nav, footer, or other sections beyond ordering on `Index.tsx`.
