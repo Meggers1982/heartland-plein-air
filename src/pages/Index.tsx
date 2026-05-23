@@ -11,7 +11,6 @@ import {
 import AnimatedSection from "@/components/AnimatedSection";
 import { Link } from "react-router-dom";
 import CountdownBanner from "@/components/CountdownBanner";
-import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import ScheduleSection from "@/components/ScheduleSection";
 import ArtistSpotlight from "@/components/ArtistSpotlight";
@@ -245,11 +244,6 @@ const Index = () => {
 
       {/* Artist Spotlight */}
       <ArtistSpotlight />
-
-      <BrushStrokeDivider className="py-4" />
-
-      {/* Gallery */}
-      <GallerySection />
 
       <BrushStrokeDivider className="py-4" />
 
