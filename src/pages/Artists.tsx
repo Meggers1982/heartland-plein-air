@@ -124,6 +124,7 @@ const Artists = () => {
                         src={artist.src}
                         alt={artist.alt ?? artist.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        style={{ objectPosition: (artist as any).objectPosition ?? "center" }}
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                       />
@@ -218,7 +219,7 @@ const Artists = () => {
           {active && (
             <div className="grid md:grid-cols-2">
               <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
-                <img src={active.src} alt={(active as any).alt ?? active.name} className="h-full w-full object-cover" />
+                <img src={active.src} alt={(active as any).alt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: (active as any).objectPosition ?? "center" }} />
               </div>
               <div className="p-6 md:p-8">
                 <DialogHeader>
