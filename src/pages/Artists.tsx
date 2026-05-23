@@ -29,6 +29,10 @@ import johnEvans from "@/assets/artists/john-evans.webp";
 import larryDegraff from "@/assets/artists/larry-degraff.webp";
 import jillWagner from "@/assets/artists/jill-wagner.webp";
 import brendaPinnick from "@/assets/artists/brenda-pinnick.webp";
+import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
+import robinWeiss from "@/assets/artists/robin-weiss.webp";
+import chrisWilley from "@/assets/artists/chris-willey.webp";
+import jeffWilliams from "@/assets/artists/jeff-williams.webp";
 import placeholderHeadshot from "@/assets/artists/placeholder-headshot.svg";
 
 const artists = [
