@@ -40,7 +40,7 @@ const ArtistSpotlight = () => {
             Artist Spotlight
           </h2>
           <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
-            25 nationally recognized artists are coming to paint Douglas & Sarpy County. Here's one of them.
+            Twenty-five painters from across the country are descending on the Omaha metro — easels, brushes, and all — to capture Douglas & Sarpy County in real time. Meet one of them.
           </p>
         </AnimatedSection>
 
