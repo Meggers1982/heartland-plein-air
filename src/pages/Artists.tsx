@@ -20,6 +20,7 @@ import danMarshall from "@/assets/artists/dan-marshall.webp";
 import radhikaSrinivas from "@/assets/artists/radhika-srinivas.webp";
 import steveStauffer from "@/assets/artists/steve-stauffer.webp";
 import rickDelanty from "@/assets/artists/rick-j-delanty.webp";
+import debraJoyGroesser from "@/assets/artists/debra-joy-groesser.webp";
 import durreWaseem from "@/assets/artists/durre-waseem.webp";
 import annWatcher from "@/assets/artists/ann-watcher.webp";
 
