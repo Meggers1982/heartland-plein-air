@@ -36,6 +36,7 @@ import jeffWilliams from "@/assets/artists/jeff-williams.webp";
 import jasonBailey from "@/assets/artists/jason-bailey.webp";
 import bobBeck from "@/assets/artists/bob-beck.webp";
 import fernandoMicheli from "@/assets/artists/fernando-micheli.webp";
+import kristinHosbein from "@/assets/artists/kristin-hosbein.webp";
 import placeholderHeadshot from "@/assets/artists/placeholder-headshot.svg";
 
 const artists = [
