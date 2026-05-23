@@ -3,6 +3,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import CountdownBanner from "@/components/CountdownBanner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 import { artists, awardsJudge, placeholderHeadshot } from "@/data/artists";
@@ -167,6 +168,7 @@ const Artists = () => {
           </div>
         </section>
       </main>
+      <CountdownBanner />
       <NewsletterCTA />
       <SiteFooter />
       <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
