@@ -6,6 +6,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
 
@@ -310,6 +311,8 @@ const Schedule = () => {
           </h1>
         </div>
       </header>
+
+      <CountdownBanner />
 
       {/* Intro */}
       <section className="py-20">
