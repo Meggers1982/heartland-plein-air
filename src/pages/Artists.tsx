@@ -119,7 +119,7 @@ const Artists = () => {
                 Every painter at the Heartland Plein Air Arts Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
               <a href="#awards-judge" className="mt-4 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
-                View Awards Judge →
+                Meet This Year's Judge →
               </a>
             </AnimatedSection>
           </div>
