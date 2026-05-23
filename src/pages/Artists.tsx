@@ -227,26 +227,28 @@ const Artists = () => {
       <NewsletterCTA />
       <SiteFooter />
       <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
-        <DialogContent className="max-w-2xl overflow-hidden p-0">
+        <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
           {active && (
-            <div className="relative grid md:grid-cols-2">
+            <div className="relative">
               <button
                 type="button"
                 onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx - 1 + artists.length) % artists.length)}
                 aria-label="Previous artist"
-                className="absolute left-2 top-1/2 z-10 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-foreground shadow-md transition-colors hover:bg-background"
+                className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 type="button"
                 onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx + 1) % artists.length)}
                 aria-label="Next artist"
-                className="absolute right-2 top-1/2 z-10 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-foreground shadow-md transition-colors hover:bg-background"
+                className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-6 w-6" />
               </button>
-              <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
+              <div className="overflow-hidden rounded-lg bg-background shadow-lg">
+                <div className="grid md:grid-cols-2">
+                  <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
                 <img src={active.src} alt={(active as any).alt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: (active as any).objectPosition ?? "center" }} />
               </div>
               <div className="p-6 md:p-8">
@@ -310,8 +312,10 @@ const Artists = () => {
                 )}
               </div>
             </div>
-          )}
-        </DialogContent>
+          </div>
+        </div>
+      )}
+      </DialogContent>
       </Dialog>
     </div>
   );
