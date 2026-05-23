@@ -13,7 +13,9 @@ import CountdownBanner from "@/components/CountdownBanner";
 import GallerySection from "@/components/GallerySection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import ScheduleSection from "@/components/ScheduleSection";
-import ArtistsSection from "@/components/ArtistsSection";
+import ArtistSpotlight from "@/components/ArtistSpotlight";
+import LocationsMap from "@/components/LocationsMap";
+import SponsorsSection from "@/components/SponsorsSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
@@ -197,8 +199,30 @@ const Index = () => {
 
       <BrushStrokeDivider className="py-4" />
 
-      {/* Artists */}
-      <ArtistsSection />
+      {/* Painting Locations */}
+      <section id="locations" className="py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <AnimatedSection className="mb-12 text-center">
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              Where the Art Happens
+            </p>
+            <h2 className="font-display text-4xl font-bold text-foreground">
+              Painting Locations
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+              More than 20 scenic spots across Douglas & Sarpy County — historic neighborhoods, parks, overlooks, and everyday places worth a second look.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={100}>
+            <LocationsMap />
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <BrushStrokeDivider className="py-4" />
+
+      {/* Artist Spotlight */}
+      <ArtistSpotlight />
 
       <BrushStrokeDivider className="py-4" />
 
@@ -206,6 +230,9 @@ const Index = () => {
       <GallerySection />
 
       <BrushStrokeDivider className="py-4" />
+
+      {/* Sponsors */}
+      <SponsorsSection />
 
       {/* FAQ */}
       <section id="faq" className="py-24">
