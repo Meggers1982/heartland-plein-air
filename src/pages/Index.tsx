@@ -50,23 +50,23 @@ const highlights = [
 const faqs = [
   {
     q: "What is plein air painting?",
-    a: '"Plein air" is a French term meaning "open air." Unlike studio painting, plein air artists create their work outdoors, capturing the light, atmosphere, architecture, and natural beauty of a place in real time.',
+    a: "Plein air is a French term meaning \"open air,\" and the practice is exactly what it sounds like: artists painting outside, directly from life, rather than working from photos or references back in a studio. The goal is to capture a place as it actually exists in a given moment — the quality of the light, the atmosphere, the movement, the feeling of being there. The tradition goes back to the 19th century and was central to the Impressionist movement. Artists like Monet and Renoir built their careers on it. Working outdoors means working quickly — a plein air piece is often completed within an hour or two before the light shifts — so the paintings tend to have an energy and immediacy that studio work can't quite replicate. Every painting is a one-of-a-kind record of a specific place at a specific moment in time.",
   },
   {
     q: "Where will the artists be painting?",
-    a: "Artists will paint at more than 20 scenic locations across Douglas County and Sarpy County, including historic neighborhoods, tourist attractions, scenic vistas, and more.",
+    a: "Artists will paint freely across the Omaha Metro throughout the festival week, choosing their own locations each day. That said, there are several scheduled events where you're guaranteed to find artists in action. Lunchtime Quick Paint competitions take place in Benson (62nd and Maple) on September 14, Dundee (50th and Underwood) on September 15, and the Cathedral & Castle district (along 40th Street between Cuming and Davenport) on September 16. On September 17, an evening Quick Paint will be held in Ralston at Main and 77th Street. Beyond those events, artists may paint anywhere that inspires them — and the metro gives them a lot to work with. Suggested locations include Lauritzen Gardens, the Old Market, the Riverfront, Memorial Park, Fort Omaha, Neale Woods Nature Reserve, the Bob Kerrey Pedestrian Bridge, Elmwood Park Grotto, Fontanelle Forest, Schramm State Park, Chalco Hills, Boystown, and Ralston's Oak Park, among others.",
   },
   {
     q: "Can I watch the artists paint?",
-    a: "Absolutely! Visitors are encouraged to explore painting sites, observe the artists at work, and experience the creative process up close throughout the week.",
+    a: "The public is welcome to observe artists at work throughout the entire festival week, at any location across the metro. If you want a guaranteed front-row seat, the lunchtime and evening Quick Paint competitions are your best bet — all participating artists converge on a single location, painting simultaneously against the clock. It's one of the most exciting things to witness at any plein air festival.",
   },
   {
     q: "How can I purchase a painting?",
-    a: "The festival culminates in a public exhibition and auction where attendees can view the complete collection and purchase original works. Each painting is created on-site during the festival.",
+    a: "Paintings are available for purchase at two events: the Collector's Soiree on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free. For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
   },
   {
     q: "Is there an admission fee?",
-    a: "Many events during the festival are free and open to the public. Details about ticketed events will be announced as the festival approaches.",
+    a: "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soiree on September 18 is a ticketed event — check back here for updates on pricing and ticket availability.",
   },
 ];
 
@@ -274,6 +274,14 @@ const Index = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+            <div className="mt-8 text-center">
+              <Link
+                to="/faq"
+                className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
+              >
+                View All FAQs
+              </Link>
+            </div>
           </AnimatedSection>
         </div>
       </section>
