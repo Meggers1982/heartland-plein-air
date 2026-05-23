@@ -12,15 +12,6 @@ const emailSchema = z
   .email({ message: "Please enter a valid email address." })
   .max(255, { message: "Email must be less than 255 characters." });
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Schedule", href: "/schedule" },
-  { label: "Artists", href: "/artists" },
-  { label: "Gallery", href: "/#gallery" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Contact", href: "/#contact" },
-];
 
 const FooterSignup = () => {
   const [email, setEmail] = useState("");
