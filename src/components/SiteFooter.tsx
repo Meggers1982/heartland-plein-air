@@ -137,36 +137,6 @@ const SiteFooter = () => {
             </address>
           </div>
 
-          {/* Explore */}
-          <div>
-            <h3 className="mb-4 font-display text-lg font-semibold text-primary-foreground">
-              Explore
-            </h3>
-            <ul className="space-y-2 font-body text-sm">
-              {quickLinks.map((link) =>
-                link.href.startsWith("/#") ? (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleQuickLink(e, link.href)}
-                      className="text-primary-foreground/70 transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ) : (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className="text-primary-foreground/70 transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
 
           {/* Stay in Touch */}
           <div>
