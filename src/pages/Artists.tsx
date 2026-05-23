@@ -24,6 +24,7 @@ import debraJoyGroesser from "@/assets/artists/debra-joy-groesser.webp";
 import durreWaseem from "@/assets/artists/durre-waseem.webp";
 import annWatcher from "@/assets/artists/ann-watcher.webp";
 import hectorAcuna from "@/assets/artists/hector-acuna.webp";
+import placeholderHeadshot from "@/assets/artists/placeholder-headshot.svg";
 
 const artists = [
   { name: "Hector Acuna", src: hectorAcuna, alt: "side profile portrait of man in glasses and corduroy cap painting outdoors at sunset", location: "Wisconsin", bio: "Hector Acuna is a Wisconsin-based painter known for observational work that moves fluidly between studio and plein air. He holds a BFA from the University of Wisconsin-Stevens Point and an MFA from Michigan State University — and has quickly become one of the most recognized names in contemporary plein air painting.\n\nIn 2022, Plein Air Magazine named him one of three Artists to Watch. The following year, he received the inaugural M. Stephen Doherty Breakthrough Artist of the Year Award. A sought-after instructor and juror, he teaches workshops across the country and builds his own painting supports and frames by hand in his wood shop in Grafton, Wisconsin.", website: "https://www.acunaarts.com", instagram: "https://www.instagram.com/hectoracuna.pleinair/", facebook: "https://www.facebook.com/AcunaArt/" },
