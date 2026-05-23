@@ -33,6 +33,8 @@ import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
 import robinWeiss from "@/assets/artists/robin-weiss.webp";
 import chrisWilley from "@/assets/artists/chris-willey.webp";
 import jeffWilliams from "@/assets/artists/jeff-williams.webp";
+import jasonBailey from "@/assets/artists/jason-bailey.webp";
+import bobBeck from "@/assets/artists/bob-beck.webp";
 import placeholderHeadshot from "@/assets/artists/placeholder-headshot.svg";
 
 const artists = [
