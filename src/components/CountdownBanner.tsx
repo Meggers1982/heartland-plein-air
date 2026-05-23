@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Calendar } from "lucide-react";
 
 const TARGET = new Date("2026-09-13T00:00:00").getTime();
 
@@ -29,26 +28,55 @@ const CountdownBanner = () => {
   ];
 
   return (
-    <section className="bg-primary py-8">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
-        <div className="flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-primary-foreground" />
-          <p className="font-display text-lg font-semibold text-primary-foreground">
-            September 13–19, 2026
+    <section className="relative overflow-hidden bg-primary py-12">
+      {/* Subtle texture wash */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 30%, hsl(var(--secondary)) 0%, transparent 40%), radial-gradient(circle at 80% 70%, hsl(var(--secondary)) 0%, transparent 45%)",
+        }}
+      />
+      <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 text-center">
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-body text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/70">
+            The brushes come out in
           </p>
+          <div className="h-px w-12 bg-primary-foreground/40" />
         </div>
-        <div className="flex gap-6">
-          {units.map((u) => (
-            <div key={u.label} className="flex flex-col items-center">
-              <span className="font-display text-3xl font-bold text-primary-foreground md:text-4xl">
-                {String(u.value).padStart(2, "0")}
-              </span>
-              <span className="font-body text-xs uppercase tracking-widest text-primary-foreground/70">
-                {u.label}
-              </span>
+
+        <div className="flex items-end gap-2 sm:gap-4 md:gap-6">
+          {units.map((u, i) => (
+            <div key={u.label} className="flex items-end gap-2 sm:gap-4 md:gap-6">
+              <div className="flex flex-col items-center">
+                <div className="relative rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-3 py-2 shadow-inner backdrop-blur-sm sm:px-5 sm:py-3">
+                  <span
+                    key={u.value}
+                    className="block font-display text-4xl font-bold tabular-nums text-primary-foreground sm:text-5xl md:text-6xl animate-in fade-in slide-in-from-top-1 duration-500"
+                  >
+                    {String(u.value).padStart(2, "0")}
+                  </span>
+                </div>
+                <span className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-primary-foreground/70 sm:text-xs">
+                  {u.label}
+                </span>
+              </div>
+              {i < units.length - 1 && (
+                <span
+                  aria-hidden
+                  className="pb-8 font-display text-3xl font-bold text-primary-foreground/30 sm:text-4xl md:text-5xl"
+                >
+                  :
+                </span>
+              )}
             </div>
           ))}
         </div>
+
+        <p className="font-display text-base italic text-primary-foreground/90 sm:text-lg">
+          September 13–19, 2026 · Douglas &amp; Sarpy County
+        </p>
       </div>
     </section>
   );
