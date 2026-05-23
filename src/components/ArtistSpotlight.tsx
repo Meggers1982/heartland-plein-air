@@ -50,8 +50,8 @@ const ArtistSpotlight = () => {
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
-            <div className="grid md:grid-cols-2">
-              <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
+            <div className="grid md:grid-cols-2 md:h-[520px]">
+              <div className="aspect-square md:aspect-auto md:h-full overflow-hidden bg-muted">
                 <img
                   key={artist.name}
                   src={artist.src}
@@ -61,7 +61,7 @@ const ArtistSpotlight = () => {
                   onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                 />
               </div>
-              <div className="flex flex-col justify-center p-8 md:p-10">
+              <div className="flex flex-col justify-center p-8 md:p-10 md:h-full md:overflow-hidden">
                 <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
                   <h3 className="font-display text-3xl font-semibold text-foreground">
                     {artist.name}
@@ -69,7 +69,7 @@ const ArtistSpotlight = () => {
                   <p className="mt-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
                     {artist.location}
                   </p>
-                  <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground line-clamp-5">
                     {bioPreview}
                   </p>
                 </div>
