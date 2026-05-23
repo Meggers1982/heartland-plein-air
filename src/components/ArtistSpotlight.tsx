@@ -1,0 +1,127 @@
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import AnimatedSection from "@/components/AnimatedSection";
+import { artists, placeholderHeadshot } from "@/data/artists";
+
+const ROTATION_MS = 6000;
+
+const ArtistSpotlight = () => {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reducedMotionRef = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    if (paused || reducedMotionRef.current) return;
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % artists.length);
+    }, ROTATION_MS);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
+  const artist = artists[index];
+  const bioPreview = artist.bio.split("\n\n")[0];
+
+  const go = (dir: 1 | -1) => setIndex((i) => (i + dir + artists.length) % artists.length);
+
+  return (
+    <section id="artist-spotlight" className="bg-secondary/40 py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <AnimatedSection className="mb-12 text-center">
+          <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+            Meet the Painters
+          </p>
+          <h2 className="font-display text-4xl font-bold text-foreground">
+            Artist Spotlight
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+            25 nationally recognized artists are coming to paint Douglas & Sarpy County. Here's one of them.
+          </p>
+        </AnimatedSection>
+
+        <AnimatedSection delay={100}>
+          <div
+            className="relative overflow-hidden rounded-lg bg-card shadow-sm"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            <div className="grid md:grid-cols-2">
+              <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
+                <img
+                  key={artist.name}
+                  src={artist.src}
+                  alt={artist.alt ?? artist.name}
+                  className="h-full w-full object-cover animate-in fade-in duration-500"
+                  style={{ objectPosition: artist.objectPosition ?? "center" }}
+                  onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
+                />
+              </div>
+              <div className="flex flex-col justify-center p-8 md:p-10">
+                <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                  <h3 className="font-display text-3xl font-semibold text-foreground">
+                    {artist.name}
+                  </h3>
+                  <p className="mt-1 font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                    {artist.location}
+                  </p>
+                  <p className="mt-4 font-body text-sm leading-relaxed text-muted-foreground">
+                    {bioPreview}
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center gap-4">
+                  <Link
+                    to="/artists"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    Meet all {artists.length} artists →
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Prev / next */}
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous artist"
+              className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground shadow ring-1 ring-border backdrop-blur transition-colors hover:bg-background"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next artist"
+              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground shadow ring-1 ring-border backdrop-blur transition-colors hover:bg-background"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            {artists.map((a, i) => (
+              <button
+                key={a.name}
+                type="button"
+                onClick={() => setIndex(i)}
+                aria-label={`Show ${a.name}`}
+                aria-current={i === index}
+                className={`h-2 rounded-full transition-all ${
+                  i === index ? "w-6 bg-primary" : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                }`}
+              />
+            ))}
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+};
+
+export default ArtistSpotlight;
