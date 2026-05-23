@@ -226,7 +226,15 @@ const SiteFooter = () => {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-primary-foreground/10 pt-6 text-center md:flex-row md:text-left">
           <p className="font-body text-xs text-primary-foreground/50">
-            © 2026 Heartland Plein Air Arts Festival. All rights reserved.
+            © {new Date().getFullYear()} Heartland Plein Air Arts Festival. All rights reserved. Website built by{" "}
+            <a
+              href="https://thebrandledger.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline transition-colors hover:text-primary"
+            >
+              Brand Ledger
+            </a>
           </p>
           <p className="font-body text-xs text-primary-foreground/50">
             Presented by Ralston Arts
