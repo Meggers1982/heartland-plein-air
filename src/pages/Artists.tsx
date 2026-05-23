@@ -27,6 +27,8 @@ import hectorAcuna from "@/assets/artists/hector-acuna.webp";
 import robinCheers from "@/assets/artists/robin-cheers.webp";
 import johnEvans from "@/assets/artists/john-evans.webp";
 import larryDegraff from "@/assets/artists/larry-degraff.webp";
+import jillWagner from "@/assets/artists/jill-wagner.webp";
+import brendaPinnick from "@/assets/artists/brenda-pinnick.webp";
 import placeholderHeadshot from "@/assets/artists/placeholder-headshot.svg";
 
 const artists = [
