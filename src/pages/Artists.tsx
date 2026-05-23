@@ -4,7 +4,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Globe, Facebook, Instagram } from "lucide-react";
+import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 
 import artist1 from "@/assets/artist-1.jpg";
 import artist2 from "@/assets/artist-2.jpg";
@@ -229,7 +229,23 @@ const Artists = () => {
       <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
         <DialogContent className="max-w-2xl overflow-hidden p-0">
           {active && (
-            <div className="grid md:grid-cols-2">
+            <div className="relative grid md:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx - 1 + artists.length) % artists.length)}
+                aria-label="Previous artist"
+                className="absolute left-2 top-1/2 z-10 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-foreground shadow-md transition-colors hover:bg-background"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx + 1) % artists.length)}
+                aria-label="Next artist"
+                className="absolute right-2 top-1/2 z-10 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/90 text-foreground shadow-md transition-colors hover:bg-background"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
               <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
                 <img src={active.src} alt={(active as any).alt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: (active as any).objectPosition ?? "center" }} />
               </div>
