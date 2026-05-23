@@ -94,7 +94,7 @@ const SiteFooter = () => {
     <footer className="bg-foreground text-primary-foreground">
       <BrushStrokeDivider className="pt-6" />
       <div className="mx-auto max-w-6xl px-6 pb-10 pt-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <Link to="/" aria-label="Heartland Plein Air Arts Festival home" className="block w-full">
