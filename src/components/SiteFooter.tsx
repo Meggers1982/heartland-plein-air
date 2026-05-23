@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Facebook, Instagram, MapPin, Phone, Check } from "lucide-react";
 import { z } from "zod";
 import heartlandLogo from "@/assets/heartland-logo.png";
@@ -12,15 +12,6 @@ const emailSchema = z
   .email({ message: "Please enter a valid email address." })
   .max(255, { message: "Email must be less than 255 characters." });
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Schedule", href: "/schedule" },
-  { label: "Artists", href: "/artists" },
-  { label: "Gallery", href: "/#gallery" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Contact", href: "/#contact" },
-];
 
 const FooterSignup = () => {
   const [email, setEmail] = useState("");
@@ -99,28 +90,11 @@ const FooterSignup = () => {
 };
 
 const SiteFooter = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleQuickLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.startsWith("/#")) return;
-    e.preventDefault();
-    const hash = href.slice(1);
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      }, 60);
-    } else {
-      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <footer className="bg-foreground text-primary-foreground">
       <BrushStrokeDivider className="pt-6" />
       <div className="mx-auto max-w-6xl px-6 pb-10 pt-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <Link to="/" aria-label="Heartland Plein Air Arts Festival home" className="block w-full">
@@ -163,36 +137,6 @@ const SiteFooter = () => {
             </address>
           </div>
 
-          {/* Explore */}
-          <div>
-            <h3 className="mb-4 font-display text-lg font-semibold text-primary-foreground">
-              Explore
-            </h3>
-            <ul className="space-y-2 font-body text-sm">
-              {quickLinks.map((link) =>
-                link.href.startsWith("/#") ? (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleQuickLink(e, link.href)}
-                      className="text-primary-foreground/70 transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ) : (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className="text-primary-foreground/70 transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
 
           {/* Stay in Touch */}
           <div>
