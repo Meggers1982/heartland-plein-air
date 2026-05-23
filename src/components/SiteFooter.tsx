@@ -235,6 +235,7 @@ const SiteFooter = () => {
             >
               Brand Ledger
             </a>
+            .
           </p>
           <p className="font-body text-xs text-primary-foreground/50">
             Presented by Ralston HINGE Creative District
