@@ -41,16 +41,16 @@ function popupHtml(loc: FestivalLocation, dayFilter: string): string {
     .map(
       (e) => `
         <li style="margin-bottom:6px;">
-          <a href="#${e.dayId}" data-day-id="${e.dayId}" class="festival-map-day-link" style="color:#8b5a2b;font-weight:600;text-decoration:none;cursor:pointer;">${e.dayLabel}</a>
-          ${e.time ? `<span style="color:#6b6b6b;"> · ${e.time}</span>` : ""}
-          <div style="color:#1f1f1f;">${e.name}</div>
+          <a href="#${e.dayId}" data-day-id="${e.dayId}" class="festival-map-day-link" style="color:#C46A3B;font-weight:600;text-decoration:none;cursor:pointer;">${e.dayLabel}</a>
+          ${e.time ? `<span style="color:#692D4A;"> · ${e.time}</span>` : ""}
+          <div style="color:#37484B;">${e.name}</div>
         </li>`,
     )
     .join("");
   return `
     <div style="font-family:'Source Sans 3',sans-serif;max-width:260px;padding:4px 2px;">
-      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#1f1f1f;margin-bottom:2px;">${loc.name}</div>
-      <div style="font-size:12px;color:#6b6b6b;margin-bottom:10px;">${loc.address}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#37484B;margin-bottom:2px;">${loc.name}</div>
+      <div style="font-size:12px;color:#692D4A;margin-bottom:10px;">${loc.address}</div>
       <ul style="list-style:none;padding:0;margin:0 0 8px 0;font-size:13px;">${eventsHtml}</ul>
     </div>`;
 }
