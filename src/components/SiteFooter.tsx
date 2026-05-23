@@ -237,7 +237,7 @@ const SiteFooter = () => {
             .
           </p>
           <p className="font-body text-xs text-primary-foreground/50">
-            Presented by Ralston HINGE Creative District
+            Presented by Ralston HINGE Creative District.
           </p>
         </div>
       </div>
