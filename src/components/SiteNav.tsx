@@ -42,7 +42,7 @@ const SiteNav = () => {
         <Link
           to="/"
           aria-label="Heartland Plein Air Festival home"
-          className="relative block h-10 md:h-12 aspect-[1376/729] overflow-hidden"
+          className="relative block h-16 md:h-20 aspect-[1376/729] overflow-hidden"
         >
           <img
             src={heartlandLogo}
