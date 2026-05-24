@@ -1,12 +1,23 @@
-## Standardize Artist Spotlight size
+## Goal
+Add a fixed "back to top" arrow button to every page that doesn't already have one.
 
-**Problem:** The card height changes from artist to artist because bio length varies and the image column uses `md:aspect-auto`, so the whole card stretches to fit text.
+## Current State
+- `Schedule.tsx` already implements this feature correctly.
+- `Index.tsx`, `About.tsx`, `Artists.tsx`, and `Faq.tsx` are missing it.
+- `NotFound.tsx` is a minimal error page and doesn't need it.
 
-**Fix (single file: `src/components/ArtistSpotlight.tsx`):**
+## Approach
+Replicate the existing `Schedule.tsx` pattern:
+1. Add `useState(false)` for `showTopBtn`.
+2. Add a scroll listener in `useEffect` that sets the state when `window.scrollY > 400`.
+3. Render a fixed-position circular button at `bottom-8 right-8` using `ArrowUp` from `lucide-react`.
+4. The button smoothly scrolls to top on click and fades in/out via opacity classes.
 
-1. Give the card a fixed height on md+ (e.g. `md:h-[520px]`) so the frame is stable across artists. Mobile keeps the square image stacked above the text and stays auto-height.
-2. Image column fills that height with `h-full w-full object-cover` (drop `md:aspect-auto` reliance).
-3. Text column scrolls internally if a bio overflows: clamp the bio preview to a fixed number of lines (`line-clamp-5`) so name, location, bio, and CTA always land in the same vertical positions. Title/location/CTA stay outside the clamp so they never shift.
-4. No copy, palette, font, or layout-structure changes.
+## Files to Edit
+- `src/pages/Index.tsx`
+- `src/pages/About.tsx`
+- `src/pages/Artists.tsx`
+- `src/pages/Faq.tsx`
 
-**Out of scope:** Carousel behavior, data, other sections.
+## No New Dependencies
+Uses existing `lucide-react` icon and Tailwind classes already present in `Schedule.tsx`.

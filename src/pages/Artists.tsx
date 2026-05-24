@@ -4,6 +4,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
+import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 import { artists, awardsJudge, placeholderHeadshot } from "@/data/artists";
@@ -171,6 +172,7 @@ const Artists = () => {
       <CountdownBanner />
       <NewsletterCTA />
       <SiteFooter />
+      <BackToTop />
       <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
         <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
           {active && (

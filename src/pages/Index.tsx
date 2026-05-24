@@ -19,6 +19,7 @@ import SponsorsSection from "@/components/SponsorsSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import BackToTop from "@/components/BackToTop";
 
 const highlights = [
   {
@@ -307,6 +308,7 @@ const Index = () => {
       </div>
 
       <SiteFooter />
+      <BackToTop />
     </div>
   );
 };
