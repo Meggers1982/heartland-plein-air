@@ -67,13 +67,13 @@ const ArtistSpotlight = () => {
                     key={artist.name}
                     src={artist.src}
                     alt={artist.alt ?? artist.name}
-                    className="h-full w-full object-cover animate-in fade-in duration-500"
-                    style={{ objectPosition: artist.objectPosition ?? "center" }}
+                    className="h-full w-full object-cover animate-in fade-in slide-in-from-right-8 duration-700 ease-out"
+                    style={{ objectPosition: artist.objectPosition ?? "center", willChange: "transform, opacity" }}
                     onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                   />
                 </div>
                 <div className="flex flex-col justify-center p-8 md:p-10 md:h-full md:overflow-hidden">
-                  <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                  <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out" style={{ willChange: "transform, opacity" }}>
                     <h3 className="font-display text-3xl font-semibold text-foreground">
                       {artist.name}
                     </h3>
