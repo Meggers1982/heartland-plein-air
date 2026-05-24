@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
+import BackToTop from "@/components/BackToTop";
 
 const About = () => {
   useEffect(() => {
@@ -145,6 +146,7 @@ const About = () => {
       <CountdownBanner />
       <NewsletterCTA />
       <SiteFooter />
+      <BackToTop />
     </div>
   );
 };

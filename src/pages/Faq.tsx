@@ -12,6 +12,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
+import BackToTop from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
 
 type FaqItem = { q: string; a: string[] };
