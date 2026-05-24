@@ -172,6 +172,7 @@ const Artists = () => {
       <CountdownBanner />
       <NewsletterCTA />
       <SiteFooter />
+      <BackToTop />
       <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
         <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
           {active && (

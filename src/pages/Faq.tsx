@@ -364,6 +364,7 @@ const Faq = () => {
       </div>
 
       <SiteFooter />
+      <BackToTop />
     </div>
   );
 };
