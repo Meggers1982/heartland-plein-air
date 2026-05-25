@@ -43,7 +43,7 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <header className="bg-foreground pt-32 pb-16">
+      <header className="bg-foreground pt-44 pb-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
             September 13–19, 2026

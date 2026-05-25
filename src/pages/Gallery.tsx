@@ -63,7 +63,7 @@ const Gallery = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <main className="pt-24">
+      <main className="pt-36">
         {/* Header */}
         <section className="py-16">
           <div className="mx-auto max-w-4xl px-6 text-center">
