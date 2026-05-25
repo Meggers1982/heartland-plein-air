@@ -83,6 +83,15 @@ export const galleryArtists: GalleryArtist[] = [
     ],
   },
   {
+    name: "Debra Joy Groesser",
+    slug: "debra-joy-groesser",
+    paintings: [
+      { filename: "debra-joy-groesser-autumn-farm-stormy-sky.webp", title: "Autumn Farm, Stormy Sky", alt: "debra joy groesser autumn farm with stormy sky" },
+      { filename: "debra-joy-groesser-rocky-coastal-cliffs-ocean.webp", title: "Rocky Coastal Cliffs", alt: "debra joy groesser rocky coastal cliffs and ocean" },
+      { filename: "debra-joy-groesser-wetland-marsh-lily-pads.webp", title: "Wetland Marsh, Lily Pads", alt: "debra joy groesser wetland marsh with lily pads" },
+    ],
+  },
+  {
     name: "Kristin Hosbein",
     slug: "kristin-hosbein",
     paintings: [
