@@ -30,7 +30,7 @@ const CountdownRibbon = () => {
   ];
 
   return (
-    <div className="border-t border-primary-foreground/15 bg-primary text-primary-foreground">
+    <div className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         <div className="flex items-center gap-3 sm:gap-5">
           <span className="hidden font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-foreground/70 sm:inline">
