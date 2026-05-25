@@ -34,7 +34,7 @@ const FooterSignup = () => {
       <div
         role="status"
         aria-live="polite"
-        className="flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2.5 font-body text-sm text-primary-foreground"
+        className="flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2.5 font-body text-sm text-foreground"
       >
         <Check className="h-4 w-4 text-primary" aria-hidden="true" />
         <span>Thanks — you're on the list.</span>
@@ -61,7 +61,7 @@ const FooterSignup = () => {
           maxLength={255}
           aria-invalid={error ? "true" : "false"}
           aria-describedby={error ? "footer-email-error" : undefined}
-          className="min-w-0 flex-1 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 px-4 py-2.5 font-body text-sm text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="min-w-0 flex-1 rounded-full border border-foreground/20 bg-foreground/5 px-4 py-2.5 font-body text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         <button
           type="submit"
@@ -80,7 +80,7 @@ const FooterSignup = () => {
             {error}
           </p>
         ) : (
-          <p className="font-body text-xs text-primary-foreground/50">
+          <p className="font-body text-xs text-foreground/50">
             No spam. Festival updates only.
           </p>
         )}
@@ -91,7 +91,7 @@ const FooterSignup = () => {
 
 const SiteFooter = () => {
   return (
-    <footer className="bg-foreground text-primary-foreground">
+    <footer className="bg-background text-foreground">
       <BrushStrokeDivider className="pt-6" />
       <div className="mx-auto max-w-6xl px-6 pb-10 pt-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -100,7 +100,7 @@ const SiteFooter = () => {
             <Link
               to="/"
               aria-label="Heartland Plein Air Arts Festival home"
-              className="relative block w-full overflow-hidden rounded-lg bg-background aspect-[1376/729]"
+              className="relative block w-full overflow-hidden rounded-lg aspect-[1376/729]"
             >
               <img
                 src={heartlandLogo}
@@ -108,21 +108,21 @@ const SiteFooter = () => {
                 className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
               />
             </Link>
-            <p className="mt-4 font-body text-sm leading-relaxed text-primary-foreground/70">
+            <p className="mt-4 font-body text-sm leading-relaxed text-foreground/70">
               The Heartland Plein Air Arts Festival brings 25 nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
             </p>
           </div>
 
           {/* Visit */}
           <div>
-            <h3 className="mb-4 font-display text-lg font-semibold text-primary-foreground">
+            <h3 className="mb-4 font-display text-lg font-semibold text-foreground">
               Visit
             </h3>
-            <address className="space-y-3 font-body text-sm not-italic text-primary-foreground/70">
+            <address className="space-y-3 font-body text-sm not-italic text-foreground/70">
               <div className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
                 <div>
-                  <p className="font-medium text-primary-foreground">
+                  <p className="font-medium text-foreground">
                     Ralston HINGE Creative District
                   </p>
                   <p>5500 S 77th St</p>
@@ -144,7 +144,7 @@ const SiteFooter = () => {
 
           {/* Stay in Touch */}
           <div>
-            <h3 className="mb-4 font-display text-lg font-semibold text-primary-foreground">
+            <h3 className="mb-4 font-display text-lg font-semibold text-foreground">
               Stay in Touch
             </h3>
             <FooterSignup />
@@ -154,7 +154,7 @@ const SiteFooter = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-primary-foreground/20 text-primary-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
               >
                 <Facebook className="h-4 w-4" />
               </a>
@@ -163,7 +163,7 @@ const SiteFooter = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-primary-foreground/20 text-primary-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
               >
                 <Instagram className="h-4 w-4" />
               </a>
@@ -171,8 +171,8 @@ const SiteFooter = () => {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-primary-foreground/10 pt-6 text-center md:flex-row md:text-left">
-          <p className="font-body text-xs text-primary-foreground/50">
+        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-foreground/10 pt-6 text-center md:flex-row md:text-left">
+          <p className="font-body text-xs text-foreground/50">
             © {new Date().getFullYear()} Heartland Plein Air Arts Festival. All rights reserved. Website built by{" "}
             <a
               href="https://thebrandledger.com"
@@ -184,7 +184,7 @@ const SiteFooter = () => {
             </a>
             .
           </p>
-          <p className="font-body text-xs text-primary-foreground/50">
+          <p className="font-body text-xs text-foreground/50">
             Presented by Ralston HINGE Creative District.
           </p>
         </div>
