@@ -285,6 +285,28 @@ const Faq = () => {
                 className="h-14 rounded-full border-2 border-border bg-background pl-12 pr-5 font-body text-base shadow-sm focus-visible:ring-primary"
               />
             </div>
+            <div className="mt-8">
+              <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Browse by topic
+              </p>
+              <nav className="flex flex-wrap justify-center gap-2">
+                {filtered.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => scrollTo(c.id)}
+                    className={cn(
+                      "rounded-full border px-4 py-2 font-body text-sm transition-colors",
+                      activeId === c.id
+                        ? "border-primary/40 bg-primary/10 font-semibold text-primary"
+                        : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
+                    )}
+                  >
+                    {c.title}
+                    <span className="ml-2 text-xs opacity-60">{c.items.length}</span>
+                  </button>
+                ))}
+              </nav>
+            </div>
           </AnimatedSection>
         </div>
       </section>
@@ -293,33 +315,7 @@ const Faq = () => {
 
       {/* Body */}
       <section className="py-16 md:py-20">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[260px_1fr]">
-          {/* Sidebar nav */}
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <p className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Topics
-            </p>
-            <nav className="flex flex-row flex-wrap gap-2 lg:flex-col lg:gap-1">
-              {filtered.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => scrollTo(c.id)}
-                  className={cn(
-                    "rounded-md px-4 py-2.5 text-left font-body text-sm transition-colors",
-                    "border lg:border-transparent",
-                    activeId === c.id
-                      ? "border-primary/30 bg-primary/10 font-semibold text-primary lg:border-l-2 lg:border-l-primary lg:border-transparent lg:bg-primary/5 lg:rounded-none"
-                      : "border-border text-muted-foreground hover:bg-muted hover:text-foreground lg:border-transparent lg:border-l-2 lg:border-l-border",
-                  )}
-                >
-                  {c.title}
-                  <span className="ml-2 text-xs opacity-60">{c.items.length}</span>
-                </button>
-              ))}
-            </nav>
-          </aside>
-
-          {/* Content */}
+        <div className="mx-auto max-w-4xl px-6">
           <div className="min-w-0">
             {filtered.length === 0 && (
               <div className="rounded-lg border border-border bg-muted/30 p-8 text-center">

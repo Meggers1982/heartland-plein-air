@@ -1,16 +1,13 @@
-## Changes
+## Move FAQ topics under search bar
 
-### 1. Lighten the footer to match the new header nav
-In `src/components/SiteFooter.tsx`, invert the footer from dark-on-cream to cream-on-dark, mirroring the header nav changes:
-- Footer container: `bg-foreground` → `bg-background`, `text-primary-foreground` → `text-foreground`
-- All headings, body text, links, addresses: swap `text-primary-foreground/*` → `text-foreground/*`
-- Borders: swap `border-primary-foreground/10`, `border-primary-foreground/20` → `border-foreground/10`, `border-foreground/20`
-- Newsletter input: swap `bg-primary-foreground/5`, `border-primary-foreground/20`, `text-primary-foreground` → light-background equivalents (`bg-foreground/5`, `border-foreground/20`, `text-foreground`)
-- Social icon buttons: swap border and text colors to `foreground` equivalents
-- Keep `bg-primary` buttons/accents and `text-primary` hover states unchanged (terracotta works on both light and dark)
-- Brush stroke divider stays as-is
+Restructure the FAQ page so the topic navigation appears directly below the search input in the hero, instead of in a left sidebar.
 
-### 2. Remove background color behind the logo
-In `src/components/SiteFooter.tsx`, the logo `<Link>` currently has `bg-background` (cream panel on dark footer). Remove that class so the logo sits directly on the footer surface.
+### Changes to `src/pages/Faq.tsx`
 
-In `src/components/SiteNav.tsx`, verify the logo wrapper has no explicit background class (it currently does not — it sits on the `bg-background/90` nav). No change needed.
+1. **Hero section** — Add a horizontal topic chip row directly below the search input. Render the categories as pill-style buttons that wrap on smaller screens, centered under the search bar. Each chip shows the topic title and item count, and clicking it scrolls to that section. The active topic keeps the primary-accent styling already in use.
+
+2. **Body section** — Remove the `<aside>` sidebar and switch the grid wrapper to a single column (`max-w-4xl`, no `lg:grid-cols-[260px_1fr]`). The content column becomes the full width of the container.
+
+3. **Scroll behavior** — Keep the existing `scrollTo`, `activeId`, and scroll-spy logic unchanged so the chip row reflects which section is in view.
+
+No other pages or components are affected.
