@@ -74,9 +74,7 @@ const Gallery = () => {
                 The Gallery
               </h1>
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
-                A preview of work by the 23 invited artists painting the Omaha metro this September.
-                Every painting you see here was made on location — outdoors, in real time.
-                Click any piece to view it larger.
+                A glimpse of the artists you'll find painting across the Omaha metro this September. Click any painting to get a closer look.
               </p>
             </AnimatedSection>
           </div>
