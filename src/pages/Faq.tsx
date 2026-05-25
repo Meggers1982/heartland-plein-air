@@ -263,17 +263,17 @@ const Faq = () => {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-primary/10 pt-36 pb-24">
+      <section className="relative overflow-hidden bg-primary/10 pt-44 pb-24">
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
               Help Center
             </p>
             <h1 className="mb-6 font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
-              How can we help?
+              Everything You Need to Know Before You Go
             </h1>
             <p className="mx-auto mb-8 max-w-2xl font-body text-lg font-light leading-relaxed text-muted-foreground">
-              Search {totalCount}+ answers about the Heartland Plein Air Arts Festival, or browse by topic below.
+              From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Arts Festival, or browse by topic below.
             </p>
             <div className="relative mx-auto max-w-xl">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
