@@ -150,7 +150,7 @@ const categories: FaqCategory[] = [
   },
   {
     id: "purchasing",
-    title: "Art Purchasing",
+    title: "Buying the Art",
     items: [
       {
         q: "How can I purchase a painting?",
