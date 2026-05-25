@@ -162,7 +162,7 @@ const Contact = () => {
 
           {/* Form */}
           <AnimatedSection delay={150} className="md:col-span-3">
-            <div className="rounded-lg border border-border bg-card p-8 shadow-sm md:p-10">
+            <div className="rounded-sm border border-border bg-card p-8 shadow-[0_24px_48px_-12px_hsl(var(--foreground)/0.08)] md:p-12">
               {submitted ? (
                 <div
                   role="status"
@@ -180,94 +180,100 @@ const Contact = () => {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="contact-name" className="mb-1.5 block font-body text-sm font-semibold text-foreground">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <label htmlFor="contact-name" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
                         Name
                       </label>
                       <input
                         id="contact-name"
                         type="text"
+                        placeholder="Your name"
                         value={form.name}
                         onChange={(e) => update("name", e.target.value)}
                         maxLength={100}
                         aria-invalid={errors.name ? "true" : "false"}
-                        className="w-full rounded-md border border-border bg-background px-4 py-2.5 font-body text-base text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.name && (
-                        <p className="mt-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.name}
                         </p>
                       )}
                     </div>
-                    <div>
-                      <label htmlFor="contact-email" className="mb-1.5 block font-body text-sm font-semibold text-foreground">
+                    <div className="space-y-1.5">
+                      <label htmlFor="contact-email" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
                         Email
                       </label>
                       <input
                         id="contact-email"
                         type="email"
+                        placeholder="hello@example.com"
                         value={form.email}
                         onChange={(e) => update("email", e.target.value)}
                         maxLength={255}
                         aria-invalid={errors.email ? "true" : "false"}
-                        className="w-full rounded-md border border-border bg-background px-4 py-2.5 font-body text-base text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.email && (
-                        <p className="mt-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.email}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="contact-subject" className="mb-1.5 block font-body text-sm font-semibold text-foreground">
+                  <div className="space-y-1.5">
+                    <label htmlFor="contact-subject" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
                       Subject
                     </label>
                     <input
                       id="contact-subject"
                       type="text"
+                      placeholder="What can we help you with?"
                       value={form.subject}
                       onChange={(e) => update("subject", e.target.value)}
                       maxLength={150}
                       aria-invalid={errors.subject ? "true" : "false"}
-                      className="w-full rounded-md border border-border bg-background px-4 py-2.5 font-body text-base text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     {errors.subject && (
-                      <p className="mt-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                         {errors.subject}
                       </p>
                     )}
                   </div>
 
-                  <div>
-                    <label htmlFor="contact-message" className="mb-1.5 block font-body text-sm font-semibold text-foreground">
+                  <div className="space-y-1.5">
+                    <label htmlFor="contact-message" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
                       Message
                     </label>
                     <textarea
                       id="contact-message"
                       rows={6}
+                      placeholder="Tell us more..."
                       value={form.message}
                       onChange={(e) => update("message", e.target.value)}
                       maxLength={2000}
                       aria-invalid={errors.message ? "true" : "false"}
-                      className="w-full resize-y rounded-md border border-border bg-background px-4 py-2.5 font-body text-base text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full resize-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     {errors.message && (
-                      <p className="mt-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                         {errors.message}
                       </p>
                     )}
                   </div>
 
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
-                  >
-                    Send Message
-                  </button>
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0"
+                    >
+                      Send Message
+                    </button>
+                  </div>
                 </form>
               )}
             </div>
