@@ -1,24 +1,16 @@
-## Lighten Header Nav So Logo Reads
+## Changes
 
-The header bar is dark teal (`bg-foreground/80`) and the logo's silhouette + wordmark are also dark, so they disappear. Fix by switching the nav itself to a light cream surface that matches the logo's intended background.
+### 1. Lighten the footer to match the new header nav
+In `src/components/SiteFooter.tsx`, invert the footer from dark-on-cream to cream-on-dark, mirroring the header nav changes:
+- Footer container: `bg-foreground` → `bg-background`, `text-primary-foreground` → `text-foreground`
+- All headings, body text, links, addresses: swap `text-primary-foreground/*` → `text-foreground/*`
+- Borders: swap `border-primary-foreground/10`, `border-primary-foreground/20` → `border-foreground/10`, `border-foreground/20`
+- Newsletter input: swap `bg-primary-foreground/5`, `border-primary-foreground/20`, `text-primary-foreground` → light-background equivalents (`bg-foreground/5`, `border-foreground/20`, `text-foreground`)
+- Social icon buttons: swap border and text colors to `foreground` equivalents
+- Keep `bg-primary` buttons/accents and `text-primary` hover states unchanged (terracotta works on both light and dark)
+- Brush stroke divider stays as-is
 
-### Changes in `src/components/SiteNav.tsx`
+### 2. Remove background color behind the logo
+In `src/components/SiteFooter.tsx`, the logo `<Link>` currently has `bg-background` (cream panel on dark footer). Remove that class so the logo sits directly on the footer surface.
 
-**Nav background**
-- Change `bg-foreground/80 backdrop-blur-md` → `bg-background/90 backdrop-blur-md` with a subtle bottom border (`border-b border-border`) so it still separates from page content.
-
-**Desktop nav links**
-- Change link color from `text-primary-foreground/80 hover:text-primary-foreground` → `text-foreground/80 hover:text-primary` (dark teal text on cream, terracotta hover).
-
-**Mobile menu**
-- Hamburger icon color: `text-primary-foreground` → `text-foreground`.
-- Mobile drawer border: `border-primary-foreground/10` → `border-border`.
-- Mobile link colors: `text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground` → `text-foreground/80 hover:bg-muted hover:text-primary`.
-
-**Countdown ribbon (sits inside the nav wrapper)**
-- The ribbon stays terracotta (`bg-primary`) — already reads great against a cream nav. Drop its top border (`border-t border-primary-foreground/15`) since the cream-to-terracotta transition is already a clean edge.
-
-### Out of scope
-- No changes to the logo asset or any backdrop on the logo
-- No changes to page content, the ribbon's internal styling, or footer
-- No global token (`--foreground`, `--background`) changes — only the nav surface and link colors change
+In `src/components/SiteNav.tsx`, verify the logo wrapper has no explicit background class (it currently does not — it sits on the `bg-background/90` nav). No change needed.
