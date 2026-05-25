@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700;1,800&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand palette — Heartland Plein Air Arts Festival */
+    --background: 34 100% 88%;           /* #FFE7C2 cream */
+    --foreground: 194 16% 26%;           /* #37484B dark teal */
+
+    --card: 0 0% 100%;                    /* #FFFFFF */
+    --card-foreground: 194 16% 26%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 194 16% 26%;
+
+    --primary: 19 55% 50%;                /* #C46A3B burnt orange */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 38 55% 80%;              /* softened warm tan — subtle for bg-secondary/40 bands, still warm at full */
+    --secondary-foreground: 194 16% 26%;
+
+    --muted: 34 70% 92%;                  /* very soft cream */
+    --muted-foreground: 194 14% 38%;      /* muted teal — readable, on-brand */
+
+    --accent: 27 82% 56%;                 /* #EA8832 gold orange (sun) */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 38 35% 78%;
+    --input: 38 35% 78%;
+    --ring: 19 55% 50%;
+
+    /* Brand extras */
+    --brand-dark-brown: 15 43% 29%;       /* #6B3A2A */
+    --brand-plum: 327 41% 29%;            /* #692D4A */
+    --brand-sun: 27 82% 56%;              /* #EA8832 */
+    --brand-soft-gold: 42 53% 62%;        /* #D4B56A */
+    --brand-teal: 194 16% 26%;            /* #37484B */
+    --brand-cream: 34 100% 88%;           /* #FFE7C2 */
+
+    --radius: 0.375rem;
+
+    --hero-overlay: linear-gradient(
+      to bottom,
+      hsla(194, 16%, 14%, 0.35) 0%,
+      hsla(194, 16%, 14%, 0.65) 50%,
+      hsla(194, 16%, 14%, 0.88) 100%
+    );
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 194 16% 18%;            /* deep teal */
+    --foreground: 34 100% 88%;            /* cream */
+    --card: 194 16% 22%;
+    --card-foreground: 34 100% 88%;
+    --popover: 194 16% 22%;
+    --popover-foreground: 34 100% 88%;
+    --primary: 27 82% 58%;                /* sun orange for contrast */
+    --primary-foreground: 194 16% 14%;
+    --secondary: 42 53% 55%;
+    --secondary-foreground: 194 16% 14%;
+    --muted: 194 14% 26%;
+    --muted-foreground: 42 35% 78%;
+    --accent: 19 60% 55%;                 /* burnt orange */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 194 14% 30%;
+    --input: 194 14% 30%;
+    --ring: 27 82% 58%;
+    --brand-dark-brown: 15 43% 35%;
+    --brand-plum: 327 41% 60%;
+    --brand-sun: 27 82% 58%;
+    --brand-soft-gold: 42 53% 62%;
+    --brand-teal: 194 16% 26%;
+    --brand-cream: 34 100% 88%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+
+  h1 {
+    font-style: italic;
+  }
+
+  /* Global keyboard focus indicator — applies to all interactive elements
+     when navigated by keyboard. Elements with explicit focus:ring-* classes
+     retain their own styles on top of this. */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .hero-title {
+    text-shadow: 0 2px 20px hsla(194, 16%, 10%, 0.6);
+  }
+}

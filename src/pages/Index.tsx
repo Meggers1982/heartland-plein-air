@@ -1,0 +1,322 @@
+import { useEffect, useState } from "react";
+import { setPageMeta } from "@/lib/meta";
+import heroImage from "@/assets/hero-pleinair.jpg";
+import artistImage from "@/assets/artist-painting.jpg";
+import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import AnimatedSection from "@/components/AnimatedSection";
+import { Link } from "react-router-dom";
+import CountdownBanner from "@/components/CountdownBanner";
+import BrushStrokeDivider from "@/components/BrushStrokeDivider";
+import ScheduleSection from "@/components/ScheduleSection";
+import ArtistSpotlight from "@/components/ArtistSpotlight";
+import LocationsMap from "@/components/LocationsMap";
+import SponsorsSection from "@/components/SponsorsSection";
+import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
+import BackToTop from "@/components/BackToTop";
+
+const highlights = [
+  {
+    icon: Users,
+    title: "25 National Artists",
+    description:
+      "25 nationally recognized painters, working outdoors across the metro for a full week.",
+  },
+  {
+    icon: MapPin,
+    title: "20+ Scenic Locations",
+    description:
+      "Parks, historic neighborhoods, scenic overlooks, and everyday places made interesting by the right set of eyes.",
+  },
+  {
+    icon: Eye,
+    title: "Watch Artists Create",
+    description:
+      "Follow artists across the metro, watch the work happen in real time, and talk to them as they paint.",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Exhibition & Auction",
+    description:
+      "Every painting in the exhibition was made on-site that week — what you're buying is a record of this place in September 2026.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What is plein air painting?",
+    a: [
+      'Plein air is a French term meaning "open air," and the practice is exactly what it sounds like: artists painting outside, directly from life, rather than working from photos or references back in a studio. The goal is to capture a place as it actually exists in a given moment — the quality of the light, the atmosphere, the movement, the feeling of being there.',
+      "The tradition goes back to the 19th century and was central to the Impressionist movement. Artists like Monet and Renoir built their careers on it. Working outdoors means working quickly — a plein air piece is often completed within an hour or two before the light shifts — so the paintings tend to have an energy and immediacy that studio work can't quite replicate. Every painting is a one-of-a-kind record of a specific place at a specific moment in time.",
+    ],
+  },
+  {
+    q: "Where will the artists be painting?",
+    a: [
+      "Artists will paint freely across the Omaha Metro throughout the festival week, choosing their own locations each day. That said, there are several scheduled events where you're guaranteed to find artists in action. Lunchtime Quick Paint competitions take place in Benson (62nd and Maple) on September 14, Dundee (50th and Underwood) on September 15, and the Cathedral & Castle district (along 40th Street between Cuming and Davenport) on September 16. On September 17, an evening Quick Paint will be held in Ralston at Main and 77th Street.",
+      "Beyond those events, artists may paint anywhere that inspires them — and the metro gives them a lot to work with. Suggested locations include Lauritzen Gardens, the Old Market, the Riverfront, Memorial Park, Fort Omaha, Neale Woods Nature Reserve, the Bob Kerrey Pedestrian Bridge, Elmwood Park Grotto, Fontanelle Forest, Schramm State Park, Chalco Hills, Boystown, and Ralston's Oak Park, among others.",
+    ],
+  },
+  {
+    q: "Can I watch the artists paint?",
+    a: [
+      "The public is welcome to observe artists at work throughout the entire festival week, at any location across the metro. If you want a guaranteed front-row seat, the lunchtime and evening Quick Paint competitions are your best bet — all participating artists converge on a single location, painting simultaneously against the clock. It's one of the most exciting things to witness at any plein air festival.",
+    ],
+  },
+  {
+    q: "How can I purchase a painting?",
+    a: [
+      "Paintings are available for purchase at two events: the Collector's Soiree on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
+      "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
+    ],
+  },
+  {
+    q: "Is there an admission fee?",
+    a: [
+      "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soiree on September 18 is a ticketed event — check back here for updates on pricing and ticket availability.",
+    ],
+  },
+];
+
+const Index = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    document.title = "Heartland Plein Air Arts Festival | September 13–19, 2026";
+    return setPageMeta(
+      "Experience 25 nationally recognized artists painting Douglas & Sarpy County outdoors at the Heartland Plein Air Arts Festival, September 13–19, 2026.",
+    );
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SiteNav />
+
+      {/* Hero with parallax */}
+      <section id="main-content" tabIndex={-1} className="relative flex min-h-screen items-end overflow-hidden">
+        <img
+          src={heroImage}
+          alt="Plein air painting of the heartland landscape at golden hour"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-[120%] w-full object-cover will-change-transform"
+          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "var(--hero-overlay)" }}
+        />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40">
+          <p
+            className={`mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "200ms" }}
+          >
+            September 13–19, 2026
+          </p>
+          <h1
+            className={`hero-title mb-6 max-w-3xl font-display text-5xl font-bold leading-tight text-secondary md:text-7xl transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "400ms" }}
+          >
+            Heartland Plein Air Arts Festival
+          </h1>
+          <p
+            className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "600ms" }}
+          >
+            Art, out in the open. Twenty-five nationally recognized artists,
+            painting Douglas and Sarpy County exactly as it looks in September.
+          </p>
+          <div
+            className={`flex flex-wrap gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            style={{ transitionDelay: "800ms" }}
+          >
+            <Link
+              to="/artists"
+              className="inline-flex items-center justify-center rounded-full bg-primary px-9 py-4 font-body text-base font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              Meet the Artists
+            </Link>
+            <Link
+              to="/schedule"
+              className="inline-flex items-center justify-center rounded-full border border-secondary/60 bg-transparent px-7 py-3 font-body text-sm font-medium uppercase tracking-[0.15em] text-secondary/80 transition-all hover:-translate-y-0.5 hover:border-secondary hover:text-secondary"
+            >
+              View Schedule
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Countdown */}
+      <CountdownBanner />
+
+      {/* About */}
+      <section id="about" className="py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 md:grid-cols-2">
+          <AnimatedSection>
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              About the Festival
+            </p>
+            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
+              Art Made Here
+            </h2>
+            <div className="space-y-4 font-body text-base leading-relaxed text-muted-foreground">
+              <p>
+                Walk up to a nationally recognized artist mid-stroke — on a park path, outside a historic building, along the riverfront — and they'll probably talk to you. For one week this September, 25 artists spread across Douglas and Sarpy Counties and paint what they find, outdoors, in front of anyone who happens to walk by.
+              </p>
+              <p>
+                No studio, no reference photos, no second session. The light changes in real time and so does the work. These are paintings made fast, from life, in the actual weather of a September afternoon — and that urgency is what makes them unlike anything you'd find in a gallery.
+              </p>
+              <p>
+                Every piece in the final exhibition was made that week, on location. What you're seeing — and buying — is a record of a specific place at a specific moment in time.
+              </p>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection delay={200}>
+            <div className="overflow-hidden rounded-lg shadow-xl transition-transform duration-500 hover:scale-[1.02]">
+              <img
+                src={artistImage}
+                alt="An artist painting outdoors at an easel on a charming street"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <BrushStrokeDivider />
+
+      {/* Highlights */}
+      <section id="highlights" className="bg-secondary/50 pt-24 pb-12">
+        <div className="mx-auto max-w-6xl px-6">
+          <AnimatedSection className="mb-16 text-center">
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              What to Expect
+            </p>
+            <h2 className="font-display text-4xl font-bold text-foreground">
+              Festival Highlights
+            </h2>
+          </AnimatedSection>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {highlights.map((item, i) => (
+              <AnimatedSection key={item.title} delay={i * 100}>
+                <div className="group rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
+                    <item.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="font-body text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Schedule */}
+      <ScheduleSection />
+
+      <BrushStrokeDivider className="py-4" />
+
+      {/* Painting Locations */}
+      <section id="locations" className="py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <AnimatedSection className="mb-12 text-center">
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              Where the Art Happens
+            </p>
+            <h2 className="font-display text-4xl font-bold text-foreground">
+              Painting Locations
+            </h2>
+            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-accent" />
+            <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+              More than 20 scenic spots across Douglas & Sarpy County — historic neighborhoods, parks, overlooks, and everyday places worth a second look.
+            </p>
+            <p className="mx-auto mt-3 max-w-2xl font-body text-sm leading-relaxed text-muted-foreground/80">
+              Filter by day to see where artists will be painting, then click a pin on the map for location details and directions.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={100}>
+            <LocationsMap />
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <BrushStrokeDivider className="py-4" />
+
+      {/* Artist Spotlight */}
+      <ArtistSpotlight />
+
+      <BrushStrokeDivider className="py-4" />
+
+      {/* Sponsors */}
+      <SponsorsSection />
+
+      {/* FAQ */}
+      <section id="faq" className="py-24">
+        <div className="mx-auto max-w-3xl px-6">
+          <AnimatedSection className="mb-12 text-center">
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              Questions?
+            </p>
+            <h2 className="font-display text-4xl font-bold text-foreground">
+              Frequently Asked Questions
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection delay={100}>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger className="font-display text-lg font-semibold text-foreground">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
+                    {faq.a.map((paragraph, pi) => (
+                      <p key={pi}>{paragraph}</p>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+            <div className="mt-8 text-center">
+              <Link
+                to="/faq"
+                className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
+              >
+                View All FAQs
+              </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <SiteFooter />
+      <BackToTop />
+    </div>
+  );
+};
+
+export default Index;
