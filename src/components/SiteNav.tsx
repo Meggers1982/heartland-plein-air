@@ -10,7 +10,7 @@ const navLinks = [
   { label: "Artists", href: "/artists" },
   { label: "Gallery", href: "/gallery" },
   { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const SiteNav = () => {
