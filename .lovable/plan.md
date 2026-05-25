@@ -1,35 +1,29 @@
-## Restyle Contact Form (Parchment Refinement)
+## Countdown Ribbon Under Header
 
-Apply the selected "Parchment Refinement" direction to the contact form on `/contact`. Scope: the form card only — no changes to the left contact-info column, page header, or any other section.
+Add a thin, single-line countdown ribbon directly beneath the fixed header on every page **except the homepage** (which already has the large `CountdownBanner` section).
 
-### Changes in `src/pages/Contact.tsx`
+### What the ribbon contains
+A compact, horizontal version of the existing countdown — not the full section. One row:
+- Left: "The brushes come out in" eyelet label + `DD : HH : MM : SS` (small tabular numerals with tiny unit labels).
+- Right: "Sept 13–19, 2026 · Douglas & Sarpy County" with a small "Subscribe" link.
 
-**Form card wrapper**
-- Replace `rounded-lg`/`shadow-sm`/`p-8 md:p-10` with `rounded-sm`, `p-8 md:p-12`, and a softer warm drop shadow (`shadow-[0_24px_48px_-12px_hsl(var(--foreground)/0.08)]`).
+Same brand styling — `bg-primary` background, `text-primary-foreground`, Playfair numerals, Source Sans uppercase labels. Roughly 48–56px tall on desktop, collapses gracefully on mobile (hide the right-side text, keep the numbers).
 
-**Inputs (Name, Email, Subject, Message)**
-- Change background from `bg-background` (peach, blends with the page) to `bg-muted/60` (soft cream that reads as parchment against the white card).
-- Increase padding to `py-3.5`, switch corners to `rounded-sm` for a more editorial feel.
-- Add subtle placeholder text (`Your name`, `hello@example.com`, etc.) in `text-muted-foreground/50`.
-- Focus state: border becomes `primary`, background lifts to `bg-card` (white), with a soft `ring-1 ring-primary/20`.
-- Textarea: `resize-none` instead of `resize-y`.
+### Files
 
-**Labels**
-- Restyle to `text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground` with `px-1` and `space-y-1.5` grouping — small, refined, all-caps editorial labels.
+1. **New `src/components/CountdownRibbon.tsx`**
+   - Self-contained: own `setInterval` (reuses the same `TARGET` date).
+   - Single horizontal flex row, compact spacing.
+   - Renders nothing once the countdown hits zero (returns `null`).
 
-**Spacing**
-- Form gap: `space-y-6`; grid gap: `gap-6`.
+2. **`src/components/SiteNav.tsx`**
+   - Below the existing `<nav>` element, conditionally render `<CountdownRibbon />` when `useLocation().pathname !== "/"`.
+   - Keep the ribbon inside the same fixed wrapper so it sits flush under the menu bar with no gap.
 
-**Submit button**
-- Increase to `px-10 py-4`, `text-xs font-bold tracking-[0.2em]`.
-- Add `shadow-primary/20`, hover `bg-primary/90`, keep the existing lift on hover.
-- Wrap in a `pt-2` div for breathing room.
-
-**Tokens**
-- Use semantic tokens throughout (`bg-muted`, `bg-card`, `border-border`, `text-muted-foreground`, `text-foreground`, `primary`) — no hardcoded hex values.
+3. **Page top spacing**
+   - The fixed nav is currently ~80–88px tall and pages use `pt-24` / `pt-32` to clear it. With the ribbon stacked below the nav, those values still need to clear nav + ribbon (~136–144px total).
+   - Update each non-home page's hero/main top padding to add the ribbon height: `About.tsx`, `Schedule.tsx`, `Artists.tsx`, `Faq.tsx`, `Gallery.tsx`, `Contact.tsx`, `NotFound.tsx`. Bump `pt-24` → `pt-36` (and `pt-32` → `pt-44` where used) on the first hero/header element only.
 
 ### Out of scope
-- Left column (contact info, social icons)
-- Page header / hero
-- NewsletterCTA, CountdownBanner, SiteFooter
-- Form validation logic, schema, and submit behavior (no functional changes)
+- No changes to the homepage layout or its existing `CountdownBanner` section.
+- No changes to the `CountdownBanner` component itself — the ribbon is a separate, smaller component.
