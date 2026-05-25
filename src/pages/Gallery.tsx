@@ -83,6 +83,7 @@ const Gallery = () => {
                   Artists page
                 </Link>
                 {" "}to read bios and see their full profiles.
+              </p>
             </AnimatedSection>
           </div>
         </section>
