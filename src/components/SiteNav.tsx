@@ -39,7 +39,7 @@ const SiteNav = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground/80 backdrop-blur-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           to="/"
@@ -58,14 +58,14 @@ const SiteNav = () => {
               key={link.label}
               href={link.href}
               onClick={(e) => handleClick(e, link.href)}
-              className="font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:text-primary-foreground"
+              className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
             >
               {link.label}
             </a>
           ))}
         </div>
         <button
-          className="md:hidden text-primary-foreground"
+          className="md:hidden text-foreground"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -75,7 +75,7 @@ const SiteNav = () => {
       {showRibbon && <CountdownRibbon />}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
-          open ? "max-h-[32rem] border-t border-primary-foreground/10" : "max-h-0"
+          open ? "max-h-[32rem] border-t border-border" : "max-h-0"
         }`}
       >
         <div className="flex flex-col gap-1 px-6 py-4">
@@ -84,7 +84,7 @@ const SiteNav = () => {
               key={link.label}
               href={link.href}
               onClick={(e) => handleClick(e, link.href)}
-              className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
             >
               {link.label}
             </a>
