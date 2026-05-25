@@ -1,29 +1,35 @@
-## Contact Page
+## Restyle Contact Form (Parchment Refinement)
 
-### Goal
-Create a dedicated `/contact` route with a full Contact page, and update the header navigation so the Contact menu item links to it instead of scrolling to the home-page newsletter section.
+Apply the selected "Parchment Refinement" direction to the contact form on `/contact`. Scope: the form card only — no changes to the left contact-info column, page header, or any other section.
 
-### Changes
+### Changes in `src/pages/Contact.tsx`
 
-1. **Create `src/pages/Contact.tsx`**
-   - Follow existing page conventions: `SiteNav`, `AnimatedSection`, `BrushStrokeDivider`, `SiteFooter`, `BackToTop`, `CountdownBanner`, `NewsletterCTA`.
-   - Page header with title "Get in Touch" and subtitle.
-   - **Contact info section:**
-     - Festival name and organizer (Ralston HINGE Creative District)
-     - Address: 5500 S 77th St, Ralston, NE 68127
-     - Phone: (402) 953-9173
-     - Social links: Facebook, Instagram
-   - **Contact form:** name, email, subject, message — with Zod validation and a submit handler that shows a success state (no backend; form submission will be handled client-side with a toast/confirmation message).
-   - Set `<title>` and meta description for SEO.
+**Form card wrapper**
+- Replace `rounded-lg`/`shadow-sm`/`p-8 md:p-10` with `rounded-sm`, `p-8 md:p-12`, and a softer warm drop shadow (`shadow-[0_24px_48px_-12px_hsl(var(--foreground)/0.08)]`).
 
-2. **Add route in `src/App.tsx`**
-   - Import `Contact` page.
-   - Add `<Route path="/contact" element={<Contact />} />` above the catch-all `*` route.
+**Inputs (Name, Email, Subject, Message)**
+- Change background from `bg-background` (peach, blends with the page) to `bg-muted/60` (soft cream that reads as parchment against the white card).
+- Increase padding to `py-3.5`, switch corners to `rounded-sm` for a more editorial feel.
+- Add subtle placeholder text (`Your name`, `hello@example.com`, etc.) in `text-muted-foreground/50`.
+- Focus state: border becomes `primary`, background lifts to `bg-card` (white), with a soft `ring-1 ring-primary/20`.
+- Textarea: `resize-none` instead of `resize-y`.
 
-3. **Update `src/components/SiteNav.tsx`**
-   - Change the Contact nav link from `href: "/#contact"` to `href: "/contact"`.
-   - No other nav changes needed.
+**Labels**
+- Restyle to `text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground` with `px-1` and `space-y-1.5` grouping — small, refined, all-caps editorial labels.
+
+**Spacing**
+- Form gap: `space-y-6`; grid gap: `gap-6`.
+
+**Submit button**
+- Increase to `px-10 py-4`, `text-xs font-bold tracking-[0.2em]`.
+- Add `shadow-primary/20`, hover `bg-primary/90`, keep the existing lift on hover.
+- Wrap in a `pt-2` div for breathing room.
+
+**Tokens**
+- Use semantic tokens throughout (`bg-muted`, `bg-card`, `border-border`, `text-muted-foreground`, `text-foreground`, `primary`) — no hardcoded hex values.
 
 ### Out of scope
-- Backend form submission (no database table or API endpoint; client-side only for now).
-- The home-page `#contact` anchor section remains as-is; visitors on the home page can still scroll to the newsletter CTA.
+- Left column (contact info, social icons)
+- Page header / hero
+- NewsletterCTA, CountdownBanner, SiteFooter
+- Form validation logic, schema, and submit behavior (no functional changes)
