@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { setPageMeta } from "@/lib/meta";
 import { galleryArtists, allPaintings } from "@/data/gallery";
 
 const Gallery = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const active = openIndex !== null ? allPaintings[openIndex] : null;
-  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -156,75 +156,54 @@ const Gallery = () => {
       <SiteFooter />
       <BackToTop />
 
-      {/* Lightbox */}
-      {openIndex !== null && active && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-          onClick={(e) => { if (e.target === e.currentTarget) setOpenIndex(null); }}
-          role="dialog"
-          aria-modal="true"
-          aria-label={active.title}
-        >
-          <div
-            ref={dialogRef}
-            className="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-background shadow-2xl"
-          >
-            {/* Close */}
-            <button
-              type="button"
-              onClick={() => setOpenIndex(null)}
-              aria-label="Close"
-              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-background/80 text-foreground shadow transition-colors hover:bg-muted"
-            >
-              <X className="h-4 w-4" />
-            </button>
-
-            {/* Image */}
-            <div className="flex min-h-0 flex-1 items-center justify-center bg-foreground/5">
-              <img
-                src={`/artwork/${active.filename}`}
-                alt={active.alt}
-                className="max-h-[70vh] w-full object-contain"
-              />
-            </div>
-
-            {/* Caption */}
-            <div className="flex items-center justify-between gap-4 border-t border-border px-6 py-4">
-              <div>
-                <p className="font-display text-lg font-semibold text-foreground">
-                  {active.title}
-                </p>
-                <p className="font-body text-sm font-semibold uppercase tracking-widest text-primary">
-                  {active.artistName}
-                </p>
+      <Dialog open={openIndex !== null} onOpenChange={(o) => !o && setOpenIndex(null)}>
+        <DialogContent className="max-w-2xl border-none bg-transparent p-0 shadow-none">
+          {active && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Previous painting"
+                className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Next painting"
+                className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+              <div className="overflow-hidden rounded-lg bg-background shadow-lg">
+                <div className="grid md:grid-cols-2">
+                  <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
+                    <img
+                      src={`/artwork/${active.filename}`}
+                      alt={active.alt}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6 md:p-8">
+                    <DialogHeader>
+                      <DialogTitle className="font-display text-2xl font-semibold text-foreground">
+                        {active.title}
+                      </DialogTitle>
+                      <DialogDescription className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                        {active.artistName}
+                      </DialogDescription>
+                    </DialogHeader>
+                    <p className="mt-6 font-body text-xs text-muted-foreground">
+                      {openIndex !== null ? openIndex + 1 : 0} / {allPaintings.length}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p className="hidden font-body text-xs text-muted-foreground sm:block">
-                {openIndex + 1} / {allPaintings.length}
-              </p>
             </div>
-          </div>
-
-          {/* Prev arrow */}
-          <button
-            type="button"
-            onClick={(e) => { e.stopPropagation(); prev(); }}
-            aria-label="Previous painting"
-            className="absolute left-2 top-1/2 z-50 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted md:left-4"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-
-          {/* Next arrow */}
-          <button
-            type="button"
-            onClick={(e) => { e.stopPropagation(); next(); }}
-            aria-label="Next painting"
-            className="absolute right-2 top-1/2 z-50 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted md:right-4"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        </div>
-      )}
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

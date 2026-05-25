@@ -1,23 +1,21 @@
 ## Goal
-Add a fixed "back to top" arrow button to every page that doesn't already have one.
 
-## Current State
-- `Schedule.tsx` already implements this feature correctly.
-- `Index.tsx`, `About.tsx`, `Artists.tsx`, and `Faq.tsx` are missing it.
-- `NotFound.tsx` is a minimal error page and doesn't need it.
+The Gallery page (`/gallery`) and its data (`src/data/gallery.ts`) already exist with all 67 paintings sorted by artist and tagged with alt text from the uploaded spreadsheet. The page is already wired into the route table and navigation. What's missing is that its lightbox uses a custom full-screen overlay rather than the shadcn `Dialog`-based lightbox used on the Artists page.
 
-## Approach
-Replicate the existing `Schedule.tsx` pattern:
-1. Add `useState(false)` for `showTopBtn`.
-2. Add a scroll listener in `useEffect` that sets the state when `window.scrollY > 400`.
-3. Render a fixed-position circular button at `bottom-8 right-8` using `ArrowUp` from `lucide-react`.
-4. The button smoothly scrolls to top on click and fades in/out via opacity classes.
+This plan updates the Gallery lightbox to match the Artists page UX exactly.
 
-## Files to Edit
-- `src/pages/Index.tsx`
-- `src/pages/About.tsx`
-- `src/pages/Artists.tsx`
-- `src/pages/Faq.tsx`
+## Changes
 
-## No New Dependencies
-Uses existing `lucide-react` icon and Tailwind classes already present in `Schedule.tsx`.
+**`src/pages/Gallery.tsx`** — Replace the current custom lightbox with the Artists-page pattern:
+
+- Use `Dialog` / `DialogContent` / `DialogHeader` / `DialogTitle` / `DialogDescription` from `@/components/ui/dialog`.
+- Two-column layout inside the dialog: square image on the left, caption panel on the right with painting title (DialogTitle) and artist name (DialogDescription, uppercase tracked primary).
+- Circular `ChevronLeft` / `ChevronRight` buttons positioned outside the dialog on the sides (`-left-14` / `-right-14`), wrapping through `allPaintings`.
+- Keep existing keyboard navigation (←/→/Esc) and body-scroll lock.
+- Remove the custom black-overlay markup, the bottom caption bar, and the manual close button (Dialog provides its own).
+- Card grid, sticky artist jump-link bar, and section anchors stay as they are.
+
+## Out of scope
+
+- No changes to `src/data/gallery.ts` (already complete and correctly sorted by artist with alt text from the spreadsheet).
+- No changes to routing, nav, or other pages.
