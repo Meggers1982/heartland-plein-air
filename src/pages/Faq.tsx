@@ -263,7 +263,7 @@ const Faq = () => {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-primary/10 py-24">
+      <section className="relative overflow-hidden bg-primary/10 pt-36 pb-24">
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
