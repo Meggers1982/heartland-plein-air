@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import heartlandLogo from "@/assets/heartland-logo.png";
+import CountdownRibbon from "@/components/CountdownRibbon";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -17,6 +18,7 @@ const SiteNav = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const showRibbon = location.pathname !== "/";
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -70,6 +72,7 @@ const SiteNav = () => {
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
+      {showRibbon && <CountdownRibbon />}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
           open ? "max-h-[32rem] border-t border-primary-foreground/10" : "max-h-0"
