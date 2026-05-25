@@ -1,29 +1,24 @@
-## Countdown Ribbon Under Header
+## Lighten Header Nav So Logo Reads
 
-Add a thin, single-line countdown ribbon directly beneath the fixed header on every page **except the homepage** (which already has the large `CountdownBanner` section).
+The header bar is dark teal (`bg-foreground/80`) and the logo's silhouette + wordmark are also dark, so they disappear. Fix by switching the nav itself to a light cream surface that matches the logo's intended background.
 
-### What the ribbon contains
-A compact, horizontal version of the existing countdown — not the full section. One row:
-- Left: "The brushes come out in" eyelet label + `DD : HH : MM : SS` (small tabular numerals with tiny unit labels).
-- Right: "Sept 13–19, 2026 · Douglas & Sarpy County" with a small "Subscribe" link.
+### Changes in `src/components/SiteNav.tsx`
 
-Same brand styling — `bg-primary` background, `text-primary-foreground`, Playfair numerals, Source Sans uppercase labels. Roughly 48–56px tall on desktop, collapses gracefully on mobile (hide the right-side text, keep the numbers).
+**Nav background**
+- Change `bg-foreground/80 backdrop-blur-md` → `bg-background/90 backdrop-blur-md` with a subtle bottom border (`border-b border-border`) so it still separates from page content.
 
-### Files
+**Desktop nav links**
+- Change link color from `text-primary-foreground/80 hover:text-primary-foreground` → `text-foreground/80 hover:text-primary` (dark teal text on cream, terracotta hover).
 
-1. **New `src/components/CountdownRibbon.tsx`**
-   - Self-contained: own `setInterval` (reuses the same `TARGET` date).
-   - Single horizontal flex row, compact spacing.
-   - Renders nothing once the countdown hits zero (returns `null`).
+**Mobile menu**
+- Hamburger icon color: `text-primary-foreground` → `text-foreground`.
+- Mobile drawer border: `border-primary-foreground/10` → `border-border`.
+- Mobile link colors: `text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground` → `text-foreground/80 hover:bg-muted hover:text-primary`.
 
-2. **`src/components/SiteNav.tsx`**
-   - Below the existing `<nav>` element, conditionally render `<CountdownRibbon />` when `useLocation().pathname !== "/"`.
-   - Keep the ribbon inside the same fixed wrapper so it sits flush under the menu bar with no gap.
-
-3. **Page top spacing**
-   - The fixed nav is currently ~80–88px tall and pages use `pt-24` / `pt-32` to clear it. With the ribbon stacked below the nav, those values still need to clear nav + ribbon (~136–144px total).
-   - Update each non-home page's hero/main top padding to add the ribbon height: `About.tsx`, `Schedule.tsx`, `Artists.tsx`, `Faq.tsx`, `Gallery.tsx`, `Contact.tsx`, `NotFound.tsx`. Bump `pt-24` → `pt-36` (and `pt-32` → `pt-44` where used) on the first hero/header element only.
+**Countdown ribbon (sits inside the nav wrapper)**
+- The ribbon stays terracotta (`bg-primary`) — already reads great against a cream nav. Drop its top border (`border-t border-primary-foreground/15`) since the cream-to-terracotta transition is already a clean edge.
 
 ### Out of scope
-- No changes to the homepage layout or its existing `CountdownBanner` section.
-- No changes to the `CountdownBanner` component itself — the ribbon is a separate, smaller component.
+- No changes to the logo asset or any backdrop on the logo
+- No changes to page content, the ribbon's internal styling, or footer
+- No global token (`--foreground`, `--background`) changes — only the nav surface and link colors change
