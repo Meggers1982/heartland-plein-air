@@ -304,7 +304,7 @@ const Schedule = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <header className="bg-foreground pt-32 pb-16">
+      <header className="bg-foreground pt-44 pb-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
             Schedule of Events
