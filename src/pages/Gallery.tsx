@@ -77,7 +77,7 @@ const Gallery = () => {
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
                 Get a glimpse of the art created by the artists you'll see across the Omaha metro this September.
               </p>
-              <p className="mx-auto mt-4 font-body text-base leading-relaxed text-muted-foreground">
+              <p className="mx-auto mt-4 font-body text-lg leading-relaxed text-muted-foreground">
                 Want to know more about each artist? Visit our{" "}
                 <Link to="/artists" className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors">
                   Artists page
