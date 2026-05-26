@@ -18,7 +18,7 @@ const FooterSignup = () => {
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = emailSchema.safeParse(email);
     if (!result.success) {
@@ -26,7 +26,16 @@ const FooterSignup = () => {
       return;
     }
     setError(null);
-    setSubmitted(true);
+    const res = await fetch("https://formspree.io/f/xgoqpoyk", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ email: result.data }),
+    });
+    if (res.ok) {
+      setSubmitted(true);
+    } else {
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   if (submitted) {
