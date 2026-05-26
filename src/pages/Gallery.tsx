@@ -8,6 +8,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { setPageMeta } from "@/lib/meta";
+import { addJsonLd, SITE_URL, breadcrumbSchema } from "@/lib/schema";
 import { galleryArtists } from "@/data/gallery";
 import { cn } from "@/lib/utils";
 
@@ -45,10 +46,28 @@ const Gallery = () => {
   }, [mediumFilter]);
 
   useEffect(() => {
+    return addJsonLd("gallery-jsonld", {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          name: "Artist Gallery — Heartland Plein Air Arts Festival",
+          description:
+            "Portfolio paintings from the 24 invited artists of the Heartland Plein Air Arts Festival, coming to the Omaha metro September 13–19, 2026.",
+          url: `${SITE_URL}/gallery`,
+          creator: { "@id": `${SITE_URL}/#organization` },
+          isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Heartland Plein Air Arts Festival" },
+        },
+        breadcrumbSchema("Gallery", "/gallery"),
+      ],
+    });
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Gallery | Heartland Plein Air Arts Festival";
+    document.title = "Artist Gallery | Heartland Plein Air Arts Festival";
     return setPageMeta(
-      "Browse paintings by all 23 artists in the Heartland Plein Air Arts Festival, September 13–19, 2026.",
+      "Browse portfolio paintings from the 24 invited artists of the Heartland Plein Air Arts Festival — coming to the Omaha metro September 13–19, 2026.",
     );
   }, []);
 
@@ -206,7 +225,7 @@ const Gallery = () => {
                             </div>
                           </div>
                         </button>
-                        <h3 className="px-3 pb-3 pt-2 font-display text-sm font-semibold text-foreground">
+                        <h3 className="px-3 pb-3 pt-2 font-display text-base font-semibold text-foreground">
                           {painting.title}
                         </h3>
                       </div>
@@ -231,7 +250,7 @@ const Gallery = () => {
                 type="button"
                 onClick={prev}
                 aria-label="Previous painting"
-                className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
+                className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 hidden md:inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
@@ -239,7 +258,7 @@ const Gallery = () => {
                 type="button"
                 onClick={next}
                 aria-label="Next painting"
-                className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
+                className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 hidden md:inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
@@ -268,9 +287,27 @@ const Gallery = () => {
                         </div>
                       </DialogDescription>
                     </DialogHeader>
-                    <p className="mt-6 font-body text-xs text-muted-foreground">
-                      {openIndex !== null ? openIndex + 1 : 0} / {filteredPaintings.length}
-                    </p>
+                    <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+                      <button
+                        type="button"
+                        onClick={prev}
+                        aria-label="Previous painting"
+                        className="inline-flex items-center gap-1 font-body text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                      >
+                        <ChevronLeft className="h-4 w-4" /> Prev
+                      </button>
+                      <p className="font-body text-xs text-muted-foreground">
+                        {openIndex !== null ? openIndex + 1 : 0} / {filteredPaintings.length}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={next}
+                        aria-label="Next painting"
+                        className="inline-flex items-center gap-1 font-body text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                      >
+                        Next <ChevronRight className="h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

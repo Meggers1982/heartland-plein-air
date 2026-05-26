@@ -17,8 +17,7 @@ function loadMapsScript(): Promise<any> {
       resolve(window.google);
       return;
     }
-    const key = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY;
-    const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
+    const key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
     if (!key) {
       reject(new Error("Google Maps key missing"));
       return;
@@ -29,7 +28,7 @@ function loadMapsScript(): Promise<any> {
     const s = document.createElement("script");
     s.id = SCRIPT_ID;
     s.async = true;
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&callback=__initFestivalMap${channel ? `&channel=${channel}` : ""}`;
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&callback=__initFestivalMap`;
     s.onerror = () => reject(new Error("Failed to load Google Maps"));
     document.head.appendChild(s);
   });

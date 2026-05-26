@@ -9,6 +9,8 @@ import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
 import { cn } from "@/lib/utils";
+import { addJsonLd, breadcrumbSchema, SITE_URL } from "@/lib/schema";
+import { setPageMeta } from "@/lib/meta";
 
 
 type Audience = "public" | "ticketed" | "artists";
@@ -61,7 +63,7 @@ const days: ScheduleDay[] = [
     title: "Artists Arrive",
     audience: "artists",
     narrative:
-      "The 25 invited artists gather for orientation. The calm before the paint flies.",
+      "The 24 invited artists gather for orientation. The calm before the paint flies.",
   },
   {
     id: "day-sep-14",
@@ -165,7 +167,7 @@ const days: ScheduleDay[] = [
     title: "Open to Everyone",
     audience: "public",
     narrative:
-      "You don't need an invitation for this one. The Public Exhibition and Auction throws open the doors so anyone can experience the full collection — every painting made during the week, displayed together for the first time. See the city through the eyes of 25 artists, then take a piece of it home.",
+      "You don't need an invitation for this one. The Public Exhibition and Auction throws open the doors so anyone can experience the full collection — every painting made during the week, displayed together for the first time. See the city through the eyes of 24 artists, then take a piece of it home.",
     events: [
       {
         time: "1 – 4 PM",
@@ -238,63 +240,36 @@ const Schedule = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Schedule of Events | Heartland Plein Air Arts Festival";
-    const desc =
-      "Full schedule for the Heartland Plein Air Arts Festival, September 12 – October 2, 2026 across the Omaha metro.";
+    document.title = "Schedule | Heartland Plein Air Arts Festival";
+    const cleanupMeta = setPageMeta(
+      "Quick Paint competitions, the Collector's Soirée (Sep 18), and the free Public Exhibition & Auction (Sep 19) — full event schedule across the Omaha metro, September 13–19, 2026.",
+    );
 
-    const ensureMeta = (name: string) => {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      return el;
-    };
-    ensureMeta("description").setAttribute("content", desc);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://ralston-plein-air.lovable.app/schedule");
-
-    // JSON-LD: one Event per public/ticketed day with concrete events
-    const ld = {
+    const cleanupLd = addJsonLd("schedule-jsonld", {
       "@context": "https://schema.org",
-      "@graph": days
-        .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
-        .flatMap((d) =>
-          d.events!.map((ev) => ({
-            "@type": "Event",
-            name: ev.name,
-            description: d.narrative,
-            startDate: d.id.replace("day-", "2026-").replace("sep-", "09-"),
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            eventStatus: "https://schema.org/EventScheduled",
-            location: ev.address
-              ? {
-                  "@type": "Place",
-                  name: ev.location,
-                  address: ev.address,
-                }
-              : undefined,
-            isAccessibleForFree: d.audience === "public",
-            organizer: {
-              "@type": "Organization",
-              name: "Heartland Plein Air Arts Festival",
-              url: "https://ralston-plein-air.lovable.app",
-            },
-          })),
-        ),
-    };
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.id = "schedule-jsonld";
-    script.text = JSON.stringify(ld);
-    document.head.appendChild(script);
+      "@graph": [
+        ...days
+          .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
+          .flatMap((d) => {
+            const date = d.id.replace("day-", "2026-").replace("sep-", "09-");
+            return d.events!.map((ev) => ({
+              "@type": "Event",
+              name: ev.name,
+              description: d.narrative,
+              startDate: date,
+              endDate: date,
+              eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+              eventStatus: "https://schema.org/EventScheduled",
+              location: ev.address
+                ? { "@type": "Place", name: ev.location, address: ev.address }
+                : undefined,
+              isAccessibleForFree: d.audience === "public",
+              organizer: { "@id": `${SITE_URL}/#organization` },
+            }));
+          }),
+        breadcrumbSchema("Schedule", "/schedule"),
+      ],
+    });
 
     const handleScroll = () => {
       setShowTopBtn(window.scrollY > 400);
@@ -302,7 +277,8 @@ const Schedule = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      document.getElementById("schedule-jsonld")?.remove();
+      cleanupMeta();
+      cleanupLd();
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -327,6 +303,9 @@ const Schedule = () => {
 
       <header id="main-content" tabIndex={-1} className="bg-foreground pt-44 pb-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
+          <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
+            September 13–19, 2026 · Omaha Metro
+          </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
             Schedule of Events
           </h1>
@@ -340,7 +319,7 @@ const Schedule = () => {
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <div className="mb-12">
-              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                 Browse by day
               </p>
               <ScheduleJumpNav items={weekItems} />
@@ -350,7 +329,7 @@ const Schedule = () => {
                 <em className="font-display text-primary">Plein air</em> — French for "open air" — is exactly what it sounds like. No studio, no reference photos, no do-overs. Just an artist, an easel, and whatever the light is doing right now.
               </p>
               <p>
-                For one week each September, 25 nationally recognized plein air artists descend on the Omaha metro to paint the neighborhoods, landmarks, and hidden corners that make this place worth capturing. Every painting is created on-site, in real time, in front of anyone who happens to wander by.
+                For one week each September, 24 nationally recognized plein air artists descend on the Omaha metro to paint the neighborhoods, landmarks, and hidden corners that make this place worth capturing. Every painting is created on-site, in real time, in front of anyone who happens to wander by.
               </p>
               <p>
                 All week-long painting events are <strong>free and open to the public</strong>. Artists will be working at locations throughout Douglas and Sarpy Counties — follow along on social media for daily location updates. There's no velvet rope. No admission fee. Just artists at work, and you're invited to watch.
@@ -365,7 +344,7 @@ const Schedule = () => {
         <div className="mx-auto max-w-6xl px-6">
           <AnimatedSection>
             <div className="mb-10 text-center">
-              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                 Where to find us
               </p>
               <h2 className="mb-4 font-display text-3xl font-bold text-foreground md:text-4xl">
@@ -412,7 +391,7 @@ const Schedule = () => {
             <AnimatedSection key={d.id} delay={i * 60}>
               <article id={d.id} className="scroll-mt-32 rounded-lg bg-card p-8 shadow-sm md:p-10">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                  <h2 className="font-display text-2xl font-bold tracking-tight text-primary">
+                  <h2 className="font-display text-3xl font-bold tracking-tight text-primary">
                     {d.dayShort}
                   </h2>
                   <span
@@ -430,7 +409,7 @@ const Schedule = () => {
                 {d.id === "day-online" && (
                   <a
                     href="#newsletter"
-                    className="mb-2 inline-flex items-center gap-2 rounded bg-primary px-5 py-2.5 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
+                    className="mb-2 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-xs font-bold uppercase tracking-[0.15em] text-primary-foreground shadow-md shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-lg"
                   >
                     Notify me when online sales open
                   </a>

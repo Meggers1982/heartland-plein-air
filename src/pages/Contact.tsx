@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { setPageMeta } from "@/lib/meta";
+import { addJsonLd, organizationSchema, breadcrumbSchema, SITE_URL } from "@/lib/schema";
 
 const contactSchema = z.object({
   name: z
@@ -47,16 +48,63 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    return addJsonLd("contact-jsonld", {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ContactPage",
+          name: "Contact — Heartland Plein Air Arts Festival",
+          url: `${SITE_URL}/contact`,
+          description:
+            "Contact the Heartland Plein Air Arts Festival for questions, sponsorship, volunteering, or press inquiries.",
+        },
+        {
+          ...organizationSchema,
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              telephone: "+14029539173",
+              email: "info@heartlandpleinair.org",
+              contactType: "customer service",
+              availableLanguage: "English",
+            },
+            {
+              "@type": "ContactPoint",
+              telephone: "+14023316677",
+              contactType: "sales",
+              availableLanguage: "English",
+            },
+          ],
+        },
+        breadcrumbSchema("Contact", "/contact"),
+      ],
+    });
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Contact | Heartland Plein Air Arts Festival";
+    document.title = "Contact Us | Heartland Plein Air Arts Festival";
     return setPageMeta(
-      "Get in touch with the Heartland Plein Air Arts Festival — questions, sponsorships, volunteer inquiries, and more.",
+      "Get in touch with the Heartland Plein Air Arts Festival. Questions about events, sponsorship opportunities, volunteering, or press — we'd love to hear from you.",
     );
   }, []);
 
   const update = <K extends keyof FormState>(key: K, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
+  };
+
+  const handleBlur = <K extends keyof FormState>(key: K) => {
+    const result = contactSchema.shape[key].safeParse(form[key]);
+    if (!result.success) {
+      setErrors((e) => ({ ...e, [key]: result.error.issues[0]?.message }));
+    }
+  };
+
+  const resetForm = () => {
+    setForm({ name: "", email: "", subject: "", message: "" });
+    setErrors({});
+    setSubmitted(false);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,7 +190,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-foreground/50 text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <Facebook className="h-4 w-4" />
                 </a>
@@ -151,7 +199,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-foreground/50 text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <Instagram className="h-4 w-4" />
                 </a>
@@ -177,13 +225,20 @@ const Contact = () => {
                   <p className="max-w-md font-body text-base text-muted-foreground">
                     Thanks for reaching out. We'll get back to you as soon as we can.
                   </p>
+                  <button
+                    type="button"
+                    onClick={resetForm}
+                    className="mt-6 font-body text-sm text-primary underline underline-offset-4 transition-colors hover:text-primary/70"
+                  >
+                    Send another message
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-6">
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-1.5">
-                      <label htmlFor="contact-name" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                        Name
+                      <label htmlFor="contact-name" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                        Name <span aria-hidden="true" className="text-primary">*</span>
                       </label>
                       <input
                         id="contact-name"
@@ -191,9 +246,11 @@ const Contact = () => {
                         placeholder="Your name"
                         value={form.name}
                         onChange={(e) => update("name", e.target.value)}
+                        onBlur={() => handleBlur("name")}
                         maxLength={100}
+                        aria-required="true"
                         aria-invalid={errors.name ? "true" : "false"}
-                        className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
+                        className="w-full rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.name && (
                         <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
@@ -202,8 +259,8 @@ const Contact = () => {
                       )}
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="contact-email" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                        Email
+                      <label htmlFor="contact-email" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                        Email <span aria-hidden="true" className="text-primary">*</span>
                       </label>
                       <input
                         id="contact-email"
@@ -211,9 +268,11 @@ const Contact = () => {
                         placeholder="hello@example.com"
                         value={form.email}
                         onChange={(e) => update("email", e.target.value)}
+                        onBlur={() => handleBlur("email")}
                         maxLength={255}
+                        aria-required="true"
                         aria-invalid={errors.email ? "true" : "false"}
-                        className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
+                        className="w-full rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.email && (
                         <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
@@ -224,8 +283,8 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="contact-subject" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                      Subject
+                    <label htmlFor="contact-subject" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                      Subject <span aria-hidden="true" className="text-primary">*</span>
                     </label>
                     <input
                       id="contact-subject"
@@ -233,9 +292,11 @@ const Contact = () => {
                       placeholder="What can we help you with?"
                       value={form.subject}
                       onChange={(e) => update("subject", e.target.value)}
+                      onBlur={() => handleBlur("subject")}
                       maxLength={150}
+                      aria-required="true"
                       aria-invalid={errors.subject ? "true" : "false"}
-                      className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
+                      className="w-full rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     {errors.subject && (
                       <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
@@ -245,8 +306,8 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="contact-message" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                      Message
+                    <label htmlFor="contact-message" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                      Message <span aria-hidden="true" className="text-primary">*</span>
                     </label>
                     <textarea
                       id="contact-message"
@@ -254,15 +315,24 @@ const Contact = () => {
                       placeholder="Tell us more..."
                       value={form.message}
                       onChange={(e) => update("message", e.target.value)}
+                      onBlur={() => handleBlur("message")}
                       maxLength={2000}
+                      aria-required="true"
                       aria-invalid={errors.message ? "true" : "false"}
-                      className="w-full resize-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
+                      className="w-full resize-none rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
-                    {errors.message && (
-                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
-                        {errors.message}
+                    <div className="flex items-start justify-between px-1">
+                      {errors.message ? (
+                        <p className="font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                          {errors.message}
+                        </p>
+                      ) : (
+                        <span />
+                      )}
+                      <p className="ml-2 shrink-0 font-body text-xs text-muted-foreground/60">
+                        {form.message.length} / 2000
                       </p>
-                    )}
+                    </div>
                   </div>
 
                   <div className="pt-2">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { setPageMeta } from "@/lib/meta";
+import { addJsonLd, organizationSchema, festivalEventSchema, SITE_URL } from "@/lib/schema";
 import heroImage from "@/assets/hero-pleinair.jpg";
 import artistImage from "@/assets/artist-painting.jpg";
 import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
@@ -24,27 +25,35 @@ import BackToTop from "@/components/BackToTop";
 const highlights = [
   {
     icon: Users,
-    title: "25 National Artists",
+    title: "24 National Artists",
     description:
-      "25 nationally recognized painters, working outdoors across the metro for a full week.",
+      "24 nationally recognized painters, working outdoors across the metro for a full week.",
+    link: "/artists",
+    linkLabel: "Meet the Artists",
   },
   {
     icon: MapPin,
     title: "20+ Scenic Locations",
     description:
       "Parks, historic neighborhoods, scenic overlooks, and everyday places made interesting by the right set of eyes.",
+    link: "/schedule",
+    linkLabel: "View Locations",
   },
   {
     icon: Eye,
     title: "Watch Artists Create",
     description:
       "Follow artists across the metro, watch the work happen in real time, and talk to them as they paint.",
+    link: "/schedule",
+    linkLabel: "See the Schedule",
   },
   {
     icon: ShoppingBag,
     title: "Exhibition & Auction",
     description:
       "Every painting in the exhibition was made on-site that week — what you're buying is a record of this place in September 2026.",
+    link: "/gallery",
+    linkLabel: "Browse the Gallery",
   },
 ];
 
@@ -100,9 +109,20 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
+    return addJsonLd("home-jsonld", {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: "Heartland Plein Air Arts Festival" },
+        organizationSchema,
+        festivalEventSchema,
+      ],
+    });
+  }, []);
+
+  useEffect(() => {
     document.title = "Heartland Plein Air Arts Festival | September 13–19, 2026";
     return setPageMeta(
-      "Experience 25 nationally recognized artists painting Douglas & Sarpy County outdoors at the Heartland Plein Air Arts Festival, September 13–19, 2026.",
+      "24 nationally recognized artists paint the Omaha metro outdoors, September 13–19, 2026. Free to watch all week. Exhibition and auction open to the public September 19.",
     );
   }, []);
 
@@ -141,7 +161,7 @@ const Index = () => {
             className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "600ms" }}
           >
-            Art, out in the open. Twenty-five nationally recognized artists,
+            Art, out in the open. Twenty-four nationally recognized artists,
             painting Douglas and Sarpy County exactly as it looks in September.
           </p>
           <div
@@ -174,12 +194,12 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               About the Festival
             </p>
-            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
+            <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
               Art Made Here
             </h2>
             <div className="space-y-4 font-body text-base leading-relaxed text-muted-foreground">
               <p>
-                Walk up to a nationally recognized artist mid-stroke — on a park path, outside a historic building, along the riverfront — and they'll probably talk to you. For one week this September, 25 artists spread across Douglas and Sarpy Counties and paint what they find, outdoors, in front of anyone who happens to walk by.
+                Walk up to a nationally recognized artist mid-stroke — on a park path, outside a historic building, along the riverfront — and they'll probably talk to you. For one week this September, 24 artists spread across Douglas and Sarpy Counties and paint what they find, outdoors, in front of anyone who happens to walk by.
               </p>
               <p>
                 No studio, no reference photos, no second session. The light changes in real time and so does the work. These are paintings made fast, from life, in the actual weather of a September afternoon — and that urgency is what makes them unlike anything you'd find in a gallery.
@@ -206,29 +226,38 @@ const Index = () => {
       <BrushStrokeDivider />
 
       {/* Highlights */}
-      <section id="highlights" className="bg-secondary/50 pt-24 pb-12">
+      <section id="highlights" className="bg-secondary/50 pt-24 pb-16">
         <div className="mx-auto max-w-6xl px-6">
-          <AnimatedSection className="mb-16 text-center">
+          <AnimatedSection className="mb-10 text-center">
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               What to Expect
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
               Festival Highlights
             </h2>
           </AnimatedSection>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {highlights.map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 100}>
-                <div className="group rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
-                    <item.icon className="h-6 w-6 text-primary" />
+                <div className="group flex h-full flex-col rounded-lg border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                  <div className="border-t-2 border-primary/40 rounded-t-lg" />
+                  <div className="flex flex-1 flex-col p-7">
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
+                      <item.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
+                      {item.title}
+                    </h3>
+                    <p className="font-body text-sm leading-relaxed text-muted-foreground">
+                      {item.description}
+                    </p>
+                    <Link
+                      to={item.link}
+                      className="mt-auto pt-5 font-body text-sm font-semibold text-primary transition-colors hover:text-primary/70"
+                    >
+                      {item.linkLabel} →
+                    </Link>
                   </div>
-                  <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </p>
                 </div>
               </AnimatedSection>
             ))}
@@ -248,7 +277,7 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Where the Art Happens
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
               Painting Locations
             </h2>
             <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-accent" />
@@ -282,7 +311,7 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Questions?
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
               Frequently Asked Questions
             </h2>
           </AnimatedSection>

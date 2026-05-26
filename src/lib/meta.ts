@@ -1,11 +1,21 @@
-export function setPageMeta(description: string): () => void {
-  let descEl = document.querySelector('meta[name="description"]');
-  if (!descEl) {
-    descEl = document.createElement("meta");
-    descEl.setAttribute("name", "description");
-    document.head.appendChild(descEl);
+function upsertMeta(attrKey: string, attrVal: string, content: string) {
+  let el = document.querySelector(`meta[${attrKey}="${attrVal}"]`) as HTMLMetaElement | null;
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attrKey, attrVal);
+    document.head.appendChild(el);
   }
-  descEl.setAttribute("content", description);
+  el.setAttribute("content", content);
+}
+
+export function setPageMeta(description: string): () => void {
+  const title = document.title;
+
+  upsertMeta("name", "description", description);
+  upsertMeta("property", "og:title", title);
+  upsertMeta("property", "og:description", description);
+  upsertMeta("name", "twitter:title", title);
+  upsertMeta("name", "twitter:description", description);
 
   let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
   if (!canonical) {

@@ -52,7 +52,7 @@ const SiteNav = () => {
         >
           <img
             src={heartlandLogo}
-            alt="Heartland Plein Air Arts Festival"
+            alt=""
             className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
           />
         </Link>

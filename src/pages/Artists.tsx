@@ -8,6 +8,8 @@ import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 import { artists, awardsJudge, placeholderHeadshot } from "@/data/artists";
+import { addJsonLd, SITE_URL, breadcrumbSchema } from "@/lib/schema";
+import { setPageMeta } from "@/lib/meta";
 import { cn } from "@/lib/utils";
 
 const MEDIUMS = ["All", "Oil", "Watercolor", "Pastel", "Oil & Pastel", "Mixed"] as const;
@@ -44,34 +46,38 @@ const Artists = () => {
   const active = openIndex !== null ? filteredArtists[openIndex] : null;
 
   useEffect(() => {
+    return addJsonLd("artists-jsonld", {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ItemList",
+          name: "Invited Artists — Heartland Plein Air Arts Festival 2026",
+          url: `${SITE_URL}/artists`,
+          numberOfItems: artists.length,
+          creator: { "@id": `${SITE_URL}/#organization` },
+          itemListElement: artists.map((artist, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Person",
+              name: artist.name,
+              jobTitle: "Plein Air Artist",
+              address: { "@type": "PostalAddress", addressLocality: artist.location },
+              ...(artist.website ? { url: artist.website } : {}),
+            },
+          })),
+        },
+        breadcrumbSchema("Artists", "/artists"),
+      ],
+    });
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Artists | Heartland Plein Air Arts Festival";
-
-    const desc =
-      "Meet the 25 nationally recognized artists invited to paint the Omaha metro during the Heartland Plein Air Arts Festival, September 13–19, 2026.";
-
-    const ensureMeta = (name: string) => {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      return el;
-    };
-    ensureMeta("description").setAttribute("content", desc);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://ralston-plein-air.lovable.app/artists");
-
-    return () => {
-      canonical?.remove();
-    };
+    document.title = "Meet the Artists | Heartland Plein Air Arts Festival";
+    return setPageMeta(
+      "Browse the 24 nationally recognized artists invited to paint the Omaha metro at the Heartland Plein Air Arts Festival. View bios, mediums, and styles — then find them in the field September 13–19, 2026.",
+    );
   }, []);
 
   return (
@@ -88,7 +94,7 @@ const Artists = () => {
                 Meet the Artists
               </h1>
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
-                Every painter at the Heartland Plein Air Arts Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
+                Every painter at the Heartland Plein Air Arts Festival is here by invitation. This year, 24 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
               <a href="#awards-judge" className="mt-4 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
                 Meet This Year's Judge →
@@ -192,7 +198,7 @@ const Artists = () => {
                 <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                   Awards
                 </p>
-                <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+                <h2 className="font-display text-4xl font-bold text-foreground">
                   Awards Judge
                 </h2>
               </AnimatedSection>
@@ -226,17 +232,17 @@ const Artists = () => {
                     </div>
                     <div className="mt-6 flex gap-3">
                       {awardsJudge.website && (
-                        <a href={awardsJudge.website} target="_blank" rel="noopener noreferrer" aria-label="Website" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+                        <a href={awardsJudge.website} target="_blank" rel="noopener noreferrer" aria-label="Website" className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
                           <Globe className="h-5 w-5" />
                         </a>
                       )}
                       {awardsJudge.instagram && (
-                        <a href={awardsJudge.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+                        <a href={awardsJudge.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
                           <Instagram className="h-5 w-5" />
                         </a>
                       )}
                       {awardsJudge.facebook && (
-                        <a href={awardsJudge.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
+                        <a href={awardsJudge.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20">
                           <Facebook className="h-5 w-5" />
                         </a>
                       )}
@@ -259,7 +265,7 @@ const Artists = () => {
                 type="button"
                 onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx - 1 + filteredArtists.length) % filteredArtists.length)}
                 aria-label="Previous artist"
-                className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
+                className="absolute -left-14 top-1/2 z-10 -translate-y-1/2 hidden md:inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
@@ -267,7 +273,7 @@ const Artists = () => {
                 type="button"
                 onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx + 1) % filteredArtists.length)}
                 aria-label="Next artist"
-                className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
+                className="absolute -right-14 top-1/2 z-10 -translate-y-1/2 hidden md:inline-flex h-12 w-12 items-center justify-center rounded-full bg-background text-foreground shadow-lg ring-1 ring-border transition-colors hover:bg-muted"
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
@@ -308,22 +314,43 @@ const Artists = () => {
                     {(active.website || active.instagram || active.facebook) && (
                       <div className="mt-6 flex gap-3">
                         {active.website && (
-                          <a href={active.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20" aria-label="Website">
+                          <a href={active.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20" aria-label="Website">
                             <Globe className="h-5 w-5" />
                           </a>
                         )}
                         {active.instagram && (
-                          <a href={active.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20" aria-label="Instagram">
+                          <a href={active.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20" aria-label="Instagram">
                             <Instagram className="h-5 w-5" />
                           </a>
                         )}
                         {active.facebook && (
-                          <a href={active.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20" aria-label="Facebook">
+                          <a href={active.facebook} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20" aria-label="Facebook">
                             <Facebook className="h-5 w-5" />
                           </a>
                         )}
                       </div>
                     )}
+                    <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+                      <button
+                        type="button"
+                        onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx - 1 + filteredArtists.length) % filteredArtists.length)}
+                        aria-label="Previous artist"
+                        className="inline-flex items-center gap-1 font-body text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                      >
+                        <ChevronLeft className="h-4 w-4" /> Prev
+                      </button>
+                      <p className="font-body text-xs text-muted-foreground">
+                        {openIndex !== null ? openIndex + 1 : 0} of {filteredArtists.length}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setOpenIndex((idx) => idx === null ? idx : (idx + 1) % filteredArtists.length)}
+                        aria-label="Next artist"
+                        className="inline-flex items-center gap-1 font-body text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground md:hidden"
+                      >
+                        Next <ChevronRight className="h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

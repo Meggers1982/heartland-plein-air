@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
+import { setPageMeta } from "@/lib/meta";
+import { addJsonLd, breadcrumbSchema } from "@/lib/schema";
 import {
   Accordion,
   AccordionContent,
@@ -58,7 +60,7 @@ const categories: FaqCategory[] = [
       {
         q: "How many artists participate in the festival?",
         a: [
-          "The inaugural Heartland Plein Air Festival brings together 25 nationally acclaimed invited artists representing 20 states. The festival also includes an Open Division for artists who apply through the website, so the total number of participating artists will be larger.",
+          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists representing 20 states, plus Judge Rick J. Delanty. The festival also includes an Open Division for artists who apply through the website, so the total number of participating artists will be larger.",
         ],
       },
       {
@@ -219,6 +221,33 @@ const Faq = () => {
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState<string>(categories[0].id);
 
+  useEffect(() => {
+    return addJsonLd("faq-jsonld", {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "FAQPage",
+          mainEntity: categories.flatMap((c) =>
+            c.items.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: { "@type": "Answer", text: item.a.join(" ") },
+            }))
+          ),
+        },
+        breadcrumbSchema("FAQ", "/faq"),
+      ],
+    });
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = "Frequently Asked Questions | Heartland Plein Air Arts Festival";
+    return setPageMeta(
+      "Answers to common questions about the Heartland Plein Air Arts Festival — tickets, events, artists, the auction, and how to get involved in September 2026.",
+    );
+  }, []);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return categories;
@@ -263,32 +292,35 @@ const Faq = () => {
       <SiteNav />
 
       {/* Hero */}
-      <section id="main-content" tabIndex={-1} className="relative overflow-hidden bg-primary/10 pt-44 pb-24">
+      <header id="main-content" tabIndex={-1} className="relative overflow-hidden bg-foreground pt-44 pb-16">
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <AnimatedSection>
-            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
+            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
               Help Center
             </p>
-            <h1 className="mb-6 font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
+            <h1 className="mb-6 font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
               Everything You Need to Know Before You Go
             </h1>
-            <p className="mx-auto mb-8 max-w-2xl font-body text-lg font-light leading-relaxed text-muted-foreground">
+            <p className="mx-auto mb-3 max-w-2xl font-body text-lg font-light leading-relaxed text-secondary/80">
               From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Arts Festival, or browse by topic below.
+            </p>
+            <p className="mb-8 font-body text-sm text-secondary/50">
+              {totalCount} questions across {categories.length} topics
             </p>
             <div className="relative mx-auto max-w-xl">
               <label htmlFor="faq-search" className="sr-only">Search FAQs</label>
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-secondary/60" />
               <Input
                 id="faq-search"
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search questions… (e.g. tickets, parking, kids)"
-                className="h-14 rounded-full border-2 border-border bg-background pl-12 pr-5 font-body text-base shadow-sm focus-visible:ring-primary"
+                className="h-14 rounded-full border-2 border-secondary/20 bg-secondary/10 pl-12 pr-5 font-body text-base text-secondary placeholder:text-secondary/50 shadow-sm focus-visible:ring-accent"
               />
             </div>
             <div className="mt-8">
-              <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-secondary/70">
                 Browse by topic
               </p>
               <nav className="flex flex-wrap justify-center gap-2">
@@ -299,8 +331,8 @@ const Faq = () => {
                     className={cn(
                       "rounded-full border px-4 py-2 font-body text-sm transition-colors",
                       activeId === c.id
-                        ? "border-primary/40 bg-primary/10 font-semibold text-primary"
-                        : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
+                        ? "border-accent/40 bg-accent/15 font-semibold text-accent"
+                        : "border-secondary/20 bg-secondary/10 text-secondary/70 hover:bg-secondary/20 hover:text-secondary",
                     )}
                   >
                     {c.title}
@@ -311,7 +343,7 @@ const Faq = () => {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </header>
 
       <BrushStrokeDivider />
 

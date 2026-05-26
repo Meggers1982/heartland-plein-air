@@ -116,9 +116,6 @@
     font-family: var(--font-display);
   }
 
-  h1 {
-    font-style: italic;
-  }
 
   /* Global keyboard focus indicator — applies to all interactive elements
      when navigated by keyboard. Elements with explicit focus:ring-* classes
