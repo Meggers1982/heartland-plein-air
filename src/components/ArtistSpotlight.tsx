@@ -1,33 +1,45 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { artists, placeholderHeadshot } from "@/data/artists";
 
 const ROTATION_MS = 6000;
+const FADE_MS = 350;
 
 const ArtistSpotlight = () => {
   const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
   const [paused, setPaused] = useState(false);
   const reducedMotionRef = useRef(false);
+  const indexRef = useRef(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     reducedMotionRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
+  const jumpTo = useCallback((next: number) => {
+    indexRef.current = next;
+    if (reducedMotionRef.current) { setIndex(next); return; }
+    setVisible(false);
+    setTimeout(() => { setIndex(next); setVisible(true); }, FADE_MS);
+  }, []);
+
+  const go = useCallback((dir: 1 | -1) => {
+    jumpTo((indexRef.current + dir + artists.length) % artists.length);
+  }, [jumpTo]);
+
   useEffect(() => {
     if (paused || reducedMotionRef.current) return;
     const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % artists.length);
+      jumpTo((indexRef.current + 1) % artists.length);
     }, ROTATION_MS);
     return () => window.clearInterval(id);
-  }, [paused]);
+  }, [paused, jumpTo]);
 
   const artist = artists[index];
   const bioPreview = artist.bio.split("\n\n")[0];
-
-  const go = (dir: 1 | -1) => setIndex((i) => (i + dir + artists.length) % artists.length);
 
   return (
     <section id="artist-spotlight" className="bg-secondary/40 py-24">
@@ -61,19 +73,18 @@ const ArtistSpotlight = () => {
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
             >
-              <div className="grid md:grid-cols-2 md:h-[520px]">
+              <div className={`grid md:grid-cols-2 md:h-[520px] transition-opacity ease-in-out ${visible ? "opacity-100 duration-500" : "opacity-0 duration-200"}`}>
                 <div className="aspect-square md:aspect-auto md:h-full overflow-hidden bg-muted">
                   <img
-                    key={artist.name}
                     src={artist.src}
                     alt={artist.alt ?? artist.name}
-                    className="h-full w-full object-cover animate-in fade-in slide-in-from-right-8 duration-700 ease-out"
-                    style={{ objectPosition: artist.objectPosition ?? "center", willChange: "transform, opacity" }}
+                    className="h-full w-full object-cover"
+                    style={{ objectPosition: artist.objectPosition ?? "center" }}
                     onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                   />
                 </div>
                 <div className="flex flex-col justify-center p-8 md:p-10 md:h-full md:overflow-hidden">
-                  <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out" style={{ willChange: "transform, opacity" }}>
+                  <div>
                     <h3 className="font-display text-3xl font-semibold text-foreground">
                       {artist.name}
                     </h3>
@@ -131,7 +142,7 @@ const ArtistSpotlight = () => {
               <button
                 key={a.name}
                 type="button"
-                onClick={() => setIndex(i)}
+                onClick={() => jumpTo(i)}
                 aria-label={`Show ${a.name}`}
                 aria-current={i === index}
                 className={`h-2 rounded-full transition-all ${
