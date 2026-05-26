@@ -65,7 +65,7 @@ const Contact = () => {
             {
               "@type": "ContactPoint",
               telephone: "+14029539173",
-              email: "info@heartlandpleinair.org",
+              email: "ralstoncreativedistrict@gmail.com",
               contactType: "customer service",
               availableLanguage: "English",
             },
@@ -132,7 +132,7 @@ const Contact = () => {
     if (res.ok && json.ok !== false) {
       setSubmitted(true);
     } else {
-      setSubmitError("Something went wrong. Please email us directly at info@heartlandpleinair.org.");
+      setSubmitError("Something went wrong. Please email us directly at ralstoncreativedistrict@gmail.com.");
     }
   };
 
@@ -185,10 +185,10 @@ const Contact = () => {
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <a
-                  href="mailto:info@heartlandpleinair.org"
+                  href="mailto:ralstoncreativedistrict@gmail.com"
                   className="transition-colors hover:text-primary"
                 >
-                  info@heartlandpleinair.org
+                  ralstoncreativedistrict@gmail.com
                 </a>
               </div>
             </div>
