@@ -5,7 +5,6 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { artists, placeholderHeadshot } from "@/data/artists";
 
 const ROTATION_MS = 6000;
-const FADE_MS = 350;
 
 const ArtistSpotlight = () => {
   const [index, setIndex] = useState(0);
@@ -13,6 +12,7 @@ const ArtistSpotlight = () => {
   const [paused, setPaused] = useState(false);
   const reducedMotionRef = useRef(false);
   const indexRef = useRef(0);
+  const fadingRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -20,10 +20,11 @@ const ArtistSpotlight = () => {
   }, []);
 
   const jumpTo = useCallback((next: number) => {
+    if (fadingRef.current) return;
     indexRef.current = next;
     if (reducedMotionRef.current) { setIndex(next); return; }
+    fadingRef.current = true;
     setVisible(false);
-    setTimeout(() => { setIndex(next); setVisible(true); }, FADE_MS);
   }, []);
 
   const go = useCallback((dir: 1 | -1) => {
@@ -73,7 +74,15 @@ const ArtistSpotlight = () => {
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
             >
-              <div className={`grid md:grid-cols-2 md:h-[520px] transition-opacity ease-in-out ${visible ? "opacity-100 duration-500" : "opacity-0 duration-200"}`}>
+              <div
+                className={`grid md:grid-cols-2 md:h-[520px] transition-opacity ease-in-out ${visible ? "opacity-100 duration-500" : "opacity-0 duration-200"}`}
+                onTransitionEnd={(e) => {
+                  if (e.propertyName !== "opacity" || visible) return;
+                  setIndex(indexRef.current);
+                  setVisible(true);
+                  fadingRef.current = false;
+                }}
+              >
                 <div className="aspect-square md:aspect-auto md:h-full overflow-hidden bg-muted">
                   <img
                     src={artist.src}
