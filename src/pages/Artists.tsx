@@ -76,7 +76,7 @@ const Artists = () => {
     window.scrollTo(0, 0);
     document.title = "Meet the Artists | Heartland Plein Air Arts Festival";
     return setPageMeta(
-      "Browse the 24 nationally recognized artists invited to paint the Omaha metro at the Heartland Plein Air Arts Festival. View bios, mediums, and styles — then find them in the field September 13–19, 2026.",
+      "Browse the nationally recognized artists invited to paint the Omaha metro at the Heartland Plein Air Arts Festival. View bios, mediums, and styles — then find them in the field September 13–19, 2026.",
     );
   }, []);
 
@@ -94,7 +94,7 @@ const Artists = () => {
                 Meet the Artists
               </h1>
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
-                Every painter at the Heartland Plein Air Arts Festival is here by invitation. This year, 24 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
+                Every painter at the Heartland Plein Air Arts Festival is here by invitation. Nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
               <a href="#awards-judge" className="mt-4 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
                 Meet This Year's Judge →

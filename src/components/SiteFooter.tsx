@@ -111,7 +111,7 @@ const SiteFooter = () => {
               />
             </Link>
             <p className="mt-4 font-body text-sm leading-relaxed text-foreground/70">
-              The Heartland Plein Air Arts Festival brings 24 nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
+              The Heartland Plein Air Arts Festival brings nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
             </p>
           </div>
 

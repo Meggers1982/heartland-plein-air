@@ -63,7 +63,7 @@ const days: ScheduleDay[] = [
     title: "Artists Arrive",
     audience: "artists",
     narrative:
-      "The 24 invited artists gather for orientation. The calm before the paint flies.",
+      "The invited artists gather for orientation. The calm before the paint flies.",
   },
   {
     id: "day-sep-14",
@@ -167,7 +167,7 @@ const days: ScheduleDay[] = [
     title: "Open to Everyone",
     audience: "public",
     narrative:
-      "You don't need an invitation for this one. The Public Exhibition and Auction throws open the doors so anyone can experience the full collection — every painting made during the week, displayed together for the first time. See the city through the eyes of 24 artists, then take a piece of it home.",
+      "You don't need an invitation for this one. The Public Exhibition and Auction throws open the doors so anyone can experience the full collection — every painting made during the week, displayed together for the first time. See the city through the eyes of the artists, then take a piece of it home.",
     events: [
       {
         time: "1 – 4 PM",
@@ -329,7 +329,7 @@ const Schedule = () => {
                 <em className="font-display text-primary">Plein air</em> — French for "open air" — is exactly what it sounds like. No studio, no reference photos, no do-overs. Just an artist, an easel, and whatever the light is doing right now.
               </p>
               <p>
-                For one week each September, 24 nationally recognized plein air artists descend on the Omaha metro to paint the neighborhoods, landmarks, and hidden corners that make this place worth capturing. Every painting is created on-site, in real time, in front of anyone who happens to wander by.
+                For one week each September, nationally recognized plein air artists descend on the Omaha metro to paint the neighborhoods, landmarks, and hidden corners that make this place worth capturing. Every painting is created on-site, in real time, in front of anyone who happens to wander by.
               </p>
               <p>
                 All week-long painting events are <strong>free and open to the public</strong>. Artists will be working at locations throughout Douglas and Sarpy Counties — follow along on social media for daily location updates. There's no velvet rope. No admission fee. Just artists at work, and you're invited to watch.

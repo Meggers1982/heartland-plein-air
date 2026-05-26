@@ -24,9 +24,9 @@ import BackToTop from "@/components/BackToTop";
 const highlights = [
   {
     icon: Users,
-    title: "24 National Artists",
+    title: "Invited Artists",
     description:
-      "24 nationally recognized painters, working outdoors across the metro for a full week.",
+      "Nationally recognized painters, working outdoors across the metro for a full week.",
     link: "/artists",
     linkLabel: "Meet the Artists",
   },
@@ -121,7 +121,7 @@ const Index = () => {
   useEffect(() => {
     document.title = "Heartland Plein Air Arts Festival | September 13–19, 2026";
     return setPageMeta(
-      "Omaha becomes a canvas. Watch 24 nationally recognized artists paint it live, Sept. 13–19. Free all week. Exhibition and auction Sept. 19.",
+      "Omaha becomes a canvas. Watch nationally recognized artists paint it live, Sept. 13–19. Free all week. Exhibition and auction Sept. 19.",
     );
   }, []);
 
@@ -160,7 +160,7 @@ const Index = () => {
             className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "600ms" }}
           >
-            Art, out in the open. Twenty-four nationally recognized artists,
+            Art, out in the open. Nationally recognized artists,
             painting Douglas and Sarpy County exactly as it looks in September.
           </p>
           <div
@@ -198,7 +198,7 @@ const Index = () => {
             </h2>
             <div className="space-y-4 font-body text-base leading-relaxed text-muted-foreground">
               <p>
-                Walk up to a nationally recognized artist mid-stroke — on a park path, outside a historic building, along the riverfront — and they'll probably talk to you. For one week this September, 24 artists spread across Douglas and Sarpy Counties and paint what they find, outdoors, in front of anyone who happens to walk by.
+                Walk up to a nationally recognized artist mid-stroke — on a park path, outside a historic building, along the riverfront — and they'll probably talk to you. For one week this September, invited artists spread across Douglas and Sarpy Counties and paint what they find, outdoors, in front of anyone who happens to walk by.
               </p>
               <p>
                 No studio, no reference photos, no second session. The light changes in real time and so does the work. These are paintings made fast, from life, in the actual weather of a September afternoon — and that urgency is what makes them unlike anything you'd find in a gallery.

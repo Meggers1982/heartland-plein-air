@@ -50,7 +50,7 @@ export const festivalEventSchema = {
   "@id": `${SITE_URL}/#festival`,
   name: "Heartland Plein Air Arts Festival",
   description:
-    "24 nationally recognized plein air artists paint the Omaha metro outdoors for a week. Free to watch all week. Public Exhibition and Auction open to everyone September 19.",
+    "Nationally recognized plein air artists paint the Omaha metro outdoors for a week. Free to watch all week. Public Exhibition and Auction open to everyone September 19.",
   startDate: "2026-09-13",
   endDate: "2026-09-19",
   eventStatus: "https://schema.org/EventScheduled",

@@ -53,7 +53,7 @@ const Gallery = () => {
           "@type": "CollectionPage",
           name: "Artist Gallery — Heartland Plein Air Arts Festival",
           description:
-            "Portfolio paintings from the 24 invited artists of the Heartland Plein Air Arts Festival, coming to the Omaha metro September 13–19, 2026.",
+            "Portfolio paintings from the invited artists of the Heartland Plein Air Arts Festival, coming to the Omaha metro September 13–19, 2026.",
           url: `${SITE_URL}/gallery`,
           creator: { "@id": `${SITE_URL}/#organization` },
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Heartland Plein Air Arts Festival" },
@@ -67,7 +67,7 @@ const Gallery = () => {
     window.scrollTo(0, 0);
     document.title = "Artist Gallery | Heartland Plein Air Arts Festival";
     return setPageMeta(
-      "Browse portfolio paintings from the 24 invited artists of the Heartland Plein Air Arts Festival — coming to the Omaha metro September 13–19, 2026.",
+      "Browse portfolio paintings from the invited artists of the Heartland Plein Air Arts Festival — coming to the Omaha metro September 13–19, 2026.",
     );
   }, []);
 

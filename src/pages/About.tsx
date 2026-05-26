@@ -28,7 +28,7 @@ const About = () => {
     window.scrollTo(0, 0);
     document.title = "About the Festival | Heartland Plein Air Arts Festival";
     return setPageMeta(
-      "Learn how 24 nationally acclaimed artists, a Nebraska Arts Council grant, and Ralston's HINGE Creative District come together for a week of outdoor painting across the Omaha metro, September 13–19, 2026.",
+      "Learn how nationally acclaimed artists, a Nebraska Arts Council grant, and Ralston's HINGE Creative District come together for a week of outdoor painting across the Omaha metro, September 13–19, 2026.",
     );
   }, []);
 
@@ -53,7 +53,7 @@ const About = () => {
           <AnimatedSection>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                Every September, 24 nationally recognized artists spend a week painting the greater Omaha metro — outdoors, in public, in real time. <em className="font-display text-primary">Plein air</em> is French for "open air": no studio, no reference photos, just an artist standing in a place and responding to the light as it actually is. The inaugural Heartland Plein Air Arts Festival runs <strong>September 13–19, 2026</strong>, with painters working across more than 20 locations in Douglas and Sarpy Counties.
+                Every September, nationally recognized artists spend a week painting the greater Omaha metro — outdoors, in public, in real time. <em className="font-display text-primary">Plein air</em> is French for "open air": no studio, no reference photos, just an artist standing in a place and responding to the light as it actually is. The inaugural Heartland Plein Air Arts Festival runs <strong>September 13–19, 2026</strong>, with painters working across more than 20 locations in Douglas and Sarpy Counties.
               </p>
               <p>
                 Every painting is created on-site during festival week. Every one is one of a kind.
@@ -67,9 +67,8 @@ const About = () => {
       <section className="border-y border-border bg-muted py-10">
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedSection>
-            <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
+            <div className="grid grid-cols-3 gap-8 text-center">
               {[
-                { value: "24", label: "Invited Artists" },
                 { value: "20", label: "States Represented" },
                 { value: "20+", label: "Painting Locations" },
                 { value: "$10,000+", label: "in Awards" },

@@ -60,13 +60,13 @@ const categories: FaqCategory[] = [
       {
         q: "How many artists participate in the festival?",
         a: [
-          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists representing 20 states, plus Judge Rick J. Delanty. The festival also includes an Open Division for artists who apply through the website, so the total number of participating artists will be larger.",
+          "The inaugural Heartland Plein Air Festival brings together nationally acclaimed invited artists representing 20 states, plus Judge Rick J. Delanty. The festival also includes an Open Division for artists who apply through the website, so the total number of participating artists will be larger.",
         ],
       },
       {
         q: "Are the artists juried or selected through an application process?",
         a: [
-          "The festival runs two separate tracks. The 24 featured artists were personally invited by the festival organizers — they're nationally recognized painters selected for the Invitational Division. A separate Open Division is available to additional artists through an application process. Check back to find application details closer to the event.",
+          "The festival runs two separate tracks. The featured artists were personally invited by the festival organizers — they're nationally recognized painters selected for the Invitational Division. A separate Open Division is available to additional artists through an application process. Check back to find application details closer to the event.",
         ],
       },
       {
@@ -210,7 +210,7 @@ const categories: FaqCategory[] = [
         q: "How does the festival support the local arts community?",
         a: [
           "The Heartland Plein Air Festival was established specifically to use the arts as an economic driver for the Ralston and Omaha Metro region. Supported in part by a Nebraska Arts Council Creative District Development Grant, the festival is designed to attract visitors, generate economic activity, and put Ralston on the national map as an arts destination.",
-          "During the week, 24 nationally recognized artists bring collector interest and visibility to the region. Youth programming creates direct mentorship opportunities for local students and foster children. And because this is intended as an annual event, the cultural and economic impact is designed to grow year over year.",
+          "During the week, nationally recognized artists bring collector interest and visibility to the region. Youth programming creates direct mentorship opportunities for local students and foster children. And because this is intended as an annual event, the cultural and economic impact is designed to grow year over year.",
         ],
       },
     ],
