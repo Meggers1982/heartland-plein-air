@@ -46,6 +46,13 @@ const categories: FaqCategory[] = [
         ],
       },
       {
+        q: "What should I expect when approaching an artist?",
+        a: [
+          "Talking to the artists is encouraged — it's part of what makes plein air festivals different from a traditional gallery show. Most painters are happy to answer questions about what they're working on, what they're looking at, and how they're reading the light.",
+          "A few things to keep in mind: give them a bit of space while they're actively painting, since shadows and position can matter. Wait for a natural pause if they seem deep in concentration. But don't be shy — the artists are out in public by choice, and most of them genuinely enjoy the conversation.",
+        ],
+      },
+      {
         q: "Is there an admission fee?",
         a: [
           "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soiree on September 18 is a ticketed event — check back here for updates on pricing and ticket availability.",
@@ -96,6 +103,14 @@ const categories: FaqCategory[] = [
         ],
       },
       {
+        q: "What is a Quick Paint competition?",
+        a: [
+          "A Quick Paint is a timed painting competition where all participating artists work simultaneously at a single designated location — starting at the same moment and stopping when the clock runs out. Artists typically have one to two hours to produce a finished painting from scratch, outdoors, in front of anyone who happens to be watching.",
+          "It's one of the most compelling things you can witness at a plein air festival. Watching a blank canvas become a complete painting in real time, under pressure, in changing light, is genuinely gripping — and you get to see many painters working side by side, each responding to the same scene in completely different ways.",
+          "Lunchtime Quick Paints take place in Benson (September 14), Dundee (September 15), and the Cathedral & Castle district (September 16). An evening Quick Paint is scheduled in Ralston on September 17. Completed Quick Paint works are eligible for awards and available for purchase at the Collector's Soirée and Public Exhibition.",
+        ],
+      },
+      {
         q: "Are there awards or competitions during the festival?",
         a: [
           "The festival offers over $10,000 in awards, with Quick Paint competitions running throughout the week. Lunchtime competitions take place in Benson (September 14), Dundee (September 15), and the Cathedral & Castle district (September 16), with an evening Quick Paint in Ralston on September 17.",
@@ -137,6 +152,20 @@ const categories: FaqCategory[] = [
         ],
       },
       {
+        q: "Is there parking at the Quick Paint locations and the Granary?",
+        a: [
+          "The Quick Paint competitions take place in established Omaha neighborhoods — Benson, Dundee, and the Cathedral & Castle district — where street parking is generally available nearby. The evening Quick Paint on September 17 is held in Ralston at Main and 77th Street, which also has street parking in the area.",
+          "The Granary, which hosts the Collector's Soirée and Public Exhibition at 7401 Main Street in Ralston, has parking on site. Specific details will be confirmed and published on HeartlandPleinAir.org closer to the event.",
+        ],
+      },
+      {
+        q: "Are the venues accessible?",
+        a: [
+          "The outdoor painting locations across the metro vary in terrain — parks, sidewalks, and urban streetscapes — and accessibility will differ by site. The Granary at 7401 Main Street in Ralston hosts both the Collector's Soirée and Public Exhibition.",
+          "For specific accessibility questions about any venue, reach out to the festival organizers at ralstoncreativedistrict@gmail.com and we'll do our best to help you plan your visit.",
+        ],
+      },
+      {
         q: "Will food or drinks be available?",
         a: [
           "The Collector's Soiree on September 18 includes catering and entertainment as part of the ticketed event at the Granary. Food and drink availability at the Quick Paint locations and the Public Exhibition is not specified in current festival materials — check HeartlandPleinAir.org for updates closer to the event.",
@@ -155,6 +184,12 @@ const categories: FaqCategory[] = [
     title: "Buying the Art",
     items: [
       {
+        q: "How do I get tickets to the Collector's Soirée?",
+        a: [
+          "Ticket details and pricing for the Collector's Soirée on September 18 will be announced closer to the event. Check HeartlandPleinAir.org and RalstonArts.org for updates, or sign up for the newsletter in the footer of this site to be notified when tickets go on sale.",
+        ],
+      },
+      {
         q: "How can I purchase a painting?",
         a: [
           "Paintings are available for purchase at two events: the Collector's Soiree on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
@@ -172,6 +207,13 @@ const categories: FaqCategory[] = [
         q: "Can I purchase artwork before the final exhibition?",
         a: [
           "The Collector's Soiree on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Whether works are available for sale at any point earlier in the week is not specified in current festival materials.",
+        ],
+      },
+      {
+        q: "How does the online sale work?",
+        a: [
+          "Following the Public Exhibition on September 19, any paintings that remain available will move to an online sale running through October 2. The sale will be accessible through HeartlandPleinAir.org and RalstonArts.org.",
+          "Details on how to browse available works and complete a purchase will be published closer to the event. Sign up for the newsletter in the footer to be notified when the online sale opens.",
         ],
       },
     ],
