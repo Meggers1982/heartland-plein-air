@@ -121,7 +121,7 @@ const Index = () => {
   useEffect(() => {
     document.title = "Heartland Plein Air Arts Festival | September 13–19, 2026";
     return setPageMeta(
-      "24 nationally recognized artists paint the Omaha metro outdoors, September 13–19, 2026. Free to watch all week. Exhibition and auction open to the public September 19.",
+      "Omaha becomes a canvas. Watch 24 nationally recognized artists paint it live, Sept. 13–19. Free all week. Exhibition and auction Sept. 19.",
     );
   }, []);
 
