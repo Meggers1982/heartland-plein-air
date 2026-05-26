@@ -68,7 +68,7 @@ const faqs = [
     q: "Where will the artists be painting?",
     a: [
       "Artists will paint freely across the Omaha Metro throughout the festival week, choosing their own locations each day. That said, there are several scheduled events where you're guaranteed to find artists in action. Lunchtime Quick Paint competitions take place in Benson (62nd and Maple) on September 14, Dundee (50th and Underwood) on September 15, and the Cathedral & Castle district (along 40th Street between Cuming and Davenport) on September 16. On September 17, an evening Quick Paint will be held in Ralston at Main and 77th Street.",
-      "Beyond those events, artists may paint anywhere that inspires them — and the metro gives them a lot to work with. Suggested locations include Lauritzen Gardens, the Old Market, the Riverfront, Memorial Park, Fort Omaha, Neale Woods Nature Reserve, the Bob Kerrey Pedestrian Bridge, Elmwood Park Grotto, Fontanelle Forest, Schramm State Park, Chalco Hills, Boystown, and Ralston's Oak Park, among others.",
+      "Beyond those events, artists may paint anywhere that inspires them — and the metro gives them a lot to work with. Suggested locations include Lauritzen Gardens, the Old Market, the Riverfront, Memorial Park, Fort Omaha, Neale Woods Nature Reserve, the Bob Kerrey Pedestrian Bridge, Elmwood Park Grotto, Fontenelle Forest, Schramm State Park, Chalco Hills, Boystown, and Ralston's Oak Park, among others.",
     ],
   },
   {
@@ -80,14 +80,14 @@ const faqs = [
   {
     q: "How can I purchase a painting?",
     a: [
-      "Paintings are available for purchase at two events: the Collector's Soiree on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
+      "Paintings are available for purchase at two events: the Collector's Soirée on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
       "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
     ],
   },
   {
     q: "Is there an admission fee?",
     a: [
-      "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soiree on September 18 is a ticketed event — check back here for updates on pricing and ticket availability.",
+      "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soirée on September 18 is a ticketed event — sign up for the newsletter in the footer to be notified when tickets go on sale.",
     ],
   },
 ];

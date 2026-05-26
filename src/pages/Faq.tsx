@@ -55,7 +55,7 @@ const categories: FaqCategory[] = [
       {
         q: "Is there an admission fee?",
         a: [
-          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soiree on September 18 is a ticketed event — check back here for updates on pricing and ticket availability.",
+          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collector's Soirée on September 18 is a ticketed event — sign up for the newsletter in the footer to be notified when tickets go on sale.",
         ],
       },
     ],
@@ -86,7 +86,7 @@ const categories: FaqCategory[] = [
       {
         q: "How long do artists have to complete their paintings?",
         a: [
-          "Specific time limits for the Quick Paint competitions will be published on HeartlandPleinAir.org ahead of the festival. In general plein air practice, a single painting is typically completed within one to two hours — that's part of what makes the medium so distinctive. The light changes, the moment passes, and the painting captures what was there.",
+          "Quick Paint competitions at the Heartland Plein Air Festival run approximately one to two hours — enough time to produce a finished painting, but short enough that the light stays relatively constant. That's part of what makes the medium so distinctive. The light changes, the moment passes, and the painting captures what was there.",
         ],
       },
       {
@@ -114,7 +114,7 @@ const categories: FaqCategory[] = [
         q: "Are there awards or competitions during the festival?",
         a: [
           "The festival offers over $10,000 in awards, with Quick Paint competitions running throughout the week. Lunchtime competitions take place in Benson (September 14), Dundee (September 15), and the Cathedral & Castle district (September 16), with an evening Quick Paint in Ralston on September 17.",
-          "The awards ceremony is held at the Collector's Soiree on September 18. All judging is handled by Rick J. Delanty — a nationally recognized painter holding memberships in AIS, OPA, LPAPA, and ASMA, and recognized as an ARC Salon Living Master.",
+          "The awards ceremony is held at the Collector's Soirée on September 18. All judging is handled by Rick J. Delanty — a nationally recognized painter holding memberships in AIS, OPA, LPAPA, and ASMA, and recognized as an ARC Salon Living Master.",
         ],
       },
       {
@@ -142,7 +142,7 @@ const categories: FaqCategory[] = [
         a: [
           "The festival runs September 13–19, 2026, with a pre-festival youth day on September 12. Key public events include:",
           "September 12 — Youth Paint Out at Wildwood Park (10 AM–2 PM) and Youth Exhibition at Baright Library (5–7 PM). September 14–16 — Lunchtime Quick Paint competitions in Benson, Dundee, and Cathedral & Castle. September 16 — Youth-Professional Mentor Sessions (4–5:30 PM).",
-          "September 17 — Artist Lecture by Judge Rick J. Delanty at Baright Library (5–6 PM); Evening Quick Paint in Ralston (6–8 PM). September 18 — Collector's Soiree at the Granary, Ralston (5–8 PM, ticketed). September 19 — Public Exhibition at the Granary, Ralston (1–4 PM, free). September 19–October 2 — Online art sale at HeartlandPleinAir.org and RalstonArts.org.",
+          "September 17 — Artist Lecture by Judge Rick J. Delanty at Baright Library (5–6 PM); Evening Quick Paint in Ralston (6–8 PM). September 18 — Collector's Soirée at the Granary, Ralston (5–8 PM, ticketed). September 19 — Public Exhibition at the Granary, Ralston (1–4 PM, free). September 19–October 2 — Online art sale at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },
       {
@@ -155,7 +155,7 @@ const categories: FaqCategory[] = [
         q: "Is there parking at the Quick Paint locations and the Granary?",
         a: [
           "The Quick Paint competitions take place in established Omaha neighborhoods — Benson, Dundee, and the Cathedral & Castle district — where street parking is generally available nearby. The evening Quick Paint on September 17 is held in Ralston at Main and 77th Street, which also has street parking in the area.",
-          "The Granary, which hosts the Collector's Soirée and Public Exhibition at 7401 Main Street in Ralston, has parking on site. Specific details will be confirmed and published on HeartlandPleinAir.org closer to the event.",
+          "The Granary, which hosts the Collector's Soirée and Public Exhibition at 7401 Main Street in Ralston, has parking on site.",
         ],
       },
       {
@@ -168,7 +168,7 @@ const categories: FaqCategory[] = [
       {
         q: "Will food or drinks be available?",
         a: [
-          "The Collector's Soiree on September 18 includes catering and entertainment as part of the ticketed event at the Granary. Food and drink availability at the Quick Paint locations and the Public Exhibition is not specified in current festival materials — check HeartlandPleinAir.org for updates closer to the event.",
+          "The Collector's Soirée on September 18 includes catering and entertainment as part of the ticketed event at the Granary. Food and drink availability at the Quick Paint locations and the Public Exhibition has not yet been confirmed — follow us on social media for updates closer to the event.",
         ],
       },
       {
@@ -186,13 +186,13 @@ const categories: FaqCategory[] = [
       {
         q: "How do I get tickets to the Collector's Soirée?",
         a: [
-          "Ticket details and pricing for the Collector's Soirée on September 18 will be announced closer to the event. Check HeartlandPleinAir.org and RalstonArts.org for updates, or sign up for the newsletter in the footer of this site to be notified when tickets go on sale.",
+          "Ticket details and pricing for the Collector's Soirée on September 18 will be announced closer to the event. Sign up for the newsletter in the footer to be notified when tickets go on sale.",
         ],
       },
       {
         q: "How can I purchase a painting?",
         a: [
-          "Paintings are available for purchase at two events: the Collector's Soiree on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
+          "Paintings are available for purchase at two events: the Collector's Soirée on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
           "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },
@@ -200,13 +200,13 @@ const categories: FaqCategory[] = [
         q: "How much do the paintings typically cost?",
         a: [
           "Pricing is set by each individual artist and won't be published in advance. Across the broader plein air market, works tend to range from a few hundred dollars on the lower end to several thousand for more established artists.",
-          "The Heartland Plein Air Festival features nationally acclaimed painters, so expect a range of price points across both the Collector's Soiree and the Public Exhibition. Plein air paintings are generally considered more accessible than comparable gallery work, which is part of what makes festival exhibitions such a good opportunity for collectors at any level.",
+          "The Heartland Plein Air Festival features nationally acclaimed painters, so expect a range of price points across both the Collector's Soirée and the Public Exhibition. Plein air paintings are generally considered more accessible than comparable gallery work, which is part of what makes festival exhibitions such a good opportunity for collectors at any level.",
         ],
       },
       {
         q: "Can I purchase artwork before the final exhibition?",
         a: [
-          "The Collector's Soiree on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Whether works are available for sale at any point earlier in the week is not specified in current festival materials.",
+          "The Collector's Soirée on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Whether works are available for sale at any point earlier in the week is not specified in current festival materials.",
         ],
       },
       {
@@ -232,7 +232,7 @@ const categories: FaqCategory[] = [
       {
         q: "Are volunteer opportunities available?",
         a: [
-          "Volunteers are being recruited to support the festival across a range of roles. Specific sign-up details aren't yet published — check HeartlandPleinAir.org or reach out to the festival organizers directly for the latest information.",
+          "Volunteers are being recruited to support the festival across a range of roles. Reach out through the Contact page and we'll get you connected to the right person.",
         ],
       },
       {
@@ -344,7 +344,7 @@ const Faq = () => {
               Everything You Need to Know Before You Go
             </h1>
             <p className="mx-auto mb-3 max-w-2xl font-body text-lg font-light leading-relaxed text-secondary/80">
-              From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Arts Festival, or browse by topic below.
+              From tickets and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Arts Festival, or browse by topic below.
             </p>
             <p className="mb-8 font-body text-sm text-secondary/50">
               {totalCount} questions across {categories.length} topics
