@@ -168,16 +168,16 @@ const Index = () => {
             style={{ transitionDelay: "800ms" }}
           >
             <Link
-              to="/artists"
+              to="/schedule"
               className="inline-flex items-center justify-center rounded-full bg-primary px-9 py-4 font-body text-base font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              Meet the Artists
+              View Schedule
             </Link>
             <Link
-              to="/schedule"
+              to="/artists"
               className="inline-flex items-center justify-center rounded-full border border-secondary/60 bg-transparent px-7 py-3 font-body text-sm font-medium uppercase tracking-[0.15em] text-secondary/80 transition-all hover:-translate-y-0.5 hover:border-secondary hover:text-secondary"
             >
-              View Schedule
+              Meet the Artists
             </Link>
           </div>
         </div>
