@@ -54,9 +54,9 @@ const schedule = [
     day: "Thursday, September 17",
     title: "Artist Lecture & Evening Quick Paint",
     icon: Paintbrush,
-    description: "Artist lecture 5 – 6 PM, then Evening Quick Paint during the concert 6 – 8 PM.",
+    description: "Artist lecture at Baright Library 5 – 6 PM, then Evening Quick Paint during the concert 6 – 8 PM.",
     time: "5 – 8 PM",
-    location: "Downtown Ralston (Main St. & 77th St.)",
+    location: "Baright Library + Downtown Ralston",
   },
   {
     day: "Friday, September 18",
