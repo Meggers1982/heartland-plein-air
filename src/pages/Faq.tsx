@@ -134,7 +134,7 @@ const categories: FaqCategory[] = [
         q: "What are the best locations to see artists painting?",
         a: [
           "The Quick Paint competitions are the most reliable option — all participating artists gather at a single location at the same time, so you get to watch many painters working simultaneously. Those take place at lunchtime in Benson on September 14, Dundee on September 15, and the Cathedral & Castle district on September 16, and in the evening in Ralston on September 17.",
-          "Outside of those events, artists paint freely across the metro, so sightings are more spontaneous. A map of suggested painting locations will be available on HeartlandPleinAir.org to help you plan.",
+          "Outside of those events, artists paint freely across the metro, so sightings are more spontaneous. A map of Quick Paint sites and suggested painting locations is available on the Schedule page.",
         ],
       },
       {
@@ -174,7 +174,7 @@ const categories: FaqCategory[] = [
       {
         q: "Is there a map of artist painting locations?",
         a: [
-          "A map of Quick Paint competition sites and suggested painting locations across the metro is in development and will be available on the Schedule page.",
+          "A map of Quick Paint competition sites and suggested painting locations across the metro is available on the Schedule page.",
         ],
       },
     ],
@@ -192,7 +192,7 @@ const categories: FaqCategory[] = [
       {
         q: "How can I purchase a painting?",
         a: [
-          "Paintings are available for purchase at two events: the Collector's Soirée on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soiree is ticketed; the Public Exhibition is free.",
+          "Paintings are available for purchase at two events: the Collector's Soirée on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Soirée is ticketed; the Public Exhibition is free.",
           "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },
@@ -206,7 +206,7 @@ const categories: FaqCategory[] = [
       {
         q: "Can I purchase artwork before the final exhibition?",
         a: [
-          "The Collector's Soirée on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Whether works are available for sale at any point earlier in the week is not specified in current festival materials.",
+          "The Collector's Soirée on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Works are not available for sale earlier in the festival week.",
         ],
       },
       {
@@ -238,7 +238,7 @@ const categories: FaqCategory[] = [
       {
         q: "How can I become a festival sponsor?",
         a: [
-          "Sponsorship inquiries can be directed through HeartlandPleinAir.org. For a direct conversation, contact City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
+          "Sponsorship inquiries can be submitted through the Contact page. For a direct conversation, reach City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
         ],
       },
       {
