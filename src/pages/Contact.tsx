@@ -46,6 +46,7 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     return addJsonLd("contact-jsonld", {
@@ -104,6 +105,7 @@ const Contact = () => {
   const resetForm = () => {
     setForm({ name: "", email: "", subject: "", message: "" });
     setErrors({});
+    setSubmitError(null);
     setSubmitted(false);
   };
 
@@ -120,15 +122,17 @@ const Contact = () => {
       return;
     }
     setErrors({});
+    setSubmitError(null);
     const res = await fetch("https://formspree.io/f/mzdwkdvz", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(result.data),
+      body: JSON.stringify({ ...result.data, _replyto: result.data.email }),
     });
-    if (res.ok) {
+    const json = await res.json().catch(() => ({}));
+    if (res.ok && json.ok !== false) {
       setSubmitted(true);
     } else {
-      setErrors({ message: "Something went wrong. Please email us directly at info@heartlandpleinair.org." });
+      setSubmitError("Something went wrong. Please email us directly at info@heartlandpleinair.org.");
     }
   };
 
@@ -345,6 +349,11 @@ const Contact = () => {
                   </div>
 
                   <div className="pt-2">
+                    {submitError && (
+                      <p className="mb-4 font-body text-sm" style={{ color: "hsl(var(--destructive))" }}>
+                        {submitError}
+                      </p>
+                    )}
                     <button
                       type="submit"
                       className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0"
