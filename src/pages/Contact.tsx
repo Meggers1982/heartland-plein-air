@@ -107,7 +107,7 @@ const Contact = () => {
     setSubmitted(false);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = contactSchema.safeParse(form);
     if (!result.success) {
@@ -120,7 +120,16 @@ const Contact = () => {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    const res = await fetch("https://formspree.io/f/mzdwkdvz", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(result.data),
+    });
+    if (res.ok) {
+      setSubmitted(true);
+    } else {
+      setErrors({ message: "Something went wrong. Please email us directly at info@heartlandpleinair.org." });
+    }
   };
 
   return (
