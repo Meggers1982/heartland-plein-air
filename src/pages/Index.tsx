@@ -17,7 +17,6 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import ScheduleSection from "@/components/ScheduleSection";
 import ArtistSpotlight from "@/components/ArtistSpotlight";
 import LocationsMap from "@/components/LocationsMap";
-import SponsorsSection from "@/components/SponsorsSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import BackToTop from "@/components/BackToTop";
@@ -300,9 +299,6 @@ const Index = () => {
       <ArtistSpotlight />
 
       <BrushStrokeDivider className="py-4" />
-
-      {/* Sponsors */}
-      <SponsorsSection />
 
       {/* FAQ */}
       <section id="faq" className="py-24">
