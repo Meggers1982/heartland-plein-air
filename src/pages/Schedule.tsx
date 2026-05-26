@@ -324,7 +324,7 @@ const Schedule = () => {
               </p>
               <ScheduleJumpNav items={weekItems} />
             </div>
-            <div className="max-w-prose space-y-5 font-body text-lg leading-relaxed text-foreground/85">
+            <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 <em className="font-display text-primary">Plein air</em> — French for "open air" — is exactly what it sounds like. No studio, no reference photos, no do-overs. Just an artist, an easel, and whatever the light is doing right now.
               </p>

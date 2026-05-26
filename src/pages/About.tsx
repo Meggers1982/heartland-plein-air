@@ -51,7 +51,7 @@ const About = () => {
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
-            <div className="max-w-prose space-y-5 font-body text-lg leading-relaxed text-foreground/85">
+            <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 Every September, 24 nationally recognized artists spend a week painting the greater Omaha metro — outdoors, in public, in real time. <em className="font-display text-primary">Plein air</em> is French for "open air": no studio, no reference photos, just an artist standing in a place and responding to the light as it actually is. The inaugural Heartland Plein Air Arts Festival runs <strong>September 13–19, 2026</strong>, with painters working across more than 20 locations in Douglas and Sarpy Counties.
               </p>
@@ -96,7 +96,7 @@ const About = () => {
             <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
               Putting Ralston on the Map
             </h2>
-            <div className="max-w-prose space-y-5 font-body text-lg leading-relaxed text-foreground/85">
+            <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 The Heartland Plein Air Arts Festival is more than an art event. It's part of a deliberate effort to put Ralston on the national map as an arts destination — and to demonstrate that culture is a genuine driver of economic growth.
               </p>
@@ -121,7 +121,7 @@ const About = () => {
             <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
               A Week in the Open Air
             </h2>
-            <div className="max-w-prose space-y-5 font-body text-lg leading-relaxed text-foreground/85">
+            <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 Artists spread out across the metro each day to paint wherever the landscape moves them. The public is free to follow along, watch them work, and ask questions — that's part of the point. Lunchtime and evening Quick Paint competitions bring the full invited roster to a single location, racing the clock to finish a painting in front of a live audience. It's one of the most electric things to witness at any plein air festival.
               </p>
@@ -148,7 +148,7 @@ const About = () => {
             <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
               The Ralston HINGE Creative District
             </h2>
-            <div className="max-w-prose space-y-5 font-body text-lg leading-relaxed text-foreground/85">
+            <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 The festival is presented by the{" "}
                 <a href="https://ralstonarts.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
