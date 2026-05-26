@@ -64,7 +64,7 @@ const About = () => {
       </section>
 
       {/* Stat strip */}
-      <section className="border-y border-border bg-card py-10">
+      <section className="border-y border-border bg-muted py-10">
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedSection>
             <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
