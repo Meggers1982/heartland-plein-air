@@ -57,6 +57,7 @@ export const festivalEventSchema = {
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   isAccessibleForFree: true,
   url: SITE_URL,
+  image: `${SITE_URL}/og-image.jpg`,
   location: {
     "@type": "Place",
     name: "Omaha Metro Area",
@@ -68,4 +69,29 @@ export const festivalEventSchema = {
     },
   },
   organizer: { "@id": `${SITE_URL}/#organization` },
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free Public Access",
+      description: "Watch artists paint across the metro all week. Public Exhibition & Auction on September 19 is free and open to all.",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      validFrom: "2026-01-01",
+      url: SITE_URL,
+    },
+    {
+      "@type": "Offer",
+      name: "Collector's Soirée — September 18",
+      description: "Ticketed evening event with early access to purchase artwork, live music, and the awards ceremony.",
+      availability: "https://schema.org/InStock",
+      validFrom: "2026-01-01",
+      url: SITE_URL,
+    },
+  ],
+  performer: {
+    "@type": "PerformingGroup",
+    name: "Invited Plein Air Artists",
+    description: "Nationally recognized plein air painters selected from across the United States.",
+  },
 };
