@@ -62,7 +62,7 @@ const CountdownBanner = () => {
                     {String(u.value).padStart(2, "0")}
                   </span>
                 </div>
-                <span className="mt-2 font-body text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-primary-foreground/70 sm:text-xs sm:tracking-[0.25em]">
+                <span className="mt-2 font-body text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/70 sm:tracking-[0.25em]">
                   {u.label}
                 </span>
               </div>

@@ -250,7 +250,7 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} noValidate className="space-y-6">
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-1.5">
-                      <label htmlFor="contact-name" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                      <label htmlFor="contact-name" className="block px-1 font-body text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
                         Name <span aria-hidden="true" className="text-primary">*</span>
                       </label>
                       <input
@@ -272,7 +272,7 @@ const Contact = () => {
                       )}
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="contact-email" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                      <label htmlFor="contact-email" className="block px-1 font-body text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
                         Email <span aria-hidden="true" className="text-primary">*</span>
                       </label>
                       <input
@@ -296,7 +296,7 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="contact-subject" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                    <label htmlFor="contact-subject" className="block px-1 font-body text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
                       Subject <span aria-hidden="true" className="text-primary">*</span>
                     </label>
                     <input
@@ -319,7 +319,7 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="contact-message" className="block px-1 font-body text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                    <label htmlFor="contact-message" className="block px-1 font-body text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground">
                       Message <span aria-hidden="true" className="text-primary">*</span>
                     </label>
                     <textarea

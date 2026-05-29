@@ -103,7 +103,7 @@ const ScheduleJumpNav = ({ items }: { items: WeekDay[] }) => {
               }`}
             >
               <span
-                className={`font-body text-[10px] font-semibold uppercase tracking-widest sm:text-xs ${
+                className={`font-body text-xs font-semibold uppercase tracking-widest ${
                   isSelected
                     ? "text-primary-foreground/80"
                     : "text-foreground/60 group-hover:text-primary-foreground/80"
