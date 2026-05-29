@@ -143,7 +143,7 @@ const Index = () => {
           className="absolute inset-0"
           style={{ background: "var(--hero-overlay)" }}
         />
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40">
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-14 pt-40 md:pb-24">
           <p
             className={`mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "200ms" }}
@@ -151,13 +151,13 @@ const Index = () => {
             September 13–19, 2026
           </p>
           <h1
-            className={`hero-title mb-6 max-w-3xl font-display text-5xl font-bold leading-tight text-secondary md:text-7xl transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            className={`hero-title mb-4 max-w-3xl font-display text-4xl font-bold leading-tight text-secondary md:mb-6 md:text-7xl transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "400ms" }}
           >
             Heartland Plein Air Arts Festival
           </h1>
           <p
-            className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            className={`mb-5 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 md:mb-8 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "600ms" }}
           >
             Art, out in the open. Nationally recognized artists,
@@ -190,10 +190,10 @@ const Index = () => {
       <section id="about" className="py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 md:grid-cols-2">
           <AnimatedSection>
-            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary text-center">
               About the Festival
             </p>
-            <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
+            <h2 className="mb-6 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl text-center">
               Art Made Here
             </h2>
             <div className="space-y-4 font-body text-base leading-relaxed text-muted-foreground">

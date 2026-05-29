@@ -262,6 +262,9 @@ const LocationsMap = () => {
             className={`h-5 w-5 transition-transform duration-300 ${listOpen ? "rotate-180" : ""}`}
           />
         </button>
+        <p className="text-center font-body text-sm text-muted-foreground">
+          Every painting location with address, scheduled events, and links to the full schedule.
+        </p>
         {listOpen && (
           <>
             <ul id="locations-list" className="grid gap-4 sm:grid-cols-2">
