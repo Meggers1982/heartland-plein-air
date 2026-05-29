@@ -50,26 +50,26 @@ const CountdownBanner = () => {
         </div>
 
         {/* Live countdown — hidden from screen readers; static date below serves as the accessible alternative */}
-        <div aria-hidden="true" className="flex items-end gap-2 sm:gap-4 md:gap-6">
+        <div aria-hidden="true" className="flex items-end gap-1 sm:gap-4 md:gap-6">
           {units.map((u, i) => (
-            <div key={u.label} className="flex items-end gap-2 sm:gap-4 md:gap-6">
+            <div key={u.label} className="flex items-end gap-1 sm:gap-4 md:gap-6">
               <div className="flex flex-col items-center">
-                <div className="relative rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-3 py-2 shadow-inner backdrop-blur-sm sm:px-5 sm:py-3">
+                <div className="relative rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-2 py-1.5 shadow-inner backdrop-blur-sm sm:px-5 sm:py-3">
                   <span
                     key={u.value}
-                    className="block font-display text-4xl font-bold tabular-nums text-primary-foreground animate-in fade-in slide-in-from-top-1 duration-500 sm:text-5xl md:text-6xl"
+                    className="block font-display text-3xl font-bold tabular-nums text-primary-foreground animate-in fade-in slide-in-from-top-1 duration-500 sm:text-5xl md:text-6xl"
                   >
                     {String(u.value).padStart(2, "0")}
                   </span>
                 </div>
-                <span className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-primary-foreground/70 sm:text-xs">
+                <span className="mt-2 font-body text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-primary-foreground/70 sm:text-xs sm:tracking-[0.25em]">
                   {u.label}
                 </span>
               </div>
               {i < units.length - 1 && (
                 <span
                   aria-hidden
-                  className="pb-8 font-display text-3xl font-bold text-primary-foreground/30 sm:text-4xl md:text-5xl"
+                  className="pb-7 font-display text-2xl font-bold text-primary-foreground/30 sm:pb-8 sm:text-4xl md:text-5xl"
                 >
                   :
                 </span>

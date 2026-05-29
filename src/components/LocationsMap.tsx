@@ -221,7 +221,7 @@ const LocationsMap = () => {
       <div className="relative overflow-hidden rounded-lg border border-border shadow-sm">
         <div
           ref={mapRef}
-          className="h-[480px] w-full bg-muted"
+          className="h-[300px] w-full bg-muted sm:h-[400px] md:h-[480px]"
           aria-label="Map of festival locations"
           role="application"
         />

@@ -389,7 +389,7 @@ const Schedule = () => {
           )}
           {filteredDays.map((d, i) => (
             <AnimatedSection key={d.id} delay={i * 60}>
-              <article id={d.id} className="scroll-mt-32 rounded-lg bg-card p-8 shadow-sm md:p-10">
+              <article id={d.id} className="scroll-mt-32 rounded-lg bg-card p-5 shadow-sm md:p-8 lg:p-10">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <h2 className="font-display text-3xl font-bold tracking-tight text-primary">
                     {d.dayShort}

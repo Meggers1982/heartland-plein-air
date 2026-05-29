@@ -67,7 +67,7 @@ const About = () => {
       <section className="border-y border-border bg-muted py-10">
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedSection>
-            <div className="grid grid-cols-3 gap-8 text-center">
+            <div className="grid grid-cols-1 gap-6 text-center sm:grid-cols-3 sm:gap-8">
               {[
                 { value: "20", label: "States Represented" },
                 { value: "20+", label: "Painting Locations" },
