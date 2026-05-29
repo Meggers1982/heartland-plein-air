@@ -333,6 +333,7 @@ const Faq = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
+      <main>
       {/* Hero */}
       <header id="main-content" tabIndex={-1} className="relative overflow-hidden bg-foreground pt-44 pb-16">
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
@@ -432,6 +433,7 @@ const Faq = () => {
       </section>
 
       <CountdownBanner />
+      </main>
 
       <SiteFooter />
       <BackToTop />

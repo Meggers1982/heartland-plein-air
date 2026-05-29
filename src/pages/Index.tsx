@@ -129,6 +129,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
+      <main>
       {/* Hero with parallax */}
       <section id="main-content" tabIndex={-1} className="relative flex min-h-screen items-end overflow-hidden">
         <img
@@ -338,6 +339,7 @@ const Index = () => {
         </div>
       </section>
 
+      </main>
       <SiteFooter />
       <BackToTop />
     </div>

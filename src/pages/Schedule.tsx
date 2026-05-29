@@ -301,6 +301,7 @@ const Schedule = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
+      <main>
       <header id="main-content" tabIndex={-1} className="bg-foreground pt-44 pb-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
@@ -457,6 +458,7 @@ const Schedule = () => {
                               >
                                 {ev.location}{" "}
                                 <span className="text-muted-foreground/80">({ev.address})</span>
+                                <span className="sr-only"> (opens in new tab)</span>
                               </a>
                             ) : (
                               <span>{ev.location}</span>
@@ -492,6 +494,7 @@ const Schedule = () => {
 
       <BrushStrokeDivider />
 
+      </main>
       <SiteFooter />
 
       {/* Back to top */}

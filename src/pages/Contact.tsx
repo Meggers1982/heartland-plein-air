@@ -140,6 +140,7 @@ const Contact = () => {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
+      <main>
       <header id="main-content" tabIndex={-1} className="bg-foreground pt-44 pb-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
@@ -263,10 +264,11 @@ const Contact = () => {
                         maxLength={100}
                         aria-required="true"
                         aria-invalid={errors.name ? "true" : "false"}
+                        aria-describedby={errors.name ? "contact-name-error" : undefined}
                         className="w-full rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.name && (
-                        <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p id="contact-name-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.name}
                         </p>
                       )}
@@ -285,10 +287,11 @@ const Contact = () => {
                         maxLength={255}
                         aria-required="true"
                         aria-invalid={errors.email ? "true" : "false"}
+                        aria-describedby={errors.email ? "contact-email-error" : undefined}
                         className="w-full rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.email && (
-                        <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p id="contact-email-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.email}
                         </p>
                       )}
@@ -309,10 +312,11 @@ const Contact = () => {
                       maxLength={150}
                       aria-required="true"
                       aria-invalid={errors.subject ? "true" : "false"}
+                      aria-describedby={errors.subject ? "contact-subject-error" : undefined}
                       className="w-full rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     {errors.subject && (
-                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                      <p id="contact-subject-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                         {errors.subject}
                       </p>
                     )}
@@ -332,11 +336,12 @@ const Contact = () => {
                       maxLength={2000}
                       aria-required="true"
                       aria-invalid={errors.message ? "true" : "false"}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
                       className="w-full resize-none rounded-lg border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     <div className="flex items-start justify-between px-1">
                       {errors.message ? (
-                        <p className="font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p id="contact-message-error" className="font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.message}
                         </p>
                       ) : (
@@ -370,6 +375,7 @@ const Contact = () => {
 
       <BrushStrokeDivider />
       <CountdownBanner />
+      </main>
       <SiteFooter />
       <BackToTop />
     </div>
