@@ -273,7 +273,7 @@ const Faq = () => {
               Everything You Need to Know Before You Go
             </h1>
             <p className="mx-auto mb-8 max-w-2xl font-body text-lg font-light leading-relaxed text-muted-foreground">
-              From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Arts Festival, or browse by topic below.
+              From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Festival, or browse by topic below.
             </p>
             <div className="relative mx-auto max-w-xl">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />

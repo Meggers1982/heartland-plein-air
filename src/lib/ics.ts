@@ -33,7 +33,8 @@ export const parseTimeRange = (
     if (single) return { start: single, end: { h: single.h + 1, m: single.m } };
     return { start: { h: 12, m: 0 }, end: { h: 13, m: 0 } };
   }
-  let [a, b] = parts;
+  let a = parts[0];
+  const b = parts[1];
   // If first piece is missing AM/PM, borrow from the second.
   if (!/AM|PM/i.test(a)) {
     const mer = b.match(/AM|PM/i);

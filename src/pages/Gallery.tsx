@@ -17,9 +17,9 @@ const Gallery = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Gallery | Heartland Plein Air Arts Festival";
+    document.title = "Gallery | Heartland Plein Air Festival";
     return setPageMeta(
-      "Browse paintings by all 23 artists in the Heartland Plein Air Arts Festival, September 13–19, 2026.",
+      "Browse paintings by all 23 artists in the Heartland Plein Air Festival, September 13–19, 2026.",
     );
   }, []);
 

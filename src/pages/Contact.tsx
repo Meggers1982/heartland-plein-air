@@ -49,9 +49,9 @@ const Contact = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Contact | Heartland Plein Air Arts Festival";
+    document.title = "Contact | Heartland Plein Air Festival";
     return setPageMeta(
-      "Get in touch with the Heartland Plein Air Arts Festival — questions, sponsorships, volunteer inquiries, and more.",
+      "Get in touch with the Heartland Plein Air Festival — questions, sponsorships, volunteer inquiries, and more.",
     );
   }, []);
 
@@ -108,7 +108,7 @@ const Contact = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <address className="not-italic leading-relaxed">
-                  5500 S 77th St
+                  5615 S. 77th St
                   <br />
                   Ralston, NE 68127
                 </address>
@@ -116,10 +116,10 @@ const Contact = () => {
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <a
-                  href="tel:+14029539173"
+                  href="tel:+14025926552"
                   className="transition-colors hover:text-primary"
                 >
-                  (402) 953-9173
+                  (402) 592-6552
                 </a>
               </div>
               <div className="flex items-center gap-3">
