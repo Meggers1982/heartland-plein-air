@@ -1,29 +1,28 @@
-import jacalynBeam from "@/assets/artists/jacalyn-beam.webp";
-import micheleByrne from "@/assets/artists/michele-byrne.webp";
-import annLarsen from "@/assets/artists/ann-larsen.webp";
-import johnLasater from "@/assets/artists/john-lasater.webp";
-import danMarshall from "@/assets/artists/dan-marshall.webp";
-import radhikaSrinivas from "@/assets/artists/radhika-srinivas.webp";
-import steveStauffer from "@/assets/artists/steve-stauffer.webp";
-import rickDelanty from "@/assets/artists/rick-j-delanty.webp";
-import debraJoyGroesser from "@/assets/artists/debra-joy-groesser.webp";
-import durreWaseem from "@/assets/artists/durre-waseem.webp";
-import annWatcher from "@/assets/artists/ann-watcher.webp";
-import hectorAcuna from "@/assets/artists/hector-acuna.webp";
-import robinCheers from "@/assets/artists/robin-cheers.webp";
-import johnEvans from "@/assets/artists/john-evans.webp";
-import larryDegraff from "@/assets/artists/larry-degraff.webp";
-import jillWagner from "@/assets/artists/jill-wagner.webp";
-import brendaPinnick from "@/assets/artists/brenda-pinnick.webp";
-import stephenWysocki from "@/assets/artists/stephen-wysocki.webp";
-import robinWeiss from "@/assets/artists/robin-weiss.webp";
-import chrisWilley from "@/assets/artists/chris-willey.webp";
-import jeffWilliams from "@/assets/artists/jeff-williams.webp";
-import jasonBailey from "@/assets/artists/jason-bailey.webp";
-import bobBeck from "@/assets/artists/bob-beck.webp";
-import fernandoMicheli from "@/assets/artists/fernando-micheli.webp";
-import kristinHosbein from "@/assets/artists/kristin-hosbein.webp";
-import placeholderHeadshotAsset from "@/assets/artists/placeholder-headshot.svg";
+const jacalynBeam = "/assets/artists/jacalyn-beam.webp";
+const micheleByrne = "/assets/artists/michele-byrne.webp";
+const annLarsen = "/assets/artists/ann-larsen.webp";
+const johnLasater = "/assets/artists/john-lasater.webp";
+const danMarshall = "/assets/artists/dan-marshall.webp";
+const radhikaSrinivas = "/assets/artists/radhika-srinivas.webp";
+const steveStauffer = "/assets/artists/steve-stauffer.webp";
+const rickDelanty = "/assets/artists/rick-j-delanty.webp";
+const debraJoyGroesser = "/assets/artists/debra-joy-groesser.webp";
+const durreWaseem = "/assets/artists/durre-waseem.webp";
+const annWatcher = "/assets/artists/ann-watcher.webp";
+const hectorAcuna = "/assets/artists/hector-acuna.webp";
+const robinCheers = "/assets/artists/robin-cheers.webp";
+const johnEvans = "/assets/artists/john-evans.webp";
+const larryDegraff = "/assets/artists/larry-degraff.webp";
+const jillWagner = "/assets/artists/jill-wagner.webp";
+const brendaPinnick = "/assets/artists/brenda-pinnick.webp";
+const stephenWysocki = "/assets/artists/stephen-wysocki.webp";
+const robinWeiss = "/assets/artists/robin-weiss.webp";
+const chrisWilley = "/assets/artists/chris-willey.webp";
+const jeffWilliams = "/assets/artists/jeff-williams.webp";
+const jasonBailey = "/assets/artists/jason-bailey.webp";
+const bobBeck = "/assets/artists/bob-beck.webp";
+const fernandoMicheli = "/assets/artists/fernando-micheli.webp";
+const kristinHosbein = "/assets/artists/kristin-hosbein.webp";
 
 export type Artist = {
   name: string;
@@ -37,7 +36,7 @@ export type Artist = {
   facebook?: string;
 };
 
-export const placeholderHeadshot = placeholderHeadshotAsset;
+export const placeholderHeadshot = "/assets/artists/placeholder-headshot.svg";
 
 export const artists: Artist[] = [
   { name: "Hector Acuna", src: hectorAcuna, alt: "side profile portrait of man in glasses and corduroy cap painting outdoors at sunset", location: "Wisconsin", bio: "Hector Acuna is a Wisconsin-based painter known for observational work that moves fluidly between studio and plein air. He holds a BFA from the University of Wisconsin-Stevens Point and an MFA from Michigan State University — and has quickly become one of the most recognized names in contemporary plein air painting.\n\nIn 2022, Plein Air Magazine named him one of three Artists to Watch. The following year, he received the inaugural M. Stephen Doherty Breakthrough Artist of the Year Award. A sought-after instructor and juror, he teaches workshops across the country and builds his own painting supports and frames by hand in his wood shop in Grafton, Wisconsin.", website: "https://www.acunaarts.com", instagram: "https://www.instagram.com/hectoracuna.pleinair/", facebook: "https://www.facebook.com/AcunaArt/" },

@@ -1,7 +1,8 @@
+'use client';
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import heartlandLogo from "@/assets/heartland-logo.png";
 import CountdownRibbon from "@/components/CountdownRibbon";
 
 const navLinks = [
@@ -18,17 +19,17 @@ const navLinks = [
 
 const SiteNav = () => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const showRibbon = location.pathname !== "/";
+  const router = useRouter();
+  const pathname = usePathname();
+  const showRibbon = pathname !== "/";
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setOpen(false);
     if (href.startsWith("/#")) {
       const hash = href.slice(1);
-      if (location.pathname !== "/") {
-        navigate("/");
+      if (pathname !== "/") {
+        router.push("/");
         setTimeout(() => {
           document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
         }, 60);
@@ -37,19 +38,19 @@ const SiteNav = () => {
       }
       return;
     }
-    navigate(href);
+    router.push(href);
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
-          to="/"
+          href="/"
           aria-label="Heartland Plein Air Festival home"
           className="relative block h-16 md:h-20 aspect-[1376/729] overflow-hidden"
         >
           <img
-            src={heartlandLogo}
+            src="/assets/heartland-logo.png"
             alt="heartland plein air festival sunset artist logo"
             className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
           />

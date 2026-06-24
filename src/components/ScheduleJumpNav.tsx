@@ -1,3 +1,4 @@
+'use client';
 type WeekDay = { id: string; weekday: string; date?: string; label?: string };
 
 const ScheduleJumpNav = ({ items }: { items: WeekDay[] }) => {
