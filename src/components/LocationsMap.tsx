@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { festivalLocations, type FestivalLocation } from "@/data/locations";
@@ -6,7 +7,7 @@ type GoogleMapsLib = typeof window.google;
 
 declare global {
   interface Window {
-    google?: { maps: unknown };
+    google?: { maps: any };
     __initFestivalMap?: () => void;
   }
 }
@@ -19,8 +20,8 @@ function loadMapsScript(): Promise<GoogleMapsLib> {
       resolve(window.google);
       return;
     }
-    const key = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY;
-    const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
+    const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+    const channel = process.env.NEXT_PUBLIC_GOOGLE_MAPS_TRACKING_ID;
     if (!key) {
       reject(new Error("Google Maps key missing"));
       return;
@@ -80,9 +81,9 @@ function getDayOptions(): DayOption[] {
 
 const LocationsMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<unknown>(null);
-  const infoWindowRef = useRef<unknown>(null);
-  const markersRef = useRef<Array<{ marker: unknown; loc: FestivalLocation }>>([]);
+  const mapInstanceRef = useRef<any>(null);
+  const infoWindowRef = useRef<any>(null);
+  const markersRef = useRef<Array<{ marker: any; loc: FestivalLocation }>>([]);
   const googleRef = useRef<GoogleMapsLib>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [dayFilter, setDayFilter] = useState<string>("all");

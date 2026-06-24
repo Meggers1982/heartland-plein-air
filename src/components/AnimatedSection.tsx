@@ -1,3 +1,4 @@
+'use client';
 import { useInView } from "@/hooks/useInView";
 import { ReactNode } from "react";
 

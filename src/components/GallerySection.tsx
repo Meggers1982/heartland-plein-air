@@ -1,18 +1,13 @@
+'use client';
 import { useInView } from "@/hooks/useInView";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-import gallery6 from "@/assets/gallery-6.jpg";
 
 const paintings = [
-  { src: gallery1, title: "Main Street, Golden Hour", artist: "Sample Artist" },
-  { src: gallery2, title: "River Bend Reflections", artist: "Sample Artist" },
-  { src: gallery3, title: "Heartland Harvest", artist: "Sample Artist" },
-  { src: gallery4, title: "Stone Bridge in Autumn", artist: "Sample Artist" },
-  { src: gallery5, title: "Café on the Square", artist: "Sample Artist" },
-  { src: gallery6, title: "Victorian Morning", artist: "Sample Artist" },
+  { src: "/assets/gallery-1.jpg", title: "Main Street, Golden Hour", artist: "Sample Artist" },
+  { src: "/assets/gallery-2.jpg", title: "River Bend Reflections", artist: "Sample Artist" },
+  { src: "/assets/gallery-3.jpg", title: "Heartland Harvest", artist: "Sample Artist" },
+  { src: "/assets/gallery-4.jpg", title: "Stone Bridge in Autumn", artist: "Sample Artist" },
+  { src: "/assets/gallery-5.jpg", title: "Café on the Square", artist: "Sample Artist" },
+  { src: "/assets/gallery-6.jpg", title: "Victorian Morning", artist: "Sample Artist" },
 ];
 
 const GallerySection = () => {
