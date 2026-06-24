@@ -11,9 +11,22 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { setPageMeta } from "@/lib/meta";
 import { galleryArtists, allPaintings } from "@/data/gallery";
 
+type MediumFilter = "all" | "oil-and-pastel" | "watercolor";
+
+const mediumTabs: { value: MediumFilter; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "oil-and-pastel", label: "Oil & Pastel" },
+  { value: "watercolor", label: "Watercolor" },
+];
+
 const Gallery = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [mediumFilter, setMediumFilter] = useState<MediumFilter>("all");
   const active = openIndex !== null ? allPaintings[openIndex] : null;
+
+  const filteredArtists = mediumFilter === "all"
+    ? galleryArtists
+    : galleryArtists.filter((a) => a.medium === mediumFilter);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -88,11 +101,29 @@ const Gallery = () => {
           </div>
         </section>
 
-        {/* Artist jump links — sticky below nav */}
+        {/* Medium filter tabs + artist jump links — sticky below nav */}
         <div className="sticky top-[72px] z-40 border-b border-border bg-background/95 backdrop-blur-sm">
-          <div className="mx-auto max-w-6xl px-6 py-3">
-            <div className="flex flex-wrap gap-2">
-              {galleryArtists.map((artist) => (
+          <div className="mx-auto max-w-6xl px-6 pt-3 pb-2">
+            {/* Medium tabs */}
+            <div className="mb-2 flex gap-2">
+              {mediumTabs.map((tab) => (
+                <button
+                  key={tab.value}
+                  type="button"
+                  onClick={() => setMediumFilter(tab.value)}
+                  className={`rounded-full px-4 py-1 font-body text-xs font-semibold transition-colors ${
+                    mediumFilter === tab.value
+                      ? "bg-primary text-primary-foreground"
+                      : "border border-border bg-card text-foreground hover:border-primary hover:text-primary"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+            {/* Artist jump links */}
+            <div className="flex flex-wrap gap-2 pb-1">
+              {filteredArtists.map((artist) => (
                 <button
                   key={artist.slug}
                   type="button"
@@ -107,54 +138,57 @@ const Gallery = () => {
         </div>
 
         {/* Artist sections */}
-        {galleryArtists.map((artist, ai) => (
-          <section
-            key={artist.slug}
-            id={artist.slug}
-            className="scroll-mt-32 border-t border-border py-16"
-          >
-            <div className="mx-auto max-w-6xl px-6">
-              <AnimatedSection>
-                <h2 className="mb-8 font-display text-3xl font-bold text-foreground">
-                  {artist.name}
-                </h2>
-              </AnimatedSection>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {artist.paintings.map((painting, pi) => {
-                  const globalIndex =
-                    galleryArtists
-                      .slice(0, ai)
-                      .reduce((sum, a) => sum + a.paintings.length, 0) + pi;
-                  return (
-                    <AnimatedSection key={painting.filename} delay={pi * 80}>
-                      <button
-                        type="button"
-                        onClick={() => setOpenIndex(globalIndex)}
-                        className="group block w-full overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                      >
-                        <div className="relative aspect-[4/3] overflow-hidden">
-                          <img
-                            src={`/artwork/${painting.filename}`}
-                            alt={painting.alt}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                          <div className="absolute inset-0 flex items-end bg-black/0 transition-colors duration-300 group-hover:bg-black/40">
-                            <div className="w-full translate-y-full px-4 pb-3 transition-transform duration-300 group-hover:translate-y-0">
-                              <p className="font-display text-sm font-semibold text-white drop-shadow">
-                                {painting.title}
-                              </p>
+        {filteredArtists.map((artist) => {
+          const originalArtistIndex = galleryArtists.indexOf(artist);
+          return (
+            <section
+              key={artist.slug}
+              id={artist.slug}
+              className="scroll-mt-32 border-t border-border py-16"
+            >
+              <div className="mx-auto max-w-6xl px-6">
+                <AnimatedSection>
+                  <h2 className="mb-8 font-display text-3xl font-bold text-foreground">
+                    {artist.name}
+                  </h2>
+                </AnimatedSection>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {artist.paintings.map((painting, pi) => {
+                    const globalIndex =
+                      galleryArtists
+                        .slice(0, originalArtistIndex)
+                        .reduce((sum, a) => sum + a.paintings.length, 0) + pi;
+                    return (
+                      <AnimatedSection key={painting.filename} delay={pi * 80}>
+                        <button
+                          type="button"
+                          onClick={() => setOpenIndex(globalIndex)}
+                          className="group block w-full overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        >
+                          <div className="relative aspect-[4/3] overflow-hidden">
+                            <img
+                              src={`/artwork/${painting.filename}`}
+                              alt={painting.alt}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 flex items-end bg-black/0 transition-colors duration-300 group-hover:bg-black/40">
+                              <div className="w-full translate-y-full px-4 pb-3 transition-transform duration-300 group-hover:translate-y-0">
+                                <p className="font-display text-sm font-semibold text-white drop-shadow">
+                                  {painting.title}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </button>
-                    </AnimatedSection>
-                  );
-                })}
+                        </button>
+                      </AnimatedSection>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
       </main>
 
       <CountdownBanner />
