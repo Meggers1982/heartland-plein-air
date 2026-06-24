@@ -14,10 +14,10 @@ const Artists = () => {
   const active = openIndex !== null ? artists[openIndex] : null;
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Artists | Heartland Plein Air Arts Festival";
+    document.title = "Artists | Heartland Plein Air Festival";
 
     const desc =
-      "Meet the 25 nationally recognized artists invited to paint the Omaha metro during the Heartland Plein Air Arts Festival, September 13–19, 2026.";
+      "Meet the 25 nationally recognized artists invited to paint the Omaha metro during the Heartland Plein Air Festival, September 13–19, 2026.";
 
     const ensureMeta = (name: string) => {
       let el = document.querySelector(`meta[name="${name}"]`);
@@ -57,7 +57,7 @@ const Artists = () => {
                 Meet the Artists
               </h1>
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
-                Every painter at the Heartland Plein Air Arts Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
+                Every painter at the Heartland Plein Air Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
               <a href="#awards-judge" className="mt-4 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
                 Meet This Year's Judge →
@@ -81,7 +81,7 @@ const Artists = () => {
                         src={artist.src}
                         alt={artist.alt ?? artist.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        style={{ objectPosition: (artist as any).objectPosition ?? "center" }}
+                        style={{ objectPosition: artist.objectPosition ?? "center" }}
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                       />
@@ -196,7 +196,7 @@ const Artists = () => {
               <div className="overflow-hidden rounded-lg bg-background shadow-lg">
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
-                <img src={active.src} alt={(active as any).alt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: (active as any).objectPosition ?? "center" }} />
+                <img src={active.src} alt={active.alt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: active.objectPosition ?? "center" }} />
               </div>
               <div className="p-6 md:p-8">
                 <DialogHeader>
