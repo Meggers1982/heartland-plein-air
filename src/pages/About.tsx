@@ -109,7 +109,7 @@ const About = () => {
                 Artists spread out across the metro each day to paint. The public is free to follow along, watch them work, and ask questions — that's part of the point. Throughout the week, artists also give lectures at Ralston Public Schools and lead workshops for children in foster care.
               </p>
               <p>
-                The week closes with a public exhibition and auction on September 19, where every painting created during the festival goes on display and is available for purchase. A separate Collector's Soirée on the same day gives collectors early access to the full collection.
+                The week closes with a public exhibition and auction on September 19, where paintings created during the festival go on display and are available for purchase. A separate Collector's Soirée on September 18 gives collectors early access to the collection.
               </p>
               <p>
                 Every piece is painted on-site during festival week, so every piece is one of a kind.
@@ -133,10 +133,10 @@ const About = () => {
             </h2>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                The festival is presented by the <a href="https://ralstonarts.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Ralston HINGE Creative District</a>, a 501(c)(3) nonprofit that uses arts and culture to drive economic growth in Ralston. The district was founded in 2021 and is led by Deb Groesser, owner of <a href="https://www.debrajoygroesserfineart.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Debra Joy Groesser Fine Art</a>.
+                The festival is presented by the <a href="https://ralstonarts.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Ralston HINGE Creative District</a>, a 501(c)(3) nonprofit that uses arts and culture to drive economic growth in Ralston. The district was founded in 2021 and is led by Debra Joy Groesser, owner of <a href="https://www.debrajoygroesserfineart.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Debra Joy Groesser Fine Art</a>.
               </p>
               <p>
-                It's also grant-supported: Ralston was selected as one of just 13 recipients of a Nebraska Arts Council Creative District Development Grant — funding designed for projects that attract visitors, create jobs, and strengthen Nebraska communities.
+                It's also grant-supported: Ralston was selected as one of just 13 recipients of a Nebraska Arts Council Creative District Development Grant — funding designed for projects that attract visitors, create jobs, and strengthen Nebraska communities. The festival is also supported by The Sherwood Foundation and the Ralston Archives Museum.
               </p>
             </div>
           </AnimatedSection>

@@ -10,6 +10,8 @@ const navLinks = [
   { label: "Schedule", href: "/schedule" },
   { label: "Artists", href: "/artists" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Open Division", href: "/open-division" },
+  { label: "Sponsors", href: "/sponsors" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];

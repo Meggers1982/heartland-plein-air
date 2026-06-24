@@ -11,6 +11,8 @@ import Artists from "./pages/Artists";
 import Faq from "./pages/Faq";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import Sponsors from "./pages/Sponsors";
+import OpenDivision from "./pages/OpenDivision";
 import NotFound from "./pages/NotFound";
 
 
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/faq" element={<Faq />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/open-division" element={<OpenDivision />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

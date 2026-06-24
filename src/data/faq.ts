@@ -177,7 +177,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How can I become a festival sponsor?",
         a: [
-          "Sponsorship inquiries can be directed through HeartlandPleinAir.org. For a direct conversation, contact City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
+          "Sponsorship inquiries can be directed to ralstoncreativedistrict@gmail.com. For more information on sponsorship levels and advertising opportunities, visit the Sponsors page on this site.",
         ],
       },
       {

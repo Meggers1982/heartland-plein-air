@@ -18,6 +18,8 @@ type ScheduleEvent = {
   name: string;
   location?: string;
   address?: string;
+  label?: string;
+  note?: string;
 };
 
 type ScheduleDay = {
@@ -45,6 +47,7 @@ const days: ScheduleDay[] = [
         name: "Youth Paint Out",
         location: "Wildwood Park",
         address: "Ralston Ave. & 78th St., Ralston, NE",
+        note: "Registration opens soon",
       },
       {
         time: "5 – 7 PM",
@@ -62,6 +65,12 @@ const days: ScheduleDay[] = [
     audience: "artists",
     narrative:
       "The 25 invited artists gather for orientation. The calm before the paint flies.",
+    events: [
+      {
+        name: "Artist Meet and Greet",
+        label: "Collector VIP Pass Exclusive",
+      },
+    ],
   },
   {
     id: "day-sep-14",
@@ -132,6 +141,8 @@ const days: ScheduleDay[] = [
         name: "Artist Lecture by the Plein Air Judge",
         location: "Baright Public Library",
         address: "5555 S. 77th St., Ralston, NE",
+        label: "Ticketed event (included with Collector VIP Pass)",
+        note: "Registration opens soon",
       },
       {
         time: "6 – 8 PM",
@@ -155,6 +166,8 @@ const days: ScheduleDay[] = [
         name: "Collector's Soirée — live music, food, awards, art auction",
         location: "The Granary",
         address: "7401 Main St., Ralston, NE",
+        label: "Ticketed event (included with Collector VIP Pass)",
+        note: "Registration opens soon",
       },
     ],
   },
@@ -422,6 +435,11 @@ const Schedule = () => {
                             {ev.name}
                           </span>
                         </div>
+                        {ev.label && (
+                          <span className="inline-flex w-fit items-center rounded-full border border-accent/40 bg-accent/20 px-2.5 py-0.5 font-body text-xs font-semibold text-accent-foreground">
+                            {ev.label}
+                          </span>
+                        )}
                         {ev.location && (
                           <div className="flex items-start gap-1.5 font-body text-sm text-muted-foreground">
                             <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
@@ -439,6 +457,11 @@ const Schedule = () => {
                               <span>{ev.location}</span>
                             )}
                           </div>
+                        )}
+                        {ev.note && (
+                          <p className="font-body text-xs italic text-muted-foreground">
+                            {ev.note}
+                          </p>
                         )}
                         {canDownload && (
                           <button
