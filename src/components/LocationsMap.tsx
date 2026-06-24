@@ -2,16 +2,18 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { festivalLocations, type FestivalLocation } from "@/data/locations";
 
+type GoogleMapsLib = typeof window.google;
+
 declare global {
   interface Window {
-    google?: any;
+    google?: { maps: unknown };
     __initFestivalMap?: () => void;
   }
 }
 
 const SCRIPT_ID = "google-maps-js";
 
-function loadMapsScript(): Promise<any> {
+function loadMapsScript(): Promise<GoogleMapsLib> {
   return new Promise((resolve, reject) => {
     if (window.google?.maps) {
       resolve(window.google);
@@ -78,10 +80,10 @@ function getDayOptions(): DayOption[] {
 
 const LocationsMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const infoWindowRef = useRef<any>(null);
-  const markersRef = useRef<Array<{ marker: any; loc: FestivalLocation }>>([]);
-  const googleRef = useRef<any>(null);
+  const mapInstanceRef = useRef<unknown>(null);
+  const infoWindowRef = useRef<unknown>(null);
+  const markersRef = useRef<Array<{ marker: unknown; loc: FestivalLocation }>>([]);
+  const googleRef = useRef<GoogleMapsLib>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [dayFilter, setDayFilter] = useState<string>("all");
   const [listOpen, setListOpen] = useState(false);

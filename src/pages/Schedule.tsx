@@ -217,9 +217,9 @@ const slugify = (s: string) =>
 const Schedule = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Schedule of Events | Heartland Plein Air Arts Festival";
+    document.title = "Schedule of Events | Heartland Plein Air Festival";
     const desc =
-      "Full schedule for the Heartland Plein Air Arts Festival, September 12 – October 2, 2026 across the Omaha metro.";
+      "Full schedule for the Heartland Plein Air Festival, September 12 – October 2, 2026 across the Omaha metro.";
 
     const ensureMeta = (name: string) => {
       let el = document.querySelector(`meta[name="${name}"]`);
@@ -263,7 +263,7 @@ const Schedule = () => {
             isAccessibleForFree: d.audience === "public",
             organizer: {
               "@type": "Organization",
-              name: "Heartland Plein Air Arts Festival",
+              name: "Heartland Plein Air Festival",
               url: "https://ralston-plein-air.lovable.app",
             },
           })),

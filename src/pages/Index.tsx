@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import heroImage from "@/assets/hero-pleinair.jpg";
+import heroImage from "@/assets/spring-greens-djgroesser.webp";
 import artistImage from "@/assets/artist-painting.jpg";
 import { MapPin, Users, Eye, ShoppingBag } from "lucide-react";
 import {
@@ -107,7 +107,7 @@ const Index = () => {
       <section className="relative flex min-h-screen items-end overflow-hidden">
         <img
           src={heroImage}
-          alt="Plein air painting of the heartland landscape at golden hour"
+          alt="oil painting of lush spring green landscape"
           className="absolute inset-0 h-[120%] w-full object-cover will-change-transform"
           style={{ transform: `translateY(${scrollY * 0.3}px)` }}
         />
@@ -126,7 +126,7 @@ const Index = () => {
             className={`hero-title mb-6 max-w-3xl font-display text-5xl font-bold leading-tight text-secondary md:text-7xl transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "400ms" }}
           >
-            Heartland Plein Air Arts Festival
+            Heartland Plein Air Festival
           </h1>
           <p
             className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}

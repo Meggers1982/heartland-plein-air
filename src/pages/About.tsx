@@ -10,10 +10,10 @@ import BackToTop from "@/components/BackToTop";
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "About | Heartland Plein Air Arts Festival";
+    document.title = "About | Heartland Plein Air Festival";
 
     const desc =
-      "Learn about the Heartland Plein Air Arts Festival — a week of outdoor painting across Douglas and Sarpy County, September 13–19, 2026.";
+      "Learn about the Heartland Plein Air Festival — a week of outdoor painting across Douglas and Sarpy County, September 13–19, 2026.";
 
     const ensureMeta = (name: string) => {
       let el = document.querySelector(`meta[name="${name}"]`);
@@ -60,7 +60,7 @@ const About = () => {
           <AnimatedSection>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                Every September, 25 nationally recognized artists spend a week painting the greater Omaha metro area — outdoors, in public, in real time. That's the Heartland Plein Air Arts Festival. No gallery required. Just artists, easels, and the landscape in front of them.
+                Every September, 25 nationally recognized artists spend a week painting the greater Omaha metro area — outdoors, in public, in real time. That's the Heartland Plein Air Festival. No gallery required. Just artists, easels, and the landscape in front of them.
               </p>
               <p>
                 The inaugural festival runs <strong>September 13–19, 2026</strong>, with painters working across more than 20 locations in Douglas and Sarpy Counties. You're welcome to follow along.
