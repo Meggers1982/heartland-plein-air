@@ -1,8 +1,8 @@
+'use client';
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Facebook, Instagram, MapPin, Phone, Check } from "lucide-react";
 import { z } from "zod";
-import heartlandLogo from "@/assets/heartland-logo.png";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 
 const emailSchema = z
@@ -98,12 +98,12 @@ const SiteFooter = () => {
           {/* Brand */}
           <div className="flex flex-col">
             <Link
-              to="/"
+              href="/"
               aria-label="Heartland Plein Air Festival home"
               className="relative block w-full overflow-hidden rounded-lg aspect-[1376/729]"
             >
               <img
-                src={heartlandLogo}
+                src="/assets/heartland-logo.png"
                 alt="Heartland Plein Air Festival sunset artist logo"
                 className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
               />

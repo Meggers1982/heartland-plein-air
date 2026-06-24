@@ -1,3 +1,4 @@
+'use client';
 import { useState } from "react";
 import { z } from "zod";
 import { Sparkles, Calendar, Users, Check } from "lucide-react";

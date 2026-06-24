@@ -1,45 +1,40 @@
+'use client';
 import AnimatedSection from "@/components/AnimatedSection";
-import artist1 from "@/assets/artist-1.jpg";
-import artist2 from "@/assets/artist-2.jpg";
-import artist3 from "@/assets/artist-3.jpg";
-import artist4 from "@/assets/artist-4.jpg";
-import artist5 from "@/assets/artist-5.jpg";
-import artist6 from "@/assets/artist-6.jpg";
 
 const artists = [
   {
     name: "Catherine Morales",
-    src: artist1,
+    src: "/assets/artist-1.jpg",
     location: "Santa Fe, NM",
     bio: "Known for her luminous landscapes and bold use of color, Catherine has exhibited in galleries across the Southwest for over 20 years.",
   },
   {
     name: "Henry Aldrich",
-    src: artist2,
+    src: "/assets/artist-2.jpg",
     location: "Burlington, VT",
     bio: "A master of atmospheric perspective, Henry captures the quiet poetry of rural America with a classical plein air approach.",
   },
   {
     name: "Lily Chen",
-    src: artist3,
+    src: "/assets/artist-3.jpg",
     location: "Portland, OR",
     bio: "Lily brings a fresh, contemporary eye to plein air painting, blending impressionist technique with modern composition.",
   },
   {
     name: "Marcus Webb",
-    src: artist4,
+    src: "/assets/artist-4.jpg",
     location: "Nashville, TN",
     bio: "Marcus's vibrant street scenes and architectural studies have earned him national recognition and multiple plein air awards.",
   },
   {
     name: "Eleanor Hastings",
-    src: artist5,
+    src: "/assets/artist-5.jpg",
     location: "Savannah, GA",
     bio: "Eleanor's serene waterscapes and garden scenes reflect decades of dedicated outdoor painting across the American South.",
   },
   {
     name: "Diego Ramirez",
-    src: artist6,
+    src: "/assets/artist-6.jpg",
     location: "Austin, TX",
     bio: "An emerging voice in the plein air world, Diego's energetic brushwork and bold palettes bring urban landscapes to life.",
   },

@@ -1,5 +1,6 @@
+'use client';
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { artists, placeholderHeadshot } from "@/data/artists";
@@ -86,7 +87,7 @@ const ArtistSpotlight = () => {
                   </div>
                   <div className="mt-6 flex items-center gap-4">
                     <Link
-                      to="/artists"
+                      href="/artists"
                       className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 font-body text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                     >
                     Meet all the artists →
