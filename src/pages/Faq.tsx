@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import {
   Accordion,
@@ -15,7 +16,7 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import BackToTop from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
 
-type FaqItem = { q: string; a: string[] };
+type FaqItem = { q: string; a: string[]; sponsorLink?: boolean };
 type FaqCategory = { id: string; title: string; items: FaqItem[] };
 
 const categories: FaqCategory[] = [
@@ -194,8 +195,9 @@ const categories: FaqCategory[] = [
       {
         q: "How can I become a festival sponsor?",
         a: [
-          "Sponsorship inquiries can be directed through HeartlandPleinAir.org. For a direct conversation, contact City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
+          "Sponsorship inquiries can be directed to ralstoncreativedistrict@gmail.com. For more information on sponsorship levels and advertising opportunities, visit our Sponsors page.",
         ],
+        sponsorLink: true,
       },
       {
         q: "Does the festival partner with local nonprofits or schools?",
@@ -344,6 +346,16 @@ const Faq = () => {
                           {item.a.map((paragraph, pi) => (
                             <p key={pi}>{paragraph}</p>
                           ))}
+                          {item.sponsorLink && (
+                            <p>
+                              <Link
+                                to="/sponsors"
+                                className="font-semibold text-primary hover:underline"
+                              >
+                                Visit the Sponsors page →
+                              </Link>
+                            </p>
+                          )}
                         </AccordionContent>
                       </AccordionItem>
                     ))}

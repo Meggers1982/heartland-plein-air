@@ -7,6 +7,7 @@ export type GalleryPainting = {
 export type GalleryArtist = {
   name: string;
   slug: string;
+  medium: "oil-and-pastel" | "watercolor";
   paintings: GalleryPainting[];
 };
 
@@ -14,6 +15,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Hector Acuna",
     slug: "hector-acuna",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "hector-acuna-artist-at-the-easel.webp", title: "Artist at the Easel", alt: "plein air painting of artist painting at an easel on a suburban street" },
       { filename: "hector-acuna-aveda-window-reflection.webp", title: "Aveda Window Reflection", alt: "plein air painting of storefront window reflection of a town square" },
@@ -23,6 +25,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Jason Bailey",
     slug: "jason-bailey",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "jason-bailey-main-street-intersection.webp", title: "Main Street Intersection", alt: "plein air painting of small town intersection with american flags on poles" },
       { filename: "jason-bailey-alley-with-utility-poles.webp", title: "Alley with Utility Poles", alt: "plein air painting of alley with brick buildings, utility poles, mountains" },
@@ -32,6 +35,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Jacalyn Beam",
     slug: "jacalyn-beam",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "jacalyn-beam-floral-still-life.webp", title: "Floral Still Life", alt: "plein air painting of floral still life with yellow and pink flowers in vases" },
       { filename: "jacalyn-beam-field-colors.webp", title: "Field Colors", alt: "plein air painting of white farmhouse amid golden autumn trees and meadow" },
@@ -41,6 +45,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Bob Beck",
     slug: "bob-beck",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "bob-beck-the-little-stream.webp", title: "The Little Stream", alt: "plein air painting of snowy winter forest with bare trees and small stream" },
       { filename: "bob-beck-may-20th.webp", title: "May 20th", alt: "plein air painting of rural barns and outbuildings in summer landscape" },
@@ -50,6 +55,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Michele Byrne",
     slug: "michele-byrne",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "michele-byrne-basilica-morning-light.webp", title: "Basilica Morning Light", alt: "plein air painting of crowd walking toward a grand basilica at golden hour" },
       { filename: "michele-byrne-first-day-in-paris.webp", title: "First Day in Paris", alt: "plein air painting of paris street cafe with red awning and pedestrians" },
@@ -58,6 +64,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Robin Cheers",
     slug: "robin-cheers",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "robin-cheers-late-afternoon-st-remy.webp", title: "Late Afternoon, St. Rémy", alt: "plein air painting of narrow stone alley with arch and shops in provence" },
       { filename: "robin-cheers-little-pink-house.webp", title: "Little Pink House", alt: "plein air painting of pink cottage with blooming cherry tree in spring" },
@@ -67,6 +74,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Larry DeGraff",
     slug: "larry-degraff",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "larry-degraff-where-the-rivers-meet.webp", title: "Where the Rivers Meet", alt: "plein air painting of city skyline with tall buildings reflected in a river" },
       { filename: "larry-degraff-wind-on-the-water.webp", title: "Wind on the Water", alt: "plein air painting of calm river with green trees reflected in sunlit water" },
@@ -76,6 +84,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "John Evans",
     slug: "john-evans",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "john-evans-around-the-bend.webp", title: "Around the Bend", alt: "plein air painting of bridge on rural road with red barn and spring tree" },
       { filename: "john-evans-behind-the-sale-barn-3.webp", title: "Behind the Sale Barn", alt: "plein air painting of grain silo and farm buildings on green rolling land" },
@@ -85,15 +94,17 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Debra Joy Groesser",
     slug: "debra-joy-groesser",
+    medium: "oil-and-pastel",
     paintings: [
-      { filename: "debra-joy-groesser-autumn-farm-stormy-sky.webp", title: "Autumn Farm, Stormy Sky", alt: "debra joy groesser autumn farm with stormy sky" },
-      { filename: "debra-joy-groesser-rocky-coastal-cliffs-ocean.webp", title: "Rocky Coastal Cliffs", alt: "debra joy groesser rocky coastal cliffs and ocean" },
-      { filename: "debra-joy-groesser-wetland-marsh-lily-pads.webp", title: "Wetland Marsh, Lily Pads", alt: "debra joy groesser wetland marsh with lily pads" },
+      { filename: "debra-joy-groesser-autumn-farm-stormy-sky.webp", title: "Calm Before the Storm", alt: "debra joy groesser autumn farm with stormy sky" },
+      { filename: "debra-joy-groesser-rocky-coastal-cliffs-ocean.webp", title: "Reverence", alt: "debra joy groesser rocky coastal cliffs and ocean" },
+      { filename: "debra-joy-groesser-wetland-marsh-lily-pads.webp", title: "Morning Light, Narada Lake", alt: "debra joy groesser wetland marsh with lily pads" },
     ],
   },
   {
     name: "Kristin Hosbein",
     slug: "kristin-hosbein",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "kristin-hosbein-boats-at-the-marina.webp", title: "Boats at the Marina", alt: "plein air painting of blue sailboat and red motorboat docked at a marina" },
       { filename: "kristin-hosbein-harmony-at-dawn.webp", title: "Harmony at Dawn", alt: "plein air painting of red barn in a green meadow with red peony flowers" },
@@ -104,6 +115,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Ann Larsen",
     slug: "ann-larsen",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "ann-larsen-pier-reflections.webp", title: "Pier Reflections", alt: "plein air painting of wooden pier pilings and green water reflections" },
       { filename: "ann-larsen-apalachicola-blues.webp", title: "Apalachicola Blues", alt: "plein air painting of bright blue building with palm tree on sunny street" },
@@ -114,6 +126,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "John Lasater",
     slug: "john-lasater",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "john-lasater-sinks-cascade.webp", title: "Sinks Cascade", alt: "plein air painting of rushing stream flowing through rocky canyon boulders" },
       { filename: "john-lasater-sunday-mood.webp", title: "Sunday Mood", alt: "plein air painting of country road at dusk with rolling hills and farms" },
@@ -123,6 +136,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Dan Marshall",
     slug: "dan-marshall",
+    medium: "watercolor",
     paintings: [
       { filename: "dan-marshall-golden-hills-landscape.webp", title: "Golden Hills Landscape", alt: "plein air painting of watercolor of rolling golden hills under gray sky" },
       { filename: "dan-marshall-mountain-town.webp", title: "Mountain Town", alt: "plein air painting of watercolor of a mountain town with autumn foliage" },
@@ -132,6 +146,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Brenda Pinnick",
     slug: "brenda-pinnick",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "brenda-pinnick-all-the-colors.webp", title: "All the Colors", alt: "plein air painting of red and yellow flowers in a blue vase with cherries" },
       { filename: "brenda-pinnick-ode-to-spring.webp", title: "Ode to Spring", alt: "plein air painting of cottage with flowering shrubs along a garden path" },
@@ -141,6 +156,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Radhika Srinivas",
     slug: "radhika-srinivas",
+    medium: "watercolor",
     paintings: [
       { filename: "radhika-srinivas-columbia-downtown.webp", title: "Columbia Downtown", alt: "plein air painting of black and white watercolor of downtown with clock tower" },
       { filename: "radhika-srinivas-morning-light-in-salzburg.webp", title: "Morning Light in Salzburg", alt: "plein air painting of european street corner with domed building and bicycles" },
@@ -150,6 +166,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Steve Stauffer",
     slug: "steve-stauffer",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "steve-stauffer-a-poplar-fall.webp", title: "A Poplar Fall", alt: "plein air painting of tall golden poplar trees with snow-capped mountains" },
       { filename: "steve-stauffer-borrego-plein-air.webp", title: "Borrego Plein Air", alt: "plein air painting of artist easel in desert with yellow wildflowers" },
@@ -159,6 +176,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Jill Stefani Wagner",
     slug: "jill-stefani-wagner",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "jill-stefani-wagner-my-path.webp", title: "My Path", alt: "plein air painting of sandy path through golden grasses leading to a river" },
       { filename: "jill-stefani-wagner-pleasanton-bakery.webp", title: "Pleasanton Bakery", alt: "plein air painting of outdoor cafe with red umbrellas on a sunny afternoon" },
@@ -168,6 +186,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Durre Waseem",
     slug: "durre-waseem",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "durre-waseem-outdoor-cafe.webp", title: "Outdoor Café", alt: "plein air painting of sunny outdoor cafe with orange umbrellas and patrons" },
       { filename: "durre-waseem-tennessee-street.webp", title: "Tennessee Street", alt: "plein air painting of city street with tennessee theatre sign and figures" },
@@ -177,6 +196,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Ann Watcher",
     slug: "ann-watcher",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "ann-watcher-orange-slices.webp", title: "Orange Slices", alt: "plein air painting of orange slices in a blue bowl on gray background" },
       { filename: "ann-watcher-teapot-and-azaleas.webp", title: "Teapot and Azaleas", alt: "plein air painting of silver teapot with green cup and orange flowers" },
@@ -186,6 +206,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Robin Weiss",
     slug: "robin-weiss",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "robin-weiss-morning-hike.webp", title: "Morning Hike", alt: "plein air painting of two figures walking on a driftwood-strewn beach" },
       { filename: "robin-weiss-spring-barn.webp", title: "Spring Barn", alt: "plein air painting of red barn in a spring meadow with blooming trees" },
@@ -194,6 +215,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Chris Willey",
     slug: "chris-willey",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "chris-willey-padula-hillside.webp", title: "Padula Hillside", alt: "plein air painting of rolling hillside with mountains in the background" },
       { filename: "chris-willey-sidewalk-gardens.webp", title: "Sidewalk Gardens", alt: "plein air painting of garden path lined with purple, white, and yellow blooms" },
@@ -203,6 +225,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Jeff Williams",
     slug: "jeff-williams",
+    medium: "watercolor",
     paintings: [
       { filename: "jeff-williams-san-saba-river-rocks.webp", title: "San Saba River Rocks", alt: "plein air painting of dry riverbed with rocky banks under a moody sky" },
       { filename: "jeff-williams-all-in-a-days-work.webp", title: "All in a Day's Work", alt: "plein air painting of oak tree with small boat resting at the rivers edge" },
@@ -212,6 +235,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Stephen Wysocki",
     slug: "stephen-wysocki",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "stephen-wysocki-boat-at-the-dock.webp", title: "Boat at the Dock", alt: "plein air painting of small boat floating beneath a weathered wooden dock" },
       { filename: "stephen-wysocki-lakeside-pines.webp", title: "Lakeside Pines", alt: "plein air painting of calm lakeside with tall pine trees and soft clouds" },
@@ -221,6 +245,7 @@ export const galleryArtists: GalleryArtist[] = [
   {
     name: "Rick Delanty",
     slug: "rick-delanty",
+    medium: "oil-and-pastel",
     paintings: [
       { filename: "rick-delanty-coastal-cliffs.webp", title: "Coastal Cliffs", alt: "plein air painting of ocean waves crashing against rugged coastal cliffs" },
     ],
