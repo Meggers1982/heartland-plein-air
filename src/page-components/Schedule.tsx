@@ -1,6 +1,6 @@
 'use client';
-import { useEffect, useState } from "react";
-import { MapPin, Clock, ExternalLink, ArrowUp, CalendarPlus } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { MapPin, Clock, ArrowUp, CalendarPlus } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
@@ -10,194 +10,16 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
+import { cn } from "@/lib/utils";
+import { days, type Audience } from "@/data/schedule";
 
+type EventFilter = "all" | "public" | "ticketed" | "competitions";
 
-type Audience = "public" | "ticketed" | "artists";
-
-type ScheduleEvent = {
-  time?: string;
-  name: string;
-  location?: string;
-  address?: string;
-  label?: string;
-  note?: string;
-};
-
-type ScheduleDay = {
-  id: string;
-  dayShort: string;
-  dayLong: string;
-  title: string;
-  narrative: string;
-  audience: Audience;
-  events?: ScheduleEvent[];
-};
-
-const days: ScheduleDay[] = [
-  {
-    id: "day-sep-12",
-    dayShort: "Sat · Sep 12",
-    dayLong: "Saturday, September 12",
-    title: "It Starts with the Kids",
-    audience: "public",
-    narrative:
-      "Before the festival officially opens, young artists get the spotlight. Local youth take their easels to Wildwood Park for a full afternoon of open-air painting — then celebrate their work that evening at the Baright Public Library. Come see what the next generation of plein air artists is made of.",
-    events: [
-      {
-        time: "10 AM – 2 PM",
-        name: "Youth Paint Out",
-        location: "Wildwood Park",
-        address: "Ralston Ave. & 78th St., Ralston, NE",
-        note: "Registration opens soon",
-      },
-      {
-        time: "5 – 7 PM",
-        name: "Youth Exhibition",
-        location: "Baright Public Library",
-        address: "5555 S. 77th St., Ralston, NE",
-      },
-    ],
-  },
-  {
-    id: "day-sep-13",
-    dayShort: "Sun · Sep 13",
-    dayLong: "Sunday, September 13",
-    title: "Artists Arrive",
-    audience: "artists",
-    narrative:
-      "The 25 invited artists gather for orientation. The calm before the paint flies.",
-    events: [
-      {
-        name: "Artist Meet and Greet",
-        label: "Collector VIP Pass Exclusive",
-      },
-    ],
-  },
-  {
-    id: "day-sep-14",
-    dayShort: "Mon · Sep 14",
-    dayLong: "Monday, September 14",
-    title: "The City Becomes a Canvas — Benson",
-    audience: "public",
-    narrative:
-      "Starting today and running through Friday, artists fan out across Douglas and Sarpy Counties — painting historic neighborhoods, scenic vistas, and local landmarks. You might turn a corner and find one set up right in front of you. Stop and watch. Ask a question. That's the point. At midday, the action concentrates in Benson for the first Lunchtime Quick Paint Competition, where artists race the clock to capture a scene in front of a live audience.",
-    events: [
-      {
-        time: "Lunchtime",
-        name: "Quick Paint Competition",
-        location: "Benson",
-        address: "62nd & Maple, Omaha, NE",
-      },
-    ],
-  },
-  {
-    id: "day-sep-15",
-    dayShort: "Tue · Sep 15",
-    dayLong: "Tuesday, September 15",
-    title: "Quick Paint Moves to Dundee",
-    audience: "public",
-    narrative:
-      "Another day of painting across the metro, with the Lunchtime Quick Paint Competition landing in the tree-lined streets of Dundee. Grab lunch nearby and stay to watch.",
-    events: [
-      {
-        time: "Lunchtime",
-        name: "Quick Paint Competition",
-        location: "Dundee",
-        address: "50th & Underwood, Omaha, NE",
-      },
-    ],
-  },
-  {
-    id: "day-sep-16",
-    dayShort: "Wed · Sep 16",
-    dayLong: "Wednesday, September 16",
-    title: "Architecture, Art, and a Little Mentorship",
-    audience: "public",
-    narrative:
-      "The midweek Quick Paint heads to one of Omaha's most visually striking corridors — the Cathedral & Castle District, where gothic stonework and historic streetscapes give artists plenty to work with. Later in the afternoon, festival artists sit down with young painters for a mentorship session that's as much about the conversation as the craft.",
-    events: [
-      {
-        time: "Lunchtime",
-        name: "Quick Paint Competition",
-        location: "Cathedral & Castle District",
-        address: "40th St. between Cuming & Davenport, Omaha, NE",
-      },
-      {
-        time: "4 – 5:30 PM",
-        name: "Youth–Professional Artist Mentor Sessions",
-      },
-    ],
-  },
-  {
-    id: "day-sep-17",
-    dayShort: "Thu · Sep 17",
-    dayLong: "Thursday, September 17",
-    title: "An Evening Worth Staying Out For",
-    audience: "public",
-    narrative:
-      "By day, artists continue painting across the city. By evening, the energy shifts to Ralston for one of the week's most memorable nights. Hear the festival's plein air judge speak candidly about the art form, the week's work, and what separates a good painting from a great one. Then stay for the Evening Quick Paint Competition — artists competing outdoors, under the sky, while a live concert plays around them.",
-    events: [
-      {
-        time: "5 – 6 PM",
-        name: "Artist Lecture by the Plein Air Judge",
-        location: "Baright Public Library",
-        address: "5555 S. 77th St., Ralston, NE",
-        label: "Ticketed event (included with Collector VIP Pass)",
-        note: "Registration opens soon",
-      },
-      {
-        time: "6 – 8 PM",
-        name: "Evening Quick Paint Competition during Concert",
-        location: "Downtown Ralston",
-        address: "Main St. & 77th St., Ralston, NE",
-      },
-    ],
-  },
-  {
-    id: "day-sep-18",
-    dayShort: "Fri · Sep 18",
-    dayLong: "Friday, September 18",
-    title: "The Collector's Soirée",
-    audience: "ticketed",
-    narrative:
-      "An elegant close to the painting week. The Collector's Soirée at The Granary brings together art, music, food, and the first opportunity to acquire works from the festival's collection. Awards are announced, artists are celebrated, and the bidding begins. Tickets required.",
-    events: [
-      {
-        time: "5 – 8 PM",
-        name: "Collector's Soirée — live music, food, awards, art auction",
-        location: "The Granary",
-        address: "7401 Main St., Ralston, NE",
-        label: "Ticketed event (included with Collector VIP Pass)",
-        note: "Registration opens soon",
-      },
-    ],
-  },
-  {
-    id: "day-sep-19",
-    dayShort: "Sat · Sep 19",
-    dayLong: "Saturday, September 19",
-    title: "Open to Everyone",
-    audience: "public",
-    narrative:
-      "You don't need an invitation for this one. The Public Exhibition and Auction throws open the doors so anyone can experience the full collection — every painting made during the week, displayed together for the first time. See the city through the eyes of 25 artists, then take a piece of it home.",
-    events: [
-      {
-        time: "1 – 4 PM",
-        name: "Public Exhibition and Auction",
-        location: "The Granary",
-        address: "7401 Main St., Ralston, NE",
-      },
-    ],
-  },
-  {
-    id: "day-online",
-    dayShort: "Sep 19 – Oct 2",
-    dayLong: "September 19 – October 2",
-    title: "Can't Make It in Person?",
-    audience: "public",
-    narrative:
-      "Unsold works remain available for purchase online through October 2. Original, one-of-a-kind paintings of the Omaha metro — created on-site during the festival — available from wherever you are.",
-  },
+const EVENT_FILTERS: { value: EventFilter; label: string }[] = [
+  { value: "all", label: "All Events" },
+  { value: "public", label: "Free & Public" },
+  { value: "ticketed", label: "Ticketed" },
+  { value: "competitions", label: "Competitions" },
 ];
 
 const audienceLabel: Record<Audience, string> = {
@@ -208,7 +30,7 @@ const audienceLabel: Record<Audience, string> = {
 
 const audienceStyle: Record<Audience, string> = {
   public: "bg-primary/10 text-primary border-primary/30",
-  ticketed: "bg-accent/20 text-accent-foreground border-accent/40",
+  ticketed: "bg-brand-plum/15 text-brand-plum border-brand-plum/35",
   artists: "bg-muted text-muted-foreground border-border",
 };
 
@@ -229,6 +51,18 @@ const slugify = (s: string) =>
     .replace(/^-+|-+$/g, "");
 
 const Schedule = () => {
+  const [eventFilter, setEventFilter] = useState<EventFilter>("all");
+
+  const filteredDays = useMemo(() => {
+    if (eventFilter === "public") return days.filter((d) => d.audience === "public");
+    if (eventFilter === "ticketed") return days.filter((d) => d.audience === "ticketed");
+    if (eventFilter === "competitions")
+      return days.filter((d) =>
+        d.events?.some((e) => e.name.toLowerCase().includes("competition")),
+      );
+    return days;
+  }, [eventFilter]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Schedule of Events | Heartland Plein Air Festival";
@@ -306,7 +140,7 @@ const Schedule = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const weekItems = days.map((d) => {
+  const weekItems = filteredDays.map((d) => {
     if (d.id === "day-online") {
       return { id: d.id, weekday: "Sep 19+", label: "Online" };
     }
@@ -378,7 +212,30 @@ const Schedule = () => {
       {/* Days */}
       <section className="bg-secondary/40 py-20">
         <div className="mx-auto max-w-3xl space-y-16 px-6">
-          {days.map((d, i) => (
+          {/* Event type filter */}
+          <div className="flex flex-wrap gap-2">
+            {EVENT_FILTERS.map((f) => (
+              <button
+                key={f.value}
+                type="button"
+                onClick={() => setEventFilter(f.value)}
+                className={cn(
+                  "rounded-full border px-4 py-1.5 font-body text-xs font-semibold transition-colors",
+                  eventFilter === f.value
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                )}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+          {filteredDays.length === 0 && (
+            <p className="text-center font-body text-sm text-muted-foreground">
+              No events match this filter.
+            </p>
+          )}
+          {filteredDays.map((d, i) => (
             <AnimatedSection key={d.id} delay={i * 60}>
               <article id={d.id} className="scroll-mt-32 rounded-lg bg-card p-8 shadow-sm md:p-10">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -436,11 +293,6 @@ const Schedule = () => {
                             {ev.name}
                           </span>
                         </div>
-                        {ev.label && (
-                          <span className="inline-flex w-fit items-center rounded-full border border-accent/40 bg-accent/20 px-2.5 py-0.5 font-body text-xs font-semibold text-accent-foreground">
-                            {ev.label}
-                          </span>
-                        )}
                         {ev.location && (
                           <div className="flex items-start gap-1.5 font-body text-sm text-muted-foreground">
                             <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
@@ -458,11 +310,6 @@ const Schedule = () => {
                               <span>{ev.location}</span>
                             )}
                           </div>
-                        )}
-                        {ev.note && (
-                          <p className="font-body text-xs italic text-muted-foreground">
-                            {ev.note}
-                          </p>
                         )}
                         {canDownload && (
                           <button
