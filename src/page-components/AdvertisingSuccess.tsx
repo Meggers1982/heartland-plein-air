@@ -17,7 +17,7 @@ const AdvertisingSuccess = () => {
     <InquirySuccess
       eyebrow="Thank You"
       title="Your Ad Reservation Is In"
-      intro="We've received your reservation and will follow up soon. Print-ready ads are due by July 15th — email your artwork to ralstoncreativedistrict@gmail.com and enclose a check payable to the Ralston Hinge Creative District. Here's a recap of the ad sizes for your reference."
+      intro="We've received your reservation and will follow up soon. Print-ready ads are due by July 15th — email your artwork to ralstoncreativedistrict@gmail.com, and mail a check payable to the Ralston Hinge Creative District to 5615 S. 77th St, Ralston, NE 68127. Here's a recap of the ad sizes for your reference."
       recapTitle="Catalog Ad Sizes"
       recapItems={adSizes.map((size) => ({
         name: size.name,
