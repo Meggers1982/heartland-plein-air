@@ -1,13 +1,13 @@
 import AnimatedSection from "@/components/AnimatedSection";
+import { sponsors } from "@/data/sponsors";
 
-const sponsors = [
-  { name: "First National Bank", initials: "FNB" },
-  { name: "Metro Arts Council", initials: "MAC" },
-  { name: "Heartland Gallery", initials: "HG" },
-  { name: "Prairie Wind Media", initials: "PWM" },
-  { name: "Douglas County Tourism", initials: "DCT" },
-  { name: "Sarpy County Foundation", initials: "SCF" },
-];
+const sponsorLinks: Record<string, string> = {
+  "Ralston Archives Museum": "https://ralstonarts.org/",
+  "Sherwood Foundation": "https://sherwoodfoundation.org/",
+  "Nebraska Arts Council / Nebraska Cultural Endowment":
+    "https://www.artscouncil.nebraska.gov/",
+  "Visit Nebraska": "https://visitnebraska.com/",
+};
 
 const SponsorsSection = () => {
   return (
@@ -22,22 +22,38 @@ const SponsorsSection = () => {
           </h2>
         </AnimatedSection>
         <AnimatedSection delay={100}>
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-            {sponsors.map((s) => (
-              <div
-                key={s.name}
-                className="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
-              >
-                <div className="mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
-                  <span className="font-display text-lg font-bold text-muted-foreground">
-                    {s.initials}
-                  </span>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-7">
+            {sponsors.map((sponsor) => {
+              const href = sponsorLinks[sponsor.name];
+              const img = (
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.alt}
+                  className="max-h-12 w-auto max-w-full object-contain sm:max-h-16"
+                />
+              );
+
+              return (
+                <div
+                  key={sponsor.name}
+                  className="flex items-center justify-center px-2 py-2"
+                >
+                  {href ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={sponsor.name}
+                      className="flex items-center justify-center transition-opacity hover:opacity-80"
+                    >
+                      {img}
+                    </a>
+                  ) : (
+                    img
+                  )}
                 </div>
-                <p className="text-center font-body text-xs font-medium text-muted-foreground">
-                  {s.name}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </AnimatedSection>
       </div>
