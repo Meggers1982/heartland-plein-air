@@ -11,6 +11,8 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import { setPageMeta } from "@/lib/meta";
 
+const topicOptions = ["Sponsorship", "Advertising", "Tickets", "General Questions"] as const;
+
 const contactSchema = z.object({
   name: z
     .string()
@@ -23,6 +25,10 @@ const contactSchema = z.object({
     .min(1, { message: "Please enter your email address." })
     .email({ message: "Please enter a valid email address." })
     .max(255, { message: "Email must be less than 255 characters." }),
+  topic: z
+    .string()
+    .trim()
+    .min(1, { message: "Please select a topic." }),
   subject: z
     .string()
     .trim()
@@ -44,6 +50,7 @@ const Contact = () => {
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
+    topic: "",
     subject: "",
     message: "",
   });
@@ -246,13 +253,40 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-1.5">
+                    <label htmlFor="contact-topic" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                      Topic
+                    </label>
+                    <select
+                      id="contact-topic"
+                      value={form.topic}
+                      onChange={(e) => update("topic", e.target.value)}
+                      aria-invalid={errors.topic ? "true" : "false"}
+                      className="w-full appearance-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
+                    >
+                      <option value="" disabled>
+                        What can we help with?
+                      </option>
+                      {topicOptions.map((topic) => (
+                        <option key={topic} value={topic}>
+                          {topic}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.topic && (
+                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        {errors.topic}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-1.5">
                     <label htmlFor="contact-subject" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
                       Subject
                     </label>
                     <input
                       id="contact-subject"
                       type="text"
-                      placeholder="What can we help you with?"
+                      placeholder="Give us a quick summary"
                       value={form.subject}
                       onChange={(e) => update("subject", e.target.value)}
                       maxLength={150}
