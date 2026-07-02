@@ -33,6 +33,8 @@ const schedule = [
     description: "Open painting across the metro. Midday Lunch Break Paintout in Downtown Ralston.",
     time: "11 AM – 1:30 PM",
     location: "Downtown Ralston / Hinge Creative District",
+    logo: "/assets/hinge-creative-district-logo.png",
+    logoAlt: "Ralston Hinge Creative District logo",
   },
   {
     day: "Tuesday, September 15",
@@ -41,6 +43,8 @@ const schedule = [
     description: "Open painting across the metro. Midday Lunch Break Paintout in the Castle & Cathedral District.",
     time: "11 AM – 1:30 PM",
     location: "Castle & Cathedral Creative District",
+    logo: "/assets/castle-and-cathedral-district-logo.png",
+    logoAlt: "Castle & Cathedral Creative District logo",
   },
   {
     day: "Wednesday, September 16",
@@ -49,6 +53,8 @@ const schedule = [
     description: "Midday Lunch Break Paintout in Benson. Private mentorship sessions for preselected youth that afternoon (not open to the public).",
     time: "11 AM – 1:30 PM",
     location: "Benson Creative District",
+    logo: "/assets/benson-creative-district-logo.png",
+    logoAlt: "Benson Creative District logo",
   },
   {
     day: "Thursday, September 17",
@@ -57,6 +63,8 @@ const schedule = [
     description: "Lunch Break Paintout in Dundee 11 AM–1:30 PM. Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at Baright Library 5–6 PM. Third Thursday concert with artists painting downtown 6–8 PM — open to the public.",
     time: "11 AM – 8 PM",
     location: "Dundee + Baright Library + Downtown Ralston",
+    logo: "/assets/dundee-logo.png",
+    logoAlt: "Dundee Creative District logo",
   },
   {
     day: "Friday, September 18",
@@ -73,6 +81,8 @@ const schedule = [
     description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–5 PM. Live auction of Quick Paint pieces Noon–1 PM at Granary Green.",
     time: "9 AM – 5 PM",
     location: "Ralston Hinge Creative District + Venues at the Granary",
+    logo: "/assets/hinge-creative-district-logo.png",
+    logoAlt: "Ralston Hinge Creative District logo",
   },
   {
     day: "September 19 – October 2",
@@ -116,6 +126,15 @@ const ScheduleSection = () => {
                         <h3 className="mb-2 font-display text-xl font-semibold text-foreground">
                           {event.title}
                         </h3>
+                        {event.logo && (
+                          <div className={`mb-3 flex ${isLeft ? "md:justify-end" : ""}`}>
+                            <img
+                              src={event.logo}
+                              alt={event.logoAlt}
+                              className="max-h-10 w-auto max-w-[220px] object-contain"
+                            />
+                          </div>
+                        )}
                         <p className="mb-3 font-body text-sm leading-relaxed text-muted-foreground">
                           {event.description}
                         </p>
