@@ -20,8 +20,8 @@ type InquirySuccessProps = {
   eyebrow: string;
   title: string;
   intro: string;
-  recapTitle: string;
-  recapItems: RecapItem[];
+  recapTitle?: string;
+  recapItems?: RecapItem[];
   backHref: string;
   backLabel: string;
 };
@@ -60,45 +60,60 @@ const InquirySuccess = ({
 
       <section className="py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <AnimatedSection className="mb-12 text-center">
-            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              For Your Reference
-            </p>
-            <h2 className="font-display text-3xl font-bold leading-tight text-foreground">
-              {recapTitle}
-            </h2>
-          </AnimatedSection>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recapItems.map((item, i) => (
-              <AnimatedSection key={item.name} delay={i * 80} className="h-full">
-                <div className="flex h-full flex-col rounded-lg bg-card p-6 shadow-sm">
-                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
-                    {item.name}
-                  </h3>
-                  {item.price && (
-                    <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
-                      {item.price}
-                    </p>
-                  )}
-                  <p className="font-body text-sm leading-relaxed text-foreground/85">
-                    {item.detail}
-                  </p>
-                </div>
+          {recapItems && recapItems.length > 0 && (
+            <>
+              <AnimatedSection className="mb-12 text-center">
+                <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                  For Your Reference
+                </p>
+                <h2 className="font-display text-3xl font-bold leading-tight text-foreground">
+                  {recapTitle}
+                </h2>
               </AnimatedSection>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Link
-              href={backHref}
-              className="inline-flex items-center gap-2 font-body text-sm font-semibold text-primary transition-colors hover:underline"
-            >
-              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-              {backLabel}
-            </Link>
-          </div>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {recapItems.map((item, i) => (
+                  <AnimatedSection key={item.name} delay={i * 80} className="h-full">
+                    <div className="flex h-full flex-col rounded-lg bg-card p-6 shadow-sm">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                        <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                      </div>
+                      <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
+                        {item.name}
+                      </h3>
+                      {item.price && (
+                        <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
+                          {item.price}
+                        </p>
+                      )}
+                      <p className="font-body text-sm leading-relaxed text-foreground/85">
+                        {item.detail}
+                      </p>
+                    </div>
+                  </AnimatedSection>
+                ))}
+              </div>
+              <div className="mt-10 text-center">
+                <Link
+                  href={backHref}
+                  className="inline-flex items-center gap-2 font-body text-sm font-semibold text-primary transition-colors hover:underline"
+                >
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                  {backLabel}
+                </Link>
+              </div>
+            </>
+          )}
+          {(!recapItems || recapItems.length === 0) && (
+            <div className="text-center">
+              <Link
+                href={backHref}
+                className="inline-flex items-center gap-2 font-body text-sm font-semibold text-primary transition-colors hover:underline"
+              >
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                {backLabel}
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
