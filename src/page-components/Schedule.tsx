@@ -1,12 +1,13 @@
 'use client';
 import { useEffect, useMemo, useState } from "react";
-import { MapPin, Clock, ArrowUp, CalendarPlus } from "lucide-react";
+import { MapPin, Clock, CalendarPlus } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
+import BackToTop from "@/components/BackToTop";
 import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
@@ -67,7 +68,7 @@ const Schedule = () => {
     window.scrollTo(0, 0);
     document.title = "Schedule of Events | Heartland Plein Air Festival";
     const desc =
-      "Full schedule for the Heartland Plein Air Festival, September 12 – October 2, 2026 across the Omaha metro.";
+      "Full schedule for the Heartland Plein Air Festival, September 12 – October 2, 2026, across the Omaha metro.";
 
     const ensureMeta = (name: string) => {
       let el = document.querySelector(`meta[name="${name}"]`);
@@ -86,7 +87,7 @@ const Schedule = () => {
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", "https://ralston-plein-air.lovable.app/schedule");
+    canonical.setAttribute("href", "https://heartlandpleinair.org/schedule");
 
     // JSON-LD: one Event per public/ticketed day with concrete events
     const ld = {
@@ -112,7 +113,7 @@ const Schedule = () => {
             organizer: {
               "@type": "Organization",
               name: "Heartland Plein Air Festival",
-              url: "https://ralston-plein-air.lovable.app",
+              url: "https://heartlandpleinair.org",
             },
           })),
         ),
@@ -123,22 +124,10 @@ const Schedule = () => {
     script.text = JSON.stringify(ld);
     document.head.appendChild(script);
 
-    const handleScroll = () => {
-      setShowTopBtn(window.scrollY > 400);
-    };
-    window.addEventListener("scroll", handleScroll);
-
     return () => {
       document.getElementById("schedule-jsonld")?.remove();
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const [showTopBtn, setShowTopBtn] = useState(false);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const weekItems = filteredDays.map((d) => {
     if (d.id === "day-online") {
@@ -304,7 +293,7 @@ const Schedule = () => {
                                 className="transition-colors hover:text-primary hover:underline"
                               >
                                 {ev.location}{" "}
-                                <span className="text-muted-foreground/80">({ev.address})</span>
+                                <span className="text-muted-foreground/90">({ev.address})</span>
                               </a>
                             ) : (
                               <span>{ev.location}</span>
@@ -337,15 +326,7 @@ const Schedule = () => {
       <NewsletterCTA />
 
       <SiteFooter />
-
-      {/* Back to top */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${showTopBtn ? "opacity-100" : "pointer-events-none opacity-0"}`}
-        aria-label="Back to top"
-      >
-        <ArrowUp size={20} />
-      </button>
+      <BackToTop />
     </div>
   );
 };
