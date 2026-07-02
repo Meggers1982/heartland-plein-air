@@ -9,6 +9,7 @@ declare global {
   interface Window {
     google?: { maps: any };
     __initFestivalMap?: () => void;
+    gm_authFailure?: () => void;
   }
 }
 
@@ -99,6 +100,19 @@ const LocationsMap = () => {
 
   useEffect(() => {
     let cancelled = false;
+
+    // Google Maps reports key/referrer/billing problems (invalid key,
+    // disallowed HTTP referrer, API not activated, unbilled project, etc.)
+    // asynchronously via this global callback — not via the <script> tag's
+    // error event, and not always before the "maps loaded" callback fires.
+    // In practice the script can load and the Map object can construct
+    // successfully, with the auth failure only surfacing seconds later when
+    // Maps actually requests tiles. Without this hook that failure is
+    // silent: `status` stays "ready" and the container is left empty.
+    window.gm_authFailure = () => {
+      if (!cancelled) setStatus("error");
+    };
+
     loadMapsScript()
       .then((g) => {
         if (cancelled || !mapRef.current) return;
@@ -152,6 +166,7 @@ const LocationsMap = () => {
 
     return () => {
       cancelled = true;
+      if (window.gm_authFailure) window.gm_authFailure = undefined;
     };
   }, []);
 
