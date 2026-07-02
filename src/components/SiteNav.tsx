@@ -2,12 +2,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import CountdownRibbon from "@/components/CountdownRibbon";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+const navLinksBeforeAbout = [{ label: "Home", href: "/" }];
+
+const navLinksAfterAbout = [
   { label: "Schedule", href: "/schedule" },
   { label: "Artists", href: "/artists" },
   { label: "Gallery", href: "/gallery" },
@@ -17,8 +23,14 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+const aboutDropdownLinks = [
+  { label: "About", href: "/about" },
+  { label: "Advertising", href: "/advertising" },
+];
+
 const SiteNav = () => {
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const showRibbon = pathname !== "/";
@@ -26,6 +38,7 @@ const SiteNav = () => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setOpen(false);
+    setAboutOpen(false);
     if (href.startsWith("/#")) {
       const hash = href.slice(1);
       if (pathname !== "/") {
@@ -55,8 +68,58 @@ const SiteNav = () => {
             className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
           />
         </Link>
-        <div className="hidden gap-6 md:flex">
-          {navLinks.map((link) => (
+        <div className="hidden items-center gap-6 md:flex">
+          {navLinksBeforeAbout.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={(e) => handleClick(e, link.href)}
+              className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+            >
+              {link.label}
+            </a>
+          ))}
+
+          <div
+            onMouseEnter={() => setAboutOpen(true)}
+            onMouseLeave={() => setAboutOpen(false)}
+          >
+            <DropdownMenu open={aboutOpen} onOpenChange={setAboutOpen}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="flex items-center gap-1 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+                  aria-haspopup="menu"
+                  aria-expanded={aboutOpen}
+                >
+                  About
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${aboutOpen ? "rotate-180" : ""}`}
+                    aria-hidden="true"
+                  />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={12}
+                className="min-w-[10rem] rounded-md border border-border bg-popover p-1 font-body text-popover-foreground shadow-lg"
+              >
+                {aboutDropdownLinks.map((link) => (
+                  <DropdownMenuItem key={link.label} asChild>
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleClick(e, link.href)}
+                      className="cursor-pointer rounded-sm px-3 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary focus:bg-muted focus:text-primary"
+                    >
+                      {link.label}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {navLinksAfterAbout.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -82,7 +145,31 @@ const SiteNav = () => {
         }`}
       >
         <div className="flex flex-col gap-1 px-6 py-4">
-          {navLinks.map((link) => (
+          {navLinksBeforeAbout.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={(e) => handleClick(e, link.href)}
+              className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="/about"
+            onClick={(e) => handleClick(e, "/about")}
+            className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
+          >
+            About
+          </a>
+          <a
+            href="/advertising"
+            onClick={(e) => handleClick(e, "/advertising")}
+            className="ml-4 rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/70 transition-colors hover:bg-muted hover:text-primary"
+          >
+            Advertising
+          </a>
+          {navLinksAfterAbout.map((link) => (
             <a
               key={link.label}
               href={link.href}
