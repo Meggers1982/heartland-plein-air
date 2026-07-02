@@ -214,3 +214,100 @@ export const days: ScheduleDay[] = [
       "Unsold works remain available for purchase online through October 2. Original, one-of-a-kind paintings of the Omaha metro — created on-site during the festival — available from wherever you are.",
   },
 ];
+
+// Condensed teaser cards for the homepage "Week at a Glance" timeline.
+// Each entry links back to `days` via dayId, so the date label can never
+// drift out of sync with the full schedule page — only the curated
+// title/description/time/location below are homepage-specific.
+export type HomepageHighlight = {
+  dayId: string;
+  title: string;
+  description: string;
+  time: string;
+  location: string;
+  logo?: string;
+  logoAlt?: string;
+};
+
+export const homepageHighlights: HomepageHighlight[] = [
+  {
+    dayId: "day-sep-12",
+    title: "Youth Paintout",
+    description: "Young artists paint en plein air in the park.",
+    time: "10 AM – Noon",
+    location: "Wildwood Park (78th & Ralston Ave., Ralston, NE)",
+  },
+  {
+    dayId: "day-sep-12",
+    title: "Youth Art Show Reception",
+    description: "Celebrate young painters' work.",
+    time: "6 – 7:30 PM",
+    location: "Baright Public Library (5555 S. 77th St., Ralston, NE)",
+  },
+  {
+    dayId: "day-sep-13",
+    title: "Artists Arrive",
+    description: "Artist check-in, canvas stamping, and orientation.",
+    time: "3 PM",
+    location: "Festival Headquarters",
+  },
+  {
+    dayId: "day-sep-14",
+    title: "Lunch Break Paintout",
+    description: "Open painting across the metro. Midday Lunch Break Paintout in Downtown Ralston.",
+    time: "11 AM – 1:30 PM",
+    location: "Downtown Ralston / Hinge Creative District",
+    logo: "/assets/hinge-creative-district-logo.png",
+    logoAlt: "Ralston Hinge Creative District logo",
+  },
+  {
+    dayId: "day-sep-15",
+    title: "Lunch Break Paintout",
+    description: "Open painting across the metro. Midday Lunch Break Paintout in the Castle & Cathedral District.",
+    time: "11 AM – 1:30 PM",
+    location: "Castle & Cathedral Creative District",
+    logo: "/assets/castle-and-cathedral-district-logo.png",
+    logoAlt: "Castle & Cathedral Creative District logo",
+  },
+  {
+    dayId: "day-sep-16",
+    title: "Lunch Break Paintout + Youth Mentorship",
+    description: "Midday Lunch Break Paintout in Benson. Private mentorship sessions for preselected youth that afternoon (not open to the public).",
+    time: "11 AM – 1:30 PM",
+    location: "Benson Creative District",
+    logo: "/assets/benson-creative-district-logo.png",
+    logoAlt: "Benson Creative District logo",
+  },
+  {
+    dayId: "day-sep-17",
+    title: "Third Thursday & Judge's Lecture",
+    description: "Lunch Break Paintout in Dundee 11 AM–1:30 PM. Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at Baright Library 5–6 PM. Third Thursday concert with artists painting downtown 6–8 PM — open to the public.",
+    time: "11 AM – 8 PM",
+    location: "Dundee + Baright Library + Downtown Ralston",
+    logo: "/assets/dundee-logo.png",
+    logoAlt: "Dundee Creative District logo",
+  },
+  {
+    dayId: "day-sep-18",
+    title: "Collector's Soirée",
+    description: "Art reception and awards ceremony. Artwork for sale at artist's listed prices. Tickets required.",
+    time: "5:30 – 8 PM",
+    location: "Venues at the Granary (7401 Main St., Ralston, NE)",
+  },
+  {
+    dayId: "day-sep-19",
+    title: "Quick Paint & Public Exhibition",
+    description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–5 PM. Live auction of Quick Paint pieces Noon–1 PM at Granary Green.",
+    time: "9 AM – 5 PM",
+    location: "Ralston Hinge Creative District + Venues at the Granary",
+    logo: "/assets/hinge-creative-district-logo.png",
+    logoAlt: "Ralston Hinge Creative District logo",
+  },
+  {
+    dayId: "day-online",
+    title: "Online Sales",
+    description: "Unsold works available for purchase online.",
+    time: "All Day",
+    location: "Online",
+  },
+];

@@ -58,7 +58,7 @@ const CountdownRibbon = () => {
           </div>
         </div>
         <p className="hidden font-display text-sm italic text-primary-foreground md:block">
-          Sept 13–19, 2026 · Douglas &amp; Sarpy County
+          Sept 13–19, 2026 · Douglas &amp; Sarpy County, Nebraska
         </p>
       </div>
     </div>
