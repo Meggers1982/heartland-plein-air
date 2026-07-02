@@ -247,6 +247,7 @@ const OpenDivision = () => {
                 levelLabel="Primary Medium"
                 levelOptions={["Oils", "Acrylics", "Watercolor", "Gouache", "Casein", "Pastel", "Oil Sticks"]}
                 organizationLabel="City, State"
+                organizationPlaceholder="Omaha, NE"
                 submitLabel="Submit Registration"
                 successHref="/open-division/success"
               />
