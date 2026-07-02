@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { Facebook, Instagram, MapPin, Phone, Check, Mail, ChevronDown } from "lucide-react";
+import { Facebook, Instagram, MapPin, Phone, Mail, ChevronDown } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
@@ -47,6 +48,7 @@ type FormErrors = Partial<Record<keyof FormState, string>>;
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojopwyp";
 
 const Contact = () => {
+  const router = useRouter();
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -55,7 +57,6 @@ const Contact = () => {
     message: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
-  const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -94,7 +95,7 @@ const Contact = () => {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
+      router.push("/contact/success");
     } catch {
       setSubmitError(
         "Something went wrong sending your message. Please try again, or email us directly at ralstoncreativedistrict@gmail.com.",
@@ -191,23 +192,6 @@ const Contact = () => {
           {/* Form */}
           <AnimatedSection delay={150} className="md:col-span-3">
             <div className="rounded-sm border border-border bg-card p-8 shadow-[0_24px_48px_-12px_hsl(var(--foreground)/0.08)] md:p-12">
-              {submitted ? (
-                <div
-                  role="status"
-                  aria-live="polite"
-                  className="flex flex-col items-center justify-center py-10 text-center"
-                >
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/15">
-                    <Check className="h-7 w-7 text-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="mb-2 font-display text-2xl font-bold text-foreground">
-                    Message sent
-                  </h3>
-                  <p className="max-w-md font-body text-base text-muted-foreground">
-                    Thanks for reaching out. We'll get back to you as soon as we can.
-                  </p>
-                </div>
-              ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-6">
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-1.5">
@@ -348,7 +332,6 @@ const Contact = () => {
                     </button>
                   </div>
                 </form>
-              )}
             </div>
           </AnimatedSection>
         </div>
