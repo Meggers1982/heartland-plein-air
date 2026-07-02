@@ -96,9 +96,9 @@ export const galleryArtists: GalleryArtist[] = [
     slug: "debra-joy-groesser",
     medium: "oil-and-pastel",
     paintings: [
-      { filename: "debra-joy-groesser-autumn-farm-stormy-sky.webp", title: "Calm Before the Storm", alt: "debra joy groesser autumn farm with stormy sky" },
-      { filename: "debra-joy-groesser-rocky-coastal-cliffs-ocean.webp", title: "Reverence", alt: "debra joy groesser rocky coastal cliffs and ocean" },
-      { filename: "debra-joy-groesser-wetland-marsh-lily-pads.webp", title: "Morning Light, Narada Lake", alt: "debra joy groesser wetland marsh with lily pads" },
+      { filename: "debra-joy-groesser-autumn-farm-stormy-sky.webp", title: "Calm Before the Storm", alt: "plein air painting of autumn farm buildings under a stormy sky" },
+      { filename: "debra-joy-groesser-rocky-coastal-cliffs-ocean.webp", title: "Reverence", alt: "plein air painting of rocky coastal cliffs above the ocean" },
+      { filename: "debra-joy-groesser-wetland-marsh-lily-pads.webp", title: "Morning Light, Narada Lake", alt: "plein air painting of a wetland marsh with lily pads at dawn" },
     ],
   },
   {

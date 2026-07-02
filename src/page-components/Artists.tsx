@@ -9,6 +9,7 @@ import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 import { artists, awardsJudge, placeholderHeadshot } from "@/data/artists";
+import { setPageMeta } from "@/lib/meta";
 
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -16,32 +17,9 @@ const Artists = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Artists | Heartland Plein Air Festival";
-
-    const desc =
-      "Meet the 25 nationally recognized artists invited to paint the Omaha metro during the Heartland Plein Air Festival, September 13–19, 2026.";
-
-    const ensureMeta = (name: string) => {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      return el;
-    };
-    ensureMeta("description").setAttribute("content", desc);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://ralston-plein-air.lovable.app/artists");
-
-    return () => {
-      canonical?.remove();
-    };
+    return setPageMeta(
+      "Meet the 25 nationally recognized artists invited to paint the Omaha metro during the Heartland Plein Air Festival, September 13–19, 2026.",
+    );
   }, []);
 
   return (
@@ -86,20 +64,20 @@ const Artists = () => {
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                       />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                        <span className="font-body text-sm font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-wide">
+                      <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center group-hover:bg-black/30 group-focus-visible:bg-black/30">
+                        <span className="font-body text-sm font-medium text-white opacity-0 transition-opacity duration-300 tracking-wide group-hover:opacity-100 group-focus-visible:opacity-100">
                           View Bio
                         </span>
                       </div>
                     </div>
                     <div className="p-6">
-                      <h2 className="font-display text-xl font-semibold text-foreground">
+                      <h3 className="font-display text-xl font-semibold text-foreground">
                         {artist.name}
-                      </h2>
+                      </h3>
                       <p className="font-body text-xs font-semibold uppercase tracking-widest text-primary">
                         {artist.location}
                       </p>
-                      <p className="mt-2 font-body text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <p className="mt-2 font-body text-xs text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                         Click to see more
                       </p>
                     </div>
