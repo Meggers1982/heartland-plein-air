@@ -178,14 +178,29 @@ const SiteFooter = () => {
             Sponsors &amp; Partners
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            {sponsors.map((sponsor) => (
-              <img
-                key={sponsor.name}
-                src={sponsor.logo}
-                alt={sponsor.alt}
-                className="h-10 w-auto max-w-[170px] object-contain md:h-14"
-              />
-            ))}
+            {sponsors.map((sponsor) => {
+              const img = (
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.alt}
+                  className="h-10 w-auto max-w-[170px] object-contain md:h-14"
+                />
+              );
+              return sponsor.url ? (
+                <a
+                  key={sponsor.name}
+                  href={sponsor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={sponsor.name}
+                  className="transition-opacity hover:opacity-80"
+                >
+                  {img}
+                </a>
+              ) : (
+                <span key={sponsor.name}>{img}</span>
+              );
+            })}
           </div>
         </div>
 
