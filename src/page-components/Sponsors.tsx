@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from "react";
-import { Crown, Gem, Award, Medal, Star, Heart, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
@@ -10,64 +10,7 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
 import { sponsors } from "@/data/sponsors";
-
-const sponsorTiers = [
-  {
-    name: "Titanium",
-    price: "$5,000 and over",
-    icon: Crown,
-    benefits: [
-      "Full-page ad in the festival catalog",
-      "Logo on banners, ads, and website",
-      "Three Collector's VIP Packages",
-    ],
-  },
-  {
-    name: "Platinum",
-    price: "$2,500 to $4,999",
-    icon: Gem,
-    benefits: [
-      "Full-page ad in the festival catalog",
-      "Logo on banners, ads, and website",
-      "Two Collector's VIP Packages",
-    ],
-  },
-  {
-    name: "Gold",
-    price: "$1,000 to $2,499",
-    icon: Award,
-    benefits: [
-      "Half-page ad in the festival catalog",
-      "Logo on banners, ads, and website",
-      "One Collector's VIP Package",
-    ],
-  },
-  {
-    name: "Silver",
-    price: "$500 to $999",
-    icon: Medal,
-    benefits: [
-      "Quarter-page ad in the festival catalog",
-      "Logo on website",
-      "Name on banner",
-    ],
-  },
-  {
-    name: "Bronze",
-    price: "$250 to $499",
-    icon: Star,
-    benefits: [
-      "Name listed in the festival catalog",
-      "Name listed on website",
-    ],
-  },
-  {
-    name: "Friend of the District",
-    price: "$100 to $249",
-    icon: Heart,
-    benefits: ["Name listed on website"],
-  },
-];
+import { sponsorTiers } from "@/data/sponsorTiers";
 
 const namedOpportunities = [
   {
@@ -180,6 +123,7 @@ const Sponsors = () => {
               </div>
               <InquiryForm
                 formspreeEndpoint="https://formspree.io/f/xykqbjnp"
+                successHref="/sponsors/success"
                 levelLabel="Sponsorship Level"
                 levelOptions={[
                   ...sponsorTiers.map((tier) => `${tier.name} (${tier.price})`),
@@ -225,30 +169,6 @@ const Sponsors = () => {
               </AnimatedSection>
             ))}
           </div>
-        </div>
-      </section>
-
-      <BrushStrokeDivider />
-
-      {/* Advertise in the Catalog */}
-      <section className="bg-secondary/40 py-20">
-        <div className="mx-auto max-w-3xl px-6">
-          <AnimatedSection>
-            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Catalog Advertising
-            </p>
-            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Advertise in the Catalog
-            </h2>
-            <p className="mb-8 font-body text-lg leading-relaxed text-foreground/85">
-              The festival catalog is distributed to collectors, attendees, and art enthusiasts throughout the Omaha metro and beyond. Reach your audience by placing an ad alongside the work of 25 nationally recognized plein air artists.
-            </p>
-            <div className="rounded-lg border border-border bg-card p-8 text-center">
-              <p className="font-body text-base italic text-muted-foreground">
-                Advertising form coming soon
-              </p>
-            </div>
-          </AnimatedSection>
         </div>
       </section>
 
