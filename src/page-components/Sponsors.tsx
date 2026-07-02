@@ -1,6 +1,5 @@
 'use client';
 import { useEffect } from "react";
-import Link from "next/link";
 import { Crown, Gem, Award, Medal, Star, Heart, Check } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
@@ -8,6 +7,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
+import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
 import { sponsors } from "@/data/sponsors";
 
@@ -169,20 +169,27 @@ const Sponsors = () => {
           </div>
 
           <AnimatedSection delay={200}>
-            <div className="mx-auto mt-12 max-w-3xl rounded-lg border border-border bg-card p-8 text-center">
-              <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                Ready to sponsor the festival?
-              </p>
-              <p className="font-body text-base leading-relaxed text-muted-foreground">
-                Contact the Ralston Hinge Creative District at{" "}
-                <a
-                  href="mailto:ralstoncreativedistrict@gmail.com"
-                  className="font-semibold text-primary hover:underline"
-                >
-                  ralstoncreativedistrict@gmail.com
-                </a>{" "}
-                to choose a level and become a sponsor. The Ralston Hinge Creative District is a 501(c)(3) nonprofit organization.
-              </p>
+            <div className="mx-auto mt-12 max-w-3xl rounded-lg border border-border bg-card p-8 md:p-12">
+              <div className="mb-8 text-center">
+                <p className="mb-2 font-body text-lg font-semibold text-foreground">
+                  Ready to sponsor the festival?
+                </p>
+                <p className="font-body text-base leading-relaxed text-muted-foreground">
+                  Fill out the form below to choose a level and become a sponsor. The Ralston Hinge Creative District is a 501(c)(3) nonprofit organization.
+                </p>
+              </div>
+              <InquiryForm
+                formspreeEndpoint="https://formspree.io/f/REPLACE_WITH_YOUR_SPONSORSHIP_FORM_ID"
+                levelLabel="Sponsorship Level"
+                levelOptions={[
+                  ...sponsorTiers.map((tier) => `${tier.name} (${tier.price})`),
+                  "Award / Event Sponsorship",
+                  "Not sure yet — general inquiry",
+                ]}
+                submitLabel="Submit Sponsorship Inquiry"
+                successTitle="Inquiry sent"
+                successMessage="Thanks for your interest in sponsoring the festival — we'll follow up soon."
+              />
             </div>
           </AnimatedSection>
         </div>
