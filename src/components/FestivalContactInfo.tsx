@@ -6,9 +6,9 @@ const FestivalContactInfo = () => {
       <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
         Festival Office
       </p>
-      <h2 className="mb-6 font-display text-2xl font-bold leading-tight text-foreground">
+      <h3 className="mb-6 font-display text-2xl font-bold leading-tight text-foreground">
         Ralston HINGE Creative District
-      </h2>
+      </h3>
       <div className="space-y-5 font-body text-base text-foreground/85">
         <div className="flex items-start gap-3">
           <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
