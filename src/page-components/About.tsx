@@ -7,37 +7,15 @@ import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
+import { setPageMeta } from "@/lib/meta";
 
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "About | Heartland Plein Air Festival";
-
-    const desc =
-      "Learn about the Heartland Plein Air Festival — a week of outdoor painting across Douglas and Sarpy County, September 13–19, 2026.";
-
-    const ensureMeta = (name: string) => {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      return el;
-    };
-    ensureMeta("description").setAttribute("content", desc);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://ralston-plein-air.lovable.app/about");
-
-    return () => {
-      canonical?.remove();
-    };
+    return setPageMeta(
+      "Learn about the Heartland Plein Air Festival — a week of outdoor painting across Douglas and Sarpy County, September 13–19, 2026.",
+    );
   }, []);
 
   return (
