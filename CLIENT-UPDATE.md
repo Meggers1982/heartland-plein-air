@@ -51,6 +51,18 @@ send people to a proper "thank you" page after they submit, which reminds
 them of the pricing they selected and gives them your contact info again in
 case they have questions.
 
+We used a service called Formspree to power all of this, rather than a
+free option like Google Apps Script. Formspree was the easier build with a
+generous free tier, but the real reason is reliability: a script-based
+approach can quietly break — say, if Google changes something on their end —
+and you'd have no way of knowing submissions had stopped coming in until a
+sponsor or artist mentioned they never heard back. Formspree is a dedicated
+service built for exactly this, so it's much less likely to fail silently.
+The free tier we're on now is plenty to start, but if the festival's form
+volume grows, it may be worth moving to a paid Formspree plan — the main
+benefit being that submissions can then flow automatically into a Google
+Sheet, rather than just landing in an inbox one at a time.
+
 ## Sponsors are visible everywhere they should be
 
 Sponsor logos previously only appeared, inconsistently, in one or two spots.
