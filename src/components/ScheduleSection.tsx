@@ -22,7 +22,8 @@ const ScheduleSection = () => {
           <div className="space-y-8">
             {homepageHighlights.map((event, i) => {
               const isLeft = i % 2 === 0;
-              const dayLabel = days.find((d) => d.id === event.dayId)?.dayLong ?? "";
+              const day = days.find((d) => d.id === event.dayId);
+              const dayLabel = day?.dayLong ?? "";
               return (
                 <AnimatedSection key={event.dayId + event.title} delay={i * 80}>
                   <div className={`relative flex flex-col gap-4 md:flex-row md:items-start ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}>
@@ -35,11 +36,11 @@ const ScheduleSection = () => {
                         <h3 className="mb-2 font-display text-xl font-semibold text-foreground">
                           {event.title}
                         </h3>
-                        {event.logo && (
+                        {day?.logo && (
                           <div className={`mb-3 flex ${isLeft ? "md:justify-end" : ""}`}>
                             <img
-                              src={event.logo}
-                              alt={event.logoAlt}
+                              src={day.logo}
+                              alt={day.logoAlt}
                               className="max-h-10 w-auto max-w-[220px] object-contain"
                             />
                           </div>
