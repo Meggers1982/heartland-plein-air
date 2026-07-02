@@ -17,12 +17,15 @@ const perks = [
   { icon: Sparkles, label: "Early collector access" },
 ];
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpqgolwo";
+
 const NewsletterCTA = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = emailSchema.safeParse(email);
     if (!result.success) {
@@ -30,13 +33,26 @@ const NewsletterCTA = () => {
       return;
     }
     setError(null);
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <section
       id="newsletter"
-      className="relative overflow-hidden bg-gradient-to-br from-foreground via-foreground to-primary/40 py-24"
+      className="relative scroll-mt-32 overflow-hidden bg-gradient-to-br from-foreground via-foreground to-primary/40 py-24"
     >
       {/* Decorative paint strokes */}
       <svg
@@ -112,9 +128,10 @@ const NewsletterCTA = () => {
               />
               <button
                 type="submit"
-                className="rounded-full bg-primary px-8 py-3.5 font-body text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:scale-[1.03] hover:opacity-95 active:scale-[0.98]"
+                disabled={submitting}
+                className="rounded-full bg-primary px-8 py-3.5 font-body text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:scale-[1.03] hover:opacity-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Subscribe
+                {submitting ? "Subscribing..." : "Subscribe"}
               </button>
             </div>
 
