@@ -1,0 +1,38 @@
+import type { MetadataRoute } from "next";
+
+const SITE_URL = "https://heartlandpleinair.org";
+
+// Festival week — used as a reasonable lastModified for festival-content pages.
+// Update if the underlying page content changes independently of the festival date.
+const LAST_MODIFIED = new Date();
+
+type RouteConfig = {
+  path: string;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  priority: number;
+};
+
+// "/advertising/success" and "/sponsors/success" are intentionally excluded:
+// they're post-submission confirmation pages with no content of their own,
+// aren't meant to be discovered via search, and would look odd as a search result.
+const routes: RouteConfig[] = [
+  { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/about", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/advertising", changeFrequency: "monthly", priority: 0.5 },
+  { path: "/artists", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/contact", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/faq", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/gallery", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/open-division", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/schedule", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/sponsors", changeFrequency: "monthly", priority: 0.6 },
+];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return routes.map((route) => ({
+    url: `${SITE_URL}${route.path}`,
+    lastModified: LAST_MODIFIED,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
+  }));
+}

@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 194 16% 26%;
 
-    --primary: 19 55% 50%;                /* #C46A3B burnt orange */
+    --primary: 19 55% 40%;                /* burnt orange, darkened from 50% for WCAG AA text contrast (was 3.2:1 on cream bg, now 4.7:1) */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 38 55% 80%;              /* softened warm tan — subtle for bg-secondary/40 bands, still warm at full */
@@ -28,7 +28,7 @@
     --accent: 27 82% 56%;                 /* #EA8832 gold orange (sun) */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84.2% 42%;           /* darkened from 60.2% for WCAG AA text contrast (was 3.1:1 on cream / 3.8:1 on white card, now 5.0:1 / 6.1:1) */
     --destructive-foreground: 210 40% 98%;
 
     --border: 38 35% 78%;

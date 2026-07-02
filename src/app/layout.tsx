@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Providers from "@/App";
+import { organizationSchema, festivalEventSchema } from "@/lib/schema";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://heartlandpleinair.org"),
   title: "Heartland Plein Air Festival | September 13–19, 2026",
   description:
     "Heartland Plein Air Festival brings 25 nationally recognized artists to the Omaha metro for a week of outdoor painting, public exhibition, and live art-making. September 13–19, 2026.",
@@ -31,7 +33,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://heartlandpleinair.org" />
+        {/* Each route's own metadata (see src/app/*\/page.tsx) sets alternates.canonical,
+            which Next.js renders into <head> automatically. A second, hardcoded canonical
+            here would conflict with those per-page values on every route but "/". */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [organizationSchema, festivalEventSchema],
+            }),
+          }}
+        />
       </head>
       <body>
         <Providers>{children}</Providers>

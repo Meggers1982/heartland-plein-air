@@ -34,7 +34,7 @@ const CountdownRibbon = () => {
     <div className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         <div className="flex items-center gap-3 sm:gap-5">
-          <span className="hidden font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-foreground/70 sm:inline">
+          <span className="hidden font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-foreground/90 sm:inline">
             Brushes Out In
           </span>
           <div className="flex items-baseline gap-2 sm:gap-3">
@@ -44,7 +44,7 @@ const CountdownRibbon = () => {
                   <span className="font-display text-lg font-bold tabular-nums leading-none sm:text-xl">
                     {String(value).padStart(2, "0")}
                   </span>
-                  <span className="font-body text-[9px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/70">
+                  <span className="font-body text-[9px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90">
                     {label}
                   </span>
                 </span>
@@ -57,7 +57,7 @@ const CountdownRibbon = () => {
             ))}
           </div>
         </div>
-        <p className="hidden font-display text-sm italic text-primary-foreground/90 md:block">
+        <p className="hidden font-display text-sm italic text-primary-foreground md:block">
           Sept 13–19, 2026 · Douglas &amp; Sarpy County
         </p>
       </div>

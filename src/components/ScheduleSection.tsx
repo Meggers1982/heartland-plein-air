@@ -138,7 +138,7 @@ const ScheduleSection = () => {
                         <p className="mb-3 font-body text-sm leading-relaxed text-muted-foreground">
                           {event.description}
                         </p>
-                        <div className={`flex flex-wrap gap-4 font-body text-xs text-muted-foreground/80 ${isLeft ? "md:justify-end" : ""}`}>
+                        <div className={`flex flex-wrap gap-4 font-body text-xs text-muted-foreground ${isLeft ? "md:justify-end" : ""}`}>
                           <span className="flex items-center gap-1">
                             <Calendar className="h-3 w-3" />
                             {event.time}

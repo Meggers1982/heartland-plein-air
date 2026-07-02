@@ -91,7 +91,7 @@ const NewsletterCTA = () => {
             noValidate
             className="mx-auto max-w-lg"
           >
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:rounded-full sm:border sm:border-background/20 sm:bg-background/5 sm:p-1.5 sm:backdrop-blur-sm">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:rounded-full sm:border sm:border-background/20 sm:bg-background/5 sm:p-1.5 sm:backdrop-blur-sm sm:focus-within:ring-2 sm:focus-within:ring-primary">
               <label htmlFor="newsletter-email" className="sr-only">
                 Email address
               </label>
@@ -130,7 +130,7 @@ const NewsletterCTA = () => {
               ) : (
                 <p
                   id="newsletter-trust"
-                  className="font-body text-xs text-background/50"
+                  className="font-body text-xs text-background/80"
                 >
                   No spam. Unsubscribe anytime. Festival updates only.
                 </p>

@@ -251,7 +251,11 @@ const LocationsMap = () => {
           </div>
         )}
         {status === "error" && (
-          <div className="absolute inset-0 flex items-center justify-center bg-muted px-6">
+          <div
+            role="status"
+            aria-live="polite"
+            className="absolute inset-0 flex items-center justify-center bg-muted px-6"
+          >
             <div className="max-w-sm text-center">
               <p className="mb-2 font-display text-lg font-bold text-foreground">
                 Map couldn't load
@@ -287,7 +291,7 @@ const LocationsMap = () => {
                     key={loc.key}
                     className="rounded-lg border border-border bg-card p-4 shadow-sm"
                   >
-                    <p className="font-display text-lg font-bold text-foreground">{loc.name}</p>
+                    <h3 className="font-display text-lg font-bold text-foreground">{loc.name}</h3>
                     <p className="mb-3 font-body text-xs text-muted-foreground">{loc.address}</p>
                     <ul className="space-y-2 font-body text-sm">
                       {events.map((e, i) => (
