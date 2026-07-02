@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { Check } from "lucide-react";
 
@@ -57,6 +58,7 @@ type InquiryFormProps = {
   submitLabel?: string;
   successTitle?: string;
   successMessage?: string;
+  successHref?: string;
 };
 
 const InquiryForm = ({
@@ -67,7 +69,9 @@ const InquiryForm = ({
   submitLabel = "Submit Inquiry",
   successTitle = "Inquiry sent",
   successMessage = "Thanks for reaching out. We'll get back to you as soon as we can.",
+  successHref,
 }: InquiryFormProps) => {
+  const router = useRouter();
   const schema = buildSchema(levelLabel);
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -116,7 +120,11 @@ const InquiryForm = ({
         }),
       });
       if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
+      if (successHref) {
+        router.push(successHref);
+      } else {
+        setSubmitted(true);
+      }
     } catch {
       setSubmitError(
         "Something went wrong sending your inquiry. Please try again, or email us directly at ralstoncreativedistrict@gmail.com.",

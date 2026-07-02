@@ -1,9 +1,6 @@
 'use client';
 import { useEffect } from "react";
 import {
-  Maximize2,
-  Rows2,
-  LayoutGrid,
   FileText,
   Palette,
   Ruler,
@@ -20,27 +17,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
-
-const adSizes = [
-  {
-    name: "Full Page Ad",
-    price: "$300",
-    icon: Maximize2,
-    dimensions: "6\" x 6\" plus .125\" bleed on all sides",
-  },
-  {
-    name: "Half Page Ad",
-    price: "$200",
-    icon: Rows2,
-    dimensions: "Vertical: 2.8125\"w x 5.75\"h — or Horizontal: 5.75\"w x 2.8125\"h",
-  },
-  {
-    name: "Quarter Page Ad",
-    price: "$125",
-    icon: LayoutGrid,
-    dimensions: "2.8\" x 2.8\"",
-  },
-];
+import { adSizes } from "@/data/adSizes";
 
 const fileSpecs = [
   { icon: FileText, text: "PDF format preferred, with no crop marks" },
@@ -226,6 +203,7 @@ const Advertising = () => {
               </div>
               <InquiryForm
                 formspreeEndpoint="https://formspree.io/f/xeebpkrr"
+                successHref="/advertising/success"
                 levelLabel="Ad Size"
                 levelOptions={adSizes.map((size) => `${size.name} (${size.price})`)}
                 submitLabel="Submit Ad Reservation"
