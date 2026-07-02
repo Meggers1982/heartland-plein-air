@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Facebook, Instagram, MapPin, Phone, Check } from "lucide-react";
 import { z } from "zod";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
+import { sponsors } from "@/data/sponsors";
 
 const emailSchema = z
   .string()
@@ -171,7 +172,24 @@ const SiteFooter = () => {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-foreground/10 pt-6 text-center md:flex-row md:text-left">
+        {/* Sponsors & Partners */}
+        <div className="mt-12 border-t border-foreground/10 pt-6">
+          <p className="mb-4 text-center font-body text-xs font-semibold uppercase tracking-[0.2em] text-foreground/40">
+            Sponsors &amp; Partners
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {sponsors.map((sponsor) => (
+              <img
+                key={sponsor.name}
+                src={sponsor.logo}
+                alt={sponsor.alt}
+                className="h-8 w-auto max-w-[140px] object-contain md:h-10"
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-foreground/10 pt-6 text-center md:flex-row md:text-left">
           <p className="font-body text-xs text-foreground/50">
             © {new Date().getFullYear()} Heartland Plein Air Festival. All rights reserved. Website built by{" "}
             <a
@@ -184,9 +202,16 @@ const SiteFooter = () => {
             </a>
             .
           </p>
-          <p className="font-body text-xs text-foreground/50">
-            Presented by Ralston HINGE Creative District.
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="font-body text-xs text-foreground/50">
+              Presented by Ralston HINGE Creative District.
+            </p>
+            <img
+              src="/assets/hinge-creative-district-logo-horizontal.png"
+              alt="Ralston Hinge Creative District logo"
+              className="h-5 w-auto object-contain md:h-6"
+            />
+          </div>
         </div>
       </div>
     </footer>
