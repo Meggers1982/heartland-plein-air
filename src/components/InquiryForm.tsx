@@ -55,6 +55,7 @@ type InquiryFormProps = {
   levelLabel: string;
   levelOptions: string[];
   organizationLabel?: string;
+  organizationPlaceholder?: string;
   submitLabel?: string;
   successTitle?: string;
   successMessage?: string;
@@ -66,6 +67,7 @@ const InquiryForm = ({
   levelLabel,
   levelOptions,
   organizationLabel = "Organization / Business Name",
+  organizationPlaceholder = "Your organization",
   submitLabel = "Submit Inquiry",
   successTitle = "Inquiry sent",
   successMessage = "Thanks for reaching out. We'll get back to you as soon as we can.",
@@ -191,7 +193,7 @@ const InquiryForm = ({
           <input
             id="inquiry-organization"
             type="text"
-            placeholder="Your organization"
+            placeholder={organizationPlaceholder}
             value={form.organization}
             onChange={(e) => update("organization", e.target.value)}
             maxLength={150}
