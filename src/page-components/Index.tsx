@@ -182,8 +182,8 @@ const Index = () => {
           <AnimatedSection delay={200}>
             <div className="overflow-hidden rounded-lg shadow-xl transition-transform duration-500 hover:scale-[1.02]">
               <img
-                src="/assets/artist-painting.jpg"
-                alt="An artist painting outdoors at an easel on a charming street"
+                src="/assets/plein-air-painter-niobrara-river.webp"
+                alt="Artist painting riverside landscape at an outdoor easel"
                 className="h-full w-full object-cover"
               />
             </div>
