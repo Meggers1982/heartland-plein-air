@@ -38,6 +38,8 @@ const contactSchema = z.object({
 type FormState = z.infer<typeof contactSchema>;
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojopwyp";
+
 const Contact = () => {
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -47,6 +49,8 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -61,7 +65,7 @@ const Contact = () => {
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = contactSchema.safeParse(form);
     if (!result.success) {
@@ -74,7 +78,23 @@ const Contact = () => {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+    } catch {
+      setSubmitError(
+        "Something went wrong sending your message. Please try again, or email us directly at ralstoncreativedistrict@gmail.com.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -267,12 +287,19 @@ const Contact = () => {
                     )}
                   </div>
 
+                  {submitError && (
+                    <p className="font-body text-sm" style={{ color: "hsl(var(--destructive))" }}>
+                      {submitError}
+                    </p>
+                  )}
+
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0"
+                      disabled={submitting}
+                      className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Send Message
+                      {submitting ? "Sending..." : "Send Message"}
                     </button>
                   </div>
                 </form>

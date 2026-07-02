@@ -184,7 +184,7 @@ const Advertising = () => {
                     Payment
                   </h3>
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
-                    Enclose a check payable to the Ralston Hinge Creative District along with your reservation.
+                    Mail a check payable to the Ralston Hinge Creative District to 5615 S. 77th St, Ralston, NE 68127.
                   </p>
                 </div>
               </div>
