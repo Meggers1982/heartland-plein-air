@@ -40,7 +40,11 @@ const sponsors = [
     logo: "/assets/nebraska-arts-council-logo.png",
     alt: "Nebraska Arts Council and Nebraska Cultural Endowment logos",
   },
-  { name: "Sherwood Foundation" },
+  {
+    name: "Sherwood Foundation",
+    logo: "/assets/sherwood-foundation-logo.png",
+    alt: "The Sherwood Foundation logo with oak tree",
+  },
 ];
 
 const Sponsors = () => {
