@@ -1,15 +1,12 @@
 'use client';
 import { useEffect } from "react";
 import {
-  DollarSign,
   Users,
-  Ruler,
-  Percent,
   ShieldCheck,
-  Stamp,
   Clock,
   MapPin,
   Check,
+  Percent,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
@@ -17,30 +14,9 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
+import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
-
-const quickFacts = [
-  {
-    icon: DollarSign,
-    title: "$30 Registration",
-    description: "Limited to 30 artists, first come, first served. A waiting list opens once registration is full.",
-  },
-  {
-    icon: Ruler,
-    title: "28\" x 28\" Max Size",
-    description: "Maximum finished painting size, including the frame.",
-  },
-  {
-    icon: Stamp,
-    title: "Stamp Before Painting",
-    description: "All canvases and substrates must be stamped at check-in before any painting begins.",
-  },
-  {
-    icon: Percent,
-    title: "40% Commission",
-    description: "Retained by the Ralston Hinge Creative District, a 501(c)(3), to fund future programming.",
-  },
-];
+import { quickFacts } from "@/data/openDivisionQuickFacts";
 
 const paintingRequirements = [
   "Two-dimensional work only: oils, acrylics, watercolor, gouache, casein, pastel, or oil sticks.",
@@ -250,23 +226,30 @@ const OpenDivision = () => {
 
       {/* Registration CTA */}
       <section className="bg-secondary/40 py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+        <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
-            <div className="mb-4 flex justify-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Users className="h-6 w-6 text-primary" />
+            <div className="mb-8 text-center">
+              <div className="mb-4 flex justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
               </div>
-            </div>
-            <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground">
-              Ready to Register?
-            </h2>
-            <p className="mx-auto mb-8 max-w-xl font-body text-base leading-relaxed text-muted-foreground">
-              The registration and payment link is coming soon. Sign up for the newsletter below and we'll let you know the moment it's live.
-            </p>
-            <div className="rounded-lg border border-border bg-card p-8">
-              <p className="font-body text-base italic text-muted-foreground">
-                Registration link coming soon
+              <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground">
+                Ready to Register?
+              </h2>
+              <p className="mx-auto max-w-xl font-body text-base leading-relaxed text-muted-foreground">
+                Registration is $30 and limited to 30 artists, first come, first served. Fill out the form below to reserve your spot.
               </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-8 md:p-12">
+              <InquiryForm
+                formspreeEndpoint="https://formspree.io/f/xbdvpkdb"
+                levelLabel="Primary Medium"
+                levelOptions={["Oils", "Acrylics", "Watercolor", "Gouache", "Casein", "Pastel", "Oil Sticks"]}
+                organizationLabel="City, State"
+                submitLabel="Submit Registration"
+                successHref="/open-division/success"
+              />
             </div>
           </AnimatedSection>
         </div>

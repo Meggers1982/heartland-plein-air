@@ -11,7 +11,7 @@ import FestivalContactInfo from "@/components/FestivalContactInfo";
 
 type RecapItem = {
   name: string;
-  price: string;
+  price?: string;
   icon: LucideIcon;
   detail: string;
 };
@@ -78,9 +78,11 @@ const InquirySuccess = ({
                   <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
                     {item.name}
                   </h3>
-                  <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
-                    {item.price}
-                  </p>
+                  {item.price && (
+                    <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
+                      {item.price}
+                    </p>
+                  )}
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
                     {item.detail}
                   </p>
