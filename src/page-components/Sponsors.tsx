@@ -179,7 +179,7 @@ const Sponsors = () => {
                 </p>
               </div>
               <InquiryForm
-                formspreeEndpoint="https://formspree.io/f/REPLACE_WITH_YOUR_SPONSORSHIP_FORM_ID"
+                formspreeEndpoint="https://formspree.io/f/xykqbjnp"
                 levelLabel="Sponsorship Level"
                 levelOptions={[
                   ...sponsorTiers.map((tier) => `${tier.name} (${tier.price})`),
