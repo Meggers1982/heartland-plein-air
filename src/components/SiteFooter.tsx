@@ -14,12 +14,15 @@ const emailSchema = z
   .max(255, { message: "Email must be less than 255 characters." });
 
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpqgolwo";
+
 const FooterSignup = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = emailSchema.safeParse(email);
     if (!result.success) {
@@ -27,7 +30,20 @@ const FooterSignup = () => {
       return;
     }
     setError(null);
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -66,9 +82,10 @@ const FooterSignup = () => {
         />
         <button
           type="submit"
-          className="rounded-full bg-primary px-5 py-2.5 font-body text-xs font-semibold uppercase tracking-wider text-primary-foreground shadow-md shadow-primary/30 transition-all hover:scale-[1.03] hover:opacity-95 active:scale-[0.98]"
+          disabled={submitting}
+          className="rounded-full bg-primary px-5 py-2.5 font-body text-xs font-semibold uppercase tracking-wider text-primary-foreground shadow-md shadow-primary/30 transition-all hover:scale-[1.03] hover:opacity-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Subscribe
+          {submitting ? "Subscribing..." : "Subscribe"}
         </button>
       </div>
       <div className="mt-2 min-h-[1rem]" aria-live="polite">
@@ -221,11 +238,19 @@ const SiteFooter = () => {
             <p className="font-body text-xs text-foreground/80">
               Presented by Ralston HINGE Creative District.
             </p>
-            <img
-              src="/assets/hinge-creative-district-logo-horizontal.png"
-              alt="Ralston Hinge Creative District logo"
-              className="h-7 w-auto object-contain md:h-8"
-            />
+            <a
+              href="https://ralstonarts.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ralston HINGE Creative District"
+              className="transition-opacity hover:opacity-80"
+            >
+              <img
+                src="/assets/hinge-creative-district-logo-horizontal.png"
+                alt="Ralston Hinge Creative District logo"
+                className="h-7 w-auto object-contain md:h-8"
+              />
+            </a>
           </div>
         </div>
       </div>

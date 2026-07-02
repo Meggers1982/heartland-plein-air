@@ -78,7 +78,7 @@ const CountdownBanner = () => {
           </div>
 
           <p className="font-display text-base italic text-primary-foreground sm:text-lg">
-            September 13–19, 2026 · Douglas &amp; Sarpy County
+            September 13–19, 2026 · Douglas &amp; Sarpy County, Nebraska
           </p>
         </div>
 
