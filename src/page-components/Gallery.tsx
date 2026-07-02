@@ -173,8 +173,8 @@ const Gallery = () => {
                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                               loading="lazy"
                             />
-                            <div className="absolute inset-0 flex items-end bg-black/0 transition-colors duration-300 group-hover:bg-black/40">
-                              <div className="w-full translate-y-full px-4 pb-3 transition-transform duration-300 group-hover:translate-y-0">
+                            <div className="absolute inset-0 flex items-end bg-black/0 transition-colors duration-300 group-hover:bg-black/40 group-focus-visible:bg-black/40">
+                              <div className="w-full translate-y-full px-4 pb-3 transition-transform duration-300 group-hover:translate-y-0 group-focus-visible:translate-y-0">
                                 <p className="font-display text-sm font-semibold text-white drop-shadow">
                                   {painting.title}
                                 </p>
