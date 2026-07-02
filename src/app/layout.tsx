@@ -16,12 +16,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Heartland Plein Air Festival",
+    images: ["/assets/hero-pleinair.jpg"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Heartland Plein Air Festival | September 13–19, 2026",
     description:
       "25 nationally recognized plein air artists paint Douglas and Sarpy County live, September 13–19, 2026.",
+    images: ["/assets/hero-pleinair.jpg"],
   },
 };
 
