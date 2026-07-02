@@ -267,11 +267,27 @@ const Sponsors = () => {
                     key={sponsor.name}
                     className="flex items-center justify-center px-6 py-4"
                   >
-                    <img
-                      src={sponsor.logo}
-                      alt={sponsor.alt}
-                      className="max-h-28 w-auto max-w-full object-contain"
-                    />
+                    {sponsor.url ? (
+                      <a
+                        href={sponsor.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={sponsor.name}
+                        className="flex items-center justify-center transition-opacity hover:opacity-80"
+                      >
+                        <img
+                          src={sponsor.logo}
+                          alt={sponsor.alt}
+                          className="max-h-28 w-auto max-w-full object-contain"
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        src={sponsor.logo}
+                        alt={sponsor.alt}
+                        className="max-h-28 w-auto max-w-full object-contain"
+                      />
+                    )}
                   </div>
                 ) : (
                   <div
