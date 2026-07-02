@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 
 const buildSchema = (levelLabel: string) =>
   z.object({
@@ -175,10 +175,11 @@ const InquiryForm = ({
             onChange={(e) => update("name", e.target.value)}
             maxLength={100}
             aria-invalid={errors.name ? "true" : "false"}
+            aria-describedby={errors.name ? "inquiry-name-error" : undefined}
             className={inputClass}
           />
           {errors.name && (
-            <p className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+            <p id="inquiry-name-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
               {errors.name}
             </p>
           )}
@@ -195,10 +196,11 @@ const InquiryForm = ({
             onChange={(e) => update("organization", e.target.value)}
             maxLength={150}
             aria-invalid={errors.organization ? "true" : "false"}
+            aria-describedby={errors.organization ? "inquiry-organization-error" : undefined}
             className={inputClass}
           />
           {errors.organization && (
-            <p className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+            <p id="inquiry-organization-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
               {errors.organization}
             </p>
           )}
@@ -218,17 +220,18 @@ const InquiryForm = ({
             onChange={(e) => update("email", e.target.value)}
             maxLength={255}
             aria-invalid={errors.email ? "true" : "false"}
+            aria-describedby={errors.email ? "inquiry-email-error" : undefined}
             className={inputClass}
           />
           {errors.email && (
-            <p className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+            <p id="inquiry-email-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
               {errors.email}
             </p>
           )}
         </div>
         <div className="space-y-1.5">
           <label htmlFor="inquiry-phone" className={labelClass}>
-            Phone <span className="normal-case text-muted-foreground/60">(optional)</span>
+            Phone <span className="normal-case text-muted-foreground/90">(optional)</span>
           </label>
           <input
             id="inquiry-phone"
@@ -238,10 +241,11 @@ const InquiryForm = ({
             onChange={(e) => update("phone", e.target.value)}
             maxLength={30}
             aria-invalid={errors.phone ? "true" : "false"}
+            aria-describedby={errors.phone ? "inquiry-phone-error" : undefined}
             className={inputClass}
           />
           {errors.phone && (
-            <p className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+            <p id="inquiry-phone-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
               {errors.phone}
             </p>
           )}
@@ -252,24 +256,31 @@ const InquiryForm = ({
         <label htmlFor="inquiry-level" className={labelClass}>
           {levelLabel}
         </label>
-        <select
-          id="inquiry-level"
-          value={form.level}
-          onChange={(e) => update("level", e.target.value)}
-          aria-invalid={errors.level ? "true" : "false"}
-          className={`${inputClass} appearance-none`}
-        >
-          <option value="" disabled>
-            Select {levelLabel.toLowerCase()}
-          </option>
-          {levelOptions.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
+        <div className="relative">
+          <select
+            id="inquiry-level"
+            value={form.level}
+            onChange={(e) => update("level", e.target.value)}
+            aria-invalid={errors.level ? "true" : "false"}
+            aria-describedby={errors.level ? "inquiry-level-error" : undefined}
+            className={`${inputClass} appearance-none pr-10`}
+          >
+            <option value="" disabled>
+              Select {levelLabel.toLowerCase()}
             </option>
-          ))}
-        </select>
+            {levelOptions.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
+        </div>
         {errors.level && (
-          <p className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+          <p id="inquiry-level-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
             {errors.level}
           </p>
         )}
@@ -277,7 +288,7 @@ const InquiryForm = ({
 
       <div className="space-y-1.5">
         <label htmlFor="inquiry-message" className={labelClass}>
-          Message <span className="normal-case text-muted-foreground/60">(optional)</span>
+          Message <span className="normal-case text-muted-foreground/90">(optional)</span>
         </label>
         <textarea
           id="inquiry-message"
@@ -287,10 +298,11 @@ const InquiryForm = ({
           onChange={(e) => update("message", e.target.value)}
           maxLength={2000}
           aria-invalid={errors.message ? "true" : "false"}
+          aria-describedby={errors.message ? "inquiry-message-error" : undefined}
           className={`${inputClass} resize-none`}
         />
         {errors.message && (
-          <p className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+          <p id="inquiry-message-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
             {errors.message}
           </p>
         )}

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Facebook, Instagram, MapPin, Phone, Check, Mail } from "lucide-react";
+import { Facebook, Instagram, MapPin, Phone, Check, Mail, ChevronDown } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
@@ -222,10 +222,11 @@ const Contact = () => {
                         onChange={(e) => update("name", e.target.value)}
                         maxLength={100}
                         aria-invalid={errors.name ? "true" : "false"}
+                        aria-describedby={errors.name ? "contact-name-error" : undefined}
                         className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.name && (
-                        <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p id="contact-name-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.name}
                         </p>
                       )}
@@ -242,10 +243,11 @@ const Contact = () => {
                         onChange={(e) => update("email", e.target.value)}
                         maxLength={255}
                         aria-invalid={errors.email ? "true" : "false"}
+                        aria-describedby={errors.email ? "contact-email-error" : undefined}
                         className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                       />
                       {errors.email && (
-                        <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                        <p id="contact-email-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                           {errors.email}
                         </p>
                       )}
@@ -256,24 +258,31 @@ const Contact = () => {
                     <label htmlFor="contact-topic" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
                       Topic
                     </label>
-                    <select
-                      id="contact-topic"
-                      value={form.topic}
-                      onChange={(e) => update("topic", e.target.value)}
-                      aria-invalid={errors.topic ? "true" : "false"}
-                      className="w-full appearance-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
-                    >
-                      <option value="" disabled>
-                        What can we help with?
-                      </option>
-                      {topicOptions.map((topic) => (
-                        <option key={topic} value={topic}>
-                          {topic}
+                    <div className="relative">
+                      <select
+                        id="contact-topic"
+                        value={form.topic}
+                        onChange={(e) => update("topic", e.target.value)}
+                        aria-invalid={errors.topic ? "true" : "false"}
+                        aria-describedby={errors.topic ? "contact-topic-error" : undefined}
+                        className="w-full appearance-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 pr-10 font-body text-base text-foreground transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
+                      >
+                        <option value="" disabled>
+                          What can we help with?
                         </option>
-                      ))}
-                    </select>
+                        {topicOptions.map((topic) => (
+                          <option key={topic} value={topic}>
+                            {topic}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown
+                        className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                        aria-hidden="true"
+                      />
+                    </div>
                     {errors.topic && (
-                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                      <p id="contact-topic-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                         {errors.topic}
                       </p>
                     )}
@@ -291,10 +300,11 @@ const Contact = () => {
                       onChange={(e) => update("subject", e.target.value)}
                       maxLength={150}
                       aria-invalid={errors.subject ? "true" : "false"}
+                      aria-describedby={errors.subject ? "contact-subject-error" : undefined}
                       className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     {errors.subject && (
-                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                      <p id="contact-subject-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                         {errors.subject}
                       </p>
                     )}
@@ -312,10 +322,11 @@ const Contact = () => {
                       onChange={(e) => update("message", e.target.value)}
                       maxLength={2000}
                       aria-invalid={errors.message ? "true" : "false"}
+                      aria-describedby={errors.message ? "contact-message-error" : undefined}
                       className="w-full resize-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     {errors.message && (
-                      <p className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
+                      <p id="contact-message-error" className="mt-1 px-1 font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
                         {errors.message}
                       </p>
                     )}

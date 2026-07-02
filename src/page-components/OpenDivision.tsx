@@ -93,6 +93,16 @@ const OpenDivision = () => {
       {/* Quick Facts */}
       <section className="py-20">
         <div className="mx-auto max-w-6xl px-6">
+          <AnimatedSection>
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                At a Glance
+              </p>
+              <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
+                Quick Facts
+              </h2>
+            </div>
+          </AnimatedSection>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {quickFacts.map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 100}>
