@@ -81,7 +81,7 @@ const FooterSignup = () => {
             {error}
           </p>
         ) : (
-          <p className="font-body text-xs text-foreground/50">
+          <p className="font-body text-xs text-foreground/80">
             No spam. Festival updates only.
           </p>
         )}
@@ -109,7 +109,7 @@ const SiteFooter = () => {
                 className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
               />
             </Link>
-            <p className="mt-4 font-body text-sm leading-relaxed text-foreground/70">
+            <p className="mt-4 font-body text-sm leading-relaxed text-foreground/80">
               The Heartland Plein Air Festival brings 25 nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
             </p>
           </div>
@@ -119,7 +119,7 @@ const SiteFooter = () => {
             <h3 className="mb-4 font-display text-lg font-semibold text-foreground">
               Visit
             </h3>
-            <address className="space-y-3 font-body text-sm not-italic text-foreground/70">
+            <address className="space-y-3 font-body text-sm not-italic text-foreground/80">
               <div className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
                 <div>
@@ -174,7 +174,7 @@ const SiteFooter = () => {
 
         {/* Sponsors & Partners */}
         <div className="mt-12 border-t border-foreground/10 pt-6">
-          <p className="mb-4 text-center font-body text-xs font-semibold uppercase tracking-[0.2em] text-foreground/40">
+          <p className="mb-4 text-center font-body text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">
             Sponsors &amp; Partners
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
@@ -205,7 +205,7 @@ const SiteFooter = () => {
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-foreground/10 pt-6 text-center md:flex-row md:text-left">
-          <p className="font-body text-xs text-foreground/50">
+          <p className="font-body text-xs text-foreground/80">
             © {new Date().getFullYear()} Heartland Plein Air Festival. All rights reserved. Website built by{" "}
             <a
               href="https://thebrandledger.com"
@@ -218,7 +218,7 @@ const SiteFooter = () => {
             .
           </p>
           <div className="flex items-center gap-2">
-            <p className="font-body text-xs text-foreground/50">
+            <p className="font-body text-xs text-foreground/80">
               Presented by Ralston HINGE Creative District.
             </p>
             <img
