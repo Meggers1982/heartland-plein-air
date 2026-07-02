@@ -10,13 +10,37 @@ import BackToTop from "@/components/BackToTop";
 import { setPageMeta } from "@/lib/meta";
 
 const sponsors = [
-  "Plein Air Magazine",
-  "Art of the West",
-  "Visit Nebraska",
-  "Wiebe Ralston Foundation",
-  "Ralston Archives Museum",
-  "Nebraska Arts Council / Nebraska Cultural Endowment",
-  "Sherwood Foundation",
+  {
+    name: "Plein Air Magazine",
+    logo: "/assets/plein-air-magazine-logo.png",
+    alt: "PleinAir Magazine logo",
+  },
+  {
+    name: "Art of the West",
+    logo: "/assets/art-of-the-west-logo.png",
+    alt: "Art of the West magazine logo",
+  },
+  {
+    name: "Visit Nebraska",
+    logo: "/assets/visit-nebraska-logo.png",
+    alt: "Visit Nebraska logo with state outline",
+  },
+  {
+    name: "Wiebe Ralston Foundation",
+    logo: "/assets/wiebe-ralston-foundation-logo.png",
+    alt: "Wiebe Ralston Foundation logo with state outline",
+  },
+  {
+    name: "Ralston Archives Museum",
+    logo: "/assets/ralston-archives-museum-logo.png",
+    alt: "Frank & Velma Johnson Ralston Archives Museum logo",
+  },
+  {
+    name: "Nebraska Arts Council / Nebraska Cultural Endowment",
+    logo: "/assets/nebraska-arts-council-logo.png",
+    alt: "Nebraska Arts Council and Nebraska Cultural Endowment logos",
+  },
+  { name: "Sherwood Foundation" },
 ];
 
 const Sponsors = () => {
@@ -111,17 +135,30 @@ const Sponsors = () => {
             <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
               The Heartland Plein Air Festival is made possible through the generous support of the following sponsors and partners.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {sponsors.map((name) => (
-                <div
-                  key={name}
-                  className="flex items-center justify-center rounded-lg border border-border bg-card px-6 py-8 text-center"
-                >
-                  <p className="font-display text-base font-semibold text-foreground">
-                    {name}
-                  </p>
-                </div>
-              ))}
+            <div className="grid gap-6 sm:grid-cols-2">
+              {sponsors.map((sponsor) =>
+                sponsor.logo ? (
+                  <div
+                    key={sponsor.name}
+                    className="flex items-center justify-center px-6 py-4"
+                  >
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.alt}
+                      className="max-h-28 w-auto max-w-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    key={sponsor.name}
+                    className="flex items-center justify-center rounded-lg border border-border bg-card px-6 py-8 text-center"
+                  >
+                    <p className="font-display text-base font-semibold text-foreground">
+                      {sponsor.name}
+                    </p>
+                  </div>
+                ),
+              )}
             </div>
           </AnimatedSection>
         </div>
