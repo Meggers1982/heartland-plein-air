@@ -3,6 +3,7 @@ const BrushStrokeDivider = ({ className = "" }: { className?: string }) => (
     <svg
       viewBox="0 0 1200 40"
       preserveAspectRatio="none"
+      aria-hidden="true"
       className="mx-auto h-6 w-full max-w-4xl opacity-20"
     >
       <path

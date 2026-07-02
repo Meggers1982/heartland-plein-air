@@ -43,7 +43,7 @@ const CountdownBanner = () => {
         {/* Countdown */}
         <div className="flex flex-col items-center gap-6 lg:items-start">
           <div className="flex flex-col items-center gap-2 lg:items-start">
-            <p className="font-body text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/70">
+            <p className="font-body text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/90">
               The brushes come out in
             </p>
             <div className="h-px w-12 bg-primary-foreground/40" />
@@ -61,7 +61,7 @@ const CountdownBanner = () => {
                       {String(u.value).padStart(2, "0")}
                     </span>
                   </div>
-                  <span className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-primary-foreground/70 sm:text-xs">
+                  <span className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-primary-foreground/90 sm:text-xs">
                     {u.label}
                   </span>
                 </div>
@@ -77,7 +77,7 @@ const CountdownBanner = () => {
             ))}
           </div>
 
-          <p className="font-display text-base italic text-primary-foreground/90 sm:text-lg">
+          <p className="font-display text-base italic text-primary-foreground sm:text-lg">
             September 13–19, 2026 · Douglas &amp; Sarpy County
           </p>
         </div>
@@ -87,11 +87,11 @@ const CountdownBanner = () => {
           <p className="font-display text-xl text-primary-foreground sm:text-2xl">
             Don't miss a brushstroke.
           </p>
-          <p className="text-center font-body text-sm text-primary-foreground/70 lg:text-left">
+          <p className="text-center font-body text-sm text-primary-foreground/90 lg:text-left">
             Get festival updates, artist announcements, and event reminders delivered to your inbox.
           </p>
           <a
-            href="#subscribe"
+            href="#newsletter"
             className="inline-flex items-center justify-center rounded-md bg-primary-foreground px-6 py-3 font-body text-sm font-semibold text-primary shadow-sm transition-colors hover:bg-primary-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/50"
           >
             Subscribe for Updates

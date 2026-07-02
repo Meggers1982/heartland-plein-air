@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import CountdownRibbon from "@/components/CountdownRibbon";
 import {
@@ -31,27 +31,12 @@ const aboutDropdownLinks = [
 const SiteNav = () => {
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
-  const router = useRouter();
   const pathname = usePathname();
   const showRibbon = pathname !== "/";
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const closeMenus = () => {
     setOpen(false);
     setAboutOpen(false);
-    if (href.startsWith("/#")) {
-      const hash = href.slice(1);
-      if (pathname !== "/") {
-        router.push("/");
-        setTimeout(() => {
-          document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-        }, 60);
-      } else {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      }
-      return;
-    }
-    router.push(href);
   };
 
   return (
@@ -70,14 +55,14 @@ const SiteNav = () => {
         </Link>
         <div className="hidden items-center gap-6 md:flex">
           {navLinksBeforeAbout.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) => handleClick(e, link.href)}
+              onClick={closeMenus}
               className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
 
           <div
@@ -106,13 +91,13 @@ const SiteNav = () => {
               >
                 {aboutDropdownLinks.map((link) => (
                   <DropdownMenuItem key={link.label} asChild>
-                    <a
+                    <Link
                       href={link.href}
-                      onClick={(e) => handleClick(e, link.href)}
+                      onClick={closeMenus}
                       className="cursor-pointer rounded-sm px-3 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary focus:bg-muted focus:text-primary"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -120,20 +105,21 @@ const SiteNav = () => {
           </div>
 
           {navLinksAfterAbout.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) => handleClick(e, link.href)}
+              onClick={closeMenus}
               className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
         <button
           className="md:hidden text-foreground"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
+          aria-expanded={open}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -146,38 +132,38 @@ const SiteNav = () => {
       >
         <div className="flex flex-col gap-1 px-6 py-4">
           {navLinksBeforeAbout.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) => handleClick(e, link.href)}
+              onClick={closeMenus}
               className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/about"
-            onClick={(e) => handleClick(e, "/about")}
+            onClick={closeMenus}
             className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
           >
             About
-          </a>
-          <a
+          </Link>
+          <Link
             href="/advertising"
-            onClick={(e) => handleClick(e, "/advertising")}
-            className="ml-4 rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/70 transition-colors hover:bg-muted hover:text-primary"
+            onClick={closeMenus}
+            className="ml-4 rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
           >
             Advertising
-          </a>
+          </Link>
           {navLinksAfterAbout.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) => handleClick(e, link.href)}
+              onClick={closeMenus}
               className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
