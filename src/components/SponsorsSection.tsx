@@ -1,14 +1,6 @@
 import AnimatedSection from "@/components/AnimatedSection";
 import { sponsors } from "@/data/sponsors";
 
-const sponsorLinks: Record<string, string> = {
-  "Ralston Archives Museum": "https://ralstonarts.org/",
-  "Sherwood Foundation": "https://sherwoodfoundation.org/",
-  "Nebraska Arts Council / Nebraska Cultural Endowment":
-    "https://www.artscouncil.nebraska.gov/",
-  "Visit Nebraska": "https://visitnebraska.com/",
-};
-
 const SponsorsSection = () => {
   return (
     <section className="border-t border-border py-16">
@@ -24,7 +16,7 @@ const SponsorsSection = () => {
         <AnimatedSection delay={100}>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-7">
             {sponsors.map((sponsor) => {
-              const href = sponsorLinks[sponsor.name];
+              const href = sponsor.url;
               const img = (
                 <img
                   src={sponsor.logo}
