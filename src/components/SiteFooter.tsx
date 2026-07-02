@@ -183,7 +183,7 @@ const SiteFooter = () => {
                 key={sponsor.name}
                 src={sponsor.logo}
                 alt={sponsor.alt}
-                className="h-8 w-auto max-w-[140px] object-contain md:h-10"
+                className="h-10 w-auto max-w-[170px] object-contain md:h-14"
               />
             ))}
           </div>
@@ -209,7 +209,7 @@ const SiteFooter = () => {
             <img
               src="/assets/hinge-creative-district-logo-horizontal.png"
               alt="Ralston Hinge Creative District logo"
-              className="h-5 w-auto object-contain md:h-6"
+              className="h-7 w-auto object-contain md:h-8"
             />
           </div>
         </div>
