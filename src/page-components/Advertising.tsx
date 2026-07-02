@@ -225,7 +225,7 @@ const Advertising = () => {
                 </p>
               </div>
               <InquiryForm
-                formspreeEndpoint="https://formspree.io/f/REPLACE_WITH_YOUR_ADVERTISING_FORM_ID"
+                formspreeEndpoint="https://formspree.io/f/xeebpkrr"
                 levelLabel="Ad Size"
                 levelOptions={adSizes.map((size) => `${size.name} (${size.price})`)}
                 submitLabel="Submit Ad Reservation"
