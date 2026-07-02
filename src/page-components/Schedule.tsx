@@ -240,6 +240,15 @@ const Schedule = () => {
                 <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
                   {d.title}
                 </h2>
+                {d.logo && (
+                  <div className="mb-4">
+                    <img
+                      src={d.logo}
+                      alt={d.logoAlt}
+                      className="max-h-12 w-auto max-w-[240px] object-contain"
+                    />
+                  </div>
+                )}
                 <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground">
                   {d.narrative}
                 </p>

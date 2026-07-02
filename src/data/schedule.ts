@@ -15,6 +15,8 @@ export type ScheduleDay = {
   narrative: string;
   audience: Audience;
   events?: ScheduleEvent[];
+  logo?: string;
+  logoAlt?: string;
 };
 
 export const days: ScheduleDay[] = [
@@ -70,6 +72,8 @@ export const days: ScheduleDay[] = [
     dayLong: "Monday, September 14",
     title: "The City Becomes a Canvas",
     audience: "public",
+    logo: "/assets/hinge-creative-district-logo.png",
+    logoAlt: "Ralston Hinge Creative District logo",
     narrative:
       "Starting today and running through Friday, artists fan out across Douglas and Sarpy Counties — painting historic neighborhoods, scenic vistas, and local landmarks. You might turn a corner and find one set up right in front of you. Stop and watch. Ask a question. That's the point. At midday, the action kicks off in Downtown Ralston's Hinge Creative District for the first Lunch Break Paintout.",
     events: [
@@ -87,6 +91,8 @@ export const days: ScheduleDay[] = [
     dayLong: "Tuesday, September 15",
     title: "Castle & Cathedral Creative District",
     audience: "public",
+    logo: "/assets/castle-and-cathedral-district-logo.png",
+    logoAlt: "Castle & Cathedral Creative District logo",
     narrative:
       "Another day of painting across the metro, with the Lunch Break Paintout heading to the Castle & Cathedral Creative District — home to Joslyn Castle and St. Cecilia's Cathedral. Grab lunch nearby and stay to watch.",
     events: [
@@ -104,6 +110,8 @@ export const days: ScheduleDay[] = [
     dayLong: "Wednesday, September 16",
     title: "Benson & Youth Mentorship",
     audience: "public",
+    logo: "/assets/benson-creative-district-logo.png",
+    logoAlt: "Benson Creative District logo",
     narrative:
       "The midweek Lunch Break Paintout heads to the Benson Creative District. That afternoon, invited festival artists meet privately with preselected youth participants — this portion of the day is not open to the public.",
     events: [
@@ -124,6 +132,8 @@ export const days: ScheduleDay[] = [
     dayLong: "Thursday, September 17",
     title: "Third Thursday & An Evening Worth Staying Out For",
     audience: "public",
+    logo: "/assets/dundee-logo.png",
+    logoAlt: "Dundee Creative District logo",
     narrative:
       "By day, artists paint through the Dundee Creative District. By evening, the energy shifts to Ralston for Third Thursday — one of the week's most memorable nights. Festival Awards Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at the Baright Public Library. Afterward, artists spread out across downtown Ralston, painting live while the concert plays around them. Come mingle, watch, and take it all in — this is not a Quick Paint event.",
     events: [
@@ -175,6 +185,8 @@ export const days: ScheduleDay[] = [
     dayLong: "Saturday, September 19",
     title: "Open to Everyone",
     audience: "public",
+    logo: "/assets/hinge-creative-district-logo.png",
+    logoAlt: "Ralston Hinge Creative District logo",
     narrative:
       "The festival closes with a full day open to all. Watch artists compete in the Quick Paint Competition at 9 AM, then browse every painting made during festival week at the Public Exhibition & Sale — artwork available at the artist's listed price. At noon, Quick Paint pieces go to live auction at Granary Green. You don't need an invitation — just show up.",
     events: [
@@ -216,17 +228,15 @@ export const days: ScheduleDay[] = [
 ];
 
 // Condensed teaser cards for the homepage "Week at a Glance" timeline.
-// Each entry links back to `days` via dayId, so the date label can never
-// drift out of sync with the full schedule page — only the curated
-// title/description/time/location below are homepage-specific.
+// Each entry links back to `days` via dayId, so the date label and
+// district logo can never drift out of sync with the full schedule page —
+// only the curated title/description/time/location below are homepage-specific.
 export type HomepageHighlight = {
   dayId: string;
   title: string;
   description: string;
   time: string;
   location: string;
-  logo?: string;
-  logoAlt?: string;
 };
 
 export const homepageHighlights: HomepageHighlight[] = [
@@ -257,8 +267,6 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Open painting across the metro. Midday Lunch Break Paintout in Downtown Ralston.",
     time: "11 AM – 1:30 PM",
     location: "Downtown Ralston / Hinge Creative District",
-    logo: "/assets/hinge-creative-district-logo.png",
-    logoAlt: "Ralston Hinge Creative District logo",
   },
   {
     dayId: "day-sep-15",
@@ -266,8 +274,6 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Open painting across the metro. Midday Lunch Break Paintout in the Castle & Cathedral District.",
     time: "11 AM – 1:30 PM",
     location: "Castle & Cathedral Creative District",
-    logo: "/assets/castle-and-cathedral-district-logo.png",
-    logoAlt: "Castle & Cathedral Creative District logo",
   },
   {
     dayId: "day-sep-16",
@@ -275,8 +281,6 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Midday Lunch Break Paintout in Benson. Private mentorship sessions for preselected youth that afternoon (not open to the public).",
     time: "11 AM – 1:30 PM",
     location: "Benson Creative District",
-    logo: "/assets/benson-creative-district-logo.png",
-    logoAlt: "Benson Creative District logo",
   },
   {
     dayId: "day-sep-17",
@@ -284,8 +288,6 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Lunch Break Paintout in Dundee 11 AM–1:30 PM. Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at Baright Library 5–6 PM. Third Thursday concert with artists painting downtown 6–8 PM — open to the public.",
     time: "11 AM – 8 PM",
     location: "Dundee + Baright Library + Downtown Ralston",
-    logo: "/assets/dundee-logo.png",
-    logoAlt: "Dundee Creative District logo",
   },
   {
     dayId: "day-sep-18",
@@ -300,8 +302,6 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–5 PM. Live auction of Quick Paint pieces Noon–1 PM at Granary Green.",
     time: "9 AM – 5 PM",
     location: "Ralston Hinge Creative District + Venues at the Granary",
-    logo: "/assets/hinge-creative-district-logo.png",
-    logoAlt: "Ralston Hinge Creative District logo",
   },
   {
     dayId: "day-online",
