@@ -27,7 +27,7 @@ export async function generateMetadata({
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
-      images: post.image ? [post.image] : undefined,
+      images: post.featuredImage ? [post.featuredImage] : undefined,
     },
   };
 }

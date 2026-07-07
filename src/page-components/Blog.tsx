@@ -1,19 +1,39 @@
 'use client';
-import { useEffect } from "react";
-import Link from "next/link";
-import { format } from "date-fns";
-import { CalendarDays } from "lucide-react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import AnimatedSection from "@/components/AnimatedSection";
+import BlogPostCard from "@/components/BlogPostCard";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
-import { getSortedPosts, parsePostDate } from "@/data/blog";
+import { getAllCategories, getAllTags, getSortedPosts } from "@/data/blog";
 import { setPageMeta } from "@/lib/meta";
+import { cn } from "@/lib/utils";
+
+// Reads the initial ?category=/?tag= filter from the URL. Isolated in its own
+// component (rather than called directly in Blog) because useSearchParams()
+// requires a Suspense boundary during static prerendering.
+const InitialFilterReader = ({
+  onReady,
+}: {
+  onReady: (category: string | null, tag: string | null) => void;
+}) => {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    onReady(searchParams.get("category"), searchParams.get("tag"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return null;
+};
 
 const Blog = () => {
   const posts = getSortedPosts();
+  const categories = getAllCategories();
+  const tags = getAllTags();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,8 +43,26 @@ const Blog = () => {
     );
   }, []);
 
+  const filteredPosts = useMemo(
+    () =>
+      posts.filter(
+        (post) =>
+          (!selectedCategory || post.category === selectedCategory) &&
+          (!selectedTag || post.tags.includes(selectedTag)),
+      ),
+    [posts, selectedCategory, selectedTag],
+  );
+
   return (
     <div className="min-h-screen bg-background">
+      <Suspense fallback={null}>
+        <InitialFilterReader
+          onReady={(category, tag) => {
+            if (category) setSelectedCategory(category);
+            if (tag) setSelectedTag(tag);
+          }}
+        />
+      </Suspense>
       <SiteNav />
       <main className="pt-36">
         <section className="py-16">
@@ -40,49 +78,82 @@ const Blog = () => {
                 Festival news, artist features, and behind-the-scenes updates as we count down to September 13–19, 2026.
               </p>
             </AnimatedSection>
+
+            {categories.length > 1 && (
+              <AnimatedSection>
+                <nav aria-label="Filter by category" className="mt-8 flex flex-wrap justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory(null)}
+                    className={cn(
+                      "rounded-full border px-4 py-2 font-body text-sm transition-colors",
+                      !selectedCategory
+                        ? "border-primary/40 bg-primary/10 font-semibold text-primary"
+                        : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
+                    )}
+                  >
+                    All
+                  </button>
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => setSelectedCategory(category)}
+                      className={cn(
+                        "rounded-full border px-4 py-2 font-body text-sm transition-colors",
+                        selectedCategory === category
+                          ? "border-primary/40 bg-primary/10 font-semibold text-primary"
+                          : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
+                      )}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </nav>
+              </AnimatedSection>
+            )}
+
+            {tags.length > 0 && (
+              <AnimatedSection>
+                <nav aria-label="Filter by tag" className="mt-4 flex flex-wrap justify-center gap-2">
+                  {selectedTag && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTag(null)}
+                      className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-body text-xs font-semibold text-primary transition-colors hover:bg-primary/20"
+                    >
+                      #{selectedTag} ✕
+                    </button>
+                  )}
+                  {tags
+                    .filter((tag) => tag !== selectedTag)
+                    .map((tag) => (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => setSelectedTag(tag)}
+                        className="rounded-full border border-border px-3 py-1 font-body text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      >
+                        #{tag}
+                      </button>
+                    ))}
+                </nav>
+              </AnimatedSection>
+            )}
           </div>
         </section>
 
         <section className="pb-24">
           <div className="mx-auto max-w-6xl px-6">
-            {posts.length === 0 ? (
+            {filteredPosts.length === 0 ? (
               <p className="text-center font-body text-muted-foreground">
-                No posts yet — check back soon.
+                No posts match this filter yet — check back soon.
               </p>
             ) : (
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post, i) => (
+                {filteredPosts.map((post, i) => (
                   <AnimatedSection key={post.slug} delay={i * 80}>
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="group block h-full overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      {post.image && (
-                        <div className="aspect-video overflow-hidden">
-                          <img
-                            src={post.image}
-                            alt={post.imageAlt ?? post.title}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-                      <div className="flex h-full flex-col p-6">
-                        <div className="mb-2 flex items-center gap-2 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                          <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
-                          {format(parsePostDate(post.date), "MMMM d, yyyy")}
-                        </div>
-                        <h2 className="font-display text-xl font-semibold text-foreground">
-                          {post.title}
-                        </h2>
-                        <p className="mt-2 font-body text-sm leading-relaxed text-muted-foreground">
-                          {post.excerpt}
-                        </p>
-                        <p className="mt-4 font-body text-xs font-semibold uppercase tracking-widest text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                          Read More →
-                        </p>
-                      </div>
-                    </Link>
+                    <BlogPostCard post={post} />
                   </AnimatedSection>
                 ))}
               </div>
