@@ -432,6 +432,45 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — Mobile UX Consistency Audit + Fixes
+
+Code-level audit of every page's hero/header, prompted by a request to QA
+mobile UX (browser tooling in this session couldn't force a true mobile
+viewport, so this was done by reading the actual mobile CSS directly —
+Tailwind's unprefixed classes are the mobile styles). Findings and fixes:
+
+- **Confirmed by design, left alone:** two header systems exist — dark
+  `bg-foreground` band pages (About, Advertising, Contact, Open Division,
+  Schedule, Sponsors, all success pages) at `pt-44 pb-16`, vs. light-
+  background listing pages (Artists, Gallery, Blog) at `pt-36` + inner
+  `py-16`. This split was already reviewed and deliberately kept in an
+  earlier QA sweep (see §10 above) — image-heavy listing pages get the
+  lighter treatment. Not touched.
+- **Fixed: hero eyebrow letter-spacing drift.** Every page's hero-position
+  eyebrow (the small label directly above the H1) uses `tracking-[0.25em]`
+  — including FAQ, which isn't even part of the dark-band group — except
+  Artists, Gallery, and Blog, which were using the in-page-section value
+  (`tracking-[0.2em]`) for their hero eyebrow instead. Normalized all three
+  to `[0.25em]` to match every other page's hero. Their other, non-hero
+  section eyebrows correctly stay at `[0.2em]`, matching the site-wide
+  convention for body-section labels.
+- **Fixed: FAQ intro paragraph still `font-light`.** Same legibility pattern
+  fixed on the homepage hero in an earlier session — FAQ was the last page
+  still using it. Removed, now matches every other intro paragraph's
+  default weight.
+- **Fixed: 404 page was completely unbranded.** `src/app/not-found.tsx` had
+  no `SiteNav`/`SiteFooter`, no `font-display` heading font, no logo — a
+  dead end with only a plain text link back home. Rebuilt using the same
+  header pattern as every other content page (`SiteNav`, dark-band header
+  with eyebrow/H1/intro, styled CTA button back to `/`, `SiteFooter`).
+  Verified in-browser via a nonexistent URL. Also deleted
+  `src/page-components/NotFound.tsx`, a pre-migration duplicate that was
+  never imported anywhere (confirmed via grep) — the live 404 is
+  `src/app/not-found.tsx` per Next.js's App Router convention.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
