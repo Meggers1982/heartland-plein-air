@@ -103,7 +103,7 @@ const Index = () => {
       <SiteNav />
 
       {/* Hero with parallax */}
-      <section className="relative flex min-h-screen items-end overflow-hidden">
+      <section className="relative flex min-h-[100dvh] items-end overflow-hidden">
         <img
           src="/assets/spring-greens-djgroesser.webp"
           alt="oil painting of lush spring green landscape"
@@ -128,7 +128,7 @@ const Index = () => {
             Heartland Plein Air Festival
           </h1>
           <p
-            className={`mb-8 max-w-xl font-body text-lg font-light leading-relaxed text-secondary/85 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            className={`mb-8 max-w-xl font-body text-lg font-medium leading-relaxed text-secondary/95 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "600ms" }}
           >
             Art, out in the open. Twenty-five nationally recognized artists,
