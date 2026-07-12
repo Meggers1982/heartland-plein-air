@@ -1,7 +1,6 @@
 'use client';
 import { useEffect } from "react";
 import {
-  Users,
   ShieldCheck,
   Clock,
   MapPin,
@@ -229,18 +228,13 @@ const OpenDivision = () => {
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <div className="mb-8 text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Users className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-              <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground">
+              <p className="mb-2 font-body text-lg font-semibold text-foreground">
                 Ready to Register?
-              </h2>
-              <p className="mx-auto max-w-xl font-body text-base leading-relaxed text-muted-foreground">
+              </p>
+              <p className="font-body text-base leading-relaxed text-muted-foreground">
                 Fill out the form below to reserve your spot. Registration is $30 and limited to 30 artists, first come, first served.
               </p>
-              <p className="mx-auto mt-4 max-w-xl font-body text-base leading-relaxed text-muted-foreground">
+              <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
                 Please click the PayPal button after submitting the form to pay your fee. Any registration without payment will not be accepted.
               </p>
             </div>
