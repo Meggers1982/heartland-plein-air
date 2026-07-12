@@ -314,6 +314,39 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — About Page: Organizers & Funders Text
+
+- **`src/page-components/About.tsx`**, "About the Organizers" section:
+  - First paragraph now ends with "...owner of Debra Joy Groesser Fine Art,
+    and the Ralston HINGE Creative District Board. The board consists of
+    local business and civic leaders and volunteers." (previously ended
+    right after the Debra Joy Groesser Fine Art link).
+  - Second paragraph replaced entirely: was "It's also grant-supported:
+    Ralston was selected as one of just 13 recipients of a Nebraska Arts
+    Council Creative District Development Grant — funding designed for
+    projects that attract visitors, create jobs, and strengthen Nebraska
+    communities. The festival is also supported by The Sherwood Foundation
+    and the Ralston Archives Museum." — now reads "In addition to the
+    Nebraska Arts Council, the festival is supported by funding from the
+    Nebraska Cultural Endowment, The Wiebe Ralston Foundation, Visit
+    Nebraska, and the Sherwood Foundation." Note this drops the "13
+    recipients" grant-program detail and the Ralston Archives Museum
+    mention, per the user's exact replacement text — flagged here in case
+    that was unintentional.
+- Verified `next build` and `vitest` both pass.
+
+---
+
+## 2026-07-12 — Open Division Registration Copy Split Into Two Paragraphs
+
+- **`src/page-components/OpenDivision.tsx`**: the "Ready to Register?" intro
+  (added earlier today, see the Registration Fee / PayPal Copy entry above)
+  is now two separate `<p>` tags instead of one: the reserve-your-spot /
+  fee-and-cap sentence, then the PayPal payment-instruction sentence.
+  Verified in-browser — renders as two visually distinct paragraphs.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
