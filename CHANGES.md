@@ -291,7 +291,26 @@ along the way (not just cosmetic):
   Address full-width, City/State/Zip as a 3-column row), and client-side
   validation correctly blocks submission with per-field error messages when
   left empty. `next build` and `vitest` both pass.
-- Verified `next build` and `vitest` both pass after the rename.
+
+---
+
+## 2026-07-12 — Open Division Registration Fee / PayPal Copy
+
+- **Reworded the intro text above the Open Division registration form**
+  (`src/page-components/OpenDivision.tsx`) to lead with the call to action,
+  then the fee/cap, then a payment instruction: "Fill out the form below to
+  reserve your spot. Registration is $30 and limited to 30 artists, first
+  come, first served. Please click the PayPal button after submitting the
+  form to pay your fee. Any registration without payment will not be
+  accepted."
+- **Matching update on the success page**
+  (`src/page-components/OpenDivisionSuccess.tsx`): the confirmation intro
+  now repeats the fee/payment requirement instead of the old vague "we'll
+  follow up soon with payment instructions."
+- **No PayPal button exists in the codebase yet** — this is copy only. Both
+  pages currently reference a PayPal button that isn't there. User is aware
+  and will supply PayPal details in a follow-up to actually wire it in.
+- Verified `next build` and `vitest` both pass.
 
 ---
 
@@ -307,7 +326,11 @@ along the way (not just cosmetic):
 3. **Rewrite `README.md`** — still the default Lovable scaffold boilerplate
    (mentions Vite, the Lovable platform, a placeholder project URL). Not a
    changelog target; CHANGES.md (this file) is.
-4. Two lower-priority items flagged during the QA sweep but intentionally
+4. **Add the actual PayPal button** to `/open-division` and
+   `/open-division/success` — the copy on both pages now references it
+   (see the 2026-07-12 Registration Fee / PayPal Copy entry), but no button
+   exists yet. Needs a PayPal.me link or hosted button ID from the user.
+5. Two lower-priority items flagged during the QA sweep but intentionally
    left alone (judgment calls, not bugs):
    - `Contact.tsx` duplicates `FestivalContactInfo.tsx`'s JSX instead of
      reusing the component — the two contexts (wide page section vs. narrow
