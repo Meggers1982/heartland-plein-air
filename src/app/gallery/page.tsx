@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Gallery from "@/page-components/Gallery";
 
 export const metadata: Metadata = {
-  title: "Gallery | Heartland Plein Air Festival",
+  title: "Browse Plein Air Paintings for Sale: Festival 2026",
   description:
-    "Browse paintings from Heartland Plein Air Festival artists — oil, pastel, and watercolor works created on location across the Omaha metro.",
+    "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
   alternates: { canonical: "https://heartlandpleinair.org/gallery" },
 };
 

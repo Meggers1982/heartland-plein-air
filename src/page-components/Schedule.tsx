@@ -67,9 +67,9 @@ const Schedule = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Schedule of Events | Heartland Plein Air Festival";
+    document.title = "Plan Your Visit: Plein Air Festival Schedule Omaha";
     const desc =
-      "Full schedule for the Heartland Plein Air Festival, September 12 – October 2, 2026, across the Omaha metro.";
+      "Full event schedule for the Heartland Plein Air Festival — daily paint-outs, the Judge's Lecture, Collectors Preview, and the Sept. 19 public exhibition.";
 
     const ensureMeta = (name: string) => {
       let el = document.querySelector(`meta[name="${name}"]`);

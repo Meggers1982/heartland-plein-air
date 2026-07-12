@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Tickets from "@/page-components/Tickets";
 
 export const metadata: Metadata = {
-  title: "Tickets | Heartland Plein Air Festival",
+  title: "Buy Plein Air Festival Tickets: Get Closer to the Art",
   description:
-    "Most Heartland Plein Air Festival events are free. Get the Collector VIP Pass for private artist access, priority seating, and early access to purchase artwork — or grab a standalone Judge's Lecture ticket.",
+    "Most festival events are free. Get the $125 Collector VIP Pass for private artist access and early art buying, or snag a $25 lecture-only ticket.",
   alternates: { canonical: "https://heartlandpleinair.org/tickets" },
 };
 

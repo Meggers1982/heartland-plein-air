@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import About from "@/page-components/About";
 
 export const metadata: Metadata = {
-  title: "About | Heartland Plein Air Festival",
+  title: "Learn About the Plein Air Festival: Omaha, NE 2026",
   description:
-    "Learn about the Heartland Plein Air Festival — outdoor painting across the Omaha metro by 25 nationally recognized artists, September 13–19, 2026.",
+    "Learn what plein air painting is, how festival week works, and who organizes it. 25 national artists paint the Omaha metro live, Sept. 13–19, 2026.",
   alternates: { canonical: "https://heartlandpleinair.org/about" },
 };
 

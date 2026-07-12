@@ -603,6 +603,38 @@ Lecture) even has a second standalone option to disambiguate.
 
 ---
 
+## 2026-07-12 — SEO Title/Description Rewrite (All 11 Pages)
+
+User supplied hand-optimized `<title>`/description pairs (with exact
+character counts) for every page. Replaced the previous
+`"<Page> | Heartland Plein Air Festival"` convention entirely — the new
+titles are full standalone SEO titles, not meant to have the site name
+suffix appended (appending it would have blown well past the character
+counts the user specifically targeted).
+
+- Updated both the SSR `metadata` export in each `src/app/<route>/page.tsx`
+  and the matching client-side `document.title`/`setPageMeta()` (or, for
+  Schedule, its own inline meta-tag logic) in each page-component, so the
+  two stay in sync. `Faq.tsx` and `Index.tsx` have no client-side override
+  — they rely solely on the SSR metadata, so only their route wrapper
+  needed updating.
+- Pages covered: Home, About, Schedule, Tickets, Artists, Gallery, Open
+  Division, Sponsors, FAQ, Contact, Advertising.
+- **Fixed a stale drift while touching Gallery**: its client-side
+  `setPageMeta` said "23 artists," inconsistent with the site's actual
+  25-artist roster used everywhere else (including the new copy). Now
+  consistent.
+- **Flagged, not changed**: the new Gallery title is "Browse Plein Air
+  Paintings for Sale," but Gallery is intentionally a portfolio-only page
+  with no purchase flow (a deliberate decision from an earlier session —
+  see the "Gallery-as-portfolio" note). Implemented exactly as given per
+  explicit instruction, but flagged the wording tension to the user.
+- Verified the actual built HTML `<title>` and `<meta name="description">`
+  tags for all 11 pages match the requested copy exactly. `next build` and
+  `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

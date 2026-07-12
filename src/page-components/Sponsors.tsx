@@ -42,9 +42,9 @@ const namedOpportunities = [
 const Sponsors = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Sponsors | Heartland Plein Air Festival";
+    document.title = "Sponsor the Plein Air Festival: Put Your Name on It";
     return setPageMeta(
-      "Support the Heartland Plein Air Festival — sponsor the event or advertise in the catalog.",
+      "Support the Heartland Plein Air Festival. Sponsorship levels from $100 to $5,000+, with logo placement, catalog ads, and VIP passes. 501(c)(3) org.",
     );
   }, []);
 

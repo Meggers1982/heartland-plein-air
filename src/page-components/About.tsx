@@ -13,9 +13,9 @@ import { setPageMeta } from "@/lib/meta";
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "About | Heartland Plein Air Festival";
+    document.title = "Learn About the Plein Air Festival: Omaha, NE 2026";
     return setPageMeta(
-      "Learn about the Heartland Plein Air Festival — a week of outdoor painting across Douglas and Sarpy County, September 13–19, 2026.",
+      "Learn what plein air painting is, how festival week works, and who organizes it. 25 national artists paint the Omaha metro live, Sept. 13–19, 2026.",
     );
   }, []);
 

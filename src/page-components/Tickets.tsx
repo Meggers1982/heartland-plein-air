@@ -38,9 +38,9 @@ const passBenefits = [
 const Tickets = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Tickets | Heartland Plein Air Festival";
+    document.title = "Buy Plein Air Festival Tickets: Get Closer to the Art";
     return setPageMeta(
-      "Most Heartland Plein Air Festival events are free. Get the Collector VIP Pass for private artist access, priority seating, and early access to purchase artwork.",
+      "Most festival events are free. Get the $125 Collector VIP Pass for private artist access and early art buying, or snag a $25 lecture-only ticket.",
     );
   }, []);
 

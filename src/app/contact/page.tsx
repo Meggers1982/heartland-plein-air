@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Contact from "@/page-components/Contact";
 
 export const metadata: Metadata = {
-  title: "Contact | Heartland Plein Air Festival",
+  title: "Contact the Plein Air Festival Team: Ralston, NE",
   description:
-    "Get in touch with the Heartland Plein Air Festival — questions, sponsorships, volunteer inquiries, and more.",
+    "Questions about the festival, sponsorships, volunteering, or advertising? Reach the Heartland Plein Air Festival team in Ralston, Nebraska.",
   alternates: { canonical: "https://heartlandpleinair.org/contact" },
 };
 

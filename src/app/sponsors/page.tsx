@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Sponsors from "@/page-components/Sponsors";
 
 export const metadata: Metadata = {
-  title: "Sponsors | Heartland Plein Air Festival",
+  title: "Sponsor the Plein Air Festival: Put Your Name on It",
   description:
-    "Learn about the sponsors who make the Heartland Plein Air Festival possible, and find out how to become a sponsor or advertise in the catalog.",
+    "Support the Heartland Plein Air Festival. Sponsorship levels from $100 to $5,000+, with logo placement, catalog ads, and VIP passes. 501(c)(3) org.",
   alternates: { canonical: "https://heartlandpleinair.org/sponsors" },
 };
 
