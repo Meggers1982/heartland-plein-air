@@ -118,5 +118,10 @@ Edit `/src/data/locations.ts` — add an entry with `id`, `name`, `lat`, `lng`, 
 ## Git Workflow
 - Default branch is `main`
 - After making changes: run `npm run lint` and `npm test`, then commit with a clear message
-- Push updates to GitHub when ready — do not push until lint and tests pass
+- Always commit and push to GitHub after making changes — do not leave finished work sitting uncommitted or unpushed. Only hold off if lint or tests are failing.
 - Deployed via Vercel, connected to GitHub repo `Meggers1982/heartland-plein-air` (auto-deploys `main`)
+
+## Logging Updates
+- `CHANGES.md` is this repo's changelog — log notable updates there (what changed, which file, and the commit hash), following the existing numbered-section format
+- Only use the README for updates if they're about setup/usage/tech stack itself (README is currently stale Lovable boilerplate and needs a rewrite — see it as a target for cleanup, not a changelog)
+- Don't skip logging just because a change feels small — CHANGES.md's "Known follow-ups" section is also where open action items belong (e.g. things a human still needs to do, like rotating a key or checking a Cloud Console setting)
