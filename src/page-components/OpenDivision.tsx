@@ -246,8 +246,7 @@ const OpenDivision = () => {
                 formspreeEndpoint="https://formspree.io/f/xbdvpkdb"
                 levelLabel="Primary Medium"
                 levelOptions={["Oils", "Acrylics", "Watercolor", "Gouache", "Casein", "Pastel", "Oil Sticks"]}
-                organizationLabel="City, State"
-                organizationPlaceholder="Omaha, NE"
+                addressFields
                 submitLabel="Submit Registration"
                 successHref="/open-division/success"
               />

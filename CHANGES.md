@@ -266,6 +266,31 @@ along the way (not just cosmetic):
   (the Granary's event list), `src/page-components/Index.tsx` (homepage
   FAQ), `src/page-components/About.tsx`, and `src/lib/schema.ts`
   (site-wide JSON-LD event description).
+
+---
+
+## 2026-07-12 — Open Division Form: Street Address / City / State / Zip
+
+- **Added separate Street Address, City, State, and Zip Code fields** to the
+  Open Division registration form (`/open-division`). Previously the form
+  only had a single "City, State" free-text field, which was itself the
+  shared `InquiryForm` component's generic "Organization" field relabeled —
+  not a real structured address.
+- `InquiryForm` (`src/components/InquiryForm.tsx`) gained a new optional
+  `addressFields` prop. When enabled, it swaps the generic
+  Organization/Business Name field for the four address fields (each
+  required except none are optional; zip is validated against a 5-digit or
+  ZIP+4 pattern) and submits `street`/`city`/`state`/`zip` to Formspree
+  instead of `organization`. Sponsors and Advertising, which still use the
+  plain Organization field, are unaffected — verified both still render
+  correctly.
+- `OpenDivision.tsx` now passes `addressFields` instead of the old
+  `organizationLabel="City, State"` / `organizationPlaceholder="Omaha, NE"`
+  hack.
+- Verified in-browser: all four fields render in the expected layout (Street
+  Address full-width, City/State/Zip as a 3-column row), and client-side
+  validation correctly blocks submission with per-field error messages when
+  left empty. `next build` and `vitest` both pass.
 - Verified `next build` and `vitest` both pass after the rename.
 
 ---
