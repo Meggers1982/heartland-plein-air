@@ -376,6 +376,31 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — Homepage Hero: Mobile Button Fix + Subheading Legibility
+
+- **Bug fix (mobile Safari):** the "Meet the Artists" button was getting
+  covered by Safari's bottom toolbar on iOS, per a user-supplied screenshot.
+  Root cause: the hero `<section>` used `min-h-screen` (`100vh`) with
+  `items-end`, bottom-anchoring the button row — but iOS Safari's `100vh` is
+  sized for the *collapsed*-chrome viewport, so when the toolbar is expanded
+  (e.g. on initial page load) it overlaps that bottom strip.
+  `src/page-components/Index.tsx`: changed to `min-h-[100dvh]` (dynamic
+  viewport height), which tracks the actually-visible viewport as the
+  browser chrome shows/hides, natively, without JS. Only reproducible/
+  verifiable on a real iOS Safari device — desktop Chrome doesn't have the
+  same dynamic-toolbar behavior, so this couldn't be re-verified locally
+  beyond confirming the layout still renders correctly.
+- **Subheading legibility:** the hero intro paragraph ("Art, out in the
+  open...") used `font-light` at `text-secondary/85`, which was hard to read
+  against the busy textured painting background — and was the only hero-
+  style intro paragraph on the site still using `font-light` (Advertising,
+  Contact, and Open Division's matching intro paragraphs are all default
+  weight). Changed to `font-medium` at `text-secondary/95` for stronger
+  contrast. Verified in-browser — visibly bolder and higher-contrast.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
