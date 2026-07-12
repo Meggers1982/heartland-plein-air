@@ -4,18 +4,48 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { Check, ChevronDown } from "lucide-react";
 
-const buildSchema = (levelLabel: string) =>
+const buildSchema = (levelLabel: string, addressFields: boolean) =>
   z.object({
     name: z
       .string()
       .trim()
       .min(1, { message: "Please enter your name." })
       .max(100, { message: "Name must be less than 100 characters." }),
-    organization: z
-      .string()
-      .trim()
-      .min(1, { message: "Please enter your organization or business name." })
-      .max(150, { message: "Must be less than 150 characters." }),
+    organization: addressFields
+      ? z.string().trim().optional().or(z.literal(""))
+      : z
+          .string()
+          .trim()
+          .min(1, { message: "Please enter your organization or business name." })
+          .max(150, { message: "Must be less than 150 characters." }),
+    street: addressFields
+      ? z
+          .string()
+          .trim()
+          .min(1, { message: "Please enter your street address." })
+          .max(150, { message: "Must be less than 150 characters." })
+      : z.string().trim().optional().or(z.literal("")),
+    city: addressFields
+      ? z
+          .string()
+          .trim()
+          .min(1, { message: "Please enter your city." })
+          .max(100, { message: "Must be less than 100 characters." })
+      : z.string().trim().optional().or(z.literal("")),
+    state: addressFields
+      ? z
+          .string()
+          .trim()
+          .min(1, { message: "Please enter your state." })
+          .max(50, { message: "Must be less than 50 characters." })
+      : z.string().trim().optional().or(z.literal("")),
+    zip: addressFields
+      ? z
+          .string()
+          .trim()
+          .min(1, { message: "Please enter your zip code." })
+          .regex(/^\d{5}(-\d{4})?$/, { message: "Please enter a valid zip code." })
+      : z.string().trim().optional().or(z.literal("")),
     email: z
       .string()
       .trim()
@@ -43,6 +73,10 @@ const buildSchema = (levelLabel: string) =>
 type FormState = {
   name: string;
   organization: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
   email: string;
   phone: string;
   level: string;
@@ -56,6 +90,7 @@ type InquiryFormProps = {
   levelOptions: string[];
   organizationLabel?: string;
   organizationPlaceholder?: string;
+  addressFields?: boolean;
   submitLabel?: string;
   successTitle?: string;
   successMessage?: string;
@@ -68,16 +103,21 @@ const InquiryForm = ({
   levelOptions,
   organizationLabel = "Organization / Business Name",
   organizationPlaceholder = "Your organization",
+  addressFields = false,
   submitLabel = "Submit Inquiry",
   successTitle = "Inquiry sent",
   successMessage = "Thanks for reaching out. We'll get back to you as soon as we can.",
   successHref,
 }: InquiryFormProps) => {
   const router = useRouter();
-  const schema = buildSchema(levelLabel);
+  const schema = buildSchema(levelLabel, addressFields);
   const [form, setForm] = useState<FormState>({
     name: "",
     organization: "",
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
     email: "",
     phone: "",
     level: "",
@@ -114,7 +154,9 @@ const InquiryForm = ({
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
-          organization: form.organization,
+          ...(addressFields
+            ? { street: form.street, city: form.city, state: form.state, zip: form.zip }
+            : { organization: form.organization }),
           email: form.email,
           phone: form.phone,
           [levelLabel]: form.level,
@@ -164,7 +206,7 @@ const InquiryForm = ({
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6 text-left">
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className={`grid gap-6 ${addressFields ? "" : "sm:grid-cols-2"}`}>
         <div className="space-y-1.5">
           <label htmlFor="inquiry-name" className={labelClass}>
             Name
@@ -186,28 +228,121 @@ const InquiryForm = ({
             </p>
           )}
         </div>
-        <div className="space-y-1.5">
-          <label htmlFor="inquiry-organization" className={labelClass}>
-            {organizationLabel}
-          </label>
-          <input
-            id="inquiry-organization"
-            type="text"
-            placeholder={organizationPlaceholder}
-            value={form.organization}
-            onChange={(e) => update("organization", e.target.value)}
-            maxLength={150}
-            aria-invalid={errors.organization ? "true" : "false"}
-            aria-describedby={errors.organization ? "inquiry-organization-error" : undefined}
-            className={inputClass}
-          />
-          {errors.organization && (
-            <p id="inquiry-organization-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
-              {errors.organization}
-            </p>
-          )}
-        </div>
+        {!addressFields && (
+          <div className="space-y-1.5">
+            <label htmlFor="inquiry-organization" className={labelClass}>
+              {organizationLabel}
+            </label>
+            <input
+              id="inquiry-organization"
+              type="text"
+              placeholder={organizationPlaceholder}
+              value={form.organization}
+              onChange={(e) => update("organization", e.target.value)}
+              maxLength={150}
+              aria-invalid={errors.organization ? "true" : "false"}
+              aria-describedby={errors.organization ? "inquiry-organization-error" : undefined}
+              className={inputClass}
+            />
+            {errors.organization && (
+              <p id="inquiry-organization-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+                {errors.organization}
+              </p>
+            )}
+          </div>
+        )}
       </div>
+
+      {addressFields && (
+        <div className="space-y-6">
+          <div className="space-y-1.5">
+            <label htmlFor="inquiry-street" className={labelClass}>
+              Street Address
+            </label>
+            <input
+              id="inquiry-street"
+              type="text"
+              placeholder="123 Main St."
+              value={form.street}
+              onChange={(e) => update("street", e.target.value)}
+              maxLength={150}
+              aria-invalid={errors.street ? "true" : "false"}
+              aria-describedby={errors.street ? "inquiry-street-error" : undefined}
+              className={inputClass}
+            />
+            {errors.street && (
+              <p id="inquiry-street-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+                {errors.street}
+              </p>
+            )}
+          </div>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div className="space-y-1.5">
+              <label htmlFor="inquiry-city" className={labelClass}>
+                City
+              </label>
+              <input
+                id="inquiry-city"
+                type="text"
+                placeholder="Omaha"
+                value={form.city}
+                onChange={(e) => update("city", e.target.value)}
+                maxLength={100}
+                aria-invalid={errors.city ? "true" : "false"}
+                aria-describedby={errors.city ? "inquiry-city-error" : undefined}
+                className={inputClass}
+              />
+              {errors.city && (
+                <p id="inquiry-city-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+                  {errors.city}
+                </p>
+              )}
+            </div>
+            <div className="space-y-1.5">
+              <label htmlFor="inquiry-state" className={labelClass}>
+                State
+              </label>
+              <input
+                id="inquiry-state"
+                type="text"
+                placeholder="NE"
+                value={form.state}
+                onChange={(e) => update("state", e.target.value)}
+                maxLength={50}
+                aria-invalid={errors.state ? "true" : "false"}
+                aria-describedby={errors.state ? "inquiry-state-error" : undefined}
+                className={inputClass}
+              />
+              {errors.state && (
+                <p id="inquiry-state-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+                  {errors.state}
+                </p>
+              )}
+            </div>
+            <div className="space-y-1.5">
+              <label htmlFor="inquiry-zip" className={labelClass}>
+                Zip Code
+              </label>
+              <input
+                id="inquiry-zip"
+                type="text"
+                placeholder="68127"
+                value={form.zip}
+                onChange={(e) => update("zip", e.target.value)}
+                maxLength={10}
+                aria-invalid={errors.zip ? "true" : "false"}
+                aria-describedby={errors.zip ? "inquiry-zip-error" : undefined}
+                className={inputClass}
+              />
+              {errors.zip && (
+                <p id="inquiry-zip-error" className={errorClass} style={{ color: "hsl(var(--destructive))" }}>
+                  {errors.zip}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="space-y-1.5">
