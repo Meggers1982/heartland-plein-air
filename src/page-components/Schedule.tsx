@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { MapPin, Clock, CalendarPlus } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
@@ -259,6 +260,14 @@ const Schedule = () => {
                   >
                     Notify me when online sales open
                   </a>
+                )}
+                {["day-sep-13", "day-sep-17", "day-sep-18", "day-sep-19"].includes(d.id) && (
+                  <Link
+                    href="/tickets"
+                    className="mb-6 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
+                  >
+                    Included in the Collector VIP Pass →
+                  </Link>
                 )}
                 {d.events && d.events.length > 0 && (
                   <ul className="space-y-4 border-t border-border pt-6">

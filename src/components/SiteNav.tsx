@@ -16,6 +16,7 @@ const navLinksBeforeAbout = [{ label: "Home", href: "/" }];
 
 const navLinksAfterAbout = [
   { label: "Schedule", href: "/schedule" },
+  { label: "Tickets", href: "/tickets" },
   { label: "Artists", href: "/artists" },
   { label: "Gallery", href: "/gallery" },
   { label: "Open Division", href: "/open-division" },
