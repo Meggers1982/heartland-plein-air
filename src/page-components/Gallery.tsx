@@ -31,7 +31,7 @@ const Gallery = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Browse Plein Air Paintings for Sale: Festival 2026";
+    document.title = "Preview Artist Portfolios: Plein Air Festival 2026";
     return setPageMeta(
       "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
     );

@@ -635,6 +635,30 @@ counts the user specifically targeted).
 
 ---
 
+## 2026-07-12 — Gallery Title Corrected + Hero Buttons Fixed on Mobile
+
+- **Gallery title fixed**: "Browse Plein Air Paintings for Sale" (flagged
+  as inaccurate in the previous entry) changed to "Preview Artist
+  Portfolios: Plein Air Festival 2026" in both
+  `src/app/gallery/page.tsx`'s metadata and `Gallery.tsx`'s client-side
+  `document.title`. The description was already accurate ("preview," not
+  "buy") and didn't need changing — only the title claimed a sale that
+  doesn't happen on this page.
+- **Hero buttons fixed on mobile** (`src/page-components/Index.tsx`): the
+  three hero buttons (View Schedule / Buy Tickets / Meet the Artists,
+  added in the last two sessions) used `flex flex-wrap`, which on narrow
+  screens wraps three differently-sized pill buttons unevenly. Changed to
+  `flex-col` (full-width, stacked) below the `sm` breakpoint and
+  `sm:flex-row sm:w-auto` (original pill layout) at 640px and up.
+  Verified `next build`/`vitest` pass; could not get a true mobile-width
+  screenshot in this environment (the browser tool's resize doesn't
+  constrain the actual render viewport — confirmed again via
+  `window.innerWidth`), but the fix is deterministic: Tailwind's
+  unprefixed classes are mobile-first, so this applies correctly below
+  640px regardless of exact device width.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
