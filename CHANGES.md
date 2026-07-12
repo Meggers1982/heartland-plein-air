@@ -254,6 +254,22 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — Renamed "Collector's Soirée" event
+
+- **Every mention of "Collector's Soirée" site-wide renamed to "Collectors
+  Preview Reception and Awards Presentation"** (apostrophe dropped per the
+  new name). Updated: `src/data/schedule.ts` (day title, narrative, and
+  event name for Sep 18, plus the homepage teaser card), `src/data/faq.ts`
+  (9 occurrences across the Buying the Art and General Info sections,
+  including the question title "How do I get tickets to the Collectors
+  Preview Reception and Awards Presentation?"), `src/data/locations.ts`
+  (the Granary's event list), `src/page-components/Index.tsx` (homepage
+  FAQ), `src/page-components/About.tsx`, and `src/lib/schema.ts`
+  (site-wide JSON-LD event description).
+- Verified `next build` and `vitest` both pass after the rename.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

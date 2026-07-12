@@ -36,7 +36,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Is there an admission fee?",
         a: [
-          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collector's Soirée on September 18 and the Judge's Lecture on September 17 are ticketed events — sign up for the newsletter in the footer to be notified when tickets go on sale.",
+          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collectors Preview Reception and Awards Presentation on September 18 and the Judge's Lecture on September 17 are ticketed events — sign up for the newsletter in the footer to be notified when tickets go on sale.",
         ],
       },
     ],
@@ -95,7 +95,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Are there awards or competitions during the festival?",
         a: [
-          "The festival offers over $10,000 in awards, with awards for both the invited artists and the open division artists. The awards ceremony will be held during the Collector's Soirée on September 18.",
+          "The festival offers over $10,000 in awards, with awards for both the invited artists and the open division artists. The awards ceremony will be held during the Collectors Preview Reception and Awards Presentation on September 18.",
           "The awards judge is Rick J. Delanty from San Clemente, California — a nationally recognized, award-winning master artist with signature memberships in AIS, OPA, LPAPA, and ASMA, and recognized as an ARC Salon Living Master.",
         ],
       },
@@ -124,7 +124,7 @@ export const categories: FaqCategory[] = [
         a: [
           "The festival runs September 13–19, 2026, with a pre-festival youth day on September 12. Key public events include:",
           "September 12 — Youth Paintout at Wildwood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (6–7:30 PM). September 14–17 — Daily Lunch Break Paintouts: Downtown Ralston (Sep 14), Castle & Cathedral District (Sep 15), Benson (Sep 16), Dundee (Sep 17), all 11 AM–1:30 PM. September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
-          "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free). September 18 — Collector's Soirée at the Granary, Ralston (5:30–8 PM, ticketed). September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at the Granary (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at Granary Green (Noon–1 PM). September 19–October 2 — Online art sale.",
+          "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free). September 18 — Collectors Preview Reception and Awards Presentation at the Granary, Ralston (5:30–8 PM, ticketed). September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at the Granary (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at Granary Green (Noon–1 PM). September 19–October 2 — Online art sale.",
         ],
       },
       {
@@ -137,20 +137,20 @@ export const categories: FaqCategory[] = [
         q: "Is there parking at event locations and the Granary?",
         a: [
           "The Lunch Break Paintout locations — Downtown Ralston, the Castle & Cathedral Creative District, Benson, and Dundee — all have street parking available nearby. The Quick Paint Competition on September 19 is held in Downtown Ralston at the Hinge Creative District, with the same street parking options.",
-          "The Granary, which hosts the Collector's Soirée and Public Exhibition at 7401 Main Street in Ralston, has parking on site.",
+          "The Granary, which hosts the Collectors Preview Reception and Awards Presentation and Public Exhibition at 7401 Main Street in Ralston, has parking on site.",
         ],
       },
       {
         q: "Are the venues accessible?",
         a: [
-          "The outdoor painting locations across the metro vary in terrain — parks, sidewalks, and urban streetscapes — and accessibility will differ by site. The Granary at 7401 Main Street in Ralston hosts both the Collector's Soirée and Public Exhibition.",
+          "The outdoor painting locations across the metro vary in terrain — parks, sidewalks, and urban streetscapes — and accessibility will differ by site. The Granary at 7401 Main Street in Ralston hosts both the Collectors Preview Reception and Awards Presentation and Public Exhibition.",
           "For specific accessibility questions about any venue, reach out to the festival organizers at ralstoncreativedistrict@gmail.com and we'll do our best to help you plan your visit.",
         ],
       },
       {
         q: "Will food or drinks be available?",
         a: [
-          "The Collector's Soirée on September 18 includes catering and entertainment as part of the ticketed event at the Granary. Food and drink availability at Lunch Break Paintout locations and the Public Exhibition has not yet been confirmed — follow us on social media for updates closer to the event.",
+          "The Collectors Preview Reception and Awards Presentation on September 18 includes catering and entertainment as part of the ticketed event at the Granary. Food and drink availability at Lunch Break Paintout locations and the Public Exhibition has not yet been confirmed — follow us on social media for updates closer to the event.",
         ],
       },
       {
@@ -166,28 +166,28 @@ export const categories: FaqCategory[] = [
     title: "Buying the Art",
     items: [
       {
-        q: "How do I get tickets to the Collector's Soirée?",
+        q: "How do I get tickets to the Collectors Preview Reception and Awards Presentation?",
         a: [
-          "Ticket details and pricing for the Collector's Soirée on September 18 will be announced closer to the event. Sign up for the newsletter in the footer to be notified when tickets go on sale.",
+          "Ticket details and pricing for the Collectors Preview Reception and Awards Presentation on September 18 will be announced closer to the event. Sign up for the newsletter in the footer to be notified when tickets go on sale.",
         ],
       },
       {
         q: "How can I purchase a painting?",
         a: [
-          "Paintings are available for purchase at two events: the Collector's Soirée on September 18 (5:30–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–5 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Soirée is ticketed; the Public Exhibition is free.",
+          "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–5 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
           "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },
       {
         q: "How much do the paintings typically cost?",
         a: [
-          "Pricing is set by each individual artist and won't be published in advance. Works are sold at the artist's listed price at both the Collector's Soirée and the Public Exhibition & Sale. Plein air paintings are generally considered more accessible than comparable gallery work, which is part of what makes festival exhibitions such a good opportunity for collectors at any level.",
+          "Pricing is set by each individual artist and won't be published in advance. Works are sold at the artist's listed price at both the Collectors Preview Reception and Awards Presentation and the Public Exhibition & Sale. Plein air paintings are generally considered more accessible than comparable gallery work, which is part of what makes festival exhibitions such a good opportunity for collectors at any level.",
         ],
       },
       {
         q: "Can I purchase artwork before the final exhibition?",
         a: [
-          "The Collector's Soirée on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Works are not available for sale earlier in the festival week. Artists will not be able to sell their work directly off their easels prior to the exhibition.",
+          "The Collectors Preview Reception and Awards Presentation on September 18 — the evening before the Public Exhibition — is the earliest opportunity to purchase artwork. Works are not available for sale earlier in the festival week. Artists will not be able to sell their work directly off their easels prior to the exhibition.",
         ],
       },
       {

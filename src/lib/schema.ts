@@ -83,7 +83,7 @@ export const festivalEventSchema = {
   "@id": `${SITE_URL}/#festival`,
   name: "Heartland Plein Air Arts Festival",
   description:
-    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collector's Soirée September 18 (ticketed).`,
+    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collectors Preview Reception and Awards Presentation September 18 (ticketed).`,
   startDate: "2026-09-13",
   endDate: "2026-09-19",
   eventStatus: "https://schema.org/EventScheduled",

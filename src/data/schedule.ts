@@ -160,10 +160,10 @@ export const days: ScheduleDay[] = [
     id: "day-sep-18",
     dayShort: "Fri · Sep 18",
     dayLong: "Friday, September 18",
-    title: "The Collector's Soirée",
+    title: "Collectors Preview Reception and Awards Presentation",
     audience: "ticketed",
     narrative:
-      "Artists deliver their completed festival paintings in the morning. That evening, the Collector's Soirée at The Granary brings together art, music, food, and the first opportunity to purchase works from the festival's collection at the artist's listed price. Awards are announced and artists are celebrated. Tickets required.",
+      "Artists deliver their completed festival paintings in the morning. That evening, the Collectors Preview Reception and Awards Presentation at The Granary brings together art, music, food, and the first opportunity to purchase works from the festival's collection at the artist's listed price. Awards are announced and artists are celebrated. Tickets required.",
     events: [
       {
         time: "9 AM – 12:30 PM",
@@ -173,7 +173,7 @@ export const days: ScheduleDay[] = [
       },
       {
         time: "5:30 – 8 PM",
-        name: "Collector's Soirée — art reception & awards",
+        name: "Collectors Preview Reception and Awards Presentation",
         location: "Venues at the Granary",
         address: "7401 Main St., Ralston, NE",
       },
@@ -291,7 +291,7 @@ export const homepageHighlights: HomepageHighlight[] = [
   },
   {
     dayId: "day-sep-18",
-    title: "Collector's Soirée",
+    title: "Collectors Preview Reception and Awards Presentation",
     description: "Art reception and awards ceremony. Artwork for sale at artist's listed prices. Tickets required.",
     time: "5:30 – 8 PM",
     location: "Venues at the Granary (7401 Main St., Ralston, NE)",
