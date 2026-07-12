@@ -421,6 +421,17 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — About Page: Small Copy/Link Fixes
+
+- `src/page-components/About.tsx`: "What Is Plein Air" H2 now "What Is Plein
+  Air?" (missing question mark).
+- Same page, "About the Organizers" section: "supported by funding" now
+  links to `/sponsors` (via `next/link`, matching site convention of no
+  `<a>` tags for internal navigation).
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
