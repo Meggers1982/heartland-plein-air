@@ -17,7 +17,7 @@ const OpenDivisionSuccess = () => {
     <InquirySuccess
       eyebrow="Thank You"
       title="Your Registration Is In"
-      intro="We've received your registration and will follow up soon with payment instructions and check-in details. Here's a recap of the Open Division quick facts for your reference."
+      intro="We've received your registration. Registration is $30 and limited to 30 artists, first come, first served — please click the PayPal button below to pay your fee. Any registration without payment will not be accepted. Here's a recap of the Open Division quick facts for your reference."
       recapTitle="Open Division Quick Facts"
       recapItems={quickFacts.map((fact) => ({
         name: fact.title,

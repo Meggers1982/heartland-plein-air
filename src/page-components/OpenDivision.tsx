@@ -238,7 +238,7 @@ const OpenDivision = () => {
                 Ready to Register?
               </h2>
               <p className="mx-auto max-w-xl font-body text-base leading-relaxed text-muted-foreground">
-                Registration is $30 and limited to 30 artists, first come, first served. Fill out the form below to reserve your spot.
+                Fill out the form below to reserve your spot. Registration is $30 and limited to 30 artists, first come, first served. Please click the PayPal button after submitting the form to pay your fee. Any registration without payment will not be accepted.
               </p>
             </div>
             <div className="rounded-lg border border-border bg-card p-8 md:p-12">
