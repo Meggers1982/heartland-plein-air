@@ -68,7 +68,7 @@ const Blog = () => {
         <section className="py-16">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <AnimatedSection>
-              <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
                 News &amp; Updates
               </p>
               <h1 className="font-display text-5xl font-bold text-foreground md:text-6xl">
