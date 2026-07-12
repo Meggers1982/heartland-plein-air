@@ -24,11 +24,6 @@ const navLinksAfterAbout = [
   { label: "Contact", href: "/contact" },
 ];
 
-const aboutDropdownLinks = [
-  { label: "About", href: "/about" },
-  { label: "Advertising", href: "/advertising" },
-];
-
 const SiteNav = () => {
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -68,18 +63,26 @@ const SiteNav = () => {
           ))}
 
           <div
+            className="flex items-center gap-1"
             onMouseEnter={() => setAboutOpen(true)}
             onMouseLeave={() => setAboutOpen(false)}
           >
+            <Link
+              href="/about"
+              onClick={closeMenus}
+              className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+            >
+              About
+            </Link>
             <DropdownMenu open={aboutOpen} onOpenChange={setAboutOpen}>
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className="flex items-center gap-1 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+                  className="flex items-center text-foreground/80 transition-colors hover:text-primary"
                   aria-haspopup="menu"
                   aria-expanded={aboutOpen}
+                  aria-label="Advertising submenu"
                 >
-                  About
                   <ChevronDown
                     className={`h-3.5 w-3.5 transition-transform ${aboutOpen ? "rotate-180" : ""}`}
                     aria-hidden="true"
@@ -91,17 +94,15 @@ const SiteNav = () => {
                 sideOffset={12}
                 className="min-w-[10rem] rounded-md border border-border bg-popover p-1 font-body text-popover-foreground shadow-lg"
               >
-                {aboutDropdownLinks.map((link) => (
-                  <DropdownMenuItem key={link.label} asChild>
-                    <Link
-                      href={link.href}
-                      onClick={closeMenus}
-                      className="cursor-pointer rounded-sm px-3 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary focus:bg-muted focus:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
+                <DropdownMenuItem asChild>
+                  <Link
+                    href="/advertising"
+                    onClick={closeMenus}
+                    className="cursor-pointer rounded-sm px-3 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary focus:bg-muted focus:text-primary"
+                  >
+                    Advertising
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

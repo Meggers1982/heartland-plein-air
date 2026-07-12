@@ -514,6 +514,22 @@ Working through the "Known follow-ups" backlog:
 
 ---
 
+## 2026-07-12 — Nav: "About" Directly Clickable, Dropdown Now Advertising-Only
+
+- `src/components/SiteNav.tsx`: previously "About" was purely a dropdown
+  trigger (clicking it only opened a menu containing both "About" and
+  "Advertising" — clicking the word "About" itself never navigated
+  anywhere). Split it into a real `Link` to `/about` plus a small separate
+  chevron-only trigger button next to it; the dropdown now contains just
+  "Advertising". Hovering either the "About" link or the chevron opens the
+  flyout, same as before. Mobile menu was already correct (About and
+  Advertising as separate, directly clickable rows) — not touched.
+- Verified in-browser: clicking "About" navigates to `/about`; hovering
+  reveals a single-item "Advertising" flyout.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
