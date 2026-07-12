@@ -63,9 +63,9 @@ const Contact = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Contact | Heartland Plein Air Festival";
+    document.title = "Contact the Plein Air Festival Team: Ralston, NE";
     return setPageMeta(
-      "Get in touch with the Heartland Plein Air Festival — questions, sponsorships, volunteer inquiries, and more.",
+      "Questions about the festival, sponsorships, volunteering, or advertising? Reach the Heartland Plein Air Festival team in Ralston, Nebraska.",
     );
   }, []);
 

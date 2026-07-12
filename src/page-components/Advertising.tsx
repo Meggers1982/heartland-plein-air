@@ -39,9 +39,9 @@ const Advertising = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Advertising | Heartland Plein Air Festival";
+    document.title = "Advertise in the Plein Air Festival Catalog: Omaha";
     return setPageMeta(
-      "Advertise in the Heartland Plein Air Festival catalog — full, half, and quarter page ad options, specs, and deadlines.",
+      "Place an ad in the Heartland Plein Air Festival catalog — 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
     );
   }, []);
 
