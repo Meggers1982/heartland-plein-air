@@ -74,9 +74,15 @@ const Sponsors = () => {
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
                 Become a Sponsor
               </h2>
-              <p className="mb-14 font-body text-lg leading-relaxed text-foreground/85">
+              <p className="mb-4 font-body text-lg leading-relaxed text-foreground/85">
                 Sponsoring the Heartland Plein Air Festival puts your organization alongside nationally recognized artists and a growing collector community. Choose the level that fits — you'll be recognized in signage, social media, advertising, and the show catalog as noted below.
               </p>
+              <a
+                href="#grant-partners"
+                className="mb-14 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
+              >
+                See the 2026 Sponsors →
+              </a>
             </div>
           </AnimatedSection>
 
@@ -185,8 +191,14 @@ const Sponsors = () => {
               Our Sponsors
             </h2>
             <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-              The Heartland Plein Air Festival is made possible through the generous support of the following sponsors and partners.
+              The 2026 Heartland Plein Air Festival is made possible through the generous support of our generous sponsors and partners.
             </p>
+            <h3
+              id="grant-partners"
+              className="mb-6 scroll-mt-32 font-display text-2xl font-semibold text-foreground"
+            >
+              Our Grant Partners
+            </h3>
             <div className="grid gap-6 sm:grid-cols-2">
               {sponsors.map((sponsor) =>
                 sponsor.logo ? (
@@ -228,6 +240,14 @@ const Sponsors = () => {
                 ),
               )}
             </div>
+
+            <h3 className="mb-6 mt-14 font-display text-2xl font-semibold text-foreground">
+              Our Gold Sponsors
+            </h3>
+
+            <h3 className="mb-6 mt-14 font-display text-2xl font-semibold text-foreground">
+              Our Silver Partners
+            </h3>
           </AnimatedSection>
         </div>
       </section>
