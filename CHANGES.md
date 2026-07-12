@@ -583,6 +583,26 @@ Lecture) even has a second standalone option to disambiguate.
 
 ---
 
+## 2026-07-12 — Homepage: Buy Tickets Hero Button + Collector VIP Pass Section
+
+- **Hero** (`src/page-components/Index.tsx`): added a third button, "Buy
+  Tickets" → `/tickets`, between the existing "View Schedule" (primary)
+  and "Meet the Artists" (outline) buttons. Styled to match "Meet the
+  Artists" (outline) rather than introducing a third visual treatment.
+  Verified all three fit on one line without wrapping.
+- **New "Collector VIP Pass" section**, placed right after the homepage
+  Schedule section (same logical pairing as the Schedule-page cross-links
+  added earlier): eyebrow, H2, a summary of what the $125 pass includes
+  plus the $25 lecture-only option, and a "View Tickets" button to
+  `/tickets`. Matches the visual pattern of the homepage's other simple
+  sections (About, Highlights) — no separate component, since it's
+  homepage-only content.
+- Verified in-browser: hero buttons render without wrapping, "Buy Tickets"
+  navigates to `/tickets`, `#tickets` anchor lands correctly on the new
+  section. `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

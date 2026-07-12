@@ -145,6 +145,12 @@ const Index = () => {
               View Schedule
             </Link>
             <Link
+              href="/tickets"
+              className="inline-flex items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground"
+            >
+              Buy Tickets
+            </Link>
+            <Link
               href="/artists"
               className="inline-flex items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground"
             >
@@ -226,6 +232,31 @@ const Index = () => {
 
       {/* Schedule */}
       <ScheduleSection />
+
+      <BrushStrokeDivider className="py-4" />
+
+      {/* Tickets */}
+      <section id="tickets" className="py-24">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <AnimatedSection>
+            <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              Get Closer to the Art
+            </p>
+            <h2 className="mb-6 font-display text-4xl font-bold text-foreground">
+              Collector VIP Pass
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+              Most festival events are free and open to the public. For $125, the Collector VIP Pass gets you a private artist Meet & Greet, priority seating at the Judge's Lecture, the Collectors Preview Reception and Awards Presentation, and priority seating at the live auction. Prefer just the lecture? A standalone ticket is available for $25.
+            </p>
+            <Link
+              href="/tickets"
+              className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              View Tickets
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
 
       <BrushStrokeDivider className="py-4" />
 
