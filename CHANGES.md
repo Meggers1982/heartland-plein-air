@@ -659,6 +659,48 @@ counts the user specifically targeted).
 
 ---
 
+## 2026-07-12 — Desktop Hero Bugs: Advertising Cutoff + Site-Wide Fade-In Bug
+
+User reported the Advertising page's top text was cut off and other pages
+had "weird spacing" on desktop. Investigated both — two separate real bugs,
+not one:
+
+- **Advertising header text was genuinely clipped.** Measured the fixed
+  nav stack's actual height on `/advertising`: nav (112px) + countdown
+  ribbon (44px) + the `AdvertisingDeadlineBanner` added a few sessions ago
+  (~37px) = 193px total. The header's `pt-44` (176px) was tuned for
+  nav+ribbon only (156px, with buffer) — it never accounted for the extra
+  banner, so the eyebrow text ("Reach Collectors & Attendees") was
+  rendering ~17px behind the fixed bar and invisible. Bumped Advertising's
+  header specifically to `pt-52` (208px). Every other content page's
+  `pt-44` was already correctly sized for its actual (banner-less) nav
+  stack — confirmed by measuring `/about` (156px stack, 176px padding, ~20px
+  intentional buffer) — so only Advertising needed the change.
+- **Site-wide fade-in bug, more serious**: `useInView` (the hook behind
+  `AnimatedSection`, used all over the site) relies on
+  `IntersectionObserver`'s first async callback to reveal content. For
+  elements already on-screen at mount — i.e. anything above the fold —
+  that first callback can be missed depending on paint/layout timing,
+  leaving the element stuck at `opacity: 0` permanently until the user
+  manually scrolls. Confirmed this reproduces in an actual **production
+  build** (`next build && next start`), not just dev — so it was live-site
+  behavior, not a dev artifact. Concretely: `/artists`, `/gallery`,
+  `/blog`, and `/faq` all wrap their entire hero (eyebrow/H1/intro) in
+  `AnimatedSection`, so all four rendered a blank hero on direct page load
+  until scrolled — this is very likely what read as "weird spacing" across
+  "the rest of the pages." Fixed in `src/hooks/useInView.ts`: synchronously
+  check `getBoundingClientRect()` when the effect runs, and short-circuit
+  to visible immediately if the element is already in the viewport,
+  instead of relying solely on the observer's async first notification.
+  Below-the-fold scroll-triggered animations are unaffected (still gated
+  by the observer as before). This is a hook-level fix, so it applies
+  everywhere `AnimatedSection` is used, not just the four pages tested.
+- Verified all fixes against a production build (not dev server), since
+  the fade-in bug specifically didn't reproduce reliably enough in dev to
+  trust that environment for this. `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
