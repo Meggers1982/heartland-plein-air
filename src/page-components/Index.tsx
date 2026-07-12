@@ -71,14 +71,14 @@ const faqs = [
   {
     q: "How can I purchase a painting?",
     a: [
-      "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (1–4 PM, also at the Granary). The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
+      "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–5 PM, also at the Granary). The Collectors Preview Reception and Awards Presentation requires a Collector VIP Pass; the Public Exhibition is free.",
       "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
     ],
   },
   {
     q: "Is there an admission fee?",
     a: [
-      "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collectors Preview Reception and Awards Presentation on September 18 is a ticketed event — check back here for updates on pricing and ticket availability.",
+      "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition on September 19. The Collectors Preview Reception and Awards Presentation on September 18 requires a Collector VIP Pass ($125) — see the Tickets page for details.",
     ],
   },
 ];

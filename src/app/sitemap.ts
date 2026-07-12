@@ -29,6 +29,7 @@ const routes: RouteConfig[] = [
   { path: "/open-division", changeFrequency: "monthly", priority: 0.6 },
   { path: "/schedule", changeFrequency: "weekly", priority: 0.9 },
   { path: "/sponsors", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/tickets", changeFrequency: "monthly", priority: 0.8 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
