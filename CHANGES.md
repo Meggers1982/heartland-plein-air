@@ -227,14 +227,45 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — Repo Cleanup (post-migration artifacts)
+
+- **`.env` stopped being tracked** and added to `.gitignore` — closes half of
+  the §9 security note (still present locally for dev). The key itself is
+  `NEXT_PUBLIC_*` so it ships in the client bundle by design either way; git
+  history was deliberately *not* rewritten to purge old commits containing
+  it, since that wouldn't add real security and would require a disruptive
+  force-push to `main`. The actual remaining fix is the Cloud Console
+  referrer allowlist (§9, follow-up #2).
+- **Removed dead Vite/Lovable-era files** left over from the pre-migration
+  scaffold, now confirmed unused by `next build`: `index.html`,
+  `vite.config.ts`, `src/vite-env.d.ts`, `tsconfig.app.json`,
+  `tsconfig.node.json`.
+- **Removed stale bun lockfiles** (`bun.lock`, `bun.lockb`) — last modified
+  before the Next.js migration; `package-lock.json`/npm has been the real
+  package manager since. `package.json`'s `name` field also fixed from the
+  leftover `vite_react_shadcn_ts` to `heartland-plein-air`.
+- **`CLAUDE.md` rewritten** — previously still described the pre-migration
+  Vite/React Router stack; now matches the actual Next.js App Router
+  structure. Also added explicit rules: always commit + push after changes,
+  and log updates here in `CHANGES.md` rather than the README (README is
+  separately flagged as stale boilerplate, not yet rewritten).
+- Verified `next build` (all 22 routes) and `vitest` both pass after the
+  cleanup. *(bef6ae7)*
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
    listed in §8 and confirm via the email Formspree sends.
 2. **Google Maps referrer allowlist** — add production/preview domains in
-   Google Cloud Console (see §9).
-3. **Rotate the exposed Google Maps API key** and/or stop tracking `.env` in
-   git (see §9 security note).
+   Google Cloud Console (see §9), and confirm the key is restricted to
+   `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
+   key — see the 2026-07-12 entry above for why rewriting git history
+   wouldn't help.
+3. **Rewrite `README.md`** — still the default Lovable scaffold boilerplate
+   (mentions Vite, the Lovable platform, a placeholder project URL). Not a
+   changelog target; CHANGES.md (this file) is.
 4. Two lower-priority items flagged during the QA sweep but intentionally
    left alone (judgment calls, not bugs):
    - `Contact.tsx` duplicates `FestivalContactInfo.tsx`'s JSX instead of
