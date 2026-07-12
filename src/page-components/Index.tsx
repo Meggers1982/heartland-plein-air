@@ -135,24 +135,24 @@ const Index = () => {
             painting Douglas and Sarpy County exactly as it looks in September.
           </p>
           <div
-            className={`flex flex-wrap gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+            className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 transition-all duration-700 ${heroLoaded ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
             style={{ transitionDelay: "800ms" }}
           >
             <Link
               href="/schedule"
-              className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+              className="inline-flex w-full items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
             >
               View Schedule
             </Link>
             <Link
               href="/tickets"
-              className="inline-flex items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground"
+              className="inline-flex w-full items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground sm:w-auto"
             >
               Buy Tickets
             </Link>
             <Link
               href="/artists"
-              className="inline-flex items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground"
+              className="inline-flex w-full items-center justify-center rounded-full border-2 border-secondary/80 bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-secondary transition-all hover:-translate-y-0.5 hover:bg-secondary hover:text-secondary-foreground sm:w-auto"
             >
               Meet the Artists
             </Link>
