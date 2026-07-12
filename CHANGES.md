@@ -467,6 +467,15 @@ Tailwind's unprefixed classes are the mobile styles). Findings and fixes:
   `src/page-components/NotFound.tsx`, a pre-migration duplicate that was
   never imported anywhere (confirmed via grep) — the live 404 is
   `src/app/not-found.tsx` per Next.js's App Router convention.
+- **Fixed: Open Division's "Ready to Register?" CTA intro didn't match its
+  siblings.** Advertising's "Ready to reserve your ad space?" and Sponsors'
+  "Ready to sponsor the festival?" both use a plain bold `<p>` line with no
+  icon or heading. Open Division's equivalent intro had an icon circle plus
+  a `font-display text-3xl` `<h2>`, meaningfully more visual weight than
+  the other two for the same kind of card. Simplified to match — dropped
+  the icon (and its now-unused `Users` import) and the `<h2>`, now a plain
+  bold line like the other two. User confirmed this direction over
+  upgrading the other two to match Open Division instead.
 - `next build` and `vitest` both pass.
 
 ---
