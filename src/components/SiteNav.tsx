@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import CountdownRibbon from "@/components/CountdownRibbon";
+import AdvertisingDeadlineBanner from "@/components/AdvertisingDeadlineBanner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +34,7 @@ const SiteNav = () => {
   const [aboutOpen, setAboutOpen] = useState(false);
   const pathname = usePathname();
   const showRibbon = pathname !== "/";
+  const showAdBanner = pathname === "/advertising";
 
   const closeMenus = () => {
     setOpen(false);
@@ -125,6 +127,7 @@ const SiteNav = () => {
         </button>
       </div>
       {showRibbon && <CountdownRibbon />}
+      {showAdBanner && <AdvertisingDeadlineBanner />}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
           open ? "max-h-[32rem] border-t border-border" : "max-h-0"

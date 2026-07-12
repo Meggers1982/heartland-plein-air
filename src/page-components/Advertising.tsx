@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   FileText,
   Palette,
@@ -18,6 +18,7 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
 import { adSizes } from "@/data/adSizes";
+import { AD_DEADLINE } from "@/lib/adDeadline";
 
 const fileSpecs = [
   { icon: FileText, text: "PDF format preferred, with no crop marks" },
@@ -27,6 +28,15 @@ const fileSpecs = [
 ];
 
 const Advertising = () => {
+  const [deadlinePassed, setDeadlinePassed] = useState(false);
+
+  useEffect(() => {
+    const check = () => setDeadlinePassed(Date.now() >= AD_DEADLINE);
+    check();
+    const id = setInterval(check, 60_000);
+    return () => clearInterval(id);
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Advertising | Heartland Plein Air Festival";
@@ -151,7 +161,7 @@ const Advertising = () => {
                     Deadline
                   </h3>
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
-                    All print-ready ads are due no later than July 15th, ahead of the September 13–19, 2026 festival.
+                    All print-ready ads are due no later than July 17, 2026, ahead of the September 13–19, 2026 festival.
                   </p>
                 </div>
               </div>
@@ -193,23 +203,43 @@ const Advertising = () => {
 
           <AnimatedSection delay={240}>
             <div className="mx-auto mt-10 max-w-3xl rounded-lg border border-border bg-card p-8 md:p-12">
-              <div className="mb-8 text-center">
-                <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                  Ready to reserve your ad space?
-                </p>
-                <p className="font-body text-base leading-relaxed text-muted-foreground">
-                  Fill out the form below to reserve your ad. The Ralston Hinge Creative District is a 501(c)(3) nonprofit organization.
-                </p>
-              </div>
-              <InquiryForm
-                formspreeEndpoint="https://formspree.io/f/xeebpkrr"
-                successHref="/advertising/success"
-                levelLabel="Ad Size"
-                levelOptions={adSizes.map((size) => `${size.name} (${size.price})`)}
-                submitLabel="Submit Ad Reservation"
-                successTitle="Reservation sent"
-                successMessage="Thanks for reserving your ad space — we'll follow up with next steps."
-              />
+              {deadlinePassed ? (
+                <div className="text-center">
+                  <p className="mb-2 font-body text-lg font-semibold text-foreground">
+                    Advertising reservations are closed
+                  </p>
+                  <p className="font-body text-base leading-relaxed text-muted-foreground">
+                    The July 17, 2026 deadline has passed and we're no longer accepting new ad reservations for this year's catalog. Questions? Email{" "}
+                    <a
+                      href="mailto:ralstoncreativedistrict@gmail.com"
+                      className="font-semibold text-primary hover:underline"
+                    >
+                      ralstoncreativedistrict@gmail.com
+                    </a>
+                    .
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="mb-8 text-center">
+                    <p className="mb-2 font-body text-lg font-semibold text-foreground">
+                      Ready to reserve your ad space?
+                    </p>
+                    <p className="font-body text-base leading-relaxed text-muted-foreground">
+                      Fill out the form below to reserve your ad. The Ralston Hinge Creative District is a 501(c)(3) nonprofit organization.
+                    </p>
+                  </div>
+                  <InquiryForm
+                    formspreeEndpoint="https://formspree.io/f/xeebpkrr"
+                    successHref="/advertising/success"
+                    levelLabel="Ad Size"
+                    levelOptions={adSizes.map((size) => `${size.name} (${size.price})`)}
+                    submitLabel="Submit Ad Reservation"
+                    successTitle="Reservation sent"
+                    successMessage="Thanks for reserving your ad space — we'll follow up with next steps."
+                  />
+                </>
+              )}
             </div>
           </AnimatedSection>
         </div>
