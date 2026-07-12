@@ -1,14 +1,21 @@
 import { Facebook, Instagram, MapPin, Phone, Mail } from "lucide-react";
 
-const FestivalContactInfo = () => {
+type FestivalContactInfoProps = {
+  headingLevel?: "h2" | "h3";
+};
+
+const FestivalContactInfo = ({ headingLevel = "h3" }: FestivalContactInfoProps) => {
+  const Heading = headingLevel;
   return (
     <div>
       <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
         Festival Office
       </p>
-      <h3 className="mb-6 font-display text-2xl font-bold leading-tight text-foreground">
+      <Heading
+        className={`mb-6 font-display font-bold leading-tight text-foreground ${headingLevel === "h2" ? "text-3xl" : "text-2xl"}`}
+      >
         Ralston HINGE Creative District
-      </h3>
+      </Heading>
       <div className="space-y-5 font-body text-base text-foreground/85">
         <div className="flex items-start gap-3">
           <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />

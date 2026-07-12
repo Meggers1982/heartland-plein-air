@@ -480,6 +480,40 @@ Tailwind's unprefixed classes are the mobile styles). Findings and fixes:
 
 ---
 
+## 2026-07-12 — README Rewrite, Contact/FestivalContactInfo Dedup, Sponsors Page Updates
+
+Working through the "Known follow-ups" backlog:
+
+- **Rewrote `README.md`** — was still the default Lovable scaffold
+  (mentioned Vite, the Lovable platform, a placeholder project URL). Now
+  documents the actual Next.js stack, real setup steps, and points to
+  `CLAUDE.md` (conventions/content editing) and `CHANGES.md` (changelog)
+  instead of duplicating them.
+- **Consolidated `Contact.tsx`'s duplicated contact-info JSX** into
+  `FestivalContactInfo.tsx`, the shared component the success pages already
+  use. The two contexts needed different heading levels/sizes (page section
+  `<h2 className="text-3xl">` vs. success-page card `<h3 className="text-2xl">`)
+  — that's why this was left alone in an earlier QA pass. Added a
+  `headingLevel?: "h2" | "h3"` prop (defaults to `"h3"`, preserving the
+  success-page behavior unchanged) so `Contact.tsx` can request the `h2`/
+  `text-3xl` variant explicitly. Verified in-browser: Contact page renders
+  pixel-identical to before.
+- **Sponsors page** (`src/page-components/Sponsors.tsx`):
+  - Added a "See the 2026 Sponsors →" jump link under the "Become a
+    Sponsor" intro paragraph, linking to `#grant-partners`.
+  - "Our Sponsors" section: updated the intro paragraph text, added an
+    `id="grant-partners"` (with `scroll-mt-32`, matching the site's
+    existing jump-link offset convention) H3 "Our Grant Partners" above
+    the sponsor logo grid, and two more H3s below it — "Our Gold Sponsors"
+    and "Our Silver Partners" — as placeholders for logos to be added
+    later.
+  - Verified in-browser: jump link scrolls to the correctly-offset heading
+    (not hidden behind the fixed nav/ribbon), new headings render in the
+    right order.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
@@ -489,20 +523,15 @@ Tailwind's unprefixed classes are the mobile styles). Findings and fixes:
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Rewrite `README.md`** — still the default Lovable scaffold boilerplate
-   (mentions Vite, the Lovable platform, a placeholder project URL). Not a
-   changelog target; CHANGES.md (this file) is.
-4. **Add the actual PayPal button** to `/open-division` and
+3. **Add the actual PayPal button** to `/open-division` and
    `/open-division/success` — the copy on both pages now references it
    (see the 2026-07-12 Registration Fee / PayPal Copy entry), but no button
    exists yet. Needs a PayPal.me link or hosted button ID from the user.
-5. Two lower-priority items flagged during the QA sweep but intentionally
-   left alone (judgment calls, not bugs):
-   - `Contact.tsx` duplicates `FestivalContactInfo.tsx`'s JSX instead of
-     reusing the component — the two contexts (wide page section vs. narrow
-     card) have different heading sizes, so consolidating risked a visual
-     regression. Worth revisiting for maintainability.
-   - Artists/Gallery pages use a lighter page-header style than the other 5
-     interior pages (no dark `bg-foreground` band) — flagged as a possible
-     site-wide inconsistency, but plausibly intentional for image-heavy
-     pages, so left as a design decision rather than unilaterally changed.
+4. **Add sponsor logos** for the new "Our Gold Sponsors" and "Our Silver
+   Partners" sections on `/sponsors` — headings exist, no logos yet.
+5. One lower-priority item flagged during the QA sweep but intentionally
+   left alone (a judgment call, not a bug): Artists/Gallery pages use a
+   lighter page-header style than the other 5 interior pages (no dark
+   `bg-foreground` band) — flagged as a possible site-wide inconsistency,
+   but plausibly intentional for image-heavy pages, so left as a design
+   decision rather than unilaterally changed.
