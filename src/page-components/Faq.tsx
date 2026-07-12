@@ -74,7 +74,7 @@ const Faq = () => {
             <h1 className="mb-6 font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
               Everything You Need to Know Before You Go
             </h1>
-            <p className="mx-auto mb-8 max-w-2xl font-body text-lg font-light leading-relaxed text-muted-foreground">
+            <p className="mx-auto mb-8 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
               From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Festival, or browse by topic below.
             </p>
             <div className="relative mx-auto max-w-xl">
