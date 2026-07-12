@@ -530,6 +530,59 @@ Working through the "Known follow-ups" backlog:
 
 ---
 
+## 2026-07-12 — New Tickets Page: Collector VIP Pass
+
+Most festival events are free, but there's a paid Collector VIP Pass with
+benefits spanning four separate days, plus a standalone lecture ticket and
+a free RSVP for the Public Exhibition. Discussed page-vs-inline options
+first (see prior context) — landed on a dedicated page since one pass
+spanning four days is closer in shape to Open Division/Advertising than a
+couple of one-off ticket links, and only one of the four days (the Judge's
+Lecture) even has a second standalone option to disambiguate.
+
+- **New `/tickets` page** (`src/page-components/Tickets.tsx` +
+  `src/app/tickets/page.tsx`): three offerings, each with its own external
+  purchase link (all via `app.gopassage.com`, `target="_blank"`):
+  - **Collector VIP Pass — $125**: day-by-day benefit cards for Sep 13
+    (Private Meet & Greet — same event as the existing "Artist Meet &
+    Greet" on the Schedule page, confirmed with the user; no schedule data
+    changes needed), Sep 17 (Judge's Lecture, priority seating), Sep 18
+    (Collectors Preview Reception and Awards Presentation), and Sep 19
+    (live auction priority seating). Closing blurb on how the pass
+    supports the Ralston HINGE Creative District.
+  - **Judge's Lecture Only — $25**: standalone ticket for people who just
+    want the lecture, separate from the full pass.
+  - **Public Exhibition & Sale — Free**: RSVP link (still free, GoPassage
+    used for headcount).
+- **Nav**: added "Tickets" to `SiteNav.tsx`'s link list (both desktop and
+  mobile pick it up automatically, same array), positioned right after
+  Schedule.
+- **Schedule page cross-links**: `src/page-components/Schedule.tsx` now
+  shows an "Included in the Collector VIP Pass →" link to `/tickets` on
+  the Sep 13, 17, 18, and 19 day cards, following the same inline-CTA
+  pattern already used for the online-sale day.
+- **Updated stale "pricing coming soon" copy** now that real pricing
+  exists: `src/data/faq.ts` ("Is there an admission fee?" and "How do I
+  get tickets...") and `src/page-components/Index.tsx` (homepage FAQ,
+  which also had incorrect event times — 5–8 PM/1–4 PM instead of the
+  correct 5:30–8 PM/11 AM–5 PM from `schedule.ts` — fixed those too since
+  they were in the exact paragraphs being edited).
+- **`src/lib/schema.ts`**: the JSON-LD `offers` array was auto-deriving
+  generic ticketed offers from schedule data with no `price` field at all.
+  Replaced with two explicit offers (VIP Pass $125, Lecture $25) with real
+  `price`/`priceCurrency`/`url`, removed the now-unused `days` import.
+- **`src/app/sitemap.ts`**: added the missing `/tickets` entry (this file
+  is manually maintained, not auto-generated from routes).
+- **Second "Buy the Collector VIP Pass" button** added right below the
+  price, above the benefit cards — the pass now has a purchase button both
+  at the top and bottom of its section, per request ("so people see it
+  twice").
+- Verified in-browser: page renders end-to-end, all CTA buttons point to
+  the correct external URLs, Schedule cross-links navigate to `/tickets`
+  correctly. `next build` (23 routes now) and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

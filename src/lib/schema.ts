@@ -45,45 +45,41 @@ export function breadcrumbSchema(label: string, path: string) {
   };
 }
 
-import { days } from "@/data/schedule";
 import { artists } from "@/data/artists";
 
 const invitedCount = artists.length;
 
-// Ticketed offers derived from days marked audience: "ticketed"
-const ticketedDayOffers = days
-  .filter((d) => d.audience === "ticketed")
-  .map((d) => ({
+const ticketOffers = [
+  {
     "@type": "Offer",
-    name: `${d.title} — ${d.dayLong}`,
-    description: d.narrative,
+    name: "Collector VIP Pass",
+    description:
+      "Includes a private artist Meet & Greet (Sep 13), priority seating at the Judge's Lecture (Sep 17), the Collectors Preview Reception and Awards Presentation (Sep 18), and priority seating at the live auction (Sep 19).",
+    price: "125",
+    priceCurrency: "USD",
     availability: "https://schema.org/InStock",
     validFrom: "2026-01-01",
-    url: SITE_URL,
-  }));
-
-// Ticketed offers derived from individual events tagged "(Ticketed)" within public days
-const ticketedEventOffers = days
-  .filter((d) => d.audience !== "ticketed")
-  .flatMap((d) =>
-    (d.events ?? [])
-      .filter((ev) => ev.name.includes("(Ticketed)"))
-      .map((ev) => ({
-        "@type": "Offer",
-        name: `${ev.name.replace(" (Ticketed)", "")} — ${d.dayLong}`,
-        description: `Ticketed event.${ev.time ? ` ${ev.time}.` : ""}${ev.location ? ` ${ev.location}.` : ""}${ev.address ? ` ${ev.address}.` : ""}`,
-        availability: "https://schema.org/InStock",
-        validFrom: "2026-01-01",
-        url: SITE_URL,
-      }))
-  );
+    url: "https://app.gopassage.com/events/heartland-plein-air-festival-vip",
+  },
+  {
+    "@type": "Offer",
+    name: "Judge's Lecture Ticket",
+    description:
+      "Standalone ticket to \"Introduction to Impressionism,\" presented by Judge of Awards and Master Artist Rick J. Delanty, September 17 at the Baright Public Library.",
+    price: "25",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    validFrom: "2026-01-01",
+    url: "https://app.gopassage.com/events/heartland-plein-air-festival-lecture-with-delanty",
+  },
+];
 
 export const festivalEventSchema = {
   "@type": "Event",
   "@id": `${SITE_URL}/#festival`,
   name: "Heartland Plein Air Arts Festival",
   description:
-    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collectors Preview Reception and Awards Presentation September 18 (ticketed).`,
+    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collector VIP Pass ($125) includes the Collectors Preview Reception and Awards Presentation September 18.`,
   startDate: "2026-09-13",
   endDate: "2026-09-19",
   eventStatus: "https://schema.org/EventScheduled",
@@ -113,8 +109,7 @@ export const festivalEventSchema = {
       validFrom: "2026-01-01",
       url: SITE_URL,
     },
-    ...ticketedDayOffers,
-    ...ticketedEventOffers,
+    ...ticketOffers,
   ],
   performer: {
     "@type": "PerformingGroup",
