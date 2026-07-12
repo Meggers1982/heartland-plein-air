@@ -41,9 +41,9 @@ const salesInfo = [
 const OpenDivision = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Open Division Artist Information | Heartland Plein Air Festival";
+    document.title = "Register to Paint Plein Air With the Pros: Omaha 2026";
     return setPageMeta(
-      "Open Division artist information for the Heartland Plein Air Festival, September 13–19, 2026.",
+      "Register to paint alongside 25 national artists during festival week. Limited to 30 spots at $30. All mediums welcome. Sept. 13–19, 2026, Omaha metro.",
     );
   }, []);
 

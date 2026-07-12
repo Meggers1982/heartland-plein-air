@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Schedule from "@/page-components/Schedule";
 
 export const metadata: Metadata = {
-  title: "Schedule of Events | Heartland Plein Air Festival",
+  title: "Plan Your Visit: Plein Air Festival Schedule Omaha",
   description:
-    "Full schedule for the Heartland Plein Air Festival, September 12 – October 2, 2026, across the Omaha metro.",
+    "Full event schedule for the Heartland Plein Air Festival — daily paint-outs, the Judge's Lecture, Collectors Preview, and the Sept. 19 public exhibition.",
   alternates: { canonical: "https://heartlandpleinair.org/schedule" },
 };
 

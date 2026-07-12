@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import OpenDivision from "@/page-components/OpenDivision";
 
 export const metadata: Metadata = {
-  title: "Open Division | Heartland Plein Air Festival",
+  title: "Register to Paint Plein Air With the Pros: Omaha 2026",
   description:
-    "Information for Open Division artists at the Heartland Plein Air Festival, September 13–19, 2026.",
+    "Register to paint alongside 25 national artists during festival week. Limited to 30 spots at $30. All mediums welcome. Sept. 13–19, 2026, Omaha metro.",
   alternates: { canonical: "https://heartlandpleinair.org/open-division" },
 };
 

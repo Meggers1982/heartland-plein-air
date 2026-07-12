@@ -31,9 +31,9 @@ const Gallery = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Gallery | Heartland Plein Air Festival";
+    document.title = "Browse Plein Air Paintings for Sale: Festival 2026";
     return setPageMeta(
-      "Browse paintings by all 23 artists in the Heartland Plein Air Festival, September 13–19, 2026.",
+      "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
     );
   }, []);
 
