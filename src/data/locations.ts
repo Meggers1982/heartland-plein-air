@@ -85,7 +85,7 @@ export const festivalLocations: FestivalLocation[] = [
     lat: 41.2098,
     lng: -96.0405,
     events: [
-      { dayId: "day-sep-18", dayLabel: "Fri · Sep 18", time: "5:30 – 8 PM", name: "Collector's Soirée" },
+      { dayId: "day-sep-18", dayLabel: "Fri · Sep 18", time: "5:30 – 8 PM", name: "Collectors Preview Reception and Awards Presentation" },
       { dayId: "day-sep-19", dayLabel: "Sat · Sep 19", time: "11 AM – 5 PM", name: "Public Exhibition & Sale" },
       { dayId: "day-sep-19", dayLabel: "Sat · Sep 19", time: "Noon – 1 PM", name: "Live Auction — Quick Paint Pieces" },
     ],
