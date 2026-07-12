@@ -347,6 +347,35 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — Advertising Deadline Moved to July 17 + Auto-Close
+
+- **Deadline text updated** in `src/page-components/Advertising.tsx` from
+  "July 15th" to "July 17, 2026."
+- **New site-wide-style deadline banner** on `/advertising` only, matching
+  the pattern the existing `CountdownRibbon` uses: `SiteNav.tsx` now
+  conditionally renders a new `AdvertisingDeadlineBanner` component
+  (`src/components/AdvertisingDeadlineBanner.tsx`) when
+  `pathname === "/advertising"`, stacked inside the same fixed nav block so
+  it scrolls correctly with the rest of the header. Reads "Advertising
+  deadline: July 17, 2026 — reserve your ad space now" until the deadline,
+  then switches text/color to "Advertising reservations are now closed."
+  (A banner placed as a plain sibling of `<SiteNav />` in the page itself
+  would've been visually covered by the nav, since `<nav>` is
+  `position: fixed` — hence wiring it through SiteNav like the ribbon.)
+- **Form auto-disables after the deadline** — answers the "can this be done
+  programmatically" question: yes. Added `src/lib/adDeadline.ts` exporting
+  a single `AD_DEADLINE` constant (`2026-07-18T00:00:00-05:00`, i.e. end of
+  day July 17 in Central time, explicitly offset so the cutoff doesn't
+  depend on a visitor's local timezone), imported by both the banner and
+  `Advertising.tsx`. Past the deadline, `Advertising.tsx` replaces the
+  `InquiryForm` with a "reservations are closed" message and an email
+  fallback, instead of rendering the form.
+- Verified in-browser by temporarily setting `AD_DEADLINE` to a past date:
+  banner and form both correctly switch to the closed state, then reverted.
+  `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
