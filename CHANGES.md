@@ -401,6 +401,26 @@ along the way (not just cosmetic):
 
 ---
 
+## 2026-07-12 — Countdown Ribbon: Mobile Context Label
+
+- **Gap flagged during review:** on mobile (`<640px`), the sticky countdown
+  ribbon shown on every inner page (Schedule, Sponsors, FAQ, etc. — every
+  page except the homepage) rendered as just `62 DAYS : 09 HRS : 27 MIN :
+  19 SEC` with no indication of what it was counting down to. Both the
+  "Brushes Out In" label and the date/location line are hidden below the
+  `sm`/`md` breakpoints, so a visitor landing on an inner page via a shared
+  link (not the homepage, which has full hero context) saw a bare,
+  unexplained timer.
+- `src/components/CountdownRibbon.tsx`: added a compact "Festival in" label
+  visible only below `sm` (replacing the fully-hidden "Brushes Out In" on
+  mobile — that longer label stays sm+ only). Verified in-browser at a
+  375px width: fits with room to spare, no wrapping. Left the date/location
+  line hidden on mobile — lower priority than the "what is this" label, and
+  space is tighter.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
