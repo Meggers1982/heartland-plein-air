@@ -873,6 +873,54 @@ content that's drifted from the source of truth.
 
 ---
 
+## 2026-07-13 — Partner Org Links + Sponsor Contact Info Update
+
+**External links added** — reviewed the site for every mention of six
+partner organizations and linked them where they weren't already:
+Benson Creative District, Historic Dundee Creative District, Castle &
+Cathedral Creative District, Visit Nebraska, Nebraska Arts Council,
+and Nebraska Cultural Endowment. Linked in the FAQ's "How can local
+businesses support the festival?" answer and in the About page's
+"About the Organizers" section (previously plain text). Also linked
+FosterLove and Healing Ribbons in the FAQ's "Does the festival partner
+with local nonprofits or schools?" answer.
+
+`renderAnswer()` in `Faq.tsx` (added in the previous pass) now also
+handles external URLs in its `[label](url)` syntax, rendering them as
+`target="_blank"` links distinct from internal `next/link` routes.
+
+**Creative district logos now link out** — added a `logoUrl` field to
+`ScheduleDay` (`src/data/schedule.ts`) for the Castle & Cathedral,
+Benson, and Dundee day entries. Both `Schedule.tsx` (Schedule page)
+and `ScheduleSection.tsx` (homepage) read from the same `schedule.ts`
+data, so wiring the link through that one shared field made both
+places consistent in a single change — no logo-linking code
+duplicated. The Ralston HINGE logo (also `logo`'d on two of the same
+days) intentionally has no `logoUrl`; it wasn't part of the org list
+for this change and is already linked separately elsewhere (About
+page → ralstonarts.org).
+
+**Sponsor contact info corrected** — "How can I become a festival
+sponsor?" previously listed City Administrator Jack Cheloha
+(402.331.6677, jcheloha@cityofralston.com) as the direct contact.
+Replaced with the Ralston HINGE Creative District's own email
+(ralstoncreativedistrict@gmail.com, attn. Debra Joy Groesser) — the
+same contact used everywhere else on the site. Grepped the full repo
+afterward; confirmed zero remaining mentions of Cheloha or
+cityofralston.com anywhere.
+
+*(6f800c8)*
+
+Judgment call, not changed: `Sponsors.tsx`'s "Best of the Creative
+Districts (Ralston, Dundee, Benson, Castle & Cathedral) — $500 each"
+line names three of the same districts, but as a dense award-category
+parenthetical rather than a genuine reference to their organizations.
+Linking individual words inside it looked more cluttered than useful,
+so it was left as plain text — flagging in case you'd rather it be
+linked too.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
