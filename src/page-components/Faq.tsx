@@ -18,7 +18,7 @@ import BackToTop from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
 import { categories } from "@/data/faq";
 
-const LINK_PATTERN = /\[([^\]]+)\]\((\/[^)]+)\)/g;
+const LINK_PATTERN = /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^)]+)\)/g;
 
 function renderAnswer(text: string) {
   const parts: React.ReactNode[] = [];
@@ -27,10 +27,17 @@ function renderAnswer(text: string) {
   LINK_PATTERN.lastIndex = 0;
   while ((match = LINK_PATTERN.exec(text))) {
     if (match.index > lastIndex) parts.push(text.slice(lastIndex, match.index));
+    const [, label, href] = match;
     parts.push(
-      <Link href={match[2]} className="font-semibold text-primary hover:underline">
-        {match[1]}
-      </Link>,
+      href.startsWith("/") ? (
+        <Link href={href} className="font-semibold text-primary hover:underline">
+          {label}
+        </Link>
+      ) : (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+          {label}
+        </a>
+      ),
     );
     lastIndex = match.index + match[0].length;
   }

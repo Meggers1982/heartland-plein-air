@@ -38,11 +38,27 @@ const ScheduleSection = () => {
                         </h3>
                         {day?.logo && (
                           <div className={`mb-3 flex ${isLeft ? "md:justify-end" : ""}`}>
-                            <img
-                              src={day.logo}
-                              alt={day.logoAlt}
-                              className="max-h-10 w-auto max-w-[220px] object-contain"
-                            />
+                            {day.logoUrl ? (
+                              <a
+                                href={day.logoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={day.logoAlt}
+                                className="transition-opacity hover:opacity-80"
+                              >
+                                <img
+                                  src={day.logo}
+                                  alt={day.logoAlt}
+                                  className="max-h-10 w-auto max-w-[220px] object-contain"
+                                />
+                              </a>
+                            ) : (
+                              <img
+                                src={day.logo}
+                                alt={day.logoAlt}
+                                className="max-h-10 w-auto max-w-[220px] object-contain"
+                              />
+                            )}
                           </div>
                         )}
                         <p className="mb-3 font-body text-sm leading-relaxed text-muted-foreground">
