@@ -1070,6 +1070,59 @@ schema there would have no audience.
 
 ---
 
+## 2026-07-13 — Internal Link Audit: Blog Removed, Targeted Links Added
+
+Audited every page for both outgoing and incoming **content-level**
+internal links (i.e. links inside body copy, not just the shared
+header nav that's identical on every page — nav technically makes
+every page reachable from every other, but doesn't carry the same
+SEO/contextual weight as an in-content link).
+
+**Findings**: Schedule, Tickets, and Artists were already well-linked
+from multiple pages. About, Advertising, Gallery, Contact, Sponsors,
+and Open Division had zero incoming content links — reachable only
+via the header nav. The blog was a true orphan: not linked from the
+header nav, the footer, or any page's content — the only ways to
+reach it were typing the URL directly or finding it through search
+(it was in `sitemap.xml`, so Google could still index it, but no
+human visitor had a way to click into it from anywhere on the site).
+
+**Decision**: remove the blog entirely rather than fix its
+discoverability, and add links only where there's a genuinely natural
+fit — no inserting a link into a sentence just to have one.
+
+- **Blog removed completely**: `src/app/blog/` (both routes),
+  `Blog.tsx`, `BlogPost.tsx`, `BlogPostCard.tsx`, `src/data/blog.ts`,
+  and the blog import/route/per-post generation in `sitemap.ts`.
+  `CLAUDE.md`'s project structure section updated to drop the stale
+  references. Verified with a full `next build` that no route,
+  import, or type error resulted.
+- **`Artists.tsx`** → added "See Their Work in the Gallery →" next to
+  the existing "Meet This Year's Judge →" link. Gallery already
+  linked to Artists; this makes it bidirectional instead of one-way.
+- **`Index.tsx`** (homepage) → added "Read Our Full Story →" (`/about`)
+  under the "Art Made Here" teaser, which is a condensed version of
+  the About page's own content — the same teaser-to-full-page pattern
+  the homepage already uses for Schedule and FAQ.
+- **`SponsorsSection.tsx`** (homepage) → added a "Become a Sponsor"
+  button matching the homepage's other section CTAs. The sponsor logo
+  grid only linked out to sponsors' own external sites before this;
+  there was no path from the homepage back to the site's own Sponsors
+  page.
+- **FAQ** — "How can local businesses support the festival?" now also
+  mentions catalog advertising as a concrete way to support the
+  festival, linking to `/advertising` — same topic as the rest of
+  that answer.
+
+Left `/contact` and `/open-division` as they were: both already have
+multiple incoming links from the FAQ page, and there was no existing
+content elsewhere natural enough to hang a link off without writing
+new copy just to create one.
+
+*(0f7f3dc)*
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
