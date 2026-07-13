@@ -701,6 +701,45 @@ not one:
 
 ---
 
+## 2026-07-12 — Real PayPal Button Wired Into Open Division
+
+Closes out the PayPal follow-up from earlier — the "click the PayPal
+button" copy on `/open-division` and `/open-division/success` now has an
+actual working button behind it.
+
+- **New `src/components/PayPalButton.tsx`**: loads the PayPal JS SDK
+  client-side via `next/script` (`strategy="afterInteractive"`, same
+  pattern already used for GA4/Meta Pixel in `layout.tsx`), renders Smart
+  Payment Buttons for a fixed amount/description passed in as props, and
+  shows a simple "Payment received" confirmation on `onApprove`. No
+  backend — matches this site's static architecture. Client ID comes from
+  `NEXT_PUBLIC_PAYPAL_CLIENT_ID`, a **Live** (not Sandbox) app credential
+  the user confirmed was tied to the correct PayPal business account
+  (verified via the Developer Dashboard's account context, not just
+  assumed).
+- **`InquirySuccess.tsx`** gained an optional `children` slot, rendered
+  right after the intro paragraph in the header, so
+  `OpenDivisionSuccess.tsx` could drop the button in without forking the
+  shared component. Other success pages (Contact, Sponsors, Advertising)
+  don't pass children, so they're unaffected.
+- **`OpenDivision.tsx`**: added a small "Already Registered? Pay Your $30
+  Fee" card directly below the registration form, so the button is present
+  on this page too (not just success), per explicit placement
+  confirmation.
+- Verified in-browser against a **production build**: the SDK actually
+  loads and renders a real, functional "Pay with PayPal" button on both
+  pages (not a placeholder) — did not click through to complete an actual
+  payment, since that would be a real financial transaction.
+- `.env` (containing the real Client ID) is confirmed still gitignored and
+  untracked — never committed. **Outstanding**: this Client ID needs to
+  also be added to Vercel's production environment variables (Settings →
+  Environment Variables) for the button to work on the live site — `.env`
+  never deploys since it isn't committed. Same gap as the Google Maps key
+  noted earlier.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
@@ -710,10 +749,10 @@ not one:
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Add the actual PayPal button** to `/open-division` and
-   `/open-division/success` — the copy on both pages now references it
-   (see the 2026-07-12 Registration Fee / PayPal Copy entry), but no button
-   exists yet. Needs a PayPal.me link or hosted button ID from the user.
+3. **Add `NEXT_PUBLIC_PAYPAL_CLIENT_ID` to Vercel's production environment
+   variables** — the PayPal button is now wired into the code (see the
+   2026-07-12 entry above), but it needs this env var set on Vercel to
+   actually work on the live site, same as the Google Maps key.
 4. **Add sponsor logos** for the new "Our Gold Sponsors" and "Our Silver
    Partners" sections on `/sponsors` — headings exist, no logos yet.
 5. One lower-priority item flagged during the QA sweep but intentionally
