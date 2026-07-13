@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import { sponsors } from "@/data/sponsors";
 
@@ -48,6 +49,14 @@ const SponsorsSection = () => {
             })}
           </div>
         </AnimatedSection>
+        <div className="mt-10 text-center">
+          <Link
+            href="/sponsors"
+            className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
+          >
+            Become a Sponsor
+          </Link>
+        </div>
       </div>
     </section>
   );
