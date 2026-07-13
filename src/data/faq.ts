@@ -36,7 +36,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Is there an admission fee?",
         a: [
-          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collector VIP Pass ($125) gets you into the Collectors Preview Reception and Awards Presentation on September 18, priority seating at the Judge's Lecture on September 17, a private artist Meet & Greet on September 13, and priority seating at the live auction on September 19. Prefer just the lecture? A standalone Judge's Lecture ticket is available for $25. See the Tickets page for details.",
+          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collector VIP Pass ($125) gets you into the Collectors Preview Reception and Awards Presentation on September 18, priority seating at the Judge's Lecture on September 17, a private artist Meet & Greet on September 13, and priority seating at the live auction on September 19. Prefer just the lecture? A standalone Judge's Lecture ticket is available for $25. See the [Tickets page](/tickets) for details.",
         ],
       },
     ],
@@ -48,13 +48,13 @@ export const categories: FaqCategory[] = [
       {
         q: "How many artists participate in the festival?",
         a: [
-          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists, plus Awards Judge Rick J. Delanty. The festival also includes an Open Division with up to 40 additional artists who apply through the website, for a total of up to 64 participating artists.",
+          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists (see them all on the [Artists page](/artists)), plus Awards Judge Rick J. Delanty. The festival also includes an [Open Division](/open-division) with up to 40 additional artists who apply through the website, for a total of up to 64 participating artists.",
         ],
       },
       {
         q: "Are the artists juried or selected through an application process?",
         a: [
-          "The festival runs two separate tracks. The featured artists were personally invited by the festival organizers — they're nationally recognized painters selected for the Invitational Division. A separate Open Division is available to additional artists through an application process. Check back to find application details closer to the event.",
+          "The festival runs two separate tracks. The featured artists were personally invited by the festival organizers — they're nationally recognized painters selected for the Invitational Division. A separate [Open Division](/open-division) is available to additional artists through an application process. Check back to find application details closer to the event.",
         ],
       },
       {
@@ -103,7 +103,7 @@ export const categories: FaqCategory[] = [
         q: "Can children or beginner artists participate?",
         a: [
           "Young artists are genuinely central to this festival. A Youth Paintout takes place September 12 at Wildwood Park, with the Youth Art Show Reception that same evening at the Baright Library. On September 16, preselected youth participate in private mentorship sessions with the festival's invited professional artists.",
-          "The Open Division of the festival competition is open to local and regional artists who have some experience painting — it is not intended as a beginner track. For those new to plein air, the festival offers a wonderful opportunity to observe professional artists at work throughout the week and learn by watching.",
+          "The [Open Division](/open-division) of the festival competition is open to local and regional artists who have some experience painting — it is not intended as a beginner track. For those new to plein air, the festival offers a wonderful opportunity to observe professional artists at work throughout the week and learn by watching.",
         ],
       },
     ],
@@ -116,15 +116,21 @@ export const categories: FaqCategory[] = [
         q: "What are the best locations to see artists painting?",
         a: [
           "The Lunch Break Paintouts are the most reliable option for finding artists mid-painting — Downtown Ralston (Sep 14), Castle & Cathedral Creative District (Sep 15), Benson (Sep 16), and Dundee (Sep 17), all 11 AM–1:30 PM. On Saturday, the Quick Paint Competition (Sep 19, 9–11 AM) brings all participating artists into the Ralston Hinge Creative District simultaneously.",
-          "Outside of those events, artists paint freely across the metro, so sightings are more spontaneous. A map of locations and suggested painting areas is available on the Schedule page.",
+          "Outside of those events, artists paint freely across the metro, so sightings are more spontaneous. A map of locations and suggested painting areas is available on the [Schedule page](/schedule).",
         ],
       },
       {
         q: "What days and times is the festival open?",
         a: [
           "The festival runs September 13–19, 2026, with a pre-festival youth day on September 12. Key public events include:",
-          "September 12 — Youth Paintout at Wildwood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (6–7:30 PM). September 14–17 — Daily Lunch Break Paintouts: Downtown Ralston (Sep 14), Castle & Cathedral District (Sep 15), Benson (Sep 16), Dundee (Sep 17), all 11 AM–1:30 PM. September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
-          "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free). September 18 — Collectors Preview Reception and Awards Presentation at the Granary, Ralston (5:30–8 PM, ticketed). September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at the Granary (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at Granary Green (Noon–1 PM). September 19–October 2 — Online art sale.",
+          "September 12 — Youth Paintout at Wildwood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (6–7:30 PM).",
+          "September 14–17 — Daily Lunch Break Paintouts: Downtown Ralston (Sep 14), Castle & Cathedral District (Sep 15), Benson (Sep 16), Dundee (Sep 17), all 11 AM–1:30 PM.",
+          "September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
+          "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free).",
+          "September 18 — Collectors Preview Reception and Awards Presentation at the Granary, Ralston (5:30–8 PM, ticketed).",
+          "September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at the Granary (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at Granary Green (Noon–1 PM).",
+          "September 19–October 2 — Online art sale.",
+          "See the [Schedule page](/schedule) for the full day-by-day itinerary and a map of locations.",
         ],
       },
       {
@@ -156,7 +162,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Is there a map of artist painting locations?",
         a: [
-          "A map of Lunch Break Paintout locations, the Quick Paint Competition site, and suggested painting locations across the metro is available on the Schedule page.",
+          "A map of Lunch Break Paintout locations, the Quick Paint Competition site, and suggested painting locations across the metro is available on the [Schedule page](/schedule).",
         ],
       },
     ],
@@ -168,7 +174,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How do I get tickets to the Collectors Preview Reception and Awards Presentation?",
         a: [
-          "The Collectors Preview Reception and Awards Presentation is included in the Collector VIP Pass ($125), which also includes a private artist Meet & Greet on September 13, priority seating at the Judge's Lecture on September 17, and priority seating at the live auction on September 19. See the Tickets page to purchase.",
+          "The Collectors Preview Reception and Awards Presentation is included in the Collector VIP Pass ($125), which also includes a private artist Meet & Greet on September 13, priority seating at the Judge's Lecture on September 17, and priority seating at the live auction on September 19. See the [Tickets page](/tickets) to purchase.",
         ],
       },
       {
@@ -207,19 +213,19 @@ export const categories: FaqCategory[] = [
         q: "How can local businesses support the festival?",
         a: [
           "Sponsorship opportunities are available for businesses that want to be part of the inaugural Heartland Plein Air Festival. Current partners include the Benson Creative District, Historic Dundee Creative District, Castle & Cathedral Creative District, Visit Nebraska, the Wiebe Ralston Foundation, Nebraska Arts Council, and the Nebraska Cultural Endowment.",
-          "For information on sponsorship levels and benefits, contact the Ralston HINGE Creative District directly.",
+          "For information on sponsorship levels and benefits, see the [Sponsors page](/sponsors) or contact the Ralston HINGE Creative District directly.",
         ],
       },
       {
         q: "Are volunteer opportunities available?",
         a: [
-          "Volunteers are being recruited to support the festival across a range of roles. Reach out through the Contact page and we'll get you connected to the right person.",
+          "Volunteers are being recruited to support the festival across a range of roles. Reach out through the [Contact page](/contact) and we'll get you connected to the right person.",
         ],
       },
       {
         q: "How can I become a festival sponsor?",
         a: [
-          "Sponsorship inquiries can be submitted through the Contact page. For a direct conversation, reach City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
+          "Sponsorship inquiries can be submitted through the [Contact page](/contact), and sponsorship levels and benefits are listed on the [Sponsors page](/sponsors). For a direct conversation, reach City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
         ],
       },
       {
@@ -233,7 +239,7 @@ export const categories: FaqCategory[] = [
         q: "How does the festival support the local arts community?",
         a: [
           "The Heartland Plein Air Festival was established specifically to use the arts as an economic driver for the Ralston and Omaha Metro region. Supported in part by a Nebraska Arts Council Creative District Development Grant, the festival is designed to attract visitors, generate economic activity, and put Ralston on the national map as an arts destination.",
-          "The funds generated from the festival will help the RHCD to fund additional arts projects and programming throughout the year in all arts disciplines. The open division of the festival competition is open to local and regional artists, helping them gain important experience and exposure for their work.",
+          "The funds generated from the festival will help the RHCD to fund additional arts projects and programming throughout the year in all arts disciplines. The [Open Division](/open-division) of the festival competition is open to local and regional artists, helping them gain important experience and exposure for their work.",
         ],
       },
     ],
