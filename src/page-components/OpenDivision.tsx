@@ -111,7 +111,7 @@ const OpenDivision = () => {
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
               Registration & Check-In
             </h2>
-            <div className="space-y-4 font-body text-base leading-relaxed text-foreground/85">
+            <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 Registration is $30 and limited to 30 artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
               </p>
@@ -148,7 +148,7 @@ const OpenDivision = () => {
               {paintingRequirements.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <span className="font-body text-base leading-relaxed text-foreground/85">
+                  <span className="font-body text-sm leading-relaxed text-foreground/85">
                     {item}
                   </span>
                 </li>
@@ -174,7 +174,7 @@ const OpenDivision = () => {
               {paintingConduct.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <span className="font-body text-base leading-relaxed text-foreground/85">
+                  <span className="font-body text-sm leading-relaxed text-foreground/85">
                     {item}
                   </span>
                 </li>
@@ -200,7 +200,7 @@ const OpenDivision = () => {
               {salesInfo.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <Percent className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <span className="font-body text-base leading-relaxed text-foreground/85">
+                  <span className="font-body text-sm leading-relaxed text-foreground/85">
                     {item}
                   </span>
                 </li>
@@ -214,7 +214,7 @@ const OpenDivision = () => {
                   Turn-In & Pickup
                 </h3>
               </div>
-              <p className="font-body text-base leading-relaxed text-foreground/85">
+              <p className="font-body text-sm leading-relaxed text-foreground/85">
                 Turn in your finished paintings on Friday, September 18th, between 9am and noon at the Venues at the Granary (74th & Main St, Ralston). Unsold works must be picked up by 5pm on Saturday, September 19th.
               </p>
             </div>

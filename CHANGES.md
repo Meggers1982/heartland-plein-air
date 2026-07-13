@@ -742,6 +742,74 @@ actual working button behind it.
 
 ---
 
+## 2026-07-12 — Site-Wide Heading Size & Body Text Consistency Pass
+
+Full UX QA pass covering heading sizes, body text sizes, contrast, and
+heading hierarchy site-wide, per explicit request. Method: grepped every
+`<h1>`–`<h3>` and body `<p>`/`<span>` className across all page-components
+to find the dominant convention vs. outliers, then verified contrast and
+heading hierarchy by computing actual rendered WCAG contrast ratios and
+walking the heading-level tree live in-browser against a production build
+(not just eyeballing).
+
+**H2 normalization** — the site's dominant H2 convention is static
+`text-4xl` (no responsive breakpoint). Found and fixed 8 outliers using a
+smaller `text-3xl` (some with a `md:text-4xl` bump, some without) that had
+no clear intentional reason to differ:
+- `Tickets.tsx`: "Judge's Lecture Only" and "Public Exhibition & Sale" —
+  didn't match the "Collector VIP Pass" H2 on the same page (this page's
+  own internal inconsistency, introduced when the page was built).
+- `Schedule.tsx`: "Festival Locations" (page-section header) and the
+  per-day title H2 inside each schedule day card.
+- `Gallery.tsx`: the per-artist name H2.
+- `InquirySuccess.tsx`: the recap title ("Open Division Quick Facts" etc.)
+  and "Get in Touch" — shared by all 4 success pages, one fix covers all.
+- `SponsorsSection.tsx` (homepage): "Our Sponsors" — the only H2 on the
+  entire homepage that didn't match every other section's `text-4xl`.
+- `Faq.tsx`: the per-category headers ("General," "Artists & Events," etc.)
+- **Left alone, not part of this fix**: `BlogPost.tsx`'s "Related Articles"
+  (that page already has its own smaller H1 scale, so a smaller H2 is
+  proportionally consistent within it) and two pre-existing `md:text-5xl`
+  outliers (`NewsletterCTA.tsx`'s H2 and Artists' "Awards Judge" H2) —
+  both are larger than standard, used as a single deliberate emphasis
+  point rather than repeated inconsistently, and weren't part of what was
+  flagged/asked to fix.
+- **H1s already consistent** — confirmed `text-5xl md:text-6xl` on every
+  content page; the homepage hero (`md:text-7xl`) and BlogPost/success
+  pages (`md:text-5xl`) are the only exceptions, both clearly intentional
+  (primary landing hero vs. secondary confirmation/article pages).
+
+**Body text normalization** — the site has an established two-tier system:
+`text-lg` for main flowing prose, `text-sm` for list-item/card
+descriptions. `OpenDivision.tsx` was the sole outlier, using `text-base`
+for both tiers (5 instances: the Registration & Check-In prose block, 3
+checklist `<span>`s, and the Turn-In & Pickup card description). Fixed all
+5 to match their respective tier.
+
+**Forms checked, already consistent** — no page uses a real heading
+element for the "Ready to Register/reserve/sponsor?" CTA intros
+(Advertising, Sponsors, Open Division all use a styled `<p>`, matching
+each other exactly). The one genuine `<h3>` inside a form
+(`InquiryForm.tsx`'s inline "Inquiry sent" success state, shown on
+Sponsors/Advertising which don't redirect) is `text-2xl`, matching other
+legitimate H3 sizes used elsewhere on the site. No changes needed.
+
+**Accessibility, verified clean:**
+- Contrast: wrote a script that computes actual rendered WCAG AA contrast
+  ratios (alpha-composited effective color vs. actual ancestor background,
+  not just the raw CSS color value) and ran it against Advertising,
+  Tickets, Sponsors, and the Open Division success page (including the new
+  PayPal card). Zero violations. One false positive along the way
+  (NewsletterCTA's gradient background isn't a plain `background-color`,
+  so the first version of the script mis-detected its ancestor background
+  — fixed the script to bail out on gradient ancestors rather than falsely
+  flag it).
+- Heading hierarchy: walked the h1–h6 tree on Tickets, Sponsors, and Open
+  Division success looking for skipped levels. None found.
+- `next build` and `vitest` both pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

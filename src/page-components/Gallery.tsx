@@ -149,7 +149,7 @@ const Gallery = () => {
             >
               <div className="mx-auto max-w-6xl px-6">
                 <AnimatedSection>
-                  <h2 className="mb-8 font-display text-3xl font-bold text-foreground">
+                  <h2 className="mb-8 font-display text-4xl font-bold text-foreground">
                     {artist.name}
                   </h2>
                 </AnimatedSection>

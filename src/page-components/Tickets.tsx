@@ -135,7 +135,7 @@ const Tickets = () => {
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Just the Lecture
             </p>
-            <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
+            <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
               Judge's Lecture Only
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
@@ -165,7 +165,7 @@ const Tickets = () => {
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Free & Open to the Public
             </p>
-            <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
+            <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
               Public Exhibition & Sale
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
