@@ -188,7 +188,7 @@ const Schedule = () => {
               <h2 className="mb-4 font-display text-4xl font-bold text-foreground">
                 Festival Locations
               </h2>
-              <p className="mx-auto max-w-2xl font-body text-base text-muted-foreground">
+              <p className="mx-auto max-w-2xl font-body text-lg text-muted-foreground">
                 Click any marker to see what's happening at that location and jump to the day in the schedule.
               </p>
             </div>
@@ -250,7 +250,7 @@ const Schedule = () => {
                     />
                   </div>
                 )}
-                <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground">
+                <p className="mb-6 font-body text-lg leading-relaxed text-muted-foreground">
                   {d.narrative}
                 </p>
                 {d.id === "day-online" && (
