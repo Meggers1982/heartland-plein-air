@@ -10,6 +10,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { galleryArtists, allPaintings } from "@/data/gallery";
 
 type MediumFilter = "all" | "oil-and-pastel" | "watercolor";
@@ -75,6 +76,12 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Gallery", path: "/gallery" }])],
+        }}
+      />
       <SiteNav />
 
       <main className="pt-36">

@@ -10,6 +10,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { getAllCategories, getAllTags, getSortedPosts } from "@/data/blog";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 
 // Reads the initial ?category=/?tag= filter from the URL. Isolated in its own
@@ -55,6 +56,12 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Blog", path: "/blog" }])],
+        }}
+      />
       <Suspense fallback={null}>
         <InitialFilterReader
           onReady={(category, tag) => {

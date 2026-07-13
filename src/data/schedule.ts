@@ -122,6 +122,7 @@ export const days: ScheduleDay[] = [
         time: "11 AM – 1:30 PM",
         name: "Lunch Break Paintout",
         location: "Benson Creative District",
+        address: "62nd & Maple, Omaha, NE",
       },
       {
         time: "4 – 5:30 PM",
@@ -145,6 +146,7 @@ export const days: ScheduleDay[] = [
         time: "11 AM – 1:30 PM",
         name: "Lunch Break Paintout",
         location: "Dundee Creative District",
+        address: "50th & Underwood, Omaha, NE",
       },
       {
         time: "5 – 6 PM",

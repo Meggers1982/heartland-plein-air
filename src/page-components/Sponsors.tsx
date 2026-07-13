@@ -9,6 +9,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { sponsors } from "@/data/sponsors";
 import { sponsorTiers } from "@/data/sponsorTiers";
 
@@ -50,6 +51,12 @@ const Sponsors = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Sponsors", path: "/sponsors" }])],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-44 pb-16">

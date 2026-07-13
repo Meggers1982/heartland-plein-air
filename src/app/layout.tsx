@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Providers from "@/App";
-import { organizationSchema, festivalEventSchema } from "@/lib/schema";
+import { JsonLd, organizationSchema, festivalEventSchema } from "@/lib/schema";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -38,13 +38,10 @@ export default function RootLayout({
         {/* Each route's own metadata (see src/app/*\/page.tsx) sets alternates.canonical,
             which Next.js renders into <head> automatically. A second, hardcoded canonical
             here would conflict with those per-page values on every route but "/". */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [organizationSchema, festivalEventSchema],
-            }),
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [organizationSchema, festivalEventSchema],
           }}
         />
       </head>

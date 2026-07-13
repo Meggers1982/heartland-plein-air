@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const passBenefits = [
   {
@@ -46,6 +47,12 @@ const Tickets = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Tickets", path: "/tickets" }])],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-44 pb-16">

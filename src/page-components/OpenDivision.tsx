@@ -17,6 +17,7 @@ import InquiryForm from "@/components/InquiryForm";
 import PayPalButton from "@/components/PayPalButton";
 import { setPageMeta } from "@/lib/meta";
 import { renderRichText } from "@/lib/richText";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { quickFacts } from "@/data/openDivisionQuickFacts";
 
 const paintingRequirements = [
@@ -51,6 +52,12 @@ const OpenDivision = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Open Division", path: "/open-division" }])],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-44 pb-16">
