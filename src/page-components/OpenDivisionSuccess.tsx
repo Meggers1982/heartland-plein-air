@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
+import PayPalButton from "@/components/PayPalButton";
 import { setPageMeta } from "@/lib/meta";
 import { quickFacts } from "@/data/openDivisionQuickFacts";
 
@@ -26,7 +27,17 @@ const OpenDivisionSuccess = () => {
       }))}
       backHref="/open-division"
       backLabel="Back to Open Division"
-    />
+    >
+      <div className="mx-auto max-w-xs rounded-lg bg-card p-6 shadow-sm">
+        <p className="mb-4 font-body text-xs font-semibold uppercase tracking-wide text-foreground">
+          Pay Your $30 Registration Fee
+        </p>
+        <PayPalButton
+          amount="30.00"
+          description="Heartland Plein Air Festival — Open Division Registration"
+        />
+      </div>
+    </InquirySuccess>
   );
 };
 
