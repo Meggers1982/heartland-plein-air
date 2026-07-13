@@ -40,7 +40,7 @@ const ArtistSpotlight = () => {
           <h2 className="font-display text-4xl font-bold text-foreground">
             Artist Spotlight
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
             Twenty-five painters from across the country are descending on the Omaha metro — easels, brushes, and all — to capture Douglas & Sarpy County in real time. Meet one of them.
           </p>
         </AnimatedSection>

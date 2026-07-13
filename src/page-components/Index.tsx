@@ -173,7 +173,7 @@ const Index = () => {
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
               Art Made Here
             </h2>
-            <div className="space-y-4 font-body text-base leading-relaxed text-muted-foreground">
+            <div className="space-y-4 font-body text-lg leading-relaxed text-muted-foreground">
               <p>
                 Plein air is French for "open air" — painting done outside, on location, in direct response to the light and landscape in front of you. No studio, no reference photos. Just the artist and the scene as it actually is.
               </p>
@@ -245,7 +245,7 @@ const Index = () => {
             <h2 className="mb-6 font-display text-4xl font-bold text-foreground">
               Collector VIP Pass
             </h2>
-            <p className="mx-auto mb-8 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+            <p className="mx-auto mb-8 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
               Most festival events are free and open to the public. For $125, the Collector VIP Pass gets you a private artist Meet & Greet, priority seating at the Judge's Lecture, the Collectors Preview Reception and Awards Presentation, and priority seating at the live auction. Prefer just the lecture? A standalone ticket is available for $25.
             </p>
             <Link
@@ -271,7 +271,7 @@ const Index = () => {
               Painting Locations
             </h2>
             <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-primary/60" />
-            <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
               More than 20 scenic spots across Douglas & Sarpy County — historic neighborhoods, parks, overlooks, and everyday places worth a second look.
             </p>
             <p className="mx-auto mt-3 max-w-2xl font-body text-sm leading-relaxed text-muted-foreground">

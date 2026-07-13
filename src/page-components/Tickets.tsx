@@ -110,7 +110,7 @@ const Tickets = () => {
 
           <AnimatedSection delay={340}>
             <div className="mx-auto mt-10 max-w-3xl rounded-lg border border-border bg-card p-8 text-center md:p-12">
-              <p className="mb-6 font-body text-base leading-relaxed text-muted-foreground">
+              <p className="mb-6 font-body text-lg leading-relaxed text-muted-foreground">
                 Your pass also supports the Ralston HINGE Creative District, community arts programming across all disciplines, and a festival that's on track to become the creative district's signature annual event.
               </p>
               <a
