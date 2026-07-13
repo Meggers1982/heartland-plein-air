@@ -16,7 +16,24 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import BackToTop from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
 import { renderRichText } from "@/lib/richText";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { categories } from "@/data/faq";
+
+const stripLinks = (text: string) => text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+
+const faqPageSchema = {
+  "@type": "FAQPage",
+  mainEntity: categories.flatMap((c) =>
+    c.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a.map(stripLinks).join(" "),
+      },
+    })),
+  ),
+};
 
 const Faq = () => {
   const [query, setQuery] = useState("");
@@ -63,6 +80,12 @@ const Faq = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "FAQs", path: "/faq" }]), faqPageSchema],
+        }}
+      />
       <SiteNav />
 
       {/* Hero */}

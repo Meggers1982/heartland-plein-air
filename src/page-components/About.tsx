@@ -9,6 +9,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const About = () => {
   useEffect(() => {
@@ -21,6 +22,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "About", path: "/about" }])],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-44 pb-16">

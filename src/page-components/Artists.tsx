@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 import { artists, awardsJudge, placeholderHeadshot } from "@/data/artists";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -24,6 +25,12 @@ const Artists = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Artists", path: "/artists" }])],
+        }}
+      />
       <SiteNav />
       <main className="pt-36">
         <section className="py-16">

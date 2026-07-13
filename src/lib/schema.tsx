@@ -1,11 +1,10 @@
-export function addJsonLd(id: string, data: object): () => void {
-  document.getElementById(id)?.remove();
-  const script = document.createElement("script");
-  script.type = "application/ld+json";
-  script.id = id;
-  script.text = JSON.stringify(data);
-  document.head.appendChild(script);
-  return () => document.getElementById(id)?.remove();
+export function JsonLd({ data }: { data: object }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
 }
 
 export const SITE_URL = "https://heartlandpleinair.org";
@@ -35,13 +34,18 @@ export const organizationSchema = {
   ],
 };
 
-export function breadcrumbSchema(label: string, path: string) {
+export type Crumb = { name: string; path: string };
+
+export function breadcrumbSchema(crumbs: Crumb[]) {
+  const trail: Crumb[] = [{ name: "Home", path: "/" }, ...crumbs];
   return {
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: label, item: `${SITE_URL}${path}` },
-    ],
+    itemListElement: trail.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.name,
+      item: `${SITE_URL}${crumb.path}`,
+    })),
   };
 }
 

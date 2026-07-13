@@ -17,6 +17,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { adSizes } from "@/data/adSizes";
 import { AD_DEADLINE } from "@/lib/adDeadline";
 
@@ -47,6 +48,12 @@ const Advertising = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Advertising", path: "/advertising" }])],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-52 pb-16">
