@@ -845,6 +845,34 @@ form input text, and card/list description text.
 
 ---
 
+## 2026-07-13 — FAQ Page: Internal Links + Festival-Hours Reformat
+
+**Internal links in answers** (`src/data/faq.ts`, `src/page-components/Faq.tsx`)
+— reviewed every FAQ answer for existing plain-text mentions of other
+site pages (e.g. "See the Tickets page for details.") and made them
+real links. Added a small `[label](/path)` markdown-style syntax to
+the data file, parsed by a new `renderAnswer()` helper in `Faq.tsx`
+into `next/link` `<Link>` elements — keeps `faq.ts` as the sole
+content source per convention, no new dependency. Linked ~13 mentions
+across Tickets, Schedule, Open Division, Sponsors, Contact, and
+Artists pages.
+
+**"What days and times is the festival open?" reformatted** — was 2
+dense paragraphs cramming 8 separate dated events together. Split
+into one paragraph per date/event plus a closing link to the
+Schedule page for the full itinerary.
+
+*(c0edd9f)*
+
+Known data drift (not fixed, flagging only): the homepage's FAQ
+section (`Index.tsx`'s own `faqs` array, separate from `src/data/faq.ts`)
+has an outdated Quick Paint schedule (different days/locations than
+the real data). Out of scope for this pass since it wasn't asked for,
+but worth reconciling — it's a second, hand-maintained copy of similar
+content that's drifted from the source of truth.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
