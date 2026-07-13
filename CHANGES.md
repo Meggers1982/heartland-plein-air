@@ -731,12 +731,14 @@ actual working button behind it.
   pages (not a placeholder) — did not click through to complete an actual
   payment, since that would be a real financial transaction.
 - `.env` (containing the real Client ID) is confirmed still gitignored and
-  untracked — never committed. **Outstanding**: this Client ID needs to
-  also be added to Vercel's production environment variables (Settings →
-  Environment Variables) for the button to work on the live site — `.env`
-  never deploys since it isn't committed. Same gap as the Google Maps key
-  noted earlier.
+  untracked — never committed.
 - `next build` and `vitest` both pass.
+- **Update:** the button initially didn't render on the live site after
+  the user added `NEXT_PUBLIC_PAYPAL_CLIENT_ID` to Vercel — because
+  `NEXT_PUBLIC_*` vars are baked in at build time, not read at runtime, so
+  adding one doesn't affect an already-built deployment. User triggered a
+  redeploy from the Vercel dashboard and confirmed the button now renders
+  on the live `/open-division` page. Closed out.
 
 ---
 
@@ -749,13 +751,9 @@ actual working button behind it.
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Add `NEXT_PUBLIC_PAYPAL_CLIENT_ID` to Vercel's production environment
-   variables** — the PayPal button is now wired into the code (see the
-   2026-07-12 entry above), but it needs this env var set on Vercel to
-   actually work on the live site, same as the Google Maps key.
-4. **Add sponsor logos** for the new "Our Gold Sponsors" and "Our Silver
+3. **Add sponsor logos** for the new "Our Gold Sponsors" and "Our Silver
    Partners" sections on `/sponsors` — headings exist, no logos yet.
-5. One lower-priority item flagged during the QA sweep but intentionally
+4. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,
