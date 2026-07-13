@@ -921,6 +921,97 @@ linked too.
 
 ---
 
+## 2026-07-13 — Homepage Schedule CTA, FAQ Data-Drift Fix, Sitewide Link/QA Pass
+
+**Homepage "View Full Schedule" button** — added to the bottom of the
+homepage's Festival Schedule section (`ScheduleSection.tsx`), matching
+the existing "View All FAQs" button style.
+
+**Homepage FAQ fixed at the root cause** — `Index.tsx` had its own
+hand-duplicated `faqs` array, separate from `src/data/faq.ts`, flagged
+as data drift in the previous pass. While verifying the Google Map
+data against the schedule this session, confirmed the drift was worse
+than cosmetic: the homepage copy had the *wrong* days and locations
+for the Lunch Break Paintouts (old plan — Benson/Dundee/Castle &
+Cathedral on the wrong days, calling them "Quick Paint competitions"
+instead of paintouts). Rather than patch the duplicate again, added a
+`featured?: boolean` flag to `FaqItem` in `src/data/faq.ts` and made
+the homepage derive its 5 questions from that single source
+(`faqCategories.flatMap(...).filter((i) => i.featured)`). The
+duplicate can't drift again because there's only one copy now.
+
+**Shared rich-text link renderer** — extracted the FAQ page's
+`[label](url)` markdown-style link parser into `src/lib/richText.tsx`
+(handles both internal `next/link` routes and external
+`target="_blank"` links). Previously only `Faq.tsx` had it; now also
+used by the homepage FAQ, `Schedule.tsx` (day narratives),
+`ScheduleSection.tsx` (homepage schedule cards), and `OpenDivision.tsx`
+(checklist items) — one implementation instead of four.
+
+**The Granary linked everywhere it's mentioned** — FAQ answers,
+schedule day narratives/descriptions, `Tickets.tsx`, `OpenDivision.tsx`
+→ atthegranary.com. Also added an optional `websiteUrl` field to
+`FestivalLocation` (`src/data/locations.ts`) and wired a "Visit
+website" link into the Granary's Google Map popup and the map's
+list-view fallback (`LocationsMap.tsx`).
+
+**Creative district logos now link out on the homepage too** — the
+`logoUrl` field added to `ScheduleDay` last session only reached the
+Schedule page. `ScheduleSection.tsx` (the homepage's schedule cards)
+reads the same `days` data but wasn't updated to render the link —
+fixed, so Castle & Cathedral / Benson / Dundee logos link out in both
+places now.
+
+**Google Map data verified** — cross-checked every address, event
+name, day, and time in `src/data/locations.ts` against
+`src/data/schedule.ts`. Everything matches; no errors found in what
+the map displays. (The stale info was in the homepage FAQ text, not
+the map — see above.)
+
+**Nav: "FAQ" → "FAQs"** (`SiteNav.tsx`) — one shared array drives both
+desktop and mobile menus, so a single edit fixed both.
+
+**Heading consistency** — `Artists.tsx`, `Blog.tsx`, and `Gallery.tsx`
+H1s were missing `leading-tight`, present on all 8 other page heroes.
+Added it for consistency (low visual impact today since these are
+short one-line titles, but keeps the class list uniform).
+
+Audited heading/body alignment site-wide (centered vs. left) looking
+for accidental inconsistency. Conclusion: the site already follows a
+consistent, deliberate convention per page — centered for short
+intro/pitch sections and section-header-before-a-grid, left-aligned
+for longer flowing prose and reference lists — repeated the same way
+on Advertising, Open Division, and Sponsors. No bug found beyond the
+`leading-tight` gap above.
+
+**Orphaned/widowed text (last-line single words)** — rather than hand-
+editing non-breaking spaces into every heading and paragraph across
+the site (fragile against future content edits, especially for
+data-driven/looped text), added `text-wrap: balance` to all headings
+and `text-wrap: pretty` to paragraphs globally in `globals.css`. A
+`.text-balance` utility already existed there but was never applied
+anywhere in the codebase — this replaces that gap with a systemic
+fix. Note: `text-wrap: pretty` has narrower browser support than
+`balance` (modern Chromium; not yet Safari/Firefox as of this
+writing) — it degrades harmlessly to normal wrapping where
+unsupported, so there's no regression risk, just less-than-universal
+coverage until other browsers catch up.
+
+**Removed `src/index.css`** — unused (not imported anywhere in the
+Next.js app), and a stale duplicate of `globals.css` from before the
+WCAG contrast fixes (still had the old, less-accessible color
+values). Leftover from the Vite migration that should have been
+deleted with the other Vite artifacts.
+
+*(af75743)*
+
+Judgment call, not changed: same as last session's flagged item —
+`Sponsors.tsx`'s "Best of the Creative Districts (Ralston, Dundee,
+Benson, Castle & Cathedral)" award-list line still isn't linked.
+Consistent with leaving it alone previously.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
