@@ -14,6 +14,7 @@ import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
+import PayPalButton from "@/components/PayPalButton";
 import { setPageMeta } from "@/lib/meta";
 import { quickFacts } from "@/data/openDivisionQuickFacts";
 
@@ -246,6 +247,15 @@ const OpenDivision = () => {
                 addressFields
                 submitLabel="Submit Registration"
                 successHref="/open-division/success"
+              />
+            </div>
+            <div className="mx-auto mt-6 max-w-xs rounded-lg border border-border bg-card p-6 text-center shadow-sm">
+              <p className="mb-4 font-body text-xs font-semibold uppercase tracking-wide text-foreground">
+                Already Registered? Pay Your $30 Fee
+              </p>
+              <PayPalButton
+                amount="30.00"
+                description="Heartland Plein Air Festival — Open Division Registration"
               />
             </div>
           </AnimatedSection>

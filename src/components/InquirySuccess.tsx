@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Check, ArrowLeft } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -24,6 +25,7 @@ type InquirySuccessProps = {
   recapItems?: RecapItem[];
   backHref: string;
   backLabel: string;
+  children?: ReactNode;
 };
 
 const InquirySuccess = ({
@@ -34,6 +36,7 @@ const InquirySuccess = ({
   recapItems,
   backHref,
   backLabel,
+  children,
 }: InquirySuccessProps) => {
   return (
     <div className="min-h-screen bg-background">
@@ -55,6 +58,7 @@ const InquirySuccess = ({
           <p className="mx-auto mt-6 max-w-xl font-body text-lg leading-relaxed text-secondary/80">
             {intro}
           </p>
+          {children && <div className="mt-8">{children}</div>}
         </div>
       </header>
 
