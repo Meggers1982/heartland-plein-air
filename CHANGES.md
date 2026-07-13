@@ -819,6 +819,32 @@ different words ("Partners" vs. "Sponsors") for the same kind of heading.
 
 ---
 
+## 2026-07-13 — Body Text Size Audit: text-base Outliers Fixed
+
+Prompted by a report that Tickets page body text looked smaller than the
+rest of the site. Confirmed this isn't a mobile breakpoint bug (no
+responsive class shrinks text at small screens anywhere in the codebase)
+— it's a handful of paragraphs still on the site's older `text-base` size
+instead of the now-dominant `text-lg` used for standalone flowing prose
+(established on About, Advertising, Sponsors, and even Tickets' own
+sibling paragraphs). Audited every `text-base`/`text-lg` usage
+site-wide and fixed the 7 genuine outliers:
+
+- `Tickets.tsx` — VIP Pass closing paragraph ("Your pass also supports...")
+- `Index.tsx` — "Art Made Here" body, "Collector VIP Pass" intro,
+  "Painting Locations" intro
+- `ArtistSpotlight.tsx` — "Artist Spotlight" intro
+- `Schedule.tsx` — "Festival Locations" intro, per-day narrative paragraph
+
+*(4548b97)*
+
+Left unchanged as distinct, internally-consistent tiers (not outliers):
+CTA sub-copy under a bold "Ready to...?" line (Advertising, OpenDivision,
+Sponsors — all three match each other), FAQ/accordion answer content,
+form input text, and card/list description text.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
