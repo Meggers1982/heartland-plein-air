@@ -185,7 +185,7 @@ const Schedule = () => {
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Where to find us
               </p>
-              <h2 className="mb-4 font-display text-3xl font-bold text-foreground md:text-4xl">
+              <h2 className="mb-4 font-display text-4xl font-bold text-foreground">
                 Festival Locations
               </h2>
               <p className="mx-auto max-w-2xl font-body text-base text-muted-foreground">
@@ -238,7 +238,7 @@ const Schedule = () => {
                     {audienceLabel[d.audience]}
                   </span>
                 </div>
-                <h2 className="mb-4 font-display text-3xl font-bold leading-tight text-foreground md:text-4xl">
+                <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
                   {d.title}
                 </h2>
                 {d.logo && (

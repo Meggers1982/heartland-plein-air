@@ -9,7 +9,7 @@ const SponsorsSection = () => {
           <p className="mb-1 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
             Made Possible By
           </p>
-          <h2 className="font-display text-3xl font-bold text-foreground">
+          <h2 className="font-display text-4xl font-bold text-foreground">
             Our Sponsors
           </h2>
         </AnimatedSection>

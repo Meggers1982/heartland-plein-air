@@ -70,7 +70,7 @@ const InquirySuccess = ({
                 <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   For Your Reference
                 </p>
-                <h2 className="font-display text-3xl font-bold leading-tight text-foreground">
+                <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
                   {recapTitle}
                 </h2>
               </AnimatedSection>
@@ -129,7 +129,7 @@ const InquirySuccess = ({
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Questions in the Meantime?
             </p>
-            <h2 className="font-display text-3xl font-bold leading-tight text-foreground">
+            <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
               Get in Touch
             </h2>
           </AnimatedSection>

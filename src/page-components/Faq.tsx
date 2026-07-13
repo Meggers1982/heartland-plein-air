@@ -134,7 +134,7 @@ const Faq = () => {
             {filtered.map((c, idx) => (
               <AnimatedSection key={c.id} delay={idx * 50}>
                 <div id={c.id} className="mb-14 scroll-mt-28">
-                  <h2 className="mb-6 font-display text-3xl font-bold text-foreground md:text-4xl">
+                  <h2 className="mb-6 font-display text-4xl font-bold text-foreground">
                     {c.title}
                   </h2>
                   <Accordion type="single" collapsible className="w-full">
