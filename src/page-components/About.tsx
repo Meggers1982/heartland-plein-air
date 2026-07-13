@@ -116,11 +116,23 @@ const About = () => {
                 The festival is presented by the <a href="https://ralstonarts.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Ralston HINGE Creative District</a>, a 501(c)(3) nonprofit that uses arts and culture to drive economic growth in Ralston. The district was founded in 2021 and is led by Debra Joy Groesser, owner of <a href="https://www.debrajoygroesserfineart.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">Debra Joy Groesser Fine Art</a>, and the Ralston HINGE Creative District Board. The board consists of local business and civic leaders and volunteers.
               </p>
               <p>
-                In addition to the Nebraska Arts Council, the festival is{" "}
+                In addition to the{" "}
+                <a href="https://www.artscouncil.nebraska.gov/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                  Nebraska Arts Council
+                </a>
+                , the festival is{" "}
                 <Link href="/sponsors" className="font-semibold text-primary hover:underline">
                   supported by funding
                 </Link>{" "}
-                from the Nebraska Cultural Endowment, The Wiebe Ralston Foundation, Visit Nebraska, and the Sherwood Foundation.
+                from the{" "}
+                <a href="https://nebraskaculturalendowment.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                  Nebraska Cultural Endowment
+                </a>
+                , The Wiebe Ralston Foundation,{" "}
+                <a href="https://visitnebraska.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                  Visit Nebraska
+                </a>
+                , and the Sherwood Foundation.
               </p>
             </div>
           </AnimatedSection>

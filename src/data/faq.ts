@@ -212,7 +212,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How can local businesses support the festival?",
         a: [
-          "Sponsorship opportunities are available for businesses that want to be part of the inaugural Heartland Plein Air Festival. Current partners include the Benson Creative District, Historic Dundee Creative District, Castle & Cathedral Creative District, Visit Nebraska, the Wiebe Ralston Foundation, Nebraska Arts Council, and the Nebraska Cultural Endowment.",
+          "Sponsorship opportunities are available for businesses that want to be part of the inaugural Heartland Plein Air Festival. Current partners include the [Benson Creative District](https://www.bensoncreativedistrict.org/), [Historic Dundee Creative District](https://www.visitdundeeomaha.com), [Castle & Cathedral Creative District](https://castleandcathedraldistrict.org/), [Visit Nebraska](https://visitnebraska.com/), the Wiebe Ralston Foundation, [Nebraska Arts Council](https://www.artscouncil.nebraska.gov/), and the [Nebraska Cultural Endowment](https://nebraskaculturalendowment.org/).",
           "For information on sponsorship levels and benefits, see the [Sponsors page](/sponsors) or contact the Ralston HINGE Creative District directly.",
         ],
       },
@@ -225,13 +225,13 @@ export const categories: FaqCategory[] = [
       {
         q: "How can I become a festival sponsor?",
         a: [
-          "Sponsorship inquiries can be submitted through the [Contact page](/contact), and sponsorship levels and benefits are listed on the [Sponsors page](/sponsors). For a direct conversation, reach City Administrator Jack Cheloha at 402.331.6677 or jcheloha@cityofralston.com.",
+          "Sponsorship inquiries can be submitted through the [Contact page](/contact), and sponsorship levels and benefits are listed on the [Sponsors page](/sponsors). For a direct conversation, reach the Ralston HINGE Creative District at ralstoncreativedistrict@gmail.com, attn. Debra Joy Groesser.",
         ],
       },
       {
         q: "Does the festival partner with local nonprofits or schools?",
         a: [
-          "We are working with local nonprofits FosterLove and Healing Ribbons, as well as the local public schools, to provide selected youth they serve with the opportunity to have a mentor session with one of the invited professional artists. Each youth will receive a plein air kit to keep and create with.",
+          "We are working with local nonprofits [FosterLove](https://fosterlove.com/) and [Healing Ribbons](https://www.healingribbons.org/), as well as the local public schools, to provide selected youth they serve with the opportunity to have a mentor session with one of the invited professional artists. Each youth will receive a plein air kit to keep and create with.",
           "Our youth paintout participants will be youth from the area schools and community. Each of those youth will also receive a plein air kit to keep and create with at home.",
         ],
       },

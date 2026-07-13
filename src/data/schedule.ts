@@ -17,6 +17,7 @@ export type ScheduleDay = {
   events?: ScheduleEvent[];
   logo?: string;
   logoAlt?: string;
+  logoUrl?: string;
 };
 
 export const days: ScheduleDay[] = [
@@ -93,6 +94,7 @@ export const days: ScheduleDay[] = [
     audience: "public",
     logo: "/assets/castle-and-cathedral-district-logo.png",
     logoAlt: "Castle & Cathedral Creative District logo",
+    logoUrl: "https://castleandcathedraldistrict.org/",
     narrative:
       "Another day of painting across the metro, with the Lunch Break Paintout heading to the Castle & Cathedral Creative District — home to Joslyn Castle and St. Cecilia's Cathedral. Grab lunch nearby and stay to watch.",
     events: [
@@ -112,6 +114,7 @@ export const days: ScheduleDay[] = [
     audience: "public",
     logo: "/assets/benson-creative-district-logo.png",
     logoAlt: "Benson Creative District logo",
+    logoUrl: "https://www.bensoncreativedistrict.org/",
     narrative:
       "The midweek Lunch Break Paintout heads to the Benson Creative District. That afternoon, invited festival artists meet privately with preselected youth participants — this portion of the day is not open to the public.",
     events: [
@@ -134,6 +137,7 @@ export const days: ScheduleDay[] = [
     audience: "public",
     logo: "/assets/dundee-logo.png",
     logoAlt: "Dundee Creative District logo",
+    logoUrl: "https://www.visitdundeeomaha.com",
     narrative:
       "By day, artists paint through the Dundee Creative District. By evening, the energy shifts to Ralston for Third Thursday — one of the week's most memorable nights. Festival Awards Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at the Baright Public Library. Afterward, artists spread out across downtown Ralston, painting live while the concert plays around them. Come mingle, watch, and take it all in — this is not a Quick Paint event.",
     events: [
