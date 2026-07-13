@@ -810,6 +810,15 @@ legitimate H3 sizes used elsewhere on the site. No changes needed.
 
 ---
 
+## 2026-07-13 — Sponsors Page: Silver Tier Heading Wording
+
+**"Our Silver Partners" → "Our Silver Sponsors"** (`Sponsors.tsx`) — matches
+the "Our Gold Sponsors" heading directly above it; the two tiers used
+different words ("Partners" vs. "Sponsors") for the same kind of heading.
+*(262ea14)*
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
