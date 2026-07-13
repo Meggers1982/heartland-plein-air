@@ -243,11 +243,27 @@ const Schedule = () => {
                 </h2>
                 {d.logo && (
                   <div className="mb-4">
-                    <img
-                      src={d.logo}
-                      alt={d.logoAlt}
-                      className="max-h-12 w-auto max-w-[240px] object-contain"
-                    />
+                    {d.logoUrl ? (
+                      <a
+                        href={d.logoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={d.logoAlt}
+                        className="inline-block transition-opacity hover:opacity-80"
+                      >
+                        <img
+                          src={d.logo}
+                          alt={d.logoAlt}
+                          className="max-h-12 w-auto max-w-[240px] object-contain"
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        src={d.logo}
+                        alt={d.logoAlt}
+                        className="max-h-12 w-auto max-w-[240px] object-contain"
+                      />
+                    )}
                   </div>
                 )}
                 <p className="mb-6 font-body text-lg leading-relaxed text-muted-foreground">
