@@ -16,6 +16,7 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import PayPalButton from "@/components/PayPalButton";
 import { setPageMeta } from "@/lib/meta";
+import { renderRichText } from "@/lib/richText";
 import { quickFacts } from "@/data/openDivisionQuickFacts";
 
 const paintingRequirements = [
@@ -28,7 +29,7 @@ const paintingRequirements = [
 
 const paintingConduct = [
   "Paint any or all days of the festival, anywhere across the metro.",
-  "Suggested painting locations and maps are available on the festival website and in your information packet.",
+  "Suggested painting locations and maps are available on the [Schedule page](/schedule) and in your information packet.",
   "Be mindful of other artists — don't block their view when setting up near them.",
   "Always ask permission before painting on private property.",
 ];
@@ -149,7 +150,7 @@ const OpenDivision = () => {
                 <li key={item} className="flex items-start gap-3">
                   <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                   <span className="font-body text-sm leading-relaxed text-foreground/85">
-                    {item}
+                    {renderRichText(item)}
                   </span>
                 </li>
               ))}
@@ -175,7 +176,7 @@ const OpenDivision = () => {
                 <li key={item} className="flex items-start gap-3">
                   <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                   <span className="font-body text-sm leading-relaxed text-foreground/85">
-                    {item}
+                    {renderRichText(item)}
                   </span>
                 </li>
               ))}
@@ -201,7 +202,7 @@ const OpenDivision = () => {
                 <li key={item} className="flex items-start gap-3">
                   <Percent className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                   <span className="font-body text-sm leading-relaxed text-foreground/85">
-                    {item}
+                    {renderRichText(item)}
                   </span>
                 </li>
               ))}
@@ -215,7 +216,11 @@ const OpenDivision = () => {
                 </h3>
               </div>
               <p className="font-body text-sm leading-relaxed text-foreground/85">
-                Turn in your finished paintings on Friday, September 18th, between 9am and noon at the Venues at the Granary (74th & Main St, Ralston). Unsold works must be picked up by 5pm on Saturday, September 19th.
+                Turn in your finished paintings on Friday, September 18th, between 9am and noon at the Venues at{" "}
+                <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                  the Granary
+                </a>{" "}
+                (74th & Main St, Ralston). Unsold works must be picked up by 5pm on Saturday, September 19th.
               </p>
             </div>
           </AnimatedSection>

@@ -167,7 +167,7 @@ export const days: ScheduleDay[] = [
     title: "Collectors Preview Reception and Awards Presentation",
     audience: "ticketed",
     narrative:
-      "Artists deliver their completed festival paintings in the morning. That evening, the Collectors Preview Reception and Awards Presentation at The Granary brings together art, music, food, and the first opportunity to purchase works from the festival's collection at the artist's listed price. Awards are announced and artists are celebrated. Tickets required.",
+      "Artists deliver their completed festival paintings in the morning. That evening, the Collectors Preview Reception and Awards Presentation at [The Granary](https://atthegranary.com/) brings together art, music, food, and the first opportunity to purchase works from the festival's collection at the artist's listed price. Awards are announced and artists are celebrated. Tickets required.",
     events: [
       {
         time: "9 AM – 12:30 PM",
@@ -192,7 +192,7 @@ export const days: ScheduleDay[] = [
     logo: "/assets/hinge-creative-district-logo.png",
     logoAlt: "Ralston Hinge Creative District logo",
     narrative:
-      "The festival closes with a full day open to all. Watch artists compete in the Quick Paint Competition at 9 AM, then browse every painting made during festival week at the Public Exhibition & Sale — artwork available at the artist's listed price. At noon, Quick Paint pieces go to live auction at Granary Green. You don't need an invitation — just show up.",
+      "The festival closes with a full day open to all. Watch artists compete in the Quick Paint Competition at 9 AM, then browse every painting made during festival week at the Public Exhibition & Sale — artwork available at the artist's listed price. At noon, Quick Paint pieces go to live auction at [Granary Green](https://atthegranary.com/). You don't need an invitation — just show up.",
     events: [
       {
         time: "7:30 – 8:30 AM",
@@ -303,7 +303,7 @@ export const homepageHighlights: HomepageHighlight[] = [
   {
     dayId: "day-sep-19",
     title: "Quick Paint & Public Exhibition",
-    description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–5 PM. Live auction of Quick Paint pieces Noon–1 PM at Granary Green.",
+    description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–5 PM. Live auction of Quick Paint pieces Noon–1 PM at [Granary Green](https://atthegranary.com/).",
     time: "9 AM – 5 PM",
     location: "Ralston Hinge Creative District + Venues at the Granary",
   },

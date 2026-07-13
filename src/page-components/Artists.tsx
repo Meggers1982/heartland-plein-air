@@ -32,7 +32,7 @@ const Artists = () => {
               <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
                 The 2026 Roster
               </p>
-              <h1 className="font-display text-5xl font-bold text-foreground md:text-6xl">
+              <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
                 Meet the Artists
               </h1>
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
