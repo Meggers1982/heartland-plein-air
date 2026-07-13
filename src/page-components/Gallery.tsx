@@ -85,7 +85,7 @@ const Gallery = () => {
               <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
                 2026 Festival Art
               </p>
-              <h1 className="font-display text-5xl font-bold text-foreground md:text-6xl">
+              <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
                 The Gallery
               </h1>
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
