@@ -14,6 +14,7 @@ import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
 import { cn } from "@/lib/utils";
 import { renderRichText } from "@/lib/richText";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { days, type Audience } from "@/data/schedule";
 
 type EventFilter = "all" | "public" | "ticketed" | "competitions";
@@ -53,6 +54,33 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+// One Event per public/ticketed day with concrete events.
+const scheduleEventsSchema = days
+  .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
+  .flatMap((d) =>
+    d.events!.map((ev) => ({
+      "@type": "Event",
+      name: ev.name,
+      description: d.narrative,
+      startDate: d.id.replace("day-", "2026-").replace("sep-", "09-"),
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      location: ev.address
+        ? {
+            "@type": "Place",
+            name: ev.location,
+            address: ev.address,
+          }
+        : undefined,
+      isAccessibleForFree: d.audience === "public",
+      organizer: {
+        "@type": "Organization",
+        name: "Heartland Plein Air Festival",
+        url: "https://heartlandpleinair.org",
+      },
+    })),
+  );
+
 const Schedule = () => {
   const [eventFilter, setEventFilter] = useState<EventFilter>("all");
 
@@ -90,45 +118,6 @@ const Schedule = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute("href", "https://heartlandpleinair.org/schedule");
-
-    // JSON-LD: one Event per public/ticketed day with concrete events
-    const ld = {
-      "@context": "https://schema.org",
-      "@graph": days
-        .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
-        .flatMap((d) =>
-          d.events!.map((ev) => ({
-            "@type": "Event",
-            name: ev.name,
-            description: d.narrative,
-            startDate: d.id.replace("day-", "2026-").replace("sep-", "09-"),
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            eventStatus: "https://schema.org/EventScheduled",
-            location: ev.address
-              ? {
-                  "@type": "Place",
-                  name: ev.location,
-                  address: ev.address,
-                }
-              : undefined,
-            isAccessibleForFree: d.audience === "public",
-            organizer: {
-              "@type": "Organization",
-              name: "Heartland Plein Air Festival",
-              url: "https://heartlandpleinair.org",
-            },
-          })),
-        ),
-    };
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.id = "schedule-jsonld";
-    script.text = JSON.stringify(ld);
-    document.head.appendChild(script);
-
-    return () => {
-      document.getElementById("schedule-jsonld")?.remove();
-    };
   }, []);
 
   const weekItems = filteredDays.map((d) => {
@@ -141,6 +130,15 @@ const Schedule = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            breadcrumbSchema([{ name: "Schedule", path: "/schedule" }]),
+            ...scheduleEventsSchema,
+          ],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-44 pb-16">

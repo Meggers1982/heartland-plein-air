@@ -218,7 +218,7 @@ export const categories: FaqCategory[] = [
         q: "How can local businesses support the festival?",
         a: [
           "Sponsorship opportunities are available for businesses that want to be part of the inaugural Heartland Plein Air Festival. Current partners include the [Benson Creative District](https://www.bensoncreativedistrict.org/), [Historic Dundee Creative District](https://www.visitdundeeomaha.com), [Castle & Cathedral Creative District](https://castleandcathedraldistrict.org/), [Visit Nebraska](https://visitnebraska.com/), the Wiebe Ralston Foundation, [Nebraska Arts Council](https://www.artscouncil.nebraska.gov/), and the [Nebraska Cultural Endowment](https://nebraskaculturalendowment.org/).",
-          "For information on sponsorship levels and benefits, see the [Sponsors page](/sponsors) or contact the Ralston HINGE Creative District directly.",
+          "For information on sponsorship levels and benefits, see the [Sponsors page](/sponsors) or [contact us](/contact) to learn more.",
         ],
       },
       {

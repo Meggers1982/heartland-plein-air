@@ -12,6 +12,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import FestivalContactInfo from "@/components/FestivalContactInfo";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const topicOptions = ["Sponsorship", "Advertising", "Tickets", "General Questions"] as const;
 
@@ -108,6 +109,12 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [breadcrumbSchema([{ name: "Contact", path: "/contact" }])],
+        }}
+      />
       <SiteNav />
 
       <header className="bg-foreground pt-44 pb-16">

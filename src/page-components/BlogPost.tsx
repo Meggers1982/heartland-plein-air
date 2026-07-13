@@ -13,9 +13,21 @@ import BackToTop from "@/components/BackToTop";
 import { Badge } from "@/components/ui/badge";
 import { getRelatedPosts, parsePostDate, type BlogPost as BlogPostType } from "@/data/blog";
 import { setPageMeta } from "@/lib/meta";
+import { JsonLd, breadcrumbSchema, SITE_URL } from "@/lib/schema";
 
 const BlogPost = ({ post }: { post: BlogPostType }) => {
   const relatedPosts = getRelatedPosts(post);
+
+  const blogPostingSchema = {
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    image: post.featuredImage ? `${SITE_URL}${post.featuredImage}` : undefined,
+    author: { "@type": "Organization", name: post.author },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,6 +37,18 @@ const BlogPost = ({ post }: { post: BlogPostType }) => {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            breadcrumbSchema([
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+            blogPostingSchema,
+          ],
+        }}
+      />
       <SiteNav />
       <main className="pt-44">
         <article className="pb-24">
