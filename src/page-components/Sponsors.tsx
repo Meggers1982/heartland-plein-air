@@ -246,7 +246,7 @@ const Sponsors = () => {
             </h3>
 
             <h3 className="mb-6 mt-14 font-display text-2xl font-semibold text-foreground">
-              Our Silver Partners
+              Our Silver Sponsors
             </h3>
           </AnimatedSection>
         </div>
