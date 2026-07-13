@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
@@ -45,9 +46,14 @@ const Artists = () => {
               <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
                 Every painter at the Heartland Plein Air Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
-              <a href="#awards-judge" className="mt-4 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
-                Meet This Year's Judge →
-              </a>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+                <a href="#awards-judge" className="font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
+                  Meet This Year's Judge →
+                </a>
+                <Link href="/gallery" className="font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline">
+                  See Their Work in the Gallery →
+                </Link>
+              </div>
             </AnimatedSection>
           </div>
         </section>

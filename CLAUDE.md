@@ -20,15 +20,15 @@ A static festival website for the Heartland Plein Air Arts Festival (September 1
 /src
   ├── app/               → Route files, one per route: `<route>/page.tsx` (thin wrappers that set
   │                         Next.js `metadata` and render the matching page-component)
-  ├── page-components/    → Actual page implementations (About, Artists, Blog, Contact, Faq,
+  ├── page-components/    → Actual page implementations (About, Artists, Contact, Faq,
   │                         Gallery, Index, NotFound, OpenDivision, Schedule, Sponsors, etc.)
   │                         — named this way (not `pages/`) specifically to avoid Next.js Pages
   │                         Router auto-pickup
   ├── components/         → Custom components + /ui (shadcn primitives)
   ├── data/                → ALL static data lives here (artists.ts, gallery.ts, faq.ts,
-  │                         locations.ts, schedule.ts, blog.ts, sponsors.ts, etc.)
+  │                         locations.ts, schedule.ts, sponsors.ts, etc.)
   ├── lib/                 → Utilities: utils.ts (cn helper), meta.ts (client-side meta helper),
-  │                         ics.ts (calendar export), schema.ts (structured data)
+  │                         ics.ts (calendar export), schema.tsx (structured data)
   ├── hooks/               → useInView.ts, use-mobile.tsx, use-toast.ts
   ├── App.tsx              → Client-side providers (React Query, Toaster, TooltipProvider) —
   │                         mounted from src/app/layout.tsx, not a router
