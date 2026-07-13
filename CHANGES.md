@@ -1012,6 +1012,64 @@ Consistent with leaving it alone previously.
 
 ---
 
+## 2026-07-13 — Sponsorship FAQ Wording + Sitewide Schema Markup Audit
+
+**"How can local businesses support the festival?"** — closing
+sentence changed from "contact the Ralston HINGE Creative District
+directly" to "see the Sponsors page or contact us to learn more,"
+with both the Sponsors and Contact pages linked.
+
+**Schema markup audit** — before this pass, only two files touched
+JSON-LD at all: the root layout (Organization + Event, injected on
+every page identically) and `Schedule.tsx` (its own per-event Event
+schema, but injected client-side via `document.createElement`, so it
+wasn't in the server-rendered HTML). No page had schema tailored to
+its own content beyond that shared graph.
+
+- **BreadcrumbList** added to all 11 top-level pages and to individual
+  blog posts (3 levels: Home > Blog > post title, since a single post
+  is a level deeper than everything else). `breadcrumbSchema()` in
+  `schema.tsx` now takes an array of crumbs instead of one fixed
+  label/path, to support both cases with the same function.
+- **FAQPage** added to `/faq` — the clearest gap: the site already has
+  a rich, categorized Q&A dataset that's exactly what Google's FAQ
+  rich results expect, and it had none. Answers are stripped of the
+  `[label](url)` markdown link syntax for the schema's plain-text
+  field (the visible page still shows the real links via
+  `renderRichText`).
+- **BlogPosting** added to individual blog post pages.
+- **`schema.ts` → `schema.tsx`** — replaced the unused `addJsonLd()`
+  helper (dead code; nothing in the repo called it — `Schedule.tsx`
+  had silently reimplemented the same DOM-injection logic by hand
+  instead) with a `JsonLd` component rendered directly in JSX. Root
+  layout and every new schema addition uses this now, so JSON-LD is
+  present in the initial server-rendered HTML everywhere, not
+  dependent on client JS execution.
+- **`Schedule.tsx` per-event schema moved to JSX** — the computation
+  was already static (derived from the `days` import, not client
+  state), so it didn't need the `useEffect` + manual script-tag
+  dance. Left the same effect's title/meta/canonical DOM manipulation
+  untouched (redundant with the route's own `metadata` export, but
+  that's a pre-existing pattern repeated across every page and out of
+  scope for a schema-specific audit).
+- **Data gap fixed**: the Benson and Dundee Lunch Break Paintout
+  entries in `schedule.ts` had no `address` field, so their Event
+  schema silently had no `location` at all (the code already handled
+  a missing address gracefully — it just meant no location was ever
+  emitted). Filled in from `src/data/locations.ts` (62nd & Maple /
+  50th & Underwood — the same addresses verified against the Google
+  Map in the previous session).
+
+*(3ebc036)*
+
+Not touched: the four post-submission success pages
+(`/advertising/success`, `/sponsors/success`, `/open-division/success`,
+`/contact/success`) — confirmed via `sitemap.ts`'s own comment that
+they're deliberately excluded from search discovery, so page-specific
+schema there would have no audience.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
