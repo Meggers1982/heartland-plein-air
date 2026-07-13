@@ -152,6 +152,12 @@ const Index = () => {
                 Every piece in the final exhibition was made that week, on-site. What you're seeing — and buying — is a record of a specific place at a specific moment in September 2026. That's not something you can replicate.
               </p>
             </div>
+            <Link
+              href="/about"
+              className="mt-6 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
+            >
+              Read Our Full Story →
+            </Link>
           </AnimatedSection>
           <AnimatedSection delay={200}>
             <div className="overflow-hidden rounded-lg shadow-xl transition-transform duration-500 hover:scale-[1.02]">

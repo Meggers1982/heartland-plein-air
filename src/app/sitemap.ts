@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/data/blog";
 
 const SITE_URL = "https://heartlandpleinair.org";
 
@@ -22,7 +21,6 @@ const routes: RouteConfig[] = [
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/advertising", changeFrequency: "monthly", priority: 0.5 },
   { path: "/artists", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.5 },
   { path: "/faq", changeFrequency: "monthly", priority: 0.6 },
   { path: "/gallery", changeFrequency: "weekly", priority: 0.8 },
@@ -33,19 +31,10 @@ const routes: RouteConfig[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = routes.map((route) => ({
+  return routes.map((route) => ({
     url: `${SITE_URL}${route.path}`,
     lastModified: LAST_MODIFIED,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
-
-  const postRoutes = blogPosts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.5,
-  }));
-
-  return [...staticRoutes, ...postRoutes];
 }
