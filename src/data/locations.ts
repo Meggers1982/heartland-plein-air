@@ -12,6 +12,7 @@ export type FestivalLocation = {
   lat: number;
   lng: number;
   events: LocationEvent[];
+  websiteUrl?: string;
 };
 
 export const festivalLocations: FestivalLocation[] = [
@@ -84,6 +85,7 @@ export const festivalLocations: FestivalLocation[] = [
     address: "7401 Main St., Ralston, NE",
     lat: 41.2098,
     lng: -96.0405,
+    websiteUrl: "https://atthegranary.com/",
     events: [
       { dayId: "day-sep-18", dayLabel: "Fri · Sep 18", time: "5:30 – 8 PM", name: "Collectors Preview Reception and Awards Presentation" },
       { dayId: "day-sep-19", dayLabel: "Sat · Sep 19", time: "11 AM – 5 PM", name: "Public Exhibition & Sale" },

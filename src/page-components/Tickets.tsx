@@ -169,7 +169,11 @@ const Tickets = () => {
               Public Exhibition & Sale
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-              Browse and purchase paintings made during festival week, Saturday, September 19, 11 AM–5 PM at the Granary in Ralston. Free to attend — RSVP so we know to expect you.
+              Browse and purchase paintings made during festival week, Saturday, September 19, 11 AM–5 PM at{" "}
+              <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                the Granary
+              </a>{" "}
+              in Ralston. Free to attend — RSVP so we know to expect you.
             </p>
             <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
               Free

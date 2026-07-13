@@ -1,4 +1,4 @@
-export type FaqItem = { q: string; a: string[] };
+export type FaqItem = { q: string; a: string[]; featured?: boolean };
 export type FaqCategory = { id: string; title: string; items: FaqItem[] };
 
 export const categories: FaqCategory[] = [
@@ -8,6 +8,7 @@ export const categories: FaqCategory[] = [
     items: [
       {
         q: "What is plein air painting?",
+        featured: true,
         a: [
           'Plein air is a French term meaning "open air," and the practice is exactly what it sounds like: artists painting outside, directly from life, rather than working from photos or references back in a studio. The goal is to capture a place as it actually exists in a given moment — the quality of the light, the atmosphere, the movement, the feeling of being there.',
           "The tradition goes back to the 19th century and was central to the Impressionist movement. Artists like Monet and Renoir built their careers on it. Working outdoors means working quickly — a plein air piece is often completed within an hour or two before the light shifts — so the paintings tend to have an energy and immediacy that studio work can't quite replicate. Every painting is a one-of-a-kind record of a specific place at a specific moment in time.",
@@ -15,13 +16,15 @@ export const categories: FaqCategory[] = [
       },
       {
         q: "Where will the artists be painting?",
+        featured: true,
         a: [
           "Artists will paint freely across the Omaha Metro throughout the festival week, choosing their own locations each day. There are several scheduled events where you're guaranteed to find artists in action. Lunch Break Paintouts take place Monday through Thursday (11 AM–1:30 PM) — Downtown Ralston on September 14, the Castle & Cathedral Creative District on September 15, Benson on September 16, and Dundee on September 17. These are open painting sessions, not competitions, where artists work in a defined area and the public is welcome to watch. On Saturday, September 19, the Quick Paint Competition runs 9–11 AM within the Ralston Hinge Creative District boundary.",
-          "Beyond those events, artists may paint anywhere that inspires them. Suggested locations include Lauritzen Gardens, the Old Market, the Riverfront, Memorial Park, Fort Omaha, Neale Woods, the Bob Kerrey Pedestrian Bridge, Elmwood Park Grotto, Fontenelle Forest, Schramm State Park, Chalco Hills, Boystown, and Ralston's Oak Park.",
+          "Beyond those events, artists may paint anywhere that inspires them. Suggested locations include Lauritzen Gardens, the Old Market, the Riverfront, Memorial Park, Fort Omaha, Neale Woods, the Bob Kerrey Pedestrian Bridge, Elmwood Park Grotto, Fontenelle Forest, Schramm State Park, Chalco Hills, Boystown, and Ralston's Oak Park. See the [Schedule page](/schedule) for the full day-by-day map.",
         ],
       },
       {
         q: "Can I watch the artists paint?",
+        featured: true,
         a: [
           "The public is welcome to observe artists at work throughout the entire festival week. The daily Lunch Break Paintouts (Monday–Thursday, 11 AM–1:30 PM) are open painting sessions — easy to find, casual to watch. On Saturday morning, the Quick Paint Competition (9–11 AM) brings all participating artists into the Ralston Hinge Creative District simultaneously, racing a two-hour clock to complete a finished painting from scratch. It's one of the most exciting things to witness at any plein air festival.",
         ],
@@ -35,6 +38,7 @@ export const categories: FaqCategory[] = [
       },
       {
         q: "Is there an admission fee?",
+        featured: true,
         a: [
           "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collector VIP Pass ($125) gets you into the Collectors Preview Reception and Awards Presentation on September 18, priority seating at the Judge's Lecture on September 17, a private artist Meet & Greet on September 13, and priority seating at the live auction on September 19. Prefer just the lecture? A standalone Judge's Lecture ticket is available for $25. See the [Tickets page](/tickets) for details.",
         ],
@@ -48,7 +52,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How many artists participate in the festival?",
         a: [
-          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists (see them all on the [Artists page](/artists)), plus Awards Judge Rick J. Delanty. The festival also includes an [Open Division](/open-division) with up to 40 additional artists who apply through the website, for a total of up to 64 participating artists.",
+          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists (see them all on the [Artists page](/artists)), plus Awards Judge Rick J. Delanty. The festival also includes an [Open Division](/open-division) with up to 40 additional artists who apply online, for a total of up to 64 participating artists.",
         ],
       },
       {
@@ -89,7 +93,7 @@ export const categories: FaqCategory[] = [
         a: [
           "A Quick Paint is a timed painting competition where all participating artists work simultaneously in an area with specific boundaries — in this case, within the Ralston Hinge Creative District boundary — starting at the same moment and stopping when the clock runs out. Artists have just two hours to produce a finished painting from scratch, outdoors, in front of anyone who happens to be watching.",
           "It's one of the most compelling things you can witness at a plein air festival. Watching a blank canvas become a complete painting in real time, under pressure, in changing light, is genuinely exciting — and you get to see many painters working in fairly close proximity, observing how each approaches their subjects using different mediums and techniques. Upon completion, the artists frame their pieces and bring them to be auctioned off in a live auction!",
-          "The Quick Paint competition will be from 9 AM to 11 AM on Saturday morning, September 19th, in Ralston in the area between 72nd St and 77th St, Main St to Burlington St. The live auction of these fresh paintings will be held from noon to 1 PM at Granary Green, 74th and Main St.",
+          "The Quick Paint competition will be from 9 AM to 11 AM on Saturday morning, September 19th, in Ralston in the area between 72nd St and 77th St, Main St to Burlington St. The live auction of these fresh paintings will be held from noon to 1 PM at [Granary Green](https://atthegranary.com/), 74th and Main St.",
         ],
       },
       {
@@ -127,8 +131,8 @@ export const categories: FaqCategory[] = [
           "September 14–17 — Daily Lunch Break Paintouts: Downtown Ralston (Sep 14), Castle & Cathedral District (Sep 15), Benson (Sep 16), Dundee (Sep 17), all 11 AM–1:30 PM.",
           "September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
           "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free).",
-          "September 18 — Collectors Preview Reception and Awards Presentation at the Granary, Ralston (5:30–8 PM, ticketed).",
-          "September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at the Granary (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at Granary Green (Noon–1 PM).",
+          "September 18 — Collectors Preview Reception and Awards Presentation at [the Granary](https://atthegranary.com/), Ralston (5:30–8 PM, ticketed).",
+          "September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at [the Granary](https://atthegranary.com/) (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at [Granary Green](https://atthegranary.com/) (Noon–1 PM).",
           "September 19–October 2 — Online art sale.",
           "See the [Schedule page](/schedule) for the full day-by-day itinerary and a map of locations.",
         ],
@@ -143,20 +147,20 @@ export const categories: FaqCategory[] = [
         q: "Is there parking at event locations and the Granary?",
         a: [
           "The Lunch Break Paintout locations — Downtown Ralston, the Castle & Cathedral Creative District, Benson, and Dundee — all have street parking available nearby. The Quick Paint Competition on September 19 is held in Downtown Ralston at the Hinge Creative District, with the same street parking options.",
-          "The Granary, which hosts the Collectors Preview Reception and Awards Presentation and Public Exhibition at 7401 Main Street in Ralston, has parking on site.",
+          "[The Granary](https://atthegranary.com/), which hosts the Collectors Preview Reception and Awards Presentation and Public Exhibition at 7401 Main Street in Ralston, has parking on site.",
         ],
       },
       {
         q: "Are the venues accessible?",
         a: [
-          "The outdoor painting locations across the metro vary in terrain — parks, sidewalks, and urban streetscapes — and accessibility will differ by site. The Granary at 7401 Main Street in Ralston hosts both the Collectors Preview Reception and Awards Presentation and Public Exhibition.",
+          "The outdoor painting locations across the metro vary in terrain — parks, sidewalks, and urban streetscapes — and accessibility will differ by site. [The Granary](https://atthegranary.com/) at 7401 Main Street in Ralston hosts both the Collectors Preview Reception and Awards Presentation and Public Exhibition.",
           "For specific accessibility questions about any venue, reach out to the festival organizers at ralstoncreativedistrict@gmail.com and we'll do our best to help you plan your visit.",
         ],
       },
       {
         q: "Will food or drinks be available?",
         a: [
-          "The Collectors Preview Reception and Awards Presentation on September 18 includes catering and entertainment as part of the ticketed event at the Granary. Food and drink availability at Lunch Break Paintout locations and the Public Exhibition has not yet been confirmed — follow us on social media for updates closer to the event.",
+          "The Collectors Preview Reception and Awards Presentation on September 18 includes catering and entertainment as part of the ticketed event at [the Granary](https://atthegranary.com/). Food and drink availability at Lunch Break Paintout locations and the Public Exhibition has not yet been confirmed — follow us on social media for updates closer to the event.",
         ],
       },
       {
@@ -179,8 +183,9 @@ export const categories: FaqCategory[] = [
       },
       {
         q: "How can I purchase a painting?",
+        featured: true,
         a: [
-          "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at the Granary, 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–5 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
+          "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at [the Granary](https://atthegranary.com/), 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–5 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
           "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },

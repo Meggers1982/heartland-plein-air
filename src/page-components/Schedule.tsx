@@ -13,6 +13,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
 import { cn } from "@/lib/utils";
+import { renderRichText } from "@/lib/richText";
 import { days, type Audience } from "@/data/schedule";
 
 type EventFilter = "all" | "public" | "ticketed" | "competitions";
@@ -267,7 +268,7 @@ const Schedule = () => {
                   </div>
                 )}
                 <p className="mb-6 font-body text-lg leading-relaxed text-muted-foreground">
-                  {d.narrative}
+                  {renderRichText(d.narrative)}
                 </p>
                 {d.id === "day-online" && (
                   <a

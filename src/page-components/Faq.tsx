@@ -1,6 +1,5 @@
 'use client';
-import { Fragment, useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import {
   Accordion,
@@ -16,34 +15,8 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import BackToTop from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
+import { renderRichText } from "@/lib/richText";
 import { categories } from "@/data/faq";
-
-const LINK_PATTERN = /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^)]+)\)/g;
-
-function renderAnswer(text: string) {
-  const parts: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-  LINK_PATTERN.lastIndex = 0;
-  while ((match = LINK_PATTERN.exec(text))) {
-    if (match.index > lastIndex) parts.push(text.slice(lastIndex, match.index));
-    const [, label, href] = match;
-    parts.push(
-      href.startsWith("/") ? (
-        <Link href={href} className="font-semibold text-primary hover:underline">
-          {label}
-        </Link>
-      ) : (
-        <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
-          {label}
-        </a>
-      ),
-    );
-    lastIndex = match.index + match[0].length;
-  }
-  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
-  return parts.map((part, i) => <Fragment key={i}>{part}</Fragment>);
-}
 
 const Faq = () => {
   const [query, setQuery] = useState("");
@@ -173,7 +146,7 @@ const Faq = () => {
                         </AccordionTrigger>
                         <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
                           {item.a.map((paragraph, pi) => (
-                            <p key={pi}>{renderAnswer(paragraph)}</p>
+                            <p key={pi}>{renderRichText(paragraph)}</p>
                           ))}
                         </AccordionContent>
                       </AccordionItem>

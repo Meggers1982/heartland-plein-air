@@ -1,5 +1,7 @@
+import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Calendar, MapPin } from "lucide-react";
+import { renderRichText } from "@/lib/richText";
 import { days, homepageHighlights } from "@/data/schedule";
 
 const ScheduleSection = () => {
@@ -62,7 +64,7 @@ const ScheduleSection = () => {
                           </div>
                         )}
                         <p className="mb-3 font-body text-sm leading-relaxed text-muted-foreground">
-                          {event.description}
+                          {renderRichText(event.description)}
                         </p>
                         <div className={`flex flex-wrap gap-4 font-body text-xs text-muted-foreground ${isLeft ? "md:justify-end" : ""}`}>
                           <span className="flex items-center gap-1">
@@ -89,6 +91,15 @@ const ScheduleSection = () => {
               );
             })}
           </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <Link
+            href="/schedule"
+            className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
+          >
+            View Full Schedule
+          </Link>
         </div>
       </div>
     </section>

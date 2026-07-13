@@ -21,7 +21,7 @@ const navLinksAfterAbout = [
   { label: "Gallery", href: "/gallery" },
   { label: "Open Division", href: "/open-division" },
   { label: "Sponsors", href: "/sponsors" },
-  { label: "FAQ", href: "/faq" },
+  { label: "FAQs", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
 
