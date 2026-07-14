@@ -1123,6 +1123,35 @@ new copy just to create one.
 
 ---
 
+## 2026-07-14 — PayPal Button Fallback Message for Blocked/Failed SDK Loads
+
+Investigated a report that the PayPal button on `/open-division` "randomly"
+doesn't show up. Confirmed live that `NEXT_PUBLIC_PAYPAL_CLIENT_ID` is set
+correctly and baked into the current deploy (button rendered fine on both a
+fresh load and a client-side nav to the page). The remaining, unfixable-by-us
+cause is visitor-side: `paypal.com/sdk/js` is commonly blocked by ad blockers
+and privacy browser extensions. When that happens the script's `onLoad` never
+fires, so the button container just stays empty — and the component's
+existing error message only fired from PayPal's own `onError` callback, which
+never runs if the SDK never loaded in the first place. Net effect: a silent
+blank box with no indication to the visitor (or us) that anything failed.
+
+- **`src/components/PayPalButton.tsx`**: added a 6-second timeout — if the
+  SDK hasn't signaled ready by then, shows the same "Something went wrong
+  with PayPal... email ralstoncreativedistrict@gmail.com" fallback message
+  that already existed for the `onError` case. If the SDK loads late (slow
+  network, not fully blocked) after the timeout already fired, the message
+  clears once the button actually renders.
+- **New `src/components/PayPalButton.test.tsx`**: covers both paths —
+  fallback message appears when the SDK never loads, and stays absent when it
+  loads normally.
+- `next build`, `npm test`, and `npm run lint` all pass. Verified manually via
+  `npm run dev` that the button still renders normally.
+
+*(c4e64b1)*
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
