@@ -37,7 +37,14 @@ const PayPalButton = ({ amount, description }: PayPalButtonProps) => {
   const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 
   useEffect(() => {
+    if (sdkReady) return;
+    const timeout = setTimeout(() => setStatus("error"), 6000);
+    return () => clearTimeout(timeout);
+  }, [sdkReady]);
+
+  useEffect(() => {
     if (!sdkReady || !window.paypal || !containerRef.current) return;
+    setStatus((s) => (s === "error" ? "idle" : s));
     containerRef.current.innerHTML = "";
     window.paypal
       .Buttons({
