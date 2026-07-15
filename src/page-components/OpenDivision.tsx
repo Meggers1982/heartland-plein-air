@@ -15,6 +15,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import PayPalButton from "@/components/PayPalButton";
+import MailCheckOption from "@/components/MailCheckOption";
 import { setPageMeta } from "@/lib/meta";
 import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -248,7 +249,7 @@ const OpenDivision = () => {
                 Fill out the form below to reserve your spot. Registration is $30 and limited to 30 artists, first come, first served.
               </p>
               <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
-                Please click the PayPal button after submitting the form to pay your fee. Any registration without payment will not be accepted.
+                After submitting the form, pay your fee via PayPal or by mailing a check. Any registration without payment will not be accepted.
               </p>
             </div>
             <div className="rounded-lg border border-border bg-card p-8 md:p-12">
@@ -261,14 +262,24 @@ const OpenDivision = () => {
                 successHref="/open-division/success"
               />
             </div>
-            <div className="mx-auto mt-6 max-w-xs rounded-lg border border-border bg-card p-6 text-center shadow-sm">
-              <p className="mb-4 font-body text-xs font-semibold uppercase tracking-wide text-foreground">
+            <div className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
+              <p className="mb-6 text-center font-body text-xs font-semibold uppercase tracking-wide text-foreground">
                 Already Registered? Pay Your $30 Fee
               </p>
-              <PayPalButton
-                amount="30.00"
-                description="Heartland Plein Air Festival — Open Division Registration"
-              />
+              <div className="grid gap-8 sm:grid-cols-2">
+                <div className="text-center">
+                  <p className="mb-3 font-body text-sm font-semibold text-foreground">
+                    Pay Online
+                  </p>
+                  <PayPalButton
+                    amount="30.00"
+                    description="Heartland Plein Air Festival — Open Division Registration"
+                  />
+                </div>
+                <div className="border-t border-border pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
+                  <MailCheckOption amount="30" />
+                </div>
+              </div>
             </div>
           </AnimatedSection>
         </div>
