@@ -1152,6 +1152,30 @@ blank box with no indication to the visitor (or us) that anything failed.
 
 ---
 
+## 2026-07-15 — Mail-a-Check Option Added Alongside PayPal on Open Division
+
+Added a "mail a check" payment option next to the existing PayPal button, per
+explicit request, so registrants who prefer not to pay online have an
+alternative.
+
+- **New `src/components/MailCheckOption.tsx`**: simple info block — payee
+  name, amount, and mailing address (Ralston HINGE Creative District, 5615
+  S. 77th St, Ralston, NE 68127 — same address already used in
+  `FestivalContactInfo.tsx`). Takes an `amount` prop so the dollar figure
+  isn't hardcoded twice.
+- **`OpenDivision.tsx`** and **`OpenDivisionSuccess.tsx`**: the "Pay Your $30
+  Fee" card on both pages now shows a two-column "Pay Online" (PayPal) /
+  "Mail a Check" layout instead of PayPal alone, stacking to one column on
+  mobile via the same `sm:grid-cols-2` pattern used elsewhere on the site.
+  Updated the surrounding copy on both pages to mention both payment paths
+  instead of only PayPal.
+- `next build`, `npm test`, and `npm run lint` all pass. Verified visually via
+  `npm run dev` on both pages.
+
+*(pending commit)*
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
