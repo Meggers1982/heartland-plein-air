@@ -1172,7 +1172,7 @@ alternative.
 - `next build`, `npm test`, and `npm run lint` all pass. Verified visually via
   `npm run dev` on both pages.
 
-*(pending commit)*
+*(3c5e394)*
 
 ---
 
