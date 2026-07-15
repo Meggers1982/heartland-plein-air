@@ -263,7 +263,7 @@ const OpenDivision = () => {
               />
             </div>
             <div className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
-              <p className="mb-6 text-center font-body text-xs font-semibold uppercase tracking-wide text-foreground">
+              <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
                 Already Registered? Pay Your $30 Fee
               </p>
               <div className="grid gap-8 sm:grid-cols-2">
