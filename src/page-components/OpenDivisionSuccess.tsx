@@ -30,7 +30,7 @@ const OpenDivisionSuccess = () => {
       backLabel="Back to Open Division"
     >
       <div className="mx-auto max-w-2xl rounded-lg bg-card p-6 shadow-sm md:p-8">
-        <p className="mb-6 text-center font-body text-xs font-semibold uppercase tracking-wide text-foreground">
+        <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
           Pay Your $30 Registration Fee
         </p>
         <div className="grid gap-8 sm:grid-cols-2">
