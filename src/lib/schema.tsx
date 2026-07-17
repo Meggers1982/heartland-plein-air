@@ -76,6 +76,17 @@ const ticketOffers = [
     validFrom: "2026-01-01",
     url: "https://app.gopassage.com/events/heartland-plein-air-festival-lecture-with-delanty",
   },
+  {
+    "@type": "Offer",
+    name: "Collectors Preview Reception Ticket",
+    description:
+      "Standalone ticket to the Collectors Preview Reception and Awards Presentation, September 18 at the Granary. Includes first access to purchase festival paintings and beverages and hors d'oeuvres.",
+    price: "95",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    validFrom: "2026-01-01",
+    url: "https://app.gopassage.com/events/heartland-plein-air-festival-collectors-reception-and-awards-presentation",
+  },
 ];
 
 export const festivalEventSchema = {
@@ -83,7 +94,7 @@ export const festivalEventSchema = {
   "@id": `${SITE_URL}/#festival`,
   name: "Heartland Plein Air Arts Festival",
   description:
-    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collector VIP Pass ($125) includes the Collectors Preview Reception and Awards Presentation September 18.`,
+    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collector VIP Pass ($125) includes the Collectors Preview Reception and Awards Presentation September 18, also available as a standalone $95 ticket.`,
   startDate: "2026-09-13",
   endDate: "2026-09-19",
   eventStatus: "https://schema.org/EventScheduled",

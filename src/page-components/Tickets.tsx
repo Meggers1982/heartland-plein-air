@@ -41,7 +41,7 @@ const Tickets = () => {
     window.scrollTo(0, 0);
     document.title = "Buy Plein Air Festival Tickets: Get Closer to the Art";
     return setPageMeta(
-      "Most festival events are free. Get the $125 Collector VIP Pass for private artist access and early art buying, or snag a $25 lecture-only ticket.",
+      "Most festival events are free. Get the $125 Collector VIP Pass, or buy standalone tickets: $25 lecture, $95 Collectors Preview Reception.",
     );
   }, []);
 
