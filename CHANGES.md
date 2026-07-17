@@ -1387,6 +1387,40 @@ results.
 
 ---
 
+## 2026-07-17 — Filled Optional Event Schema Fields (image, offers) + Fixed isAccessibleForFree Bug
+
+Follow-up to the location-schema fix above: the validator's remaining
+warnings were all "optional" (`image`, `offers`, `endDate`, `performer`).
+Filled in the two with real, accurate data already available; skipped
+`performer` (doesn't cleanly apply to paintouts/receptions) and
+`endDate` (would need a new time-range parser) per user's choice.
+
+- **`src/lib/schema.tsx`**: exported `ticketOffers` (was module-private)
+  so `Schedule.tsx` can reuse the real $25/$95 ticket Offer objects
+  instead of duplicating price/URL strings.
+- **`src/page-components/Schedule.tsx`**:
+  - Every `Event` node now gets `image` (the festival hero photo) and
+    `offers` — the Judge's Lecture and Collectors Preview Reception get
+    their real ticketed `Offer` (matched by event name via
+    `ticketedEventOffers`); every other event gets a `$0` free `Offer`
+    linking to `/schedule`.
+  - **Bug fix**: `isAccessibleForFree` was set from the *day's* overall
+    `audience` field, not the individual event — so the $25 Judge's
+    Lecture (a ticketed sub-event on an otherwise free/public day) was
+    marked `isAccessibleForFree: true` right next to its own `offers.price:
+    "25"`, a direct self-contradiction in the same JSON-LD object. Now
+    derived per-event from whether it has a real ticketed offer.
+  - **"Artists Turn In Paintings" excluded** from Event schema (per
+    user's choice) — same reasoning as the two events removed in the
+    prior fix: it's artists dropping off work, not something the public
+    attends, even though it has an address. Event count: 14 → 13.
+- Verified via `npm run build` + inspecting `.next/server/app/schedule.html`:
+  all 13 events have `image`, correct `offers` (2 ticketed, 11 free), and
+  `isAccessibleForFree` now matches each event's own offer.
+- `npm run lint`, `npm test`, and `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

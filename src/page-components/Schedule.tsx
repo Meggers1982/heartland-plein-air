@@ -14,9 +14,33 @@ import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
 import { cn } from "@/lib/utils";
 import { renderRichText } from "@/lib/richText";
-import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, ticketOffers, SITE_URL } from "@/lib/schema";
 import { days, type Audience } from "@/data/schedule";
 import { festivalLocations } from "@/data/locations";
+
+// Events that are internal logistics, not something the public attends —
+// excluded from Event schema entirely (see the address filter below for
+// why "not open to the public" events are already excluded).
+const internalOnlyEventNames = new Set(["Artists Turn In Paintings"]);
+
+// Real ticket offers (from schema.tsx) matched to the schedule events they
+// belong to, so ticketed events get accurate price/URL instead of nothing.
+const ticketedEventOffers: Record<string, (typeof ticketOffers)[number]> = {
+  "Judge's Lecture — Impressionism & Plein Air (Ticketed)": ticketOffers.find(
+    (o) => o.name === "Judge's Lecture Ticket",
+  )!,
+  "Collectors Preview Reception and Awards Presentation": ticketOffers.find(
+    (o) => o.name === "Collectors Preview Reception Ticket",
+  )!,
+};
+
+const freeEventOffer = {
+  "@type": "Offer",
+  price: "0",
+  priceCurrency: "USD",
+  availability: "https://schema.org/InStock",
+  url: `${SITE_URL}/schedule`,
+};
 
 type EventFilter = "all" | "public" | "ticketed" | "competitions";
 
@@ -70,7 +94,7 @@ const scheduleEventsSchema = days
   .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
   .flatMap((d) =>
     d.events!
-      .filter((ev) => ev.address)
+      .filter((ev) => ev.address && !internalOnlyEventNames.has(ev.name))
       .map((ev) => ({
         "@type": "Event",
         name: ev.name,
@@ -83,7 +107,12 @@ const scheduleEventsSchema = days
           name: ev.location,
           address: ev.address,
         },
-        isAccessibleForFree: d.audience === "public",
+        image: `${SITE_URL}/assets/hero-pleinair.jpg`,
+        offers: ticketedEventOffers[ev.name] ?? freeEventOffer,
+        // Derived per-event, not from the day's overall audience — a paid
+        // sub-event (e.g. the Judge's Lecture) can fall on an otherwise
+        // free/public day, and isAccessibleForFree must match its own offer.
+        isAccessibleForFree: !ticketedEventOffers[ev.name],
         organizer: {
           "@type": "Organization",
           name: "Heartland Plein Air Festival",

@@ -53,7 +53,7 @@ import { artists } from "@/data/artists";
 
 const invitedCount = artists.length;
 
-const ticketOffers = [
+export const ticketOffers = [
   {
     "@type": "Offer",
     name: "Collector VIP Pass",
