@@ -1361,6 +1361,32 @@ the festival to these local venues/neighborhoods.
 
 ---
 
+## 2026-07-17 — Fixed Schema Validator Errors: Missing Event Location
+
+User ran a schema/rich-results validator and found "Missing field
+'location'" (critical) on two `Event` nodes: "Artwork Framing & Hanging —
+Not Open to the Public" and "Youth Mentorship with Professional Artists —
+Preselected Participants Only". Both are internal-only sub-events with no
+address in `schedule.ts` (by design — they're not events the public can
+attend), so the old code's `location: ev.address ? {...} : undefined`
+left `location` off entirely, which Google requires for Event rich
+results.
+
+- **`src/page-components/Schedule.tsx`**: `scheduleEventsSchema` now
+  filters out events without an `address` before mapping to `Event`
+  nodes, instead of mapping all events and conditionally omitting
+  `location`. This isn't a workaround — these two sub-events genuinely
+  aren't public events to surface in search (their names say so), so
+  excluding them from Event schema is the correct fix, not just a
+  validator-pleasing one. `location` is now always present on every
+  emitted `Event` node.
+- Verified via `npm run build` + inspecting `.next/server/app/schedule.html`:
+  event count dropped from 16 to 14 (the two internal-only sub-events
+  gone), and all 14 remaining `Event` nodes have `location` set.
+- `npm run lint`, `npm test`, and `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
