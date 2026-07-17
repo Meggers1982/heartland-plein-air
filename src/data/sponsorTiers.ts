@@ -4,6 +4,7 @@ export const sponsorTiers = [
   {
     name: "Titanium",
     price: "$5,000 and over",
+    min: 5000,
     icon: Crown,
     benefits: [
       "Full-page ad in the festival catalog",
@@ -14,6 +15,7 @@ export const sponsorTiers = [
   {
     name: "Platinum",
     price: "$2,500 to $4,999",
+    min: 2500,
     icon: Gem,
     benefits: [
       "Full-page ad in the festival catalog",
@@ -24,6 +26,7 @@ export const sponsorTiers = [
   {
     name: "Gold",
     price: "$1,000 to $2,499",
+    min: 1000,
     icon: Award,
     benefits: [
       "Half-page ad in the festival catalog",
@@ -34,6 +37,7 @@ export const sponsorTiers = [
   {
     name: "Silver",
     price: "$500 to $999",
+    min: 500,
     icon: Medal,
     benefits: [
       "Quarter-page ad in the festival catalog",
@@ -44,6 +48,7 @@ export const sponsorTiers = [
   {
     name: "Bronze",
     price: "$250 to $499",
+    min: 250,
     icon: Star,
     benefits: [
       "Name listed in the festival catalog",
@@ -53,6 +58,7 @@ export const sponsorTiers = [
   {
     name: "Friend of the District",
     price: "$100 to $249",
+    min: 100,
     icon: Heart,
     benefits: ["Name listed on website"],
   },
