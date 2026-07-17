@@ -61,31 +61,35 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-// One Event per public/ticketed day with concrete events.
+// One Event per public/ticketed day with concrete events. Events without an
+// address are internal-only (e.g. "Not Open to the Public", "Preselected
+// Participants Only") — excluded rather than given a placeholder location,
+// since Google requires a location for Event rich results and these aren't
+// real public events to surface in search anyway.
 const scheduleEventsSchema = days
   .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
   .flatMap((d) =>
-    d.events!.map((ev) => ({
-      "@type": "Event",
-      name: ev.name,
-      description: d.narrative,
-      startDate: d.id.replace("day-", "2026-").replace("sep-", "09-"),
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
-      location: ev.address
-        ? {
-            "@type": "Place",
-            name: ev.location,
-            address: ev.address,
-          }
-        : undefined,
-      isAccessibleForFree: d.audience === "public",
-      organizer: {
-        "@type": "Organization",
-        name: "Heartland Plein Air Festival",
-        url: "https://heartlandpleinair.org",
-      },
-    })),
+    d.events!
+      .filter((ev) => ev.address)
+      .map((ev) => ({
+        "@type": "Event",
+        name: ev.name,
+        description: d.narrative,
+        startDate: d.id.replace("day-", "2026-").replace("sep-", "09-"),
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        eventStatus: "https://schema.org/EventScheduled",
+        location: {
+          "@type": "Place",
+          name: ev.location,
+          address: ev.address,
+        },
+        isAccessibleForFree: d.audience === "public",
+        organizer: {
+          "@type": "Organization",
+          name: "Heartland Plein Air Festival",
+          url: "https://heartlandpleinair.org",
+        },
+      })),
   );
 
 const festivalLocationSchema = festivalLocations.map((loc) => ({
