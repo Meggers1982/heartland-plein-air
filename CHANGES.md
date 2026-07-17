@@ -1326,6 +1326,41 @@ the festival.
 
 ---
 
+## 2026-07-17 — Descriptive Copy + Place Schema for Festival Locations
+
+Third and final item from the SEO audit: the 7 venue entries in
+`src/data/locations.ts` (Wildwood Park, Baright Library, Downtown Ralston,
+Castle & Cathedral, Benson, Dundee, the Granary) had only name/address/
+event-list — no descriptive copy anywhere, and no structured data tying
+the festival to these local venues/neighborhoods.
+
+- **`src/data/locations.ts`**: added a `description` field to each of the
+  7 `FestivalLocation` entries. Wording was drawn from copy already
+  vetted elsewhere on the site (the day-by-day `narrative` text in
+  `schedule.ts`, FAQ answers) rather than inventing new claims about the
+  venues.
+- **`src/components/LocationsMap.tsx`**: renders the new description in
+  both the map's info-window popup and the "All Locations" expandable
+  list — visible on `/schedule` and the homepage (both render
+  `LocationsMap`).
+- **`src/page-components/Schedule.tsx`**: added a `festivalLocationSchema`
+  array — one schema.org `Place` node per venue with `description`,
+  `address`, and `geo` (lat/lng, already in `locations.ts` for the map)
+  — added to the page's existing JSON-LD `@graph`. Kept scoped to
+  `/schedule` only (not the site-wide `festivalEventSchema` in
+  `layout.tsx`), matching the Person-schema decision for `/artists`, and
+  avoiding duplicate Place schema on the homepage where `LocationsMap`
+  also renders.
+- Verified via `npm run build` + inspecting `.next/server/app/schedule.html`
+  that all 7 `Place` nodes render with correct geo/description, and via
+  `npm run dev` that the new copy displays correctly in the "All
+  Locations" list (map itself doesn't load locally — pre-existing,
+  unrelated to this change, likely the Google Maps key's domain
+  restriction not covering `localhost`).
+- `npm run lint`, `npm test`, and `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
