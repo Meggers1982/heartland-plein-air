@@ -1251,6 +1251,25 @@ button (like Open Division's) wouldn't fit six different tiers.
 
 ---
 
+## 2026-07-17 — Sponsorship PayPal Button Also Added to Success Page
+
+Follow-up to the entry above: `/sponsors/success` (shown after submitting
+the inquiry form) didn't yet offer online payment, unlike Open Division's
+success page which already has its $30 fee button.
+
+- **`src/page-components/SponsorSuccess.tsx`**: reused `SponsorPaymentForm`
+  (no duplication — same tier/amount inputs, `PayPalButton`, and
+  `MailCheckOption` as `/sponsors`) inside `InquirySuccess`'s `children`
+  slot, in a `bg-card` panel matching Open Division's success-page pattern.
+  Wrapped in `text-left` since `InquirySuccess` centers its header content
+  by default and the form's labels/inputs are left-aligned on `/sponsors`.
+  Updated the intro copy to mention paying online now that the option
+  exists.
+- Verified visually via `npm run dev`. `npm run lint`, `npm test`, and
+  `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
