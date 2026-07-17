@@ -38,6 +38,12 @@ const audienceStyle: Record<Audience, string> = {
   artists: "bg-muted text-muted-foreground border-border",
 };
 
+// Days where a standalone ticket exists in addition to the Collector VIP Pass.
+const standaloneTicketCta: Partial<Record<string, string>> = {
+  "day-sep-17": "Included in the VIP Pass — or buy the lecture only →",
+  "day-sep-18": "Included in the VIP Pass — or buy the reception only →",
+};
+
 const mapUrl = (address: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
@@ -281,7 +287,7 @@ const Schedule = () => {
                     href="/tickets"
                     className="mb-6 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
                   >
-                    Included in the Collector VIP Pass →
+                    {standaloneTicketCta[d.id] ?? "Included in the Collector VIP Pass →"}
                   </Link>
                 )}
                 {d.events && d.events.length > 0 && (
