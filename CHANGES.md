@@ -1301,6 +1301,31 @@ title, description, and hero image — not that page's own content.
 
 ---
 
+## 2026-07-17 — Person Schema for Each Artist (`/artists`)
+
+Second item from the SEO audit: the Artists page had breadcrumb schema
+only, no structured data identifying the 25 individual artists (or Rick
+J. Delanty, the Judge of Awards) — a missed opportunity for Google to
+surface rich results when someone searches an artist's name alongside
+the festival.
+
+- **`src/page-components/Artists.tsx`**: added a `toPersonSchema` helper
+  mapping each `Artist` (from `src/data/artists.ts`) to a schema.org
+  `Person` node — `name`, `jobTitle` ("Plein Air Artist", or "Judge of
+  Awards" for Rick Delanty), `image` (resolved to an absolute URL via
+  `SITE_URL`), `description` (bio paragraphs joined into one string),
+  `homeLocation`, `url` (their site, if present), and `sameAs` (website +
+  Instagram + Facebook, whichever exist). All 26 `Person` nodes are added
+  to the page's existing `@graph` alongside its breadcrumb schema — kept
+  page-scoped rather than added to the site-wide `festivalEventSchema` in
+  `layout.tsx`, matching how `FAQPage` schema is scoped to `/faq` only.
+- Verified by inspecting `.next/server/app/artists.html` after `npm run
+  build`: all 25 artists plus the judge render as `Person` nodes with
+  correct fields (spot-checked Hector Acuna and Rick Delanty).
+- `npm run lint`, `npm test`, and `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
