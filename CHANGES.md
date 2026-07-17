@@ -1176,6 +1176,26 @@ alternative.
 
 ---
 
+## 2026-07-17 — Standalone Collectors Preview Reception Ticket ($95)
+
+Added a third standalone ticket tier — previously the Collectors Preview
+Reception and Awards Presentation was only available bundled into the $125
+Collector VIP Pass.
+
+- **`src/page-components/Tickets.tsx`**: new "Collectors Preview Reception
+  Only" section ($95), same layout pattern as the existing "Judge's Lecture
+  Only" ($25) section, linking to
+  `https://app.gopassage.com/events/heartland-plein-air-festival-collectors-reception-and-awards-presentation`.
+- **`src/page-components/Index.tsx`**: homepage ticket teaser copy updated
+  from "Prefer just the lecture? A standalone ticket is available for $25."
+  to also mention the $95 reception ticket.
+- **`src/data/faq.ts`**: "How do I get tickets to the Collectors Preview
+  Reception and Awards Presentation?" updated — previously stated it was
+  VIP-Pass-only, now leads with the $95 standalone option.
+- `npm run lint` and `npm test` pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

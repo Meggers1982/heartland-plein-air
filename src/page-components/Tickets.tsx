@@ -165,6 +165,40 @@ const Tickets = () => {
 
       <BrushStrokeDivider />
 
+      {/* Collectors Preview Reception only */}
+      <section className="bg-secondary/40 py-20">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <AnimatedSection>
+            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              Just the Reception
+            </p>
+            <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
+              Collectors Preview Reception Only
+            </h2>
+            <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
+              First access to purchase paintings created throughout the week, plus the Awards Presentation with the Judge of Awards. Beverages and hors d'oeuvres included. Friday, September 18 at{" "}
+              <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                the Granary
+              </a>
+              .
+            </p>
+            <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
+              $95
+            </p>
+            <a
+              href="https://app.gopassage.com/events/heartland-plein-air-festival-collectors-reception-and-awards-presentation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
+            >
+              Buy Reception Tickets — $95
+            </a>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <BrushStrokeDivider />
+
       {/* Public Exhibition & Sale RSVP */}
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">

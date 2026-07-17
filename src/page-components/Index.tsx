@@ -220,7 +220,7 @@ const Index = () => {
               Collector VIP Pass
             </h2>
             <p className="mx-auto mb-8 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
-              Most festival events are free and open to the public. For $125, the Collector VIP Pass gets you a private artist Meet & Greet, priority seating at the Judge's Lecture, the Collectors Preview Reception and Awards Presentation, and priority seating at the live auction. Prefer just the lecture? A standalone ticket is available for $25.
+              Most festival events are free and open to the public. For $125, the Collector VIP Pass gets you a private artist Meet & Greet, priority seating at the Judge's Lecture, the Collectors Preview Reception and Awards Presentation, and priority seating at the live auction. Prefer a standalone ticket? The lecture is $25 and the Collectors Preview Reception is $95.
             </p>
             <Link
               href="/tickets"

@@ -178,7 +178,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How do I get tickets to the Collectors Preview Reception and Awards Presentation?",
         a: [
-          "The Collectors Preview Reception and Awards Presentation is included in the Collector VIP Pass ($125), which also includes a private artist Meet & Greet on September 13, priority seating at the Judge's Lecture on September 17, and priority seating at the live auction on September 19. See the [Tickets page](/tickets) to purchase.",
+          "A standalone ticket to the Collectors Preview Reception and Awards Presentation is available for $95. It's also included in the Collector VIP Pass ($125), which additionally gets you a private artist Meet & Greet on September 13, priority seating at the Judge's Lecture on September 17, and priority seating at the live auction on September 19. See the [Tickets page](/tickets) to purchase.",
         ],
       },
       {
