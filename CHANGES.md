@@ -1270,6 +1270,37 @@ success page which already has its $30 fee button.
 
 ---
 
+## 2026-07-17 — Per-Page Open Graph / Twitter Metadata (All 10 Routes)
+
+SEO audit found that no route under `src/app/*/page.tsx` set its own
+`openGraph`/`twitter` metadata — only `title`, `description`, and
+`alternates.canonical`. Next.js only merges `Metadata` objects at the
+top level, so any nested object (like `openGraph`) a route doesn't
+redeclare is inherited *whole* from the root layout. Net effect: sharing
+any page on Facebook/Slack/iMessage/Twitter showed the homepage's generic
+title, description, and hero image — not that page's own content.
+
+- Added `openGraph` and `twitter` blocks to all 10 route files (`about`,
+  `advertising`, `artists`, `contact`, `faq`, `gallery`, `open-division`,
+  `schedule`, `sponsors`, `tickets`), reusing each page's existing
+  `title`/`description` text plus `siteName`/`locale` (which must be
+  redeclared per page too, since providing `openGraph` at all replaces
+  the parent's entire object rather than merging into it).
+- Images: reused real, on-topic assets where they existed — About uses
+  `plein-air-painter-niobrara-river.webp` (already the page's own hero
+  photo), Gallery uses `sunlit-riverside-valley-plein-air-oil-painting.webp`
+  (an actual festival-artist painting) instead of the generic festival
+  hero. The other 8 pages fall back to `hero-pleinair.jpg` — no other
+  real (non-placeholder) photo fit those pages specifically.
+- Verified via `npm run build` by inspecting the rendered
+  `.next/server/app/*.html` output directly: `/gallery` and `/tickets`
+  now render distinct `og:title`/`og:description`/`og:image` (resolved to
+  absolute URLs via `metadataBase`) instead of the homepage's, and
+  `og:site_name`/`og:locale` are still present.
+- `npm run lint`, `npm test`, and `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
