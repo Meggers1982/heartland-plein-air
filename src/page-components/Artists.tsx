@@ -9,9 +9,30 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
-import { artists, awardsJudge, placeholderHeadshot } from "@/data/artists";
+import { artists, awardsJudge, placeholderHeadshot, type Artist } from "@/data/artists";
 import { setPageMeta } from "@/lib/meta";
-import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, SITE_URL } from "@/lib/schema";
+
+const toPersonSchema = (artist: Artist, jobTitle: string) => {
+  const sameAs = [artist.website, artist.instagram, artist.facebook].filter(
+    (url): url is string => !!url,
+  );
+  return {
+    "@type": "Person",
+    name: artist.name,
+    jobTitle,
+    image: `${SITE_URL}${artist.src}`,
+    description: artist.bio?.split("\n\n").join(" "),
+    homeLocation: { "@type": "Place", name: artist.location },
+    ...(artist.website ? { url: artist.website } : {}),
+    ...(sameAs.length > 0 ? { sameAs } : {}),
+  };
+};
+
+const artistPersonSchema = [
+  ...artists.map((artist) => toPersonSchema(artist, "Plein Air Artist")),
+  toPersonSchema(awardsJudge, "Judge of Awards"),
+];
 
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -29,7 +50,10 @@ const Artists = () => {
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@graph": [breadcrumbSchema([{ name: "Artists", path: "/artists" }])],
+          "@graph": [
+            breadcrumbSchema([{ name: "Artists", path: "/artists" }]),
+            ...artistPersonSchema,
+          ],
         }}
       />
       <SiteNav />
