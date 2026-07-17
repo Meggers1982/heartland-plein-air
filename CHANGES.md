@@ -1196,6 +1196,61 @@ Collector VIP Pass.
 
 ---
 
+## 2026-07-17 — Reception Ticket Also Surfaced in Meta/Schema/Schedule CTA
+
+Follow-up to the entry above: the $95 standalone reception ticket wasn't yet
+reflected outside the Tickets page content itself.
+
+- **`src/app/tickets/page.tsx`** and **`src/page-components/Tickets.tsx`**:
+  SEO/client meta descriptions now mention all three ticket options instead
+  of just the VIP Pass and lecture.
+- **`src/lib/schema.tsx`**: added a third `Offer` ($95) to `ticketOffers`,
+  which feeds the site-wide JSON-LD Event schema in `layout.tsx` — verified
+  via `npm run build` that the rendered `<script type="application/ld+json">`
+  on `/` includes all four offers (free, $125, $25, $95).
+- **`src/page-components/Schedule.tsx`**: the Sep 17 and Sep 18 schedule-day
+  cards had a shared "Included in the Collector VIP Pass →" link that
+  implied VIP-only. Added a `standaloneTicketCta` map so those two days now
+  mention the standalone option instead.
+- **`src/data/faq.ts`**: the "what's free vs. paid" overview answer now
+  mentions the $95 standalone reception ticket alongside the $25 lecture.
+
+---
+
+## 2026-07-17 — Second PayPal Button: Variable-Amount Sponsorship Payment
+
+Added an online payment option to `/sponsors`, mirroring the Open Division
+"Pay Your $30 Fee" pattern — but sponsorship levels are priced as ranges
+($100–$249 up to $5,000+), not one flat fee, so a single fixed-amount
+button (like Open Division's) wouldn't fit six different tiers.
+
+- **`src/data/sponsorTiers.ts`**: added a numeric `min` field to each tier
+  (100/250/500/1,000/2,500/5,000) alongside the existing display `price`
+  range string.
+- **New `src/components/SponsorPaymentForm.tsx`**: a tier `<select>` plus
+  an editable amount `<input type="number">`. Picking a tier sets the
+  amount to that tier's minimum; the amount field can then be edited freely
+  (e.g. for "$5,000 and over" or a custom figure) independent of the
+  dropdown. Renders `PayPalButton` and `MailCheckOption` side by side, both
+  driven by the same `amount` state — same two-column layout as Open
+  Division. Shows a prompt instead of the payment options when the amount
+  field is empty/invalid.
+- **`src/page-components/Sponsors.tsx`**: new "Already Committed? Pay Your
+  Sponsorship Online" card added below the sponsorship inquiry form,
+  rendering `SponsorPaymentForm`.
+- As with Open Division's PayPal button, there's no backend — the amount
+  charged is whatever the visitor's browser sends at click time, and
+  nothing enforces it matches the tier they selected. Same trust model as
+  the existing $30 Open Division fee, just more visible now that the
+  amount field is free-form.
+- Verified interactively via `npm run dev`: switching tiers updates the
+  amount and the "Mail a Check" copy; editing the amount directly still
+  updates the PayPal button's order amount; clearing the field hides both
+  payment options and shows a prompt instead. `npm run lint`, `npm test`,
+  and `npm run build` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

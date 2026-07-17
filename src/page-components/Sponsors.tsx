@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
+import SponsorPaymentForm from "@/components/SponsorPaymentForm";
 import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { sponsors } from "@/data/sponsors";
@@ -147,6 +148,15 @@ const Sponsors = () => {
                 successTitle="Inquiry sent"
                 successMessage="Thanks for your interest in sponsoring the festival — we'll follow up soon."
               />
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={280}>
+            <div className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
+              <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
+                Already Committed? Pay Your Sponsorship Online
+              </p>
+              <SponsorPaymentForm />
             </div>
           </AnimatedSection>
         </div>
