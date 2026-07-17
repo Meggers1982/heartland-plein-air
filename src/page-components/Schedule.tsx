@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { days, type Audience } from "@/data/schedule";
+import { festivalLocations } from "@/data/locations";
 
 type EventFilter = "all" | "public" | "ticketed" | "competitions";
 
@@ -87,6 +88,19 @@ const scheduleEventsSchema = days
     })),
   );
 
+const festivalLocationSchema = festivalLocations.map((loc) => ({
+  "@type": "Place",
+  name: loc.name,
+  description: loc.description,
+  address: loc.address,
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: loc.lat,
+    longitude: loc.lng,
+  },
+  ...(loc.websiteUrl ? { url: loc.websiteUrl } : {}),
+}));
+
 const Schedule = () => {
   const [eventFilter, setEventFilter] = useState<EventFilter>("all");
 
@@ -142,6 +156,7 @@ const Schedule = () => {
           "@graph": [
             breadcrumbSchema([{ name: "Schedule", path: "/schedule" }]),
             ...scheduleEventsSchema,
+            ...festivalLocationSchema,
           ],
         }}
       />
