@@ -40,7 +40,7 @@ export const categories: FaqCategory[] = [
         q: "Is there an admission fee?",
         featured: true,
         a: [
-          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collector VIP Pass ($125) gets you into the Collectors Preview Reception and Awards Presentation on September 18, priority seating at the Judge's Lecture on September 17, a private artist Meet & Greet on September 13, and priority seating at the live auction on September 19. Prefer just the lecture? A standalone Judge's Lecture ticket is available for $25. See the [Tickets page](/tickets) for details.",
+          "Watching artists paint throughout the week at outdoor locations across the metro is completely free, as is the Public Exhibition & Sale on September 19. The Collector VIP Pass ($125) gets you into the Collectors Preview Reception and Awards Presentation on September 18, priority seating at the Judge's Lecture on September 17, a private artist Meet & Greet on September 13, and priority seating at the live auction on September 19. Prefer a standalone ticket? The Judge's Lecture is $25 and the Collectors Preview Reception is $95. See the [Tickets page](/tickets) for details.",
         ],
       },
     ],
