@@ -54,7 +54,8 @@ function popupHtml(loc: FestivalLocation, dayFilter: string): string {
   return `
     <div style="font-family:'Source Sans 3',sans-serif;max-width:260px;padding:4px 2px;">
       <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#37484B;margin-bottom:2px;">${loc.name}</div>
-      <div style="font-size:12px;color:#692D4A;margin-bottom:2px;">${loc.address}</div>
+      <div style="font-size:12px;color:#692D4A;margin-bottom:6px;">${loc.address}</div>
+      <div style="font-size:12px;color:#37484B;margin-bottom:6px;">${loc.description}</div>
       ${loc.websiteUrl ? `<div style="margin-bottom:10px;"><a href="${loc.websiteUrl}" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:#C46A3B;font-weight:600;text-decoration:none;">Visit website</a></div>` : `<div style="margin-bottom:10px;"></div>`}
       <ul style="list-style:none;padding:0;margin:0 0 8px 0;font-size:13px;">${eventsHtml}</ul>
     </div>`;
@@ -294,6 +295,9 @@ const LocationsMap = () => {
                   >
                     <h3 className="font-display text-lg font-bold text-foreground">{loc.name}</h3>
                     <p className="mb-1 font-body text-xs text-muted-foreground">{loc.address}</p>
+                    <p className="mb-3 font-body text-sm leading-relaxed text-foreground/85">
+                      {loc.description}
+                    </p>
                     {loc.websiteUrl && (
                       <a
                         href={loc.websiteUrl}
