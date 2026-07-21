@@ -247,7 +247,9 @@ export const galleryArtists: GalleryArtist[] = [
     slug: "rick-delanty",
     medium: "oil-and-pastel",
     paintings: [
-      { filename: "rick-delanty-coastal-cliffs.webp", title: "Coastal Cliffs", alt: "plein air painting of ocean waves crashing against rugged coastal cliffs" },
+      { filename: "rick-delanty-beach-trail.webp", title: "Beach Trail", alt: "plein air painting of a sunlit coastal path along san clemente bluffs overlooking the ocean" },
+      { filename: "rick-delanty-dusks-gentle-touch.webp", title: "Dusk's Gentle Touch", alt: "plein air painting of trees silhouetted against a dusky purple sky over calm water" },
+      { filename: "rick-delanty-a-quiet-halleluia.webp", title: "A Quiet Halleluia", alt: "plein air painting of golden sunlight bursting through clouds over ocean waves" },
     ],
   },
 ];
