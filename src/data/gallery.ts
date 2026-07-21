@@ -82,6 +82,16 @@ export const galleryArtists: GalleryArtist[] = [
     ],
   },
   {
+    name: "Rick J. Delanty",
+    slug: "rick-delanty",
+    medium: "oil-and-pastel",
+    paintings: [
+      { filename: "rick-delanty-beach-trail.webp", title: "Beach Trail", alt: "plein air painting of a sunlit coastal path along san clemente bluffs overlooking the ocean" },
+      { filename: "rick-delanty-dusks-gentle-touch.webp", title: "Dusk's Gentle Touch", alt: "plein air painting of trees silhouetted against a dusky purple sky over calm water" },
+      { filename: "rick-delanty-a-quiet-halleluia.webp", title: "A Quiet Halleluia", alt: "plein air painting of golden sunlight bursting through clouds over ocean waves" },
+    ],
+  },
+  {
     name: "John Evans",
     slug: "john-evans",
     medium: "oil-and-pastel",
@@ -240,16 +250,6 @@ export const galleryArtists: GalleryArtist[] = [
       { filename: "stephen-wysocki-boat-at-the-dock.webp", title: "Boat at the Dock", alt: "plein air painting of small boat floating beneath a weathered wooden dock" },
       { filename: "stephen-wysocki-lakeside-pines.webp", title: "Lakeside Pines", alt: "plein air painting of calm lakeside with tall pine trees and soft clouds" },
       { filename: "stephen-wysocki-vineyard-landscape.webp", title: "Vineyard Landscape", alt: "plein air painting of colorful vineyard field with trees and lavender hills" },
-    ],
-  },
-  {
-    name: "Rick Delanty",
-    slug: "rick-delanty",
-    medium: "oil-and-pastel",
-    paintings: [
-      { filename: "rick-delanty-beach-trail.webp", title: "Beach Trail", alt: "plein air painting of a sunlit coastal path along san clemente bluffs overlooking the ocean" },
-      { filename: "rick-delanty-dusks-gentle-touch.webp", title: "Dusk's Gentle Touch", alt: "plein air painting of trees silhouetted against a dusky purple sky over calm water" },
-      { filename: "rick-delanty-a-quiet-halleluia.webp", title: "A Quiet Halleluia", alt: "plein air painting of golden sunlight bursting through clouds over ocean waves" },
     ],
   },
 ];
