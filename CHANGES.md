@@ -1421,22 +1421,28 @@ Filled in the two with real, accurate data already available; skipped
 
 ---
 
-## 2026-07-21 — Replaced Rick Delanty's Gallery Painting
+## 2026-07-21 — Replaced Rick J. Delanty's Gallery Painting, Gallery Sort Order
 
-Swapped the single placeholder painting under Rick Delanty (Awards Judge)
-on the Gallery page for three real pieces supplied by the user.
+Swapped the single placeholder painting under Rick J. Delanty (Awards
+Judge) on the Gallery page for three real pieces supplied by the user;
+also alphabetized the gallery artist order and standardized his display
+name.
 
 - Converted 3 source JPEGs to WebP (`quality=90`) and added to
   `public/artwork/`: `rick-delanty-beach-trail.webp`,
   `rick-delanty-dusks-gentle-touch.webp`,
   `rick-delanty-a-quiet-halleluia.webp`. Removed the old placeholder
   `rick-delanty-coastal-cliffs.webp`.
-- **`src/data/gallery.ts`**: Rick Delanty's `paintings` array now lists
+- **`src/data/gallery.ts`**: Rick J. Delanty's `paintings` array now lists
   "Beach Trail," "Dusk's Gentle Touch," and "A Quiet Halleluia" with new
   alt text, replacing the single "Coastal Cliffs" placeholder entry.
+  Entry moved into alphabetical (by last name) position between Larry
+  DeGraff and John Evans — it had been appended at the end of the array
+  instead of sorted in. `name` field changed from "Rick Delanty" to
+  "Rick J. Delanty" to match how he's referred to everywhere else on the
+  site (Artists page, Schedule, FAQ).
 - Verified in the browser at `/gallery`: all three thumbnails render under
-  the Rick Delanty section and the lightbox shows correct title/image for
-  each.
+  his section and the lightbox shows correct title/image for each.
 - `npm run lint` and `npm test` pass.
 
 ---
