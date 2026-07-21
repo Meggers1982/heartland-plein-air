@@ -1421,6 +1421,26 @@ Filled in the two with real, accurate data already available; skipped
 
 ---
 
+## 2026-07-21 — Replaced Rick Delanty's Gallery Painting
+
+Swapped the single placeholder painting under Rick Delanty (Awards Judge)
+on the Gallery page for three real pieces supplied by the user.
+
+- Converted 3 source JPEGs to WebP (`quality=90`) and added to
+  `public/artwork/`: `rick-delanty-beach-trail.webp`,
+  `rick-delanty-dusks-gentle-touch.webp`,
+  `rick-delanty-a-quiet-halleluia.webp`. Removed the old placeholder
+  `rick-delanty-coastal-cliffs.webp`.
+- **`src/data/gallery.ts`**: Rick Delanty's `paintings` array now lists
+  "Beach Trail," "Dusk's Gentle Touch," and "A Quiet Halleluia" with new
+  alt text, replacing the single "Coastal Cliffs" placeholder entry.
+- Verified in the browser at `/gallery`: all three thumbnails render under
+  the Rick Delanty section and the lightbox shows correct title/image for
+  each.
+- `npm run lint` and `npm test` pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
