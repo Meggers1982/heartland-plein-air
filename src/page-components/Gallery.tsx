@@ -60,10 +60,19 @@ const Gallery = () => {
     return () => { document.body.style.overflow = ""; };
   }, [openIndex]);
 
+  const GALLERY_STICKY_BAR_TOP = 72;
+
   const scrollToArtist = (slug: string) => {
-    const el = document.getElementById(slug);
-    if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - 112;
+    const section = document.getElementById(slug);
+    if (!section) return;
+    const heading = section.querySelector("h2") ?? section;
+    const stickyBar = document.getElementById("gallery-jump-bar");
+    // Use offsetHeight (layout height, stable whether or not the bar is
+    // currently "stuck") rather than getBoundingClientRect(), which
+    // reflects the bar's natural in-flow position until scroll passes it.
+    const barHeight = stickyBar?.offsetHeight ?? 40;
+    const offset = GALLERY_STICKY_BAR_TOP + barHeight + 20;
+    const top = heading.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: "smooth" });
   };
 
@@ -110,7 +119,7 @@ const Gallery = () => {
         </section>
 
         {/* Medium filter tabs + artist jump links — sticky below nav */}
-        <div className="sticky top-[72px] z-40 border-b border-border bg-background/95 backdrop-blur-sm">
+        <div id="gallery-jump-bar" className="sticky top-[72px] z-40 border-b border-border bg-background/95 backdrop-blur-sm">
           <div className="mx-auto max-w-6xl px-6 pt-3 pb-2">
             {/* Medium tabs */}
             <div className="mb-2 flex gap-2">

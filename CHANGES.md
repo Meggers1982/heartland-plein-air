@@ -1447,6 +1447,30 @@ name.
 
 ---
 
+## 2026-07-21 — Fixed Gallery Jump-Link Scroll Offset
+
+Clicking an artist chip in the Gallery's sticky filter bar was landing a
+bit past each artist's `h2`, leaving the heading partly hidden behind the
+sticky bar. The hardcoded `-112` scroll offset in `scrollToArtist()`
+(`src/page-components/Gallery.tsx`) no longer matched the sticky bar's
+real height once it wrapped to 3 lines of chips (grew further with "Rick
+J. Delanty" added).
+
+- `scrollToArtist()` now computes the offset dynamically from the sticky
+  bar's actual `offsetHeight` (layout height, unaffected by whether the
+  bar is currently "stuck") plus its known `top-[72px]` sticky offset and
+  a 20px gap, instead of a stale hardcoded number.
+- Also targets each section's `h2` directly (was targeting the section
+  element, which has extra top padding before the heading).
+- Added `id="gallery-jump-bar"` to the sticky filter container so the
+  offset can be measured live.
+- Verified via direct DOM measurement (both from page-top and mid-scroll
+  starting positions) that each `h2` now lands a clean 20px below the
+  sticky bar with no overlap.
+- `npm run lint` and `npm test` pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
