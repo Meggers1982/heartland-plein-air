@@ -34,10 +34,10 @@ const FestivalContactInfo = ({ headingLevel = "h3" }: FestivalContactInfoProps) 
         <div className="flex items-center gap-3">
           <Mail className="h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
           <a
-            href="mailto:ralstoncreativedistrict@gmail.com"
+            href="mailto:info@ralstonarts.org"
             className="transition-colors hover:text-primary"
           >
-            ralstoncreativedistrict@gmail.com
+            info@ralstonarts.org
           </a>
         </div>
       </div>
@@ -48,7 +48,7 @@ const FestivalContactInfo = ({ headingLevel = "h3" }: FestivalContactInfoProps) 
         </p>
         <div className="flex gap-3">
           <a
-            href="https://www.facebook.com/RalstonArts"
+            href="https://www.facebook.com/RalstonArts/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
@@ -57,7 +57,7 @@ const FestivalContactInfo = ({ headingLevel = "h3" }: FestivalContactInfoProps) 
             <Facebook className="h-4 w-4" />
           </a>
           <a
-            href="https://www.instagram.com/ralstonarts"
+            href="https://www.instagram.com/ralstonarts/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"

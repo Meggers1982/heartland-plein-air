@@ -183,10 +183,10 @@ const Advertising = () => {
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
                     Email your print-ready ad to{" "}
                     <a
-                      href="mailto:ralstoncreativedistrict@gmail.com"
+                      href="mailto:info@ralstonarts.org"
                       className="font-semibold text-primary hover:underline"
                     >
-                      ralstoncreativedistrict@gmail.com
+                      info@ralstonarts.org
                     </a>
                     .
                   </p>
@@ -218,10 +218,10 @@ const Advertising = () => {
                   <p className="font-body text-base leading-relaxed text-muted-foreground">
                     The July 17, 2026 deadline has passed and we're no longer accepting new ad reservations for this year's catalog. Questions? Email{" "}
                     <a
-                      href="mailto:ralstoncreativedistrict@gmail.com"
+                      href="mailto:info@ralstonarts.org"
                       className="font-semibold text-primary hover:underline"
                     >
-                      ralstoncreativedistrict@gmail.com
+                      info@ralstonarts.org
                     </a>
                     .
                   </p>

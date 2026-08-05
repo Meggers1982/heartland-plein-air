@@ -94,7 +94,7 @@ const PayPalButton = ({ amount, description }: PayPalButtonProps) => {
       <div ref={containerRef} className="mx-auto max-w-xs" />
       {status === "error" && (
         <p className="mt-2 text-center font-body text-xs" style={{ color: "hsl(var(--destructive))" }}>
-          Something went wrong with PayPal. Please try again or email ralstoncreativedistrict@gmail.com.
+          Something went wrong with PayPal. Please try again or email info@ralstonarts.org.
         </p>
       )}
     </div>

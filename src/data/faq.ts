@@ -154,7 +154,7 @@ export const categories: FaqCategory[] = [
         q: "Are the venues accessible?",
         a: [
           "The outdoor painting locations across the metro vary in terrain — parks, sidewalks, and urban streetscapes — and accessibility will differ by site. [The Granary](https://atthegranary.com/) at 7401 Main Street in Ralston hosts both the Collectors Preview Reception and Awards Presentation and Public Exhibition.",
-          "For specific accessibility questions about any venue, reach out to the festival organizers at ralstoncreativedistrict@gmail.com and we'll do our best to help you plan your visit.",
+          "For specific accessibility questions about any venue, reach out to the festival organizers at info@ralstonarts.org and we'll do our best to help you plan your visit.",
         ],
       },
       {
@@ -230,7 +230,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How can I become a festival sponsor?",
         a: [
-          "Sponsorship inquiries can be submitted through the [Contact page](/contact), and sponsorship levels and benefits are listed on the [Sponsors page](/sponsors). For a direct conversation, reach the Ralston HINGE Creative District at ralstoncreativedistrict@gmail.com, attn. Debra Joy Groesser.",
+          "Sponsorship inquiries can be submitted through the [Contact page](/contact), and sponsorship levels and benefits are listed on the [Sponsors page](/sponsors). For a direct conversation, reach the Ralston HINGE Creative District at info@ralstonarts.org, attn. Debra Joy Groesser.",
         ],
       },
       {
