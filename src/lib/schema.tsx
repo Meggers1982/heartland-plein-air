@@ -16,9 +16,10 @@ export const organizationSchema = {
   alternateName: "Heartland Plein Air Arts Festival",
   url: SITE_URL,
   telephone: "+14025926552",
-  email: "ralstoncreativedistrict@gmail.com",
+  email: "info@ralstonarts.org",
   foundingDate: "2021",
   nonprofitStatus: "Nonprofit501c3",
+  taxID: "41-5038534",
   address: {
     "@type": "PostalAddress",
     streetAddress: "5615 S. 77th St",

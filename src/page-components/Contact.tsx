@@ -100,7 +100,7 @@ const Contact = () => {
       router.push("/contact/success");
     } catch {
       setSubmitError(
-        "Something went wrong sending your message. Please try again, or email us directly at ralstoncreativedistrict@gmail.com.",
+        "Something went wrong sending your message. Please try again, or email us directly at info@ralstonarts.org.",
       );
     } finally {
       setSubmitting(false);

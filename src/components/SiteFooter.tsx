@@ -168,7 +168,7 @@ const SiteFooter = () => {
             <FooterSignup />
             <div className="mt-5 flex gap-3">
               <a
-                href="https://www.facebook.com/RalstonArts"
+                href="https://www.facebook.com/RalstonArts/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -177,7 +177,7 @@ const SiteFooter = () => {
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href="https://www.instagram.com/ralstonarts"
+                href="https://www.instagram.com/ralstonarts/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -236,7 +236,8 @@ const SiteFooter = () => {
           </p>
           <div className="flex items-center gap-2">
             <p className="font-body text-xs text-foreground/80">
-              Presented by Ralston HINGE Creative District.
+              Presented by the Ralston HINGE Creative District, a registered
+              501(c)(3) nonprofit. Charity ID (EIN): 41-5038534.
             </p>
             <a
               href="https://ralstonarts.org"

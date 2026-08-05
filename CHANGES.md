@@ -1471,6 +1471,37 @@ J. Delanty" added).
 
 ---
 
+## 2026-08-04 — Google Workspace Nonprofit Approval: Charity ID, Domain Email, Social Links
+
+Three transparency/contact updates requested by Google before Workspace
+(nonprofit) approval.
+
+- **Charity ID now displayed site-wide** — the footer's "Presented by" line
+  (`src/components/SiteFooter.tsx`) now reads "Presented by the Ralston HINGE
+  Creative District, a registered 501(c)(3) nonprofit. Charity ID (EIN):
+  41-5038534." Since the footer renders on every page, the Charity ID is now
+  explicitly shown across the whole site. Also added `taxID: "41-5038534"` to
+  the Organization JSON-LD in `src/lib/schema.tsx` (alongside the existing
+  `nonprofitStatus`).
+- **Generic email replaced with domain email** — every user-facing instance of
+  `ralstoncreativedistrict@gmail.com` swapped to `info@ralstonarts.org`:
+  `FestivalContactInfo.tsx` (Festival Office contact + mailto), `schema.tsx`
+  (Organization email), `faq.ts` (accessibility + sponsorship answers),
+  `Contact.tsx` / `InquiryForm.tsx` / `PayPalButton.tsx` (form-failure fallback
+  messages), and `Advertising.tsx` / `AdvertisingSuccess.tsx` (ad-artwork
+  contact). The unrelated `@heartlandpleinair` calendar UID in `lib/ics.ts` was
+  left untouched (it is not an email).
+- **Social icons normalized to canonical URLs** — Facebook and Instagram links
+  in `SiteFooter.tsx` and `FestivalContactInfo.tsx` now use the trailing-slash
+  canonical form (`facebook.com/RalstonArts/`, `instagram.com/ralstonarts/`) to
+  avoid the redirect an automated reviewer can flag. Both were verified live and
+  resolve to the correct official Ralston HINGE Creative District profiles — the
+  targets themselves were already correct; the reviewer likely tested a stale
+  deploy. Redeploying with these changes should clear the flag.
+- `npm run lint`, `npm run build`, and `npm test` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
