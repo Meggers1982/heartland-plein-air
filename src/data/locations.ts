@@ -71,9 +71,9 @@ export const festivalLocations: FestivalLocation[] = [
   {
     key: "benson",
     name: "Benson Creative District",
-    address: "62nd & Maple, Omaha, NE",
-    lat: 41.2871,
-    lng: -95.9750,
+    address: "60th & Maple, Omaha, NE",
+    lat: 41.2851,
+    lng: -96.0050,
     description:
       "Omaha's Benson Creative District hosts a midweek Lunch Break Paintout, with festival artists painting throughout the neighborhood.",
     events: [
@@ -103,7 +103,7 @@ export const festivalLocations: FestivalLocation[] = [
     websiteUrl: "https://atthegranary.com/",
     events: [
       { dayId: "day-sep-18", dayLabel: "Fri · Sep 18", time: "5:30 – 8 PM", name: "Collectors Preview Reception and Awards Presentation" },
-      { dayId: "day-sep-19", dayLabel: "Sat · Sep 19", time: "11 AM – 5 PM", name: "Public Exhibition & Sale" },
+      { dayId: "day-sep-19", dayLabel: "Sat · Sep 19", time: "11 AM – 4 PM", name: "Public Exhibition & Sale" },
       { dayId: "day-sep-19", dayLabel: "Sat · Sep 19", time: "Noon – 1 PM", name: "Live Auction — Quick Paint Pieces" },
     ],
   },

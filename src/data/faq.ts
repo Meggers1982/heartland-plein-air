@@ -132,7 +132,7 @@ export const categories: FaqCategory[] = [
           "September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
           "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free).",
           "September 18 — Collectors Preview Reception and Awards Presentation at [the Granary](https://atthegranary.com/), Ralston (5:30–8 PM, ticketed).",
-          "September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at [the Granary](https://atthegranary.com/) (11 AM–5 PM, free); Live Auction of Quick Paint Pieces at [Granary Green](https://atthegranary.com/) (Noon–1 PM).",
+          "September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at [the Granary](https://atthegranary.com/) (11 AM–4 PM, free); Live Auction of Quick Paint Pieces at [Granary Green](https://atthegranary.com/) (Noon–1 PM).",
           "September 19–October 2 — Online art sale.",
           "See the [Schedule page](/schedule) for the full day-by-day itinerary and a map of locations.",
         ],
@@ -185,7 +185,7 @@ export const categories: FaqCategory[] = [
         q: "How can I purchase a painting?",
         featured: true,
         a: [
-          "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at [the Granary](https://atthegranary.com/), 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–5 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
+          "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at [the Granary](https://atthegranary.com/), 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–4 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
           "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },

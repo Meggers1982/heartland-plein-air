@@ -209,7 +209,7 @@ export const days: ScheduleDay[] = [
         address: "Main St. & 77th St., Ralston, NE",
       },
       {
-        time: "11 AM – 5 PM",
+        time: "11 AM – 4 PM",
         name: "Public Exhibition & Sale",
         location: "Venues at the Granary",
         address: "7401 Main St., Ralston, NE",
@@ -305,8 +305,8 @@ export const homepageHighlights: HomepageHighlight[] = [
   {
     dayId: "day-sep-19",
     title: "Quick Paint & Public Exhibition",
-    description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–5 PM. Live auction of Quick Paint pieces Noon–1 PM at [Granary Green](https://atthegranary.com/).",
-    time: "9 AM – 5 PM",
+    description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–4 PM. Live auction of Quick Paint pieces Noon–1 PM at [Granary Green](https://atthegranary.com/).",
+    time: "9 AM – 4 PM",
     location: "Ralston Hinge Creative District + Venues at the Granary",
   },
   {

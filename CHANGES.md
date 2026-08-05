@@ -1502,6 +1502,28 @@ Three transparency/contact updates requested by Google before Workspace
 
 ---
 
+## 2026-08-04 — Benson Map Pin Corrected + Public Exhibition Now Ends 4 PM
+
+Two client-requested content fixes.
+
+- **Benson Creative District map pin moved to 60th & Maple** — the stored
+  coordinates (`41.2871, -95.9750`) were reverse-geocoding to *4125 Spencer
+  Street* (42nd & Spencer), and the address label read "62nd & Maple" — neither
+  matched. Updated `src/data/locations.ts` to `address: "60th & Maple, Omaha,
+  NE"` with corrected coordinates `41.2851, -96.0050` (geocoded from 6006 Maple
+  St, Benson). The pin now lands in the Benson business district as the client
+  requested.
+- **Public Exhibition & Sale now ends at 4 PM** (was 5 PM), Saturday Sep 19.
+  Updated every reference: the schedule event and day summary/span
+  (`src/data/schedule.ts` — "11 AM – 4 PM" and day span "9 AM – 4 PM"), the
+  Granary location listing (`src/data/locations.ts`), two FAQ answers
+  (`src/data/faq.ts`), and two Tickets-page mentions (`Tickets.tsx`). The .ics
+  calendar export derives its times from these strings (`parseTimeRange`), so it
+  updates automatically — no hardcoded end time existed elsewhere.
+- `npm run lint`, `npm run build`, and `npm test` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms

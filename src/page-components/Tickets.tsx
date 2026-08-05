@@ -32,7 +32,7 @@ const passBenefits = [
     day: "Saturday, September 19",
     title: "Live Auction Priority Seating",
     description:
-      "The auction begins at noon following the Quick Paint in downtown Ralston and runs approximately one hour. The public reception runs 11 AM–5 PM.",
+      "The auction begins at noon following the Quick Paint in downtown Ralston and runs approximately one hour. The public reception runs 11 AM–4 PM.",
   },
 ];
 
@@ -210,7 +210,7 @@ const Tickets = () => {
               Public Exhibition & Sale
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-              Browse and purchase paintings made during festival week, Saturday, September 19, 11 AM–5 PM at{" "}
+              Browse and purchase paintings made during festival week, Saturday, September 19, 11 AM–4 PM at{" "}
               <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
                 the Granary
               </a>{" "}
