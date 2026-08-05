@@ -30,8 +30,8 @@ export const organizationSchema = {
   },
   sameAs: [
     "https://ralstonarts.org",
-    "https://www.facebook.com/RalstonArts",
-    "https://www.instagram.com/ralstonarts",
+    "https://www.facebook.com/RalstonArts/",
+    "https://www.instagram.com/ralstonarts/",
   ],
 };
 
