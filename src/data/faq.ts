@@ -140,7 +140,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Is the festival family-friendly?",
         a: [
-          "The Heartland Plein Air Festival is welcoming to all ages. Two dedicated youth events take place: the Youth Paintout on Saturday, September 12 at Wildwood Park (10 AM–Noon, pre-registration required) and private mentorship sessions for preselected youth on Wednesday, September 16. The Youth Art Show Reception at the Baright Library on the evening of September 12 is open to everyone. The Public Exhibition & Sale on September 19 is free, and watching artists paint at outdoor locations across the metro is a casual, come-and-go experience that works well for families.",
+          "The Heartland Plein Air Festival is welcoming to all ages. Two dedicated youth events take place: the Youth Paintout on Saturday, September 12 at Wildwood Park (10 AM–Noon, [pre-registration required](/tickets#youth-paintout)) and private mentorship sessions for preselected youth on Wednesday, September 16. The Youth Art Show Reception at the Baright Library on the evening of September 12 is open to everyone. The Public Exhibition & Sale on September 19 is free, and watching artists paint at outdoor locations across the metro is a casual, come-and-go experience that works well for families.",
         ],
       },
       {

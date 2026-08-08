@@ -1630,6 +1630,27 @@ four complete tiers driven by data.
   countdown ribbon. Verified all four land with the section eyebrow ~113px
   below the fixed chrome.
 
+- **Youth Paintout registration form** added to the Tickets page
+  (`src/components/YouthPaintoutForm.tsx`, posting to Formspree `xzepdkyb`).
+  Collects the youth's first name, last name, phone, and email — all required,
+  Zod-validated client-side, with the same input/label/error styling as
+  `InquiryForm`. It's a separate component rather than a reuse of `InquiryForm`
+  because that one is built around name/organization/level/message and has no
+  first/last split.
+  - Confirms inline (no redirect) rather than routing to a `/success` page like
+    the other four forms — the registration is short and keeping the user beside
+    the other ticket options reads better. Easy to switch to a success route if
+    parity matters.
+  - Submissions include an `event` field ("Youth Paintout — Saturday, September
+    12") so the Formspree inbox is self-describing if this endpoint is ever
+    reused.
+  - Added as a fifth card in the ticket jump nav (grid went 4-up to 5-up).
+  - The FAQ answer that says the Youth Paintout requires pre-registration now
+    links to it (`/tickets#youth-paintout`). The FAQ JSON-LD already runs
+    answers through `stripLinks`, so the structured data is unaffected.
+  - Verified client-side validation fires on all four fields without contacting
+    Formspree; **no live test submission was sent.**
+
 **Testing note for future sessions:** scroll-reveal (`AnimatedSection` /
 `useInView`) does not fire in a *background* browser tab — Chrome suspends
 IntersectionObserver callbacks when `document.visibilityState === "hidden"`.
@@ -1643,24 +1664,30 @@ tab — so use `behavior: "auto"` when verifying jump-link offsets.
 
 ## Known follow-ups (not code — need your action)
 
-1. **Activate Formspree forms** — submit one test through each of the 5 forms
-   listed in §8 and confirm via the email Formspree sends.
-2. **Google Maps referrer allowlist** — add production/preview domains in
+1. **Activate Formspree forms** — submit one test through each of the forms
+   listed in §8 and confirm via the email Formspree sends. This now includes the
+   new Youth Paintout form (`xzepdkyb`), which has never had a live submission.
+2. **Decide whether the Youth Paintout form needs a parent/guardian field.** It
+   currently collects a minor's name, phone, and email and nothing else, as
+   specified. Most youth-program registrations also capture a parent or guardian
+   name and a consent/photo-release acknowledgement — worth a look before the
+   form goes live.
+3. **Google Maps referrer allowlist** — add production/preview domains in
    Google Cloud Console (see §9), and confirm the key is restricted to
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Two Silver sponsor logos still missing** — Pivot at the Hinge and Debra Joy
+4. **Two Silver sponsor logos still missing** — Pivot at the Hinge and Debra Joy
    Groesser Fine Art render as plain names
    until artwork arrives. To add one: drop the WebP in
    `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
    `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
-4. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
+5. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
    the enlarged Grant Partners row — its content is 863×402, and the slot wants
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
    Effectively invisible on a line-art mark, but it's the only one under 1.0. A
    larger source file from the foundation would close it.
-5. One lower-priority item flagged during the QA sweep but intentionally
+6. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,

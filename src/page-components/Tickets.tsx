@@ -7,6 +7,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
+import YouthPaintoutForm from "@/components/YouthPaintoutForm";
 import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
@@ -43,6 +44,7 @@ const ticketOptions = [
   { id: "judges-lecture", name: "Judge's Lecture Only", price: "$25" },
   { id: "collectors-preview-reception", name: "Collectors Preview Reception", price: "$95" },
   { id: "public-exhibition-sale", name: "Public Exhibition & Sale", price: "Free" },
+  { id: "youth-paintout", name: "Youth Paintout", price: "Free" },
 ];
 
 const Tickets = () => {
@@ -90,7 +92,7 @@ const Tickets = () => {
       {/* Jump links to each ticket type */}
       <nav aria-label="Ticket options" className="border-b border-border bg-card/60 py-8">
         <div className="mx-auto max-w-4xl px-6">
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
             {ticketOptions.map((t) => (
               <a
                 key={t.id}
@@ -268,6 +270,36 @@ const Tickets = () => {
             >
               RSVP — Free
             </a>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <BrushStrokeDivider />
+
+      {/* Youth Paintout registration */}
+      <section id="youth-paintout" className="scroll-mt-40 bg-secondary/40 py-20">
+        <div className="mx-auto max-w-3xl px-6">
+          <AnimatedSection>
+            <div className="text-center">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Free · Pre-Registration Required
+              </p>
+              <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
+                Youth Paintout
+              </h2>
+              <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
+                Young artists take their easels outdoors for a morning of open-air painting, Saturday, September 12, 10 AM–Noon at Wildwood Park (78th &amp; Ralston Ave., Ralston). Work created that morning is celebrated at the Youth Art Show Reception that evening.
+              </p>
+              <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
+                Free
+              </p>
+            </div>
+            <div className="rounded-lg border border-border bg-card p-8 md:p-12">
+              <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
+                Register for the Youth Paintout
+              </p>
+              <YouthPaintoutForm />
+            </div>
           </AnimatedSection>
         </div>
       </section>
