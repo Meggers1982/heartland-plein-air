@@ -131,3 +131,45 @@
     text-shadow: 0 2px 20px hsla(194, 16%, 10%, 0.6);
   }
 }
+
+/* Printing — used by the "Print this page" action on the Youth Paintout
+   confirmation, so a parent can stick the day-of instructions on the fridge.
+   Strips site chrome and forces dark-on-white so the cream/ink theme doesn't
+   burn through a colour cartridge. */
+@media print {
+  nav,
+  footer,
+  #newsletter {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Cards and section bands lose their fills; the reveal animation is skipped
+     so nothing prints stuck at opacity 0. */
+  section,
+  header,
+  article,
+  .bg-card,
+  .bg-foreground,
+  .bg-secondary\/40,
+  .bg-secondary\/50 {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  .transition-all {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+}
