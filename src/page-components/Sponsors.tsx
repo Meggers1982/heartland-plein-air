@@ -109,7 +109,7 @@ const Sponsors = () => {
                 Sponsoring the Heartland Plein Air Festival puts your organization alongside nationally recognized artists and a growing collector community. Choose the level that fits — you'll be recognized in signage, social media, advertising, and the show catalog as noted below.
               </p>
               <a
-                href="#grant-partners"
+                href="#our-sponsors"
                 className="mb-14 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
               >
                 See the 2026 Sponsors →
@@ -224,7 +224,9 @@ const Sponsors = () => {
       <section className="py-20">
         <div className="mx-auto max-w-6xl px-6">
           <AnimatedSection>
-            <div className="max-w-3xl">
+            {/* scroll-mt clears the fixed nav + countdown ribbon (~157px) so
+                the "Thank You" eyebrow isn't tucked under them on jump. */}
+            <div id="our-sponsors" className="max-w-3xl scroll-mt-48">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Thank You
               </p>

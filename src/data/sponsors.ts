@@ -158,7 +158,11 @@ export const sponsorLevels = [
         url: "https://southoroofing.com/",
       },
       {
+        // Their logo only exists as cream type on a dark plate — there is no
+        // dark-on-light version, so it keeps its own background.
         name: "Lovely Brewing Co.",
+        logo: "/assets/sponsors/lovely-brewing.webp",
+        alt: "Lovely Brewing Co. logo — Established 2025, Ralston, Nebraska",
         url: "https://www.lovelybrewco.com/",
       },
     ],
