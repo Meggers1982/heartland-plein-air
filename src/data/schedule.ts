@@ -283,6 +283,8 @@ export const homepageHighlights: HomepageHighlight[] = [
     sponsorLogo: "/assets/sponsors/hy-vee.webp",
     sponsorAlt: "hy-vee logo",
     sponsorUrl: "https://www.hy-vee.com/",
+    ticketHref: "/tickets#youth-art-show-reception",
+    ticketLabel: "Free — no ticket needed →",
   },
   {
     dayId: "day-sep-13",
