@@ -143,6 +143,8 @@ export const sponsorLevels = [
       },
       {
         name: "eCreamery",
+        logo: "/assets/sponsors/ecreamery.webp",
+        alt: "eCreamery Ice Cream logo",
         url: "https://ecreamery.com/",
       },
       {

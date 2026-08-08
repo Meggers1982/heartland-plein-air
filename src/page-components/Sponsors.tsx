@@ -15,18 +15,21 @@ import { sponsors, sponsorLevels } from "@/data/sponsors";
 import { sponsorTiers } from "@/data/sponsorTiers";
 
 // Logo size steps down by level — Platinum reads largest, Bronze is name-only.
+// Column count matters as much as cell height: several logos are very wide
+// (United Seeds is ~13:1), so a narrow column caps their width and shrinks them
+// well below the cell height. Keeping columns few keeps every mark readable.
 const levelLayout = {
   "platinum-sponsors": {
     grid: "sm:grid-cols-2",
-    cell: "h-32 md:h-40",
+    cell: "h-44 md:h-56",
   },
   "gold-sponsors": {
-    grid: "sm:grid-cols-2 lg:grid-cols-4",
-    cell: "h-24 md:h-28",
+    grid: "sm:grid-cols-2",
+    cell: "h-36 md:h-44",
   },
   "silver-sponsors": {
-    grid: "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
-    cell: "h-20 md:h-24",
+    grid: "sm:grid-cols-2 lg:grid-cols-3",
+    cell: "h-32 md:h-40",
   },
   "bronze-sponsors": {
     grid: "sm:grid-cols-2 lg:grid-cols-3",
@@ -219,7 +222,7 @@ const Sponsors = () => {
 
       {/* Sponsors */}
       <section className="py-20">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-6xl px-6">
           <AnimatedSection>
             <div className="max-w-3xl">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">

@@ -1539,8 +1539,13 @@ four complete tiers driven by data.
   tiered sponsors reuse logos already in `public/assets/`: Art of the West
   (Platinum) and Benson Creative District (Silver).
 - **`Sponsors.tsx` renders the tiers** from a `levelLayout` map that steps logo
-  size down by level — Platinum `h-32/h-40`, Gold `h-24/h-28`, Silver
-  `h-20/h-24` — so Platinum reads largest, as the sponsor agreements promise.
+  size down by level — Platinum `h-44/h-56`, Gold `h-36/h-44`, Silver
+  `h-32/h-40` — so Platinum reads largest, as the sponsor agreements promise.
+  Column count is deliberately low (Platinum and Gold 2-up, Silver 3-up at
+  `lg`): several marks are very wide (United Seeds is ~13:1), and in a narrow
+  column the width cap shrinks them far below the cell height, which is what
+  made the first pass unreadable. Transparent margins were also trimmed off
+  every logo so each fills its cell.
   Logos sit directly on the cream page background with no card or border,
   matching the Grant Partners grid above. Each links to the sponsor's site in a
   new tab.
@@ -1569,8 +1574,8 @@ four complete tiers driven by data.
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Four Silver sponsor logos still missing** — Pivot at the Hinge, eCreamery,
-   Debra Joy Groesser Fine Art, and Lovely Brewing Co. render as name cards
+3. **Three Silver sponsor logos still missing** — Pivot at the Hinge, Debra Joy
+   Groesser Fine Art, and Lovely Brewing Co. render as plain names
    until artwork arrives. To add one: drop the WebP in
    `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
    `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
