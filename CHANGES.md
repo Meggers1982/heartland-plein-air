@@ -1619,12 +1619,25 @@ four complete tiers driven by data.
   confirmed `"5 – 6:30 PM"` parses to 17:00–18:30 (the start borrows "PM" from
   the end token).
 
+- **Tickets page jump links.** A four-up nav sits directly under the hero, one
+  card per ticket type on the page — Collector VIP Pass ($125), Judge's Lecture
+  Only ($25), Collectors Preview Reception ($95), Public Exhibition & Sale
+  (Free) — each showing name and price. Follows the `ScheduleJumpNav` pattern
+  (smooth scroll, `history.replaceState` so the URL is shareable) but is inline
+  in `Tickets.tsx` alongside the existing `passBenefits` array rather than a
+  separate component, since it is page-specific. The four sections gained ids
+  and `scroll-mt-40`; the handler offsets by 150px to clear the fixed nav +
+  countdown ribbon. Verified all four land with the section eyebrow ~113px
+  below the fixed chrome.
+
 **Testing note for future sessions:** scroll-reveal (`AnimatedSection` /
 `useInView`) does not fire in a *background* browser tab — Chrome suspends
 IntersectionObserver callbacks when `document.visibilityState === "hidden"`.
 Automated screenshots of this site will come back blank unless the tab is
 foregrounded or the `opacity-0`/`translate-y-10` classes are stripped first.
-This is a harness artifact, not a site bug.
+This is a harness artifact, not a site bug. Smooth scrolling is suppressed the
+same way — `window.scrollTo({behavior: "smooth"})` silently no-ops in a hidden
+tab — so use `behavior: "auto"` when verifying jump-link offsets.
 
 ---
 
