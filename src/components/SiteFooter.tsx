@@ -122,7 +122,7 @@ const SiteFooter = () => {
             >
               <img
                 src="/assets/heartland-logo.png"
-                alt="Heartland Plein Air Festival sunset artist logo"
+                alt="heartland plein air festival sunset artist logo"
                 className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
               />
             </Link>
@@ -248,7 +248,7 @@ const SiteFooter = () => {
             >
               <img
                 src="/assets/hinge-creative-district-logo-horizontal.png"
-                alt="Ralston Hinge Creative District logo"
+                alt="ralston hinge creative district logo"
                 className="h-7 w-auto object-contain md:h-8"
               />
             </a>

@@ -74,7 +74,7 @@ export const days: ScheduleDay[] = [
     title: "The City Becomes a Canvas",
     audience: "public",
     logo: "/assets/hinge-creative-district-logo.png",
-    logoAlt: "Ralston Hinge Creative District logo",
+    logoAlt: "ralston hinge creative district logo",
     narrative:
       "Starting today and running through Friday, artists fan out across Douglas and Sarpy Counties — painting historic neighborhoods, scenic vistas, and local landmarks. You might turn a corner and find one set up right in front of you. Stop and watch. Ask a question. That's the point. At midday, the action kicks off in Downtown Ralston's Hinge Creative District for the first Lunch Break Paintout.",
     events: [
@@ -93,7 +93,7 @@ export const days: ScheduleDay[] = [
     title: "Castle & Cathedral Creative District",
     audience: "public",
     logo: "/assets/castle-and-cathedral-district-logo.png",
-    logoAlt: "Castle & Cathedral Creative District logo",
+    logoAlt: "castle & cathedral creative district logo",
     logoUrl: "https://castleandcathedraldistrict.org/",
     narrative:
       "Another day of painting across the metro, with the Lunch Break Paintout heading to the Castle & Cathedral Creative District — home to Joslyn Castle and St. Cecilia's Cathedral. Grab lunch nearby and stay to watch.",
@@ -113,7 +113,7 @@ export const days: ScheduleDay[] = [
     title: "Benson & Youth Mentorship",
     audience: "public",
     logo: "/assets/benson-creative-district-logo.png",
-    logoAlt: "Benson Creative District logo",
+    logoAlt: "benson creative district logo",
     logoUrl: "https://www.bensoncreativedistrict.org/",
     narrative:
       "The midweek Lunch Break Paintout heads to the Benson Creative District. That afternoon, invited festival artists meet privately with preselected youth participants — this portion of the day is not open to the public.",
@@ -137,7 +137,7 @@ export const days: ScheduleDay[] = [
     title: "Third Thursday & An Evening Worth Staying Out For",
     audience: "public",
     logo: "/assets/dundee-logo.png",
-    logoAlt: "Dundee Creative District logo",
+    logoAlt: "dundee creative district logo",
     logoUrl: "https://www.visitdundeeomaha.com",
     narrative:
       "By day, artists paint through the Dundee Creative District. By evening, the energy shifts to Ralston for Third Thursday — one of the week's most memorable nights. Festival Awards Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at the Baright Public Library. Afterward, artists spread out across downtown Ralston, painting live while the concert plays around them. Come mingle, watch, and take it all in — this is not a Quick Paint event.",
@@ -192,7 +192,7 @@ export const days: ScheduleDay[] = [
     title: "Open to Everyone",
     audience: "public",
     logo: "/assets/hinge-creative-district-logo.png",
-    logoAlt: "Ralston Hinge Creative District logo",
+    logoAlt: "ralston hinge creative district logo",
     narrative:
       "The festival closes with a full day open to all. Watch artists compete in the Quick Paint Competition at 9 AM, then browse every painting made during festival week at the Public Exhibition & Sale — artwork available at the artist's listed price. At noon, Quick Paint pieces go to live auction at [Granary Green](https://atthegranary.com/). You don't need an invitation — just show up.",
     events: [
