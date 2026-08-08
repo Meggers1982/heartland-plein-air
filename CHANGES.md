@@ -1694,8 +1694,9 @@ tab — so use `behavior: "auto"` when verifying jump-link offsets.
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
-   listed in §8 and confirm via the email Formspree sends. This now includes the
-   new Youth Paintout form (`xzepdkyb`), which has never had a live submission.
+   listed in §8 and confirm via the email Formspree sends. The Youth Paintout
+   form (`xzepdkyb`) has been tested and is delivering as of 2026-08-08; the
+   others still need checking.
 2. **Have someone confirm the Youth Paintout consent wording is what you want
    legally.** The form now captures a parent/guardian name, a required
    participation consent, and an optional photo release, but the checkbox text
