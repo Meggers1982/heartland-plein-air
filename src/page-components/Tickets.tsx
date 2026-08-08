@@ -36,7 +36,25 @@ const passBenefits = [
   },
 ];
 
+// Jump links shown under the hero — one per ticket type on the page, in the
+// order the sections appear. Keep `id` in sync with each section's id.
+const ticketOptions = [
+  { id: "collector-vip-pass", name: "Collector VIP Pass", price: "$125" },
+  { id: "judges-lecture", name: "Judge's Lecture Only", price: "$25" },
+  { id: "collectors-preview-reception", name: "Collectors Preview Reception", price: "$95" },
+  { id: "public-exhibition-sale", name: "Public Exhibition & Sale", price: "Free" },
+];
+
 const Tickets = () => {
+  const handleJump = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    // Clears the fixed nav + countdown ribbon.
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 150, behavior: "smooth" });
+    history.replaceState(null, "", `#${id}`);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Buy Plein Air Festival Tickets: Get Closer to the Art";
@@ -69,8 +87,31 @@ const Tickets = () => {
         </div>
       </header>
 
+      {/* Jump links to each ticket type */}
+      <nav aria-label="Ticket options" className="border-b border-border bg-card/60 py-8">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            {ticketOptions.map((t) => (
+              <a
+                key={t.id}
+                href={`#${t.id}`}
+                onClick={(e) => handleJump(e, t.id)}
+                className="group flex h-full flex-col items-center justify-center gap-1 rounded-md border border-border bg-card px-4 py-4 text-center transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:shadow-md"
+              >
+                <span className="font-display text-sm font-semibold leading-tight text-foreground group-hover:text-primary-foreground">
+                  {t.name}
+                </span>
+                <span className="font-body text-xs font-bold uppercase tracking-widest text-primary group-hover:text-primary-foreground/90">
+                  {t.price}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       {/* Collector VIP Pass */}
-      <section className="py-20">
+      <section id="collector-vip-pass" className="scroll-mt-40 py-20">
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedSection>
             <div className="mx-auto max-w-3xl text-center">
@@ -136,7 +177,7 @@ const Tickets = () => {
       <BrushStrokeDivider />
 
       {/* Lecture only */}
-      <section className="bg-secondary/40 py-20">
+      <section id="judges-lecture" className="scroll-mt-40 bg-secondary/40 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
@@ -166,7 +207,7 @@ const Tickets = () => {
       <BrushStrokeDivider />
 
       {/* Collectors Preview Reception only */}
-      <section className="bg-secondary/40 py-20">
+      <section id="collectors-preview-reception" className="scroll-mt-40 bg-secondary/40 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
@@ -200,7 +241,7 @@ const Tickets = () => {
       <BrushStrokeDivider />
 
       {/* Public Exhibition & Sale RSVP */}
-      <section className="py-20">
+      <section id="public-exhibition-sale" className="scroll-mt-40 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
