@@ -250,12 +250,15 @@ const Sponsors = () => {
             >
               Our Grant Partners
             </h3>
+            {/* Grant partners sit above the paid tiers, so their cell is taller
+                than Platinum's (h-44/h-56). Two columns keeps the wide marks —
+                Art of the West is ~16:1 — as large as the container allows. */}
             <div className="grid gap-6 sm:grid-cols-2">
               {sponsors.map((sponsor) =>
                 sponsor.logo ? (
                   <div
                     key={sponsor.name}
-                    className="flex items-center justify-center px-6 py-4"
+                    className="flex h-56 items-center justify-center px-4 py-4 sm:px-6 md:h-72"
                   >
                     {sponsor.url ? (
                       <a
@@ -263,28 +266,28 @@ const Sponsors = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={sponsor.name}
-                        className="flex items-center justify-center transition-opacity hover:opacity-80"
+                        className="flex h-full w-full items-center justify-center transition-opacity hover:opacity-80"
                       >
                         <img
                           src={sponsor.logo}
                           alt={sponsor.alt}
-                          className="max-h-28 w-auto max-w-full object-contain"
+                          className="max-h-full w-auto max-w-full object-contain"
                         />
                       </a>
                     ) : (
                       <img
                         src={sponsor.logo}
                         alt={sponsor.alt}
-                        className="max-h-28 w-auto max-w-full object-contain"
+                        className="max-h-full w-auto max-w-full object-contain"
                       />
                     )}
                   </div>
                 ) : (
                   <div
                     key={sponsor.name}
-                    className="flex items-center justify-center rounded-lg border border-border bg-card px-6 py-8 text-center"
+                    className="flex h-56 items-center justify-center px-4 py-4 text-center sm:px-6 md:h-72"
                   >
-                    <p className="font-display text-base font-semibold text-foreground">
+                    <p className="font-display text-2xl font-semibold text-foreground md:text-3xl">
                       {sponsor.name}
                     </p>
                   </div>

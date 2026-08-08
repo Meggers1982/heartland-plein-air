@@ -1579,6 +1579,26 @@ four complete tiers driven by data.
   cream and the mark's white inline survives as a soft outline.
 - `npm run lint`, `npm run build`, and `npm test` all pass.
 
+- **Grant Partners logos standardized and enlarged.** They previously had no
+  fixed cell and a `max-h-28` (112px) cap, so they sat unevenly and read smaller
+  than the paid tiers below them. They now share a `h-56 md:h-72` cell
+  (224/288px) — deliberately taller than Platinum's `h-44 md:h-56` — in the same
+  two-column grid, which keeps the very wide marks (Art of the West is ~16:1) as
+  large as the container allows.
+  - Baked-in transparent margins were trimmed off all seven, which is most of
+    the apparent size gain; several were floating inside their own padding.
+  - **Sherwood Foundation was the blocker**: the file was 400×200 with only
+    231×176 of content, so it could not be enlarged without visible blur. The
+    foundation publishes the same vertical lockup at 1000×795, in white. That
+    file is pure white with every edge antialiased in the *alpha* channel, so
+    recolouring it to the near-black already on the page (`#040707`, sampled
+    from the old file) is lossless — same mark, same colour, 4.5× the pixels.
+  - Nebraska Arts Council (5000px) and Art of the West (3756px) were downscaled
+    to 1800px — still well over 2× the ~492px slot, and it cut ~330 KB.
+  - Verified in-browser: every logo's natural height vs its rendered height at
+    2× DPI. All are ≥1.0 (retina-crisp) except Wiebe Ralston at 0.88 — see
+    follow-ups.
+
 **Testing note for future sessions:** scroll-reveal (`AnimatedSection` /
 `useInView`) does not fire in a *background* browser tab — Chrome suspends
 IntersectionObserver callbacks when `document.visibilityState === "hidden"`.
@@ -1602,7 +1622,12 @@ This is a harness artifact, not a site bug.
    until artwork arrives. To add one: drop the WebP in
    `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
    `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
-4. One lower-priority item flagged during the QA sweep but intentionally
+4. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
+   the enlarged Grant Partners row — its content is 863×402, and the slot wants
+   ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
+   Effectively invisible on a line-art mark, but it's the only one under 1.0. A
+   larger source file from the foundation would close it.
+5. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,
