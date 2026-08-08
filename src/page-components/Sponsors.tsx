@@ -18,22 +18,29 @@ import { sponsorTiers } from "@/data/sponsorTiers";
 // Column count matters as much as cell height: several logos are very wide
 // (United Seeds is ~13:1), so a narrow column caps their width and shrinks them
 // well below the cell height. Keeping columns few keeps every mark readable.
+// `name` sizes the text used for sponsors who have no logo file — it has to
+// hold its own next to the logos in the same grid, so it steps down by level
+// alongside the artwork rather than sitting at body size.
 const levelLayout = {
   "platinum-sponsors": {
     grid: "sm:grid-cols-2",
     cell: "h-44 md:h-56",
+    name: "text-2xl md:text-3xl",
   },
   "gold-sponsors": {
     grid: "sm:grid-cols-2",
     cell: "h-36 md:h-44",
+    name: "text-xl md:text-2xl",
   },
   "silver-sponsors": {
     grid: "sm:grid-cols-2 lg:grid-cols-3",
     cell: "h-32 md:h-40",
+    name: "text-lg md:text-2xl",
   },
   "bronze-sponsors": {
     grid: "sm:grid-cols-2 lg:grid-cols-3",
     cell: "h-16",
+    name: "text-lg md:text-xl",
   },
 };
 
@@ -307,7 +314,9 @@ const Sponsors = () => {
                         className="max-h-full w-auto max-w-full object-contain"
                       />
                     ) : (
-                      <p className="text-center font-display text-sm font-semibold leading-snug text-foreground sm:text-base">
+                      <p
+                        className={`text-center font-display font-semibold leading-snug text-foreground ${layout.name}`}
+                      >
                         {sponsor.name}
                       </p>
                     );
