@@ -1561,7 +1561,30 @@ four complete tiers driven by data.
   them. Four Silver sponsors are currently in this state (see follow-ups).
 - The section container widened from `max-w-3xl` to `max-w-5xl` to fit the
   4-across Gold/Silver grids; the intro copy is still capped at `max-w-3xl`.
+- **"See the 2026 Sponsors →" jump target fixed.** The link pointed at
+  `#grant-partners`, which skipped past the "Thank You" eyebrow and the
+  "Our Sponsors" `h2` and dropped readers straight into the logo grid. It now
+  targets a new `id="our-sponsors"` on the intro block, with `scroll-mt-48` to
+  clear the fixed nav + countdown ribbon (measured at 157px; the eyebrow lands
+  35px below it).
+- **Two more sponsor logos sourced from the sponsors' own sites:** eCreamery's
+  wordmark and Lovely Brewing Co.'s horizontal lockup. Lovely Brewing publishes
+  *only* light-on-dark artwork — every variant on their site is cream type — so
+  theirs keeps its dark plate rather than being recolored. It's the one logo on
+  the page with a background.
+- **Ralston Keno re-cut.** The first pass only flood-filled the outer white, so
+  white remained in the enclosed counters of the letters (R, A, O) and read as
+  stray white blobs on the cream. Re-derived from the original with a global
+  near-white → alpha threshold plus a feathered edge, so the counters now show
+  cream and the mark's white inline survives as a soft outline.
 - `npm run lint`, `npm run build`, and `npm test` all pass.
+
+**Testing note for future sessions:** scroll-reveal (`AnimatedSection` /
+`useInView`) does not fire in a *background* browser tab — Chrome suspends
+IntersectionObserver callbacks when `document.visibilityState === "hidden"`.
+Automated screenshots of this site will come back blank unless the tab is
+foregrounded or the `opacity-0`/`translate-y-10` classes are stripped first.
+This is a harness artifact, not a site bug.
 
 ---
 
@@ -1574,8 +1597,8 @@ four complete tiers driven by data.
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Three Silver sponsor logos still missing** — Pivot at the Hinge, Debra Joy
-   Groesser Fine Art, and Lovely Brewing Co. render as plain names
+3. **Two Silver sponsor logos still missing** — Pivot at the Hinge and Debra Joy
+   Groesser Fine Art render as plain names
    until artwork arrives. To add one: drop the WebP in
    `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
    `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
