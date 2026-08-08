@@ -12,9 +12,9 @@ type RouteConfig = {
   priority: number;
 };
 
-// "/advertising/success", "/sponsors/success", "/open-division/success", and
-// "/contact/success" are intentionally excluded: they're post-submission
-// confirmation pages with no content of their own, aren't meant to be
+// "/advertising/success", "/sponsors/success", "/open-division/success",
+// "/contact/success", and "/tickets/youth-paintout/success" are intentionally
+// excluded: they're post-submission confirmation pages, aren't meant to be
 // discovered via search, and would look odd as a search result.
 const routes: RouteConfig[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },

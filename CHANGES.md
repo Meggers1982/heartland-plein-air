@@ -1637,10 +1637,19 @@ four complete tiers driven by data.
   `InquiryForm`. It's a separate component rather than a reuse of `InquiryForm`
   because that one is built around name/organization/level/message and has no
   first/last split.
-  - Confirms inline (no redirect) rather than routing to a `/success` page like
-    the other four forms — the registration is short and keeping the user beside
-    the other ticket options reads better. Easy to switch to a success route if
-    parity matters.
+  - Also collects the **parent or guardian's name** (required), a **required
+    participation consent** checkbox, and a **separate optional photo-release**
+    checkbox. The photo release is deliberately not bundled into the required
+    consent — permission to attend shouldn't be conditional on agreeing to be
+    photographed, and splitting them means the Formspree record shows a real
+    yes/no per registration.
+  - On success it routes to `/tickets/youth-paintout/success`, matching the
+    other four forms. The page uses the shared `InquirySuccess` component, with
+    its `recapItems` grid carrying the day-of instructions: wear clothes that
+    can get paint on them, no ticket needed (give the youth's name at the
+    registration table), where/when to arrive, and a pointer to the Youth Art
+    Show Reception that evening. Excluded from `sitemap.ts` like the other
+    confirmation pages (comment there updated).
   - Submissions include an `event` field ("Youth Paintout — Saturday, September
     12") so the Formspree inbox is self-describing if this endpoint is ever
     reused.
@@ -1667,11 +1676,10 @@ tab — so use `behavior: "auto"` when verifying jump-link offsets.
 1. **Activate Formspree forms** — submit one test through each of the forms
    listed in §8 and confirm via the email Formspree sends. This now includes the
    new Youth Paintout form (`xzepdkyb`), which has never had a live submission.
-2. **Decide whether the Youth Paintout form needs a parent/guardian field.** It
-   currently collects a minor's name, phone, and email and nothing else, as
-   specified. Most youth-program registrations also capture a parent or guardian
-   name and a consent/photo-release acknowledgement — worth a look before the
-   form goes live.
+2. **Have someone confirm the Youth Paintout consent wording is what you want
+   legally.** The form now captures a parent/guardian name, a required
+   participation consent, and an optional photo release, but the checkbox text
+   was written to be plain and readable, not vetted by anyone.
 3. **Google Maps referrer allowlist** — add production/preview domains in
    Google Cloud Console (see §9), and confirm the key is restricted to
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
