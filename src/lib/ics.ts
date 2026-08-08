@@ -6,9 +6,14 @@ const pad = (n: number) => String(n).padStart(2, "0");
 const escapeText = (s: string) =>
   s.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/,/g, "\\,").replace(/;/g, "\\;");
 
-// Parse a single clock token like "10 AM", "2 PM", "5:30 PM"
+// Parse a single clock token like "10 AM", "2 PM", "5:30 PM", "Noon"
 const parseClock = (token: string): { h: number; m: number } | null => {
-  const m = token.trim().match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/i);
+  const t = token.trim();
+  // The schedule writes midday as "Noon" (e.g. "10 AM – Noon"). Without this
+  // the word fails to parse and the event silently ends an hour after it starts.
+  if (/^noon$/i.test(t)) return { h: 12, m: 0 };
+  if (/^midnight$/i.test(t)) return { h: 0, m: 0 };
+  const m = t.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/i);
   if (!m) return null;
   let h = parseInt(m[1], 10);
   const mins = m[2] ? parseInt(m[2], 10) : 0;
@@ -35,8 +40,9 @@ export const parseTimeRange = (
   }
   let a = parts[0];
   const b = parts[1];
-  // If first piece is missing AM/PM, borrow from the second.
-  if (!/AM|PM/i.test(a)) {
+  // If first piece is missing AM/PM, borrow from the second — unless it's a
+  // word like "Noon", which already carries its own time of day.
+  if (!/AM|PM/i.test(a) && !/^(noon|midnight)$/i.test(a.trim())) {
     const mer = b.match(/AM|PM/i);
     if (mer) a = `${a} ${mer[0]}`;
   }

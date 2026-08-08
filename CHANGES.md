@@ -1657,8 +1657,28 @@ four complete tiers driven by data.
   - The FAQ answer that says the Youth Paintout requires pre-registration now
     links to it (`/tickets#youth-paintout`). The FAQ JSON-LD already runs
     answers through `stripLinks`, so the structured data is unaffected.
-  - Verified client-side validation fires on all four fields without contacting
-    Formspree; **no live test submission was sent.**
+  - Verified client-side validation fires on every required field without
+    contacting Formspree; **no live test submission was sent.**
+  - The confirmation page addresses the youth and the parent/guardian together
+    rather than talking about the youth in the third person, and offers **Add to
+    calendar** (.ics for the Sep 12 morning) and **Print this page**. The "Come
+    back that evening" card is flagged `featured` — a new optional field on
+    `InquirySuccess`'s recap items that spans the full row with a gradient,
+    accent rule, and larger type, instead of being stranded alone on the last
+    grid row.
+  - Print styles live in `globals.css` under `@media print`: hides nav/footer/
+    newsletter, forces black-on-white, neutralises the section bands and card
+    fills, un-hides anything still mid-scroll-reveal, and appends URLs after
+    external links.
+
+- **`.ics` bug fixed: "Noon" didn't parse.** `parseClock` only accepted
+  digits plus AM/PM, so "10 AM – Noon" fell through to the "end = start + 1h"
+  fallback and the Youth Paintout exported as **10–11 AM instead of 10 AM–Noon**.
+  This affected the existing "Add to calendar" button on the Schedule page too,
+  not just the new one. `parseClock` now understands "Noon" and "Midnight", and
+  the meridiem-borrowing step skips those words so "Noon – 5 PM" can't become
+  "Noon PM". Covered by a new `src/lib/ics.test.ts` (6 cases, including both
+  regressions).
 
 **Testing note for future sessions:** scroll-reveal (`AnimatedSection` /
 `useInView`) does not fire in a *background* browser tab — Chrome suspends

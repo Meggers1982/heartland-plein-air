@@ -15,6 +15,9 @@ type RecapItem = {
   price?: string;
   icon: LucideIcon;
   detail: string;
+  // Pulls the item out of the uniform grid: spans the full row with an accent
+  // treatment. For the one card that deserves more weight than its neighbours.
+  featured?: boolean;
 };
 
 type InquirySuccessProps = {
@@ -75,26 +78,55 @@ const InquirySuccess = ({
                 </h2>
               </AnimatedSection>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {recapItems.map((item, i) => (
-                  <AnimatedSection key={item.name} delay={i * 80} className="h-full">
-                    <div className="flex h-full flex-col rounded-lg bg-card p-6 shadow-sm">
-                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                        <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
-                      </div>
-                      <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
-                        {item.name}
-                      </h3>
-                      {item.price && (
-                        <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
-                          {item.price}
+                {recapItems.map((item, i) =>
+                  item.featured ? (
+                    <AnimatedSection
+                      key={item.name}
+                      delay={i * 80}
+                      className="h-full sm:col-span-2 lg:col-span-3"
+                    >
+                      <div className="relative flex h-full flex-col items-center overflow-hidden rounded-lg border border-primary/25 bg-gradient-to-br from-primary/10 via-card to-secondary/50 p-8 text-center shadow-md md:p-10">
+                        <span
+                          className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary/70 to-transparent"
+                          aria-hidden="true"
+                        />
+                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/15 ring-4 ring-primary/10">
+                          <item.icon className="h-7 w-7 text-primary" aria-hidden="true" />
+                        </div>
+                        <h3 className="mb-3 font-display text-2xl font-bold text-foreground md:text-3xl">
+                          {item.name}
+                        </h3>
+                        {item.price && (
+                          <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
+                            {item.price}
+                          </p>
+                        )}
+                        <p className="max-w-2xl font-body text-base leading-relaxed text-foreground/85 md:text-lg">
+                          {item.detail}
                         </p>
-                      )}
-                      <p className="font-body text-sm leading-relaxed text-foreground/85">
-                        {item.detail}
-                      </p>
-                    </div>
-                  </AnimatedSection>
-                ))}
+                      </div>
+                    </AnimatedSection>
+                  ) : (
+                    <AnimatedSection key={item.name} delay={i * 80} className="h-full">
+                      <div className="flex h-full flex-col rounded-lg bg-card p-6 shadow-sm">
+                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                          <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                        </div>
+                        <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
+                          {item.name}
+                        </h3>
+                        {item.price && (
+                          <p className="mb-2 font-body text-sm font-semibold uppercase tracking-wide text-primary">
+                            {item.price}
+                          </p>
+                        )}
+                        <p className="font-body text-sm leading-relaxed text-foreground/85">
+                          {item.detail}
+                        </p>
+                      </div>
+                    </AnimatedSection>
+                  ),
+                )}
               </div>
               <div className="mt-10 text-center">
                 <Link
