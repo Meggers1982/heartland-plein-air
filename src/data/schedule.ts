@@ -257,6 +257,10 @@ export type HomepageHighlight = {
   sponsorLogo?: string;
   sponsorAlt?: string;
   sponsorUrl?: string;
+  // Links the homepage timeline card to the matching section on /tickets.
+  // Only set on events that actually have something to buy or register for.
+  ticketHref?: string;
+  ticketLabel?: string;
 };
 
 export const homepageHighlights: HomepageHighlight[] = [
@@ -266,6 +270,8 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Young artists paint en plein air in the park.",
     time: "10 AM – Noon",
     location: "Wildwood Park (78th & Ralston Ave., Ralston, NE)",
+    ticketHref: "/tickets#youth-paintout",
+    ticketLabel: "Free — pre-registration required →",
   },
   {
     dayId: "day-sep-12",
@@ -312,6 +318,8 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Lunch Break Paintout in Dundee 11 AM–1:30 PM. Judge Rick J. Delanty presents a ticketed lecture on Impressionism and Plein Air at Baright Library 5–6 PM. Third Thursday concert with artists painting downtown 6–8 PM — open to the public.",
     time: "11 AM – 8 PM",
     location: "Dundee + Baright Library + Downtown Ralston",
+    ticketHref: "/tickets#judges-lecture",
+    ticketLabel: "Lecture tickets — $25 →",
   },
   {
     dayId: "day-sep-18",
@@ -319,6 +327,8 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Art reception and awards ceremony. Artwork for sale at artist's listed prices. Tickets required.",
     time: "5:30 – 8 PM",
     location: "Venues at the Granary (7401 Main St., Ralston, NE)",
+    ticketHref: "/tickets#collectors-preview-reception",
+    ticketLabel: "Reception tickets — $95 →",
   },
   {
     dayId: "day-sep-19",
@@ -326,6 +336,8 @@ export const homepageHighlights: HomepageHighlight[] = [
     description: "Quick Paint Competition 9–11 AM. Public Exhibition & Sale 11 AM–4 PM. Live auction of Quick Paint pieces Noon–1 PM at [Granary Green](https://atthegranary.com/).",
     time: "9 AM – 4 PM",
     location: "Ralston Hinge Creative District + Venues at the Granary",
+    ticketHref: "/tickets#public-exhibition-sale",
+    ticketLabel: "RSVP for the Public Exhibition — free →",
   },
   {
     dayId: "day-online",
