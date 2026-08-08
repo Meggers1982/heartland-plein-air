@@ -387,6 +387,33 @@ const Schedule = () => {
                             )}
                           </div>
                         )}
+                        {ev.sponsor && (
+                          <div className="mt-1 flex flex-wrap items-center gap-2 font-body text-sm text-muted-foreground">
+                            <span>Sponsored by {ev.sponsor}</span>
+                            {ev.sponsorLogo &&
+                              (ev.sponsorUrl ? (
+                                <a
+                                  href={ev.sponsorUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label={ev.sponsor}
+                                  className="inline-flex transition-opacity hover:opacity-80"
+                                >
+                                  <img
+                                    src={ev.sponsorLogo}
+                                    alt={ev.sponsorAlt}
+                                    className="h-7 w-auto max-w-[120px] object-contain"
+                                  />
+                                </a>
+                              ) : (
+                                <img
+                                  src={ev.sponsorLogo}
+                                  alt={ev.sponsorAlt}
+                                  className="h-7 w-auto max-w-[120px] object-contain"
+                                />
+                              ))}
+                          </div>
+                        )}
                         {canDownload && (
                           <button
                             type="button"

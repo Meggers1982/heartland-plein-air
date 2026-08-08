@@ -83,7 +83,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Will there be artist demonstrations or workshops?",
         a: [
-          "Education is woven into the festival. Before the festival officially opens, a Youth Paintout runs September 12 at Wildwood Park (10 AM–Noon), followed by the Youth Art Show Reception that evening at the Baright Library (6–7:30 PM).",
+          "Education is woven into the festival. Before the festival officially opens, a Youth Paintout runs September 12 at Wildwood Park (10 AM–Noon), followed by the Youth Art Show Reception that evening at the Baright Library (5–6:30 PM), sponsored by Applewood Hy-Vee.",
           "On September 16, private mentorship sessions connect preselected youth participants with the festival's invited professional artists (4–5:30 PM) — this is not a public event. On September 17, Festival Awards Judge Rick J. Delanty will present a lecture on Impressionism and Plein Air at the Baright Public Library (5555 S. 77th Street, Ralston) from 5–6 PM — ticketed due to space limitations.",
           "The Lunch Break Paintouts (Monday–Thursday, 11 AM–1:30 PM) and the Thursday night paintout during the concert in Ralston give the public the opportunity to observe and learn from the artists as they paint.",
         ],
@@ -127,7 +127,7 @@ export const categories: FaqCategory[] = [
         q: "What days and times is the festival open?",
         a: [
           "The festival runs September 13–19, 2026, with a pre-festival youth day on September 12. Key public events include:",
-          "September 12 — Youth Paintout at Wildwood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (6–7:30 PM).",
+          "September 12 — Youth Paintout at Wildwood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (5–6:30 PM), sponsored by Applewood Hy-Vee.",
           "September 14–17 — Daily Lunch Break Paintouts: Downtown Ralston (Sep 14), Castle & Cathedral District (Sep 15), Benson (Sep 16), Dundee (Sep 17), all 11 AM–1:30 PM.",
           "September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
           "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free).",

@@ -38,7 +38,7 @@ export const festivalLocations: FestivalLocation[] = [
     description:
       "Ralston's public library, home to the festival's Youth Art Show Reception and Festival Awards Judge Rick J. Delanty's ticketed lecture on Impressionism and Plein Air.",
     events: [
-      { dayId: "day-sep-12", dayLabel: "Sat · Sep 12", time: "6 – 7:30 PM", name: "Youth Art Show Reception" },
+      { dayId: "day-sep-12", dayLabel: "Sat · Sep 12", time: "5 – 6:30 PM", name: "Youth Art Show Reception" },
       { dayId: "day-sep-17", dayLabel: "Thu · Sep 17", time: "5 – 6 PM", name: "Judge's Lecture — Impressionism & Plein Air (Ticketed)" },
     ],
   },
