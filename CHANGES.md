@@ -1541,12 +1541,19 @@ four complete tiers driven by data.
 - **`Sponsors.tsx` renders the tiers** from a `levelLayout` map that steps logo
   size down by level — Platinum `h-32/h-40`, Gold `h-24/h-28`, Silver
   `h-20/h-24` — so Platinum reads largest, as the sponsor agreements promise.
-  Logos sit on white cards (`bg-white`) because the source files are a mix of
-  transparent and opaque-white backgrounds; the cards make them uniform against
-  the cream page background. Every card links to the sponsor's site in a new tab.
-- **Sponsors without artwork render as name cards** — same footprint, name
-  centered — so the grid stays complete. Four Silver sponsors are currently in
-  this state (see follow-ups).
+  Logos sit directly on the cream page background with no card or border,
+  matching the Grant Partners grid above. Each links to the sponsor's site in a
+  new tab.
+- **Six logo files were re-cut for transparency.** Ralston Keno, Edward Jones,
+  King Kong, Dayspring Bank, South O Roofing, and United Seeds shipped with
+  opaque white backgrounds, which would have shown as white rectangles on the
+  cream page. Each was flood-filled from its corners (tolerance 60) so only the
+  *outer* white is removed — whites inside the mark (letter counters, knockouts,
+  the "ROOFING" bar) survive. Edward Jones was left opaque on purpose: its whole
+  canvas is the brand's yellow `#FFCC00` box, not a white background.
+- **Sponsors without artwork render as their name** in the same cell footprint,
+  no card — so rows stay aligned and the treatment matches the logos around
+  them. Four Silver sponsors are currently in this state (see follow-ups).
 - The section container widened from `max-w-3xl` to `max-w-5xl` to fit the
   4-across Gold/Silver grids; the intro copy is still capped at `max-w-3xl`.
 - `npm run lint`, `npm run build`, and `npm test` all pass.
