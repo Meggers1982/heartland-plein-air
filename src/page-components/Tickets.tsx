@@ -45,6 +45,7 @@ const ticketOptions = [
   { id: "collectors-preview-reception", name: "Collectors Preview Reception", price: "$95" },
   { id: "public-exhibition-sale", name: "Public Exhibition & Sale", price: "Free" },
   { id: "youth-paintout", name: "Youth Paintout", price: "Free" },
+  { id: "youth-art-show-reception", name: "Youth Art Show Reception", price: "Free" },
 ];
 
 const Tickets = () => {
@@ -92,7 +93,7 @@ const Tickets = () => {
       {/* Jump links to each ticket type */}
       <nav aria-label="Ticket options" className="border-b border-border bg-card/60 py-8">
         <div className="mx-auto max-w-4xl px-6">
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {ticketOptions.map((t) => (
               <a
                 key={t.id}
@@ -299,6 +300,45 @@ const Tickets = () => {
                 Register for the Youth Paintout
               </p>
               <YouthPaintoutForm />
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <BrushStrokeDivider />
+
+      {/* Youth Art Show Reception — free, nothing to book, but it lives here so
+          the schedule can link somewhere when people go looking for a ticket. */}
+      <section id="youth-art-show-reception" className="scroll-mt-40 py-20">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <AnimatedSection>
+            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              Free &amp; Open to the Public
+            </p>
+            <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
+              Youth Art Show Reception
+            </h2>
+            <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
+              The paintings made at the Youth Paintout that morning go on show the same evening. Saturday, September 12, 5–6:30 PM at the Baright Public Library, 5555 S. 77th St., Ralston. No ticket and no registration — just come.
+            </p>
+            <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
+              Free
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 font-body text-sm text-muted-foreground">
+              <span>Sponsored by Applewood Hy-Vee</span>
+              <a
+                href="https://www.hy-vee.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Applewood Hy-Vee"
+                className="inline-flex transition-opacity hover:opacity-80"
+              >
+                <img
+                  src="/assets/sponsors/hy-vee.webp"
+                  alt="hy-vee logo"
+                  className="h-8 w-auto max-w-[130px] object-contain"
+                />
+              </a>
             </div>
           </AnimatedSection>
         </div>
