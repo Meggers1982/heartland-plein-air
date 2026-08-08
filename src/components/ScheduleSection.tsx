@@ -76,6 +76,16 @@ const ScheduleSection = () => {
                             {event.location}
                           </span>
                         </div>
+                        {event.ticketHref && (
+                          <div className={`mt-3 ${isLeft ? "md:text-right" : ""}`}>
+                            <Link
+                              href={event.ticketHref}
+                              className="inline-block font-body text-xs font-semibold uppercase tracking-widest text-primary transition-colors hover:underline"
+                            >
+                              {event.ticketLabel}
+                            </Link>
+                          </div>
+                        )}
                         {event.sponsor && (
                           <div
                             className={`mt-3 flex flex-wrap items-center gap-2 font-body text-xs text-muted-foreground ${isLeft ? "md:justify-end" : ""}`}
