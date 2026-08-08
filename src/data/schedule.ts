@@ -5,6 +5,12 @@ export type ScheduleEvent = {
   name: string;
   location?: string;
   address?: string;
+  // Per-event sponsor credit. Sits on the event rather than the day so the
+  // attribution stays with the event that was actually sponsored.
+  sponsor?: string;
+  sponsorLogo?: string;
+  sponsorAlt?: string;
+  sponsorUrl?: string;
 };
 
 export type ScheduleDay = {
@@ -41,10 +47,14 @@ export const days: ScheduleDay[] = [
         name: "Artwork Framing & Hanging — Not Open to the Public",
       },
       {
-        time: "6 – 7:30 PM",
+        time: "5 – 6:30 PM",
         name: "Youth Art Show Reception",
         location: "Baright Public Library",
         address: "5555 S. 77th St., Ralston, NE",
+        sponsor: "Applewood Hy-Vee",
+        sponsorLogo: "/assets/sponsors/hy-vee.webp",
+        sponsorAlt: "hy-vee logo",
+        sponsorUrl: "https://www.hy-vee.com/",
       },
     ],
   },
@@ -243,6 +253,10 @@ export type HomepageHighlight = {
   description: string;
   time: string;
   location: string;
+  sponsor?: string;
+  sponsorLogo?: string;
+  sponsorAlt?: string;
+  sponsorUrl?: string;
 };
 
 export const homepageHighlights: HomepageHighlight[] = [
@@ -257,8 +271,12 @@ export const homepageHighlights: HomepageHighlight[] = [
     dayId: "day-sep-12",
     title: "Youth Art Show Reception",
     description: "Celebrate young painters' work.",
-    time: "6 – 7:30 PM",
+    time: "5 – 6:30 PM",
     location: "Baright Public Library (5555 S. 77th St., Ralston, NE)",
+    sponsor: "Applewood Hy-Vee",
+    sponsorLogo: "/assets/sponsors/hy-vee.webp",
+    sponsorAlt: "hy-vee logo",
+    sponsorUrl: "https://www.hy-vee.com/",
   },
   {
     dayId: "day-sep-13",

@@ -76,6 +76,35 @@ const ScheduleSection = () => {
                             {event.location}
                           </span>
                         </div>
+                        {event.sponsor && (
+                          <div
+                            className={`mt-3 flex flex-wrap items-center gap-2 font-body text-xs text-muted-foreground ${isLeft ? "md:justify-end" : ""}`}
+                          >
+                            <span>Sponsored by {event.sponsor}</span>
+                            {event.sponsorLogo &&
+                              (event.sponsorUrl ? (
+                                <a
+                                  href={event.sponsorUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label={event.sponsor}
+                                  className="inline-flex transition-opacity hover:opacity-80"
+                                >
+                                  <img
+                                    src={event.sponsorLogo}
+                                    alt={event.sponsorAlt}
+                                    className="h-6 w-auto max-w-[100px] object-contain"
+                                  />
+                                </a>
+                              ) : (
+                                <img
+                                  src={event.sponsorLogo}
+                                  alt={event.sponsorAlt}
+                                  className="h-6 w-auto max-w-[100px] object-contain"
+                                />
+                              ))}
+                          </div>
+                        )}
                       </div>
                     </div>
 

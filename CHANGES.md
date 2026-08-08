@@ -1599,6 +1599,26 @@ four complete tiers driven by data.
     2× DPI. All are ≥1.0 (retina-crisp) except Wiebe Ralston at 0.88 — see
     follow-ups.
 
+- **Youth Art Show Reception moved to 5–6:30 PM** (was 6–7:30 PM) and credited
+  to Applewood Hy-Vee. Updated all five places the old time appeared:
+  `schedule.ts` (the Sep 12 event and the homepage highlight), `locations.ts`
+  (the Baright Library map popup), and two `faq.ts` answers. Verified no
+  `6–7:30` string survives anywhere — the only remaining `7:30` is an unrelated
+  7:30 AM artist breakfast.
+- **Per-event sponsor credit is a new capability.** `ScheduleEvent` and
+  `HomepageHighlight` gained optional `sponsor` / `sponsorLogo` / `sponsorAlt` /
+  `sponsorUrl` fields, rendered on both `Schedule.tsx` and `ScheduleSection.tsx`
+  as "Sponsored by <name>" plus a small linked logo. The credit deliberately
+  sits on the *event*, not the day — the existing day-level `logo` field is for
+  creative-district branding, and hanging Hy-Vee there would have implied they
+  sponsored the whole of September 12 rather than the reception. Any future
+  event sponsor now just needs the four data fields.
+- Hy-Vee logo added at `public/assets/sponsors/hy-vee.webp` (already
+  transparent; trimmed to content).
+- The .ics export derives from the time string, so it followed automatically —
+  confirmed `"5 – 6:30 PM"` parses to 17:00–18:30 (the start borrows "PM" from
+  the end token).
+
 **Testing note for future sessions:** scroll-reveal (`AnimatedSection` /
 `useInView`) does not fire in a *background* browser tab — Chrome suspends
 IntersectionObserver callbacks when `document.visibilityState === "hidden"`.
