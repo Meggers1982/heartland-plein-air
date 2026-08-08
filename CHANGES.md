@@ -1524,6 +1524,35 @@ Two client-requested content fixes.
 
 ---
 
+## 2026-08-08 — Sponsor Tiers Added to /sponsors (Platinum, Gold, Silver, Bronze)
+
+The "Our Sponsors" section previously had only the Grant Partners logo grid plus
+two empty headings ("Our Gold Sponsors", "Our Silver Sponsors"). It now renders
+four complete tiers driven by data.
+
+- **New `sponsorLevels` export** in `src/data/sponsors.ts` — 20 sponsors across
+  Platinum (2), Gold (4), Silver (12), and Bronze (2), each with name and
+  website URL. Bronze is flagged `nameOnly: true` because that level is
+  name-only recognition by design. The original `sponsors` export (grant
+  partners / media partners) is unchanged.
+- **12 new logo files** copied into `public/assets/sponsors/` as WebP. Two more
+  tiered sponsors reuse logos already in `public/assets/`: Art of the West
+  (Platinum) and Benson Creative District (Silver).
+- **`Sponsors.tsx` renders the tiers** from a `levelLayout` map that steps logo
+  size down by level — Platinum `h-32/h-40`, Gold `h-24/h-28`, Silver
+  `h-20/h-24` — so Platinum reads largest, as the sponsor agreements promise.
+  Logos sit on white cards (`bg-white`) because the source files are a mix of
+  transparent and opaque-white backgrounds; the cards make them uniform against
+  the cream page background. Every card links to the sponsor's site in a new tab.
+- **Sponsors without artwork render as name cards** — same footprint, name
+  centered — so the grid stays complete. Four Silver sponsors are currently in
+  this state (see follow-ups).
+- The section container widened from `max-w-3xl` to `max-w-5xl` to fit the
+  4-across Gold/Silver grids; the intro copy is still capped at `max-w-3xl`.
+- `npm run lint`, `npm run build`, and `npm test` all pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the 5 forms
@@ -1533,8 +1562,11 @@ Two client-requested content fixes.
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-3. **Add sponsor logos** for the new "Our Gold Sponsors" and "Our Silver
-   Partners" sections on `/sponsors` — headings exist, no logos yet.
+3. **Four Silver sponsor logos still missing** — Pivot at the Hinge, eCreamery,
+   Debra Joy Groesser Fine Art, and Lovely Brewing Co. render as name cards
+   until artwork arrives. To add one: drop the WebP in
+   `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
+   `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
 4. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark

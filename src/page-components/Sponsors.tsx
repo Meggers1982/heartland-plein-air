@@ -11,8 +11,28 @@ import InquiryForm from "@/components/InquiryForm";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
 import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { sponsors } from "@/data/sponsors";
+import { sponsors, sponsorLevels } from "@/data/sponsors";
 import { sponsorTiers } from "@/data/sponsorTiers";
+
+// Logo size steps down by level — Platinum reads largest, Bronze is name-only.
+const levelLayout = {
+  "platinum-sponsors": {
+    grid: "sm:grid-cols-2",
+    cell: "h-32 md:h-40",
+  },
+  "gold-sponsors": {
+    grid: "sm:grid-cols-2 lg:grid-cols-4",
+    cell: "h-24 md:h-28",
+  },
+  "silver-sponsors": {
+    grid: "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+    cell: "h-20 md:h-24",
+  },
+  "bronze-sponsors": {
+    grid: "sm:grid-cols-2 lg:grid-cols-3",
+    cell: "h-16",
+  },
+};
 
 const namedOpportunities = [
   {
@@ -199,17 +219,19 @@ const Sponsors = () => {
 
       {/* Sponsors */}
       <section className="py-20">
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto max-w-5xl px-6">
           <AnimatedSection>
-            <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Thank You
-            </p>
-            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Our Sponsors
-            </h2>
-            <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-              The 2026 Heartland Plein Air Festival is made possible through the generous support of our generous sponsors and partners.
-            </p>
+            <div className="max-w-3xl">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Thank You
+              </p>
+              <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
+                Our Sponsors
+              </h2>
+              <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
+                The 2026 Heartland Plein Air Festival is made possible through the generous support of our generous sponsors and partners.
+              </p>
+            </div>
             <h3
               id="grant-partners"
               className="mb-6 scroll-mt-32 font-display text-2xl font-semibold text-foreground"
@@ -257,15 +279,58 @@ const Sponsors = () => {
                 ),
               )}
             </div>
-
-            <h3 className="mb-6 mt-14 font-display text-2xl font-semibold text-foreground">
-              Our Gold Sponsors
-            </h3>
-
-            <h3 className="mb-6 mt-14 font-display text-2xl font-semibold text-foreground">
-              Our Silver Sponsors
-            </h3>
           </AnimatedSection>
+
+          {sponsorLevels.map((level) => {
+            const layout = levelLayout[level.id];
+            return (
+              <AnimatedSection key={level.id}>
+                <h3
+                  id={level.id}
+                  className="mb-6 mt-14 scroll-mt-32 font-display text-2xl font-semibold text-foreground"
+                >
+                  Our {level.name}
+                </h3>
+                <div className={`grid gap-6 ${layout.grid}`}>
+                  {level.sponsors.map((sponsor) => {
+                    const showLogo = !level.nameOnly && sponsor.logo;
+                    const content = showLogo ? (
+                      <img
+                        src={sponsor.logo}
+                        alt={sponsor.alt}
+                        loading="lazy"
+                        className="max-h-full w-auto max-w-full object-contain"
+                      />
+                    ) : (
+                      <p className="text-center font-display text-sm font-semibold leading-snug text-foreground sm:text-base">
+                        {sponsor.name}
+                      </p>
+                    );
+                    const cardClass = `flex ${layout.cell} items-center justify-center rounded-lg border border-border px-4 py-4 sm:px-6 ${
+                      showLogo ? "bg-white" : "bg-card"
+                    }`;
+
+                    return sponsor.url ? (
+                      <a
+                        key={sponsor.name}
+                        href={sponsor.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={sponsor.name}
+                        className={`${cardClass} transition-opacity hover:opacity-80`}
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div key={sponsor.name} className={cardClass}>
+                        {content}
+                      </div>
+                    );
+                  })}
+                </div>
+              </AnimatedSection>
+            );
+          })}
         </div>
       </section>
 
