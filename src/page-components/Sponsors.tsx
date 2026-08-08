@@ -306,9 +306,9 @@ const Sponsors = () => {
                         {sponsor.name}
                       </p>
                     );
-                    const cardClass = `flex ${layout.cell} items-center justify-center rounded-lg border border-border px-4 py-4 sm:px-6 ${
-                      showLogo ? "bg-white" : "bg-card"
-                    }`;
+                    // Logos and names both sit directly on the page background,
+                    // matching the Grant Partners grid above — no cards.
+                    const cardClass = `flex ${layout.cell} items-center justify-center px-4 py-4 sm:px-6`;
 
                     return sponsor.url ? (
                       <a
