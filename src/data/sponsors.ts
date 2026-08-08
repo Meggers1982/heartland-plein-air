@@ -50,13 +50,9 @@ export const sponsorLevels = [
   {
     name: "Platinum Sponsors",
     id: "platinum-sponsors",
+    // Art of the West is a Platinum-level supporter but is recognized in the
+    // Grant Partners grid above rather than duplicated here.
     sponsors: [
-      {
-        name: "Art of the West",
-        logo: "/assets/art-of-the-west-logo.png",
-        alt: "Art of the West magazine logo",
-        url: "https://aotw.com/",
-      },
       {
         name: "Ralston Keno",
         logo: "/assets/sponsors/ralston-keno.webp",
