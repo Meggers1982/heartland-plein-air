@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { Check } from "lucide-react";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzepdkyb";
 
@@ -28,24 +28,47 @@ const schema = z.object({
     .min(1, { message: "Please enter an email address." })
     .email({ message: "Please enter a valid email address." })
     .max(255, { message: "Email must be less than 255 characters." }),
+  parentName: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter the parent or guardian's name." })
+    .max(150, { message: "Name must be less than 150 characters." }),
+  // Participation consent is required. The photo release is deliberately
+  // separate and optional — permission to attend shouldn't be conditional on
+  // agreeing to be photographed.
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "A parent or guardian must give permission to participate." }),
+  }),
+  photoRelease: z.boolean(),
 });
 
-type FormState = z.infer<typeof schema>;
+type FormState = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  parentName: string;
+  consent: boolean;
+  photoRelease: boolean;
+};
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
 const YouthPaintoutForm = () => {
+  const router = useRouter();
   const [form, setForm] = useState<FormState>({
     firstName: "",
     lastName: "",
     phone: "",
     email: "",
+    parentName: "",
+    consent: false,
+    photoRelease: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
-  const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const update = <K extends keyof FormState>(key: K, value: string) => {
+  const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
@@ -75,10 +98,13 @@ const YouthPaintoutForm = () => {
           lastName: result.data.lastName,
           phone: result.data.phone,
           email: result.data.email,
+          parentGuardian: result.data.parentName,
+          parentConsent: "Yes — permission to participate given",
+          photoRelease: result.data.photoRelease ? "Yes" : "No",
         }),
       });
       if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
+      router.push("/tickets/youth-paintout/success");
     } catch {
       setSubmitError(
         "Something went wrong sending your registration. Please try again, or email us directly at ralstoncreativedistrict@gmail.com.",
@@ -88,35 +114,16 @@ const YouthPaintoutForm = () => {
     }
   };
 
-  if (submitted) {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        className="flex flex-col items-center justify-center py-10 text-center"
-      >
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/15">
-          <Check className="h-7 w-7 text-primary" aria-hidden="true" />
-        </div>
-        <h3 className="mb-2 font-display text-2xl font-bold text-foreground">
-          You're registered
-        </h3>
-        <p className="max-w-md font-body text-base text-muted-foreground">
-          Thanks for signing up for the Youth Paintout. We'll be in touch before
-          September 12 with what to bring and where to meet.
-        </p>
-      </div>
-    );
-  }
-
   const inputClass =
     "w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20";
   const labelClass =
     "block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground";
   const errorClass = "mt-1 px-1 font-body text-xs";
 
+  type TextKey = "firstName" | "lastName" | "phone" | "email" | "parentName";
+
   const field = (
-    key: keyof FormState,
+    key: TextKey,
     label: string,
     type: string,
     placeholder: string,
@@ -151,13 +158,69 @@ const YouthPaintoutForm = () => {
     </div>
   );
 
+  const checkbox = (
+    key: "consent" | "photoRelease",
+    label: string,
+    optional?: boolean,
+  ) => (
+    <div className="space-y-1.5">
+      <label htmlFor={`youth-${key}`} className="flex cursor-pointer items-start gap-3">
+        <input
+          id={`youth-${key}`}
+          type="checkbox"
+          checked={form[key]}
+          onChange={(e) => update(key, e.target.checked)}
+          aria-invalid={errors[key] ? "true" : "false"}
+          aria-describedby={errors[key] ? `youth-${key}-error` : undefined}
+          className="mt-1 h-4 w-4 flex-shrink-0 accent-[hsl(var(--primary))]"
+        />
+        <span className="font-body text-sm leading-relaxed text-foreground/85">
+          {label}
+          {optional && (
+            <span className="text-muted-foreground/90"> (optional)</span>
+          )}
+        </span>
+      </label>
+      {errors[key] && (
+        <p
+          id={`youth-${key}-error`}
+          className={errorClass}
+          style={{ color: "hsl(var(--destructive))" }}
+        >
+          {errors[key]}
+        </p>
+      )}
+    </div>
+  );
+
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6 text-left">
       <div className="grid gap-6 sm:grid-cols-2">
-        {field("firstName", "First Name", "text", "First name", 100, "given-name")}
-        {field("lastName", "Last Name", "text", "Last name", 100, "family-name")}
+        {field("firstName", "Youth's First Name", "text", "First name", 100, "given-name")}
+        {field("lastName", "Youth's Last Name", "text", "Last name", 100, "family-name")}
         {field("phone", "Phone", "tel", "(402) 555-0100", 30, "tel")}
         {field("email", "Email Address", "email", "you@example.com", 255, "email")}
+      </div>
+
+      {field(
+        "parentName",
+        "Parent or Guardian Name",
+        "text",
+        "Parent or guardian's full name",
+        150,
+        "name",
+      )}
+
+      <div className="space-y-4 rounded-sm border border-border bg-muted/40 p-5">
+        {checkbox(
+          "consent",
+          "I am the parent or guardian of the youth named above, and I give permission for them to take part in the Youth Paintout on Saturday, September 12.",
+        )}
+        {checkbox(
+          "photoRelease",
+          "I give permission for photos taken at the event that include my child to be used in festival promotion.",
+          true,
+        )}
       </div>
 
       {submitError && (
