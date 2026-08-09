@@ -63,17 +63,21 @@ const Artists = () => {
         }}
       />
       <SiteNav />
-      <main className="pt-36">
+      <header className="bg-foreground pt-44 pb-16">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
+            The 2026 Roster
+          </p>
+          <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
+            Meet the Artists
+          </h1>
+        </div>
+      </header>
+      <main>
         <section className="py-16">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <AnimatedSection>
-              <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
-                The 2026 Roster
-              </p>
-              <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
-                Meet the Artists
-              </h1>
-              <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
+              <p className="mx-auto font-body text-lg leading-relaxed text-muted-foreground">
                 Every painter at the Heartland Plein Air Festival is here by invitation. This year, 25 nationally recognized artists travel to the Omaha metro to spend a week painting it — outdoors, on location, in real time. Browse the full roster below, then come find them in the field.
               </p>
               <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">

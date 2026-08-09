@@ -22,7 +22,7 @@ const dayOfInstructions = [
     name: "Arrive by 9:45 AM to check in",
     icon: MapPin,
     detail:
-      "Saturday, September 12, 10 AM–Noon at Wildewood Park, 78th & Ralston Ave., Ralston. Please check in no later than 9:45 AM, and plan for a parent or guardian to stay in the park for the full session.",
+      "Saturday, September 12, 10 AM–Noon at Wildewood Park, 8000 Ralston Ave., Ralston. Please check in no later than 9:45 AM, and plan for a parent or guardian to stay in the park for the full session.",
   },
   {
     name: "Come back that evening",
@@ -49,7 +49,7 @@ const YouthPaintoutSuccess = () => {
       time: "10 AM – Noon",
       name: "Youth Paintout — Heartland Plein Air Festival",
       location: "Wildewood Park",
-      address: "78th & Ralston Ave., Ralston, NE",
+      address: "8000 Ralston Ave., Ralston, NE",
       description:
         "Wear clothes that can get paint on them. No ticket needed — give your name at the registration table when you arrive. Check in by 9:45 AM; a parent or guardian must stay in the park for the full session.",
     });

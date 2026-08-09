@@ -93,18 +93,22 @@ const Gallery = () => {
       />
       <SiteNav />
 
-      <main className="pt-36">
-        {/* Header */}
+      <header className="bg-foreground pt-44 pb-16">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
+            2026 Festival Art
+          </p>
+          <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
+            The Gallery
+          </h1>
+        </div>
+      </header>
+
+      <main>
         <section className="py-16">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <AnimatedSection>
-              <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.25em] text-primary">
-                2026 Festival Art
-              </p>
-              <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
-                The Gallery
-              </h1>
-              <p className="mx-auto mt-6 font-body text-lg leading-relaxed text-muted-foreground">
+              <p className="mx-auto font-body text-lg leading-relaxed text-muted-foreground">
                 Get a glimpse of the art created by the artists you'll see across the Omaha metro this September.
               </p>
               <p className="mx-auto mt-4 font-body text-lg leading-relaxed text-muted-foreground">

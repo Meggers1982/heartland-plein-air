@@ -51,7 +51,7 @@ export const days: ScheduleDay[] = [
         time: "10 AM – Noon",
         name: "Youth Paintout",
         location: "Wildewood Park",
-        address: "78th & Ralston Ave., Ralston, NE",
+        address: "8000 Ralston Ave., Ralston, NE",
       },
       {
         time: "Noon – 5 PM",
@@ -107,7 +107,7 @@ export const days: ScheduleDay[] = [
         spots: [
           {
             name: "Wildewood Park",
-            address: "78th & Ralston Ave., Ralston, NE",
+            address: "8000 Ralston Ave., Ralston, NE",
           },
           {
             name: "Historic Downtown Ralston",
@@ -329,7 +329,7 @@ export const homepageHighlights: HomepageHighlight[] = [
     title: "Youth Paintout",
     description: "Young artists paint en plein air in the park.",
     time: "10 AM – Noon",
-    location: "Wildewood Park (78th & Ralston Ave., Ralston, NE)",
+    location: "Wildewood Park (8000 Ralston Ave., Ralston, NE)",
     ticketHref: "/tickets#youth-paintout",
     ticketLabel: "Free — pre-registration required →",
   },
