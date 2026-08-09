@@ -20,9 +20,9 @@ export const festivalLocations: FestivalLocation[] = [
   {
     key: "wildewood-park",
     name: "Wildewood Park",
-    address: "78th & Ralston Ave., Ralston, NE",
-    lat: 41.2055,
-    lng: -96.0436,
+    address: "8000 Ralston Ave., Ralston, NE",
+    lat: 41.1966,
+    lng: -96.0370,
     description:
       "A neighborhood park in Ralston, Nebraska, hosting the festival's Youth Paintout, where local young artists take their easels outdoors for a morning of open-air painting.",
     events: [

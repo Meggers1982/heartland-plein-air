@@ -48,7 +48,7 @@ describe("buildEventIcs", () => {
       time: "10 AM – Noon",
       name: "Youth Paintout",
       location: "Wildewood Park",
-      address: "78th & Ralston Ave., Ralston, NE",
+      address: "8000 Ralston Ave., Ralston, NE",
     });
     expect(ics).toContain("DTSTART;TZID=America/Chicago:20260912T100000");
     expect(ics).toContain("DTEND;TZID=America/Chicago:20260912T120000");

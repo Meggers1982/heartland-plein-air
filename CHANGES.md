@@ -2014,13 +2014,70 @@ already correct — they initialise to a static `false` and update in an effect.
 
 ---
 
+## 2026-08-09 — Wildewood Park Address Corrected, Page Headers Unified
+
+### Wildewood Park: official address, and a map pin that was ~1 km off
+
+The client confirmed the official address is **8000 Ralston Ave, Ralston, NE
+68127**. The site had "78th & Ralston Ave." everywhere.
+
+- Address updated in `schedule.ts` (×3, including the homepage highlight
+  string), `locations.ts`, `Tickets.tsx`, `YouthPaintoutSuccess.tsx`, and
+  `ics.test.ts`. Rendered as "8000 Ralston Ave., Ralston, NE" — the ZIP was
+  dropped to match the house format used by every other address on the site
+  (e.g. "7401 Main St., Ralston, NE"). Easy to add back if wanted.
+- **The map pin was wrong, not just the label.** The stored coordinates
+  (`41.2055, -96.0436`) sat up by downtown Ralston, roughly a kilometre from
+  the park. Corrected to `41.1966, -96.0370`. That figure was cross-checked two
+  ways before changing it: geocoding the street address returned
+  `41.1959, -96.0371`, and looking up the park by name returned the park
+  polygon at `41.1966, -96.0370`. Both agree; the old pin did not.
+
+### All nine interior pages now share one header treatment
+
+Flagged during QA as a possible inconsistency and left alone at the time. On
+closer look it was **three** different treatments, not two:
+
+| Treatment | Pages |
+| --- | --- |
+| Dark `bg-foreground` band | About, Schedule, Sponsors, Contact, Tickets, Open Division |
+| No band at all | Artists, Gallery |
+| Tinted `bg-primary/10` wash | FAQ |
+
+Standardised on the dark band, since it was already the majority and gives the
+strongest separation from the fixed nav. Artists, Gallery, and FAQ now open
+with `<header className="bg-foreground pt-44 pb-16">` carrying the eyebrow and
+`<h1>` in `text-secondary`, exactly like About.
+
+Only the eyebrow and heading moved into the dark band. Each page's intro copy,
+CTA links, and (on FAQ) the search field stay in a light section below, so
+nothing that needs to be scannable ended up on a dark ground. FAQ keeps its
+`bg-primary/10` wash for that section, which now reads as a search band rather
+than a competing page header. `pt-36` was dropped from the `<main>` elements on
+Artists and Gallery — it existed to clear the fixed nav, which the header's
+`pt-44` now handles.
+
+Verified: all nine interior pages emit the header class exactly once, each page
+still has exactly one `<h1>`, and no page ended up with nested `<main>`.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
-1. **Google Maps referrer allowlist** — add production/preview domains in
-   Google Cloud Console (see §9), and confirm the key is restricted to
-   `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
-   key — see the 2026-07-12 entry above for why rewriting git history
-   wouldn't help.
+1. **Finish hardening the Google Maps API key.** Website restrictions were
+   added 2026-08-09: `https://heartlandpleinair.org/*`,
+   `https://www.heartlandpleinair.org/*`, and `https://*.vercel.app/*`. Two
+   things still worth doing:
+   - `https://*.vercel.app/*` authorises **every** site hosted on vercel.app,
+     not just this project — it's the usual workaround for rotating preview
+     URLs, but it means a leaked key could be used by anyone on that domain.
+     Compensate by setting an **API restriction** (limit the key to *Maps
+     JavaScript API* only) and a **billing quota cap**. Consider removing the
+     wildcard once the custom domain is the only thing that matters.
+   - Add `http://localhost:8080/*` if you want the map to render during local
+     development. Without it the map shows its "couldn't load" fallback on
+     localhost — which is exactly what happened during the 2026-08-09 QA and
+     briefly looked like a code bug.
 2. **One Silver sponsor logo still missing** — Pivot at the Hinge renders as a
    plain name until artwork arrives. (Debra Joy Groesser Fine Art's logo was
    added 2026-08-09.) To add one: drop the WebP in
@@ -2031,42 +2088,7 @@ already correct — they initialise to a static `false` and update in an effect.
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
    Effectively invisible on a line-art mark, but it's the only one under 1.0. A
    larger source file from the foundation would close it.
-4. **One thing left to confirm with Deb about the 8-9-26 schedule doc:**
-   - ~~Wildwood vs Wildewood~~ — **resolved 2026-08-09: it is Wildewood Park.**
-     Renamed everywhere (`schedule.ts`, `locations.ts` incl. the `wildewood-park`
-     key, `faq.ts`, `Tickets.tsx`, `YouthPaintoutSuccess.tsx`, `ics.test.ts`).
-   - **Still open — the park's address.** Deb's doc gives "8000 Ralston Ave" for
-     the Monday paintout but "78th and Ralston Ave" for Saturday's Youth
-     Paintout, for what is the same park. The site uses **78th & Ralston Ave.**
-     throughout. Both point to roughly the same stretch, so Google Maps resolves
-     either, but pick one. If it should be 8000, update `schedule.ts`,
-     `locations.ts` (including the lat/lng), `faq.ts`, `Tickets.tsx`, and
-     `YouthPaintoutSuccess.tsx` together.
-   - "The Antique Street Lights with hanging Flower Baskets" is its own line in
-     the doc with no address. It was folded in as a `note` on the Dundee
-     Business District Streetscape spot, since it reads as a description of what
-     to paint there rather than a separate location. If it's meant to be its own
-     stop, it needs an address.
-5. **Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` to Vercel, then check the pins.**
-   The Map ID (`ef19084726c98ff58da5a447`) is in local `.env` and the code
-   migration shipped 2026-08-09. Two things remain, both requiring you:
-   - Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID=ef19084726c98ff58da5a447` in Vercel →
-     Settings → Environment Variables, then **redeploy**. `NEXT_PUBLIC_*` vars
-     are inlined at build time, so an existing deployment will not pick it up.
-     Until then the code falls back to legacy markers, so the map still works.
-   - **Look at the map on the deployed site and confirm the pins are there,
-     and that clicking one opens its popup.** This could not be verified
-     locally — the API key is referrer-restricted, so the map shows its
-     "couldn't load" fallback on localhost regardless of these changes (true
-     of the old code too). If pins are missing, the Map ID is likely in a
-     different Google Cloud project than the API key.
-6. One lower-priority item flagged during the QA sweep but intentionally
-   left alone (a judgment call, not a bug): Artists/Gallery pages use a
-   lighter page-header style than the other 5 interior pages (no dark
-   `bg-foreground` band) — flagged as a possible site-wide inconsistency,
-   but plausibly intentional for image-heavy pages, so left as a design
-   decision rather than unilaterally changed.
-7. **Nebraska Arts Council / Cultural Endowment logo is a broken composite.**
+4. **Nebraska Arts Council / Cultural Endowment logo is a broken composite.**
    In `public/assets/nebraska-arts-council-logo.png`, the script "Endless"
    wordmark is superimposed directly over the word "ENDOWMENT" — both are
    unreadable. The defect is baked into the source file, so it cannot be fixed
