@@ -45,7 +45,11 @@ export function breadcrumbSchema(crumbs: Crumb[]) {
       "@type": "ListItem",
       position: i + 1,
       name: crumb.name,
-      item: `${SITE_URL}${crumb.path}`,
+      // The home crumb's path is "/", which would emit a trailing slash and
+      // disagree with the canonical and the sitemap — both of which use the
+      // bare origin. Keep all three identical so the breadcrumb points at the
+      // same URL the page declares as canonical.
+      item: `${SITE_URL}${crumb.path === "/" ? "" : crumb.path}`,
     })),
   };
 }
