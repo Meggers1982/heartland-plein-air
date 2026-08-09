@@ -299,7 +299,7 @@ const Tickets = () => {
                 Youth Paintout
               </h2>
               <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-                Young artists take their easels outdoors for a morning of open-air painting, Saturday, September 12, 10 AM–Noon at Wildwood Park (78th &amp; Ralston Ave., Ralston). Work created that morning is celebrated at the Youth Art Show Reception that evening.
+                Young artists take their easels outdoors for a morning of open-air painting, Saturday, September 12, 10 AM–Noon at Wildewood Park (78th &amp; Ralston Ave., Ralston). Work created that morning is celebrated at the Youth Art Show Reception that evening.
               </p>
               <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
                 Free

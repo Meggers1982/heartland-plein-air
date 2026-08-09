@@ -18,8 +18,8 @@ export type FestivalLocation = {
 
 export const festivalLocations: FestivalLocation[] = [
   {
-    key: "wildwood-park",
-    name: "Wildwood Park",
+    key: "wildewood-park",
+    name: "Wildewood Park",
     address: "78th & Ralston Ave., Ralston, NE",
     lat: 41.2055,
     lng: -96.0436,

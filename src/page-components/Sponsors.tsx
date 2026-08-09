@@ -244,7 +244,11 @@ const Sponsors = () => {
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
                 Our Sponsors
               </h2>
-              <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85 text-pretty">
+              {/* text-balance, not text-pretty: this is a short standalone
+                  sentence that wrapped to one full line plus a three-word tail.
+                  `pretty` only prevents single-word orphans; `balance` splits
+                  the two lines evenly so the break reads as intentional. */}
+              <p className="mb-10 text-balance font-body text-lg leading-relaxed text-foreground/85">
                 The 2026 Heartland Plein Air Festival is made possible through the generous support of our sponsors and partners.
               </p>
             </div>

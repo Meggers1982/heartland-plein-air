@@ -1988,6 +1988,32 @@ already correct — they initialise to a static `false` and update in an effect.
 
 ---
 
+## 2026-08-09 — Delanty in the Roster, Wildewood Park, Sponsors Line Break
+
+- **Rick J. Delanty now appears in the artist roster grid** as the 25th card,
+  with a "Judge of Awards" badge. The page copy says 25 artists but the grid
+  showed 24, because he was only in the separate Awards Judge section — a
+  visitor counting cards came up one short. The client confirmed he judges *and*
+  paints, so he belongs in the roster.
+  Implementation notes: a new `roster = [...artists, awardsJudge]` drives the
+  grid, with the judge appended **last** so every existing index into `artists`
+  (used by the bio lightbox and its prev/next controls) stays valid. His card is
+  an anchor to `#awards-judge` rather than a lightbox trigger, so his full bio
+  isn't duplicated in a modal and the existing "Meet This Year's Judge →" link
+  still lands somewhere meaningful. The featured Awards Judge section is
+  unchanged.
+- **Wildwood Park → Wildewood Park**, confirmed by the client. Renamed in
+  `schedule.ts` (×4), `faq.ts` (×4), `locations.ts` (name and the
+  `wildewood-park` key), `Tickets.tsx`, `YouthPaintoutSuccess.tsx`, and
+  `ics.test.ts`. The key was verified to have no external references before
+  renaming. The park's *address* is still an open question — see follow-up 6.
+- **Sponsors intro line break.** The earlier `text-pretty` wasn't enough:
+  `text-wrap: pretty` only prevents single-word orphans, and this sentence was
+  breaking into one full line plus a three-word tail. Swapped to `text-balance`,
+  which splits it into two even lines so the break reads as deliberate.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -2013,15 +2039,17 @@ already correct — they initialise to a static `false` and update in an effect.
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
    Effectively invisible on a line-art mark, but it's the only one under 1.0. A
    larger source file from the foundation would close it.
-6. **Two things to confirm with Deb about the 8-9-26 schedule doc** (from the
-   2026-08-09 paintout-spots change):
-   - The doc lists Monday's first spot as "WildewoodPark - 8000 Ralston Ave,"
-     but Saturday's Youth Paintout in the same doc says "Wildwood Park, 78th and
-     Ralston Ave." The site uses **Wildwood Park, 78th & Ralston Ave.**
-     everywhere (schedule, locations, FAQ), so the new Monday entry was made to
-     match rather than introduce a second spelling and address for one park.
-     Confirm which is right — if it's Wildewood/8000, it needs updating in
-     `schedule.ts`, `locations.ts`, and `faq.ts` together.
+6. **One thing left to confirm with Deb about the 8-9-26 schedule doc:**
+   - ~~Wildwood vs Wildewood~~ — **resolved 2026-08-09: it is Wildewood Park.**
+     Renamed everywhere (`schedule.ts`, `locations.ts` incl. the `wildewood-park`
+     key, `faq.ts`, `Tickets.tsx`, `YouthPaintoutSuccess.tsx`, `ics.test.ts`).
+   - **Still open — the park's address.** Deb's doc gives "8000 Ralston Ave" for
+     the Monday paintout but "78th and Ralston Ave" for Saturday's Youth
+     Paintout, for what is the same park. The site uses **78th & Ralston Ave.**
+     throughout. Both point to roughly the same stretch, so Google Maps resolves
+     either, but pick one. If it should be 8000, update `schedule.ts`,
+     `locations.ts` (including the lat/lng), `faq.ts`, `Tickets.tsx`, and
+     `YouthPaintoutSuccess.tsx` together.
    - "The Antique Street Lights with hanging Flower Baskets" is its own line in
      the doc with no address. It was folded in as a `note` on the Dundee
      Business District Streetscape spot, since it reads as a description of what

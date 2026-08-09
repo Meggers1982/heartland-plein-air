@@ -83,7 +83,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Will there be artist demonstrations or workshops?",
         a: [
-          "Education is woven into the festival. Before the festival officially opens, a Youth Paintout runs September 12 at Wildwood Park (10 AM–Noon), followed by the Youth Art Show Reception that evening at the Baright Library (5–6:30 PM), sponsored by Applewood Hy-Vee.",
+          "Education is woven into the festival. Before the festival officially opens, a Youth Paintout runs September 12 at Wildewood Park (10 AM–Noon), followed by the Youth Art Show Reception that evening at the Baright Library (5–6:30 PM), sponsored by Applewood Hy-Vee.",
           "On September 16, private mentorship sessions connect preselected youth participants with the festival's invited professional artists (4–5:30 PM) — this is not a public event. On September 17, Festival Awards Judge Rick J. Delanty will present a lecture on Impressionism and Plein Air at the Baright Public Library (5555 S. 77th Street, Ralston) from 5–6 PM — ticketed due to space limitations.",
           "The Lunch Break Paintouts (Monday–Thursday, 11 AM–1:30 PM) and the Thursday night paintout during the concert in Ralston give the public the opportunity to observe and learn from the artists as they paint.",
         ],
@@ -106,7 +106,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Can children or beginner artists participate?",
         a: [
-          "Young artists are genuinely central to this festival. A Youth Paintout takes place September 12 at Wildwood Park, with the Youth Art Show Reception that same evening at the Baright Library. On September 16, preselected youth participate in private mentorship sessions with the festival's invited professional artists.",
+          "Young artists are genuinely central to this festival. A Youth Paintout takes place September 12 at Wildewood Park, with the Youth Art Show Reception that same evening at the Baright Library. On September 16, preselected youth participate in private mentorship sessions with the festival's invited professional artists.",
           "The [Open Division](/open-division) of the festival competition is open to local and regional artists who have some experience painting — it is not intended as a beginner track. For those new to plein air, the festival offers a wonderful opportunity to observe professional artists at work throughout the week and learn by watching.",
         ],
       },
@@ -127,7 +127,7 @@ export const categories: FaqCategory[] = [
         q: "What days and times is the festival open?",
         a: [
           "The festival runs September 13–19, 2026, with a pre-festival youth day on September 12. Key public events include:",
-          "September 12 — Youth Paintout at Wildwood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (5–6:30 PM), sponsored by Applewood Hy-Vee.",
+          "September 12 — Youth Paintout at Wildewood Park (10 AM–Noon) and Youth Art Show Reception at Baright Library (5–6:30 PM), sponsored by Applewood Hy-Vee.",
           "September 14–17 — Daily Lunch Break Paintouts: Downtown Ralston (Sep 14), Castle & Cathedral District (Sep 15), Benson (Sep 16), Dundee (Sep 17), all 11 AM–1:30 PM.",
           "September 16 — Private Youth Mentorship Sessions, preselected participants only (4–5:30 PM).",
           "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free).",
@@ -140,7 +140,7 @@ export const categories: FaqCategory[] = [
       {
         q: "Is the festival family-friendly?",
         a: [
-          "The Heartland Plein Air Festival is welcoming to all ages. Two dedicated youth events take place: the Youth Paintout on Saturday, September 12 at Wildwood Park (10 AM–Noon, [pre-registration required](/tickets#youth-paintout)) and private mentorship sessions for preselected youth on Wednesday, September 16. The Youth Art Show Reception at the Baright Library on the evening of September 12 is open to everyone. The Public Exhibition & Sale on September 19 is free, and watching artists paint at outdoor locations across the metro is a casual, come-and-go experience that works well for families.",
+          "The Heartland Plein Air Festival is welcoming to all ages. Two dedicated youth events take place: the Youth Paintout on Saturday, September 12 at Wildewood Park (10 AM–Noon, [pre-registration required](/tickets#youth-paintout)) and private mentorship sessions for preselected youth on Wednesday, September 16. The Youth Art Show Reception at the Baright Library on the evening of September 12 is open to everyone. The Public Exhibition & Sale on September 19 is free, and watching artists paint at outdoor locations across the metro is a casual, come-and-go experience that works well for families.",
         ],
       },
       {
