@@ -34,6 +34,12 @@ const artistPersonSchema = [
   toPersonSchema(awardsJudge, "Judge of Awards"),
 ];
 
+// Rick J. Delanty judges the awards AND paints the festival, so he belongs in
+// the roster — without him the grid shows 24 cards while the copy says 25.
+// Appended last so existing indices into `artists` (used by the lightbox and
+// its prev/next controls) stay valid.
+const roster: Artist[] = [...artists, awardsJudge];
+
 const Artists = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const active = openIndex !== null ? artists[openIndex] : null;
@@ -95,13 +101,14 @@ const Artists = () => {
               </AnimatedSection>
             </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {artists.map((artist, i) => (
-                <AnimatedSection key={artist.name} delay={i * 80}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(i)}
-                    className="group block w-full text-left overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
+              {roster.map((artist, i) => {
+                // The judge is appended last, so indices 0..artists.length-1
+                // still line up with the `artists` array the lightbox reads.
+                const isJudge = i === artists.length;
+                const cardClass =
+                  "group block w-full text-left overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary";
+                const cardInner = (
+                  <>
                     <div className="aspect-square overflow-hidden relative">
                       <img
                         src={artist.src}
@@ -111,6 +118,11 @@ const Artists = () => {
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
                       />
+                      {isJudge && (
+                        <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-3 py-1 font-body text-[0.65rem] font-semibold uppercase tracking-widest text-primary-foreground shadow-sm">
+                          Judge of Awards
+                        </span>
+                      )}
                       <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center group-hover:bg-black/30 group-focus-visible:bg-black/30">
                         <span className="font-body text-sm font-medium text-white opacity-0 transition-opacity duration-300 tracking-wide group-hover:opacity-100 group-focus-visible:opacity-100">
                           View Bio
@@ -128,9 +140,24 @@ const Artists = () => {
                         Click to see more
                       </p>
                     </div>
-                  </button>
-                </AnimatedSection>
-              ))}
+                  </>
+                );
+                return (
+                  <AnimatedSection key={artist.name} delay={i * 80}>
+                    {isJudge ? (
+                      // Sends people to the featured Awards Judge section below
+                      // rather than repeating his full bio in the lightbox.
+                      <a href="#awards-judge" className={cardClass}>
+                        {cardInner}
+                      </a>
+                    ) : (
+                      <button type="button" onClick={() => setOpenIndex(i)} className={cardClass}>
+                        {cardInner}
+                      </button>
+                    )}
+                  </AnimatedSection>
+                );
+              })}
             </div>
           </div>
         </section>

@@ -45,12 +45,12 @@ export const days: ScheduleDay[] = [
     title: "It Starts with the Kids",
     audience: "public",
     narrative:
-      "Before the festival officially opens, young artists get the spotlight. Local youth take their easels to Wildwood Park for a morning of open-air painting — then celebrate their work at the Youth Art Show Reception that evening at the Baright Public Library.",
+      "Before the festival officially opens, young artists get the spotlight. Local youth take their easels to Wildewood Park for a morning of open-air painting — then celebrate their work at the Youth Art Show Reception that evening at the Baright Public Library.",
     events: [
       {
         time: "10 AM – Noon",
         name: "Youth Paintout",
-        location: "Wildwood Park",
+        location: "Wildewood Park",
         address: "78th & Ralston Ave., Ralston, NE",
       },
       {
@@ -106,7 +106,7 @@ export const days: ScheduleDay[] = [
         address: "Main St. & 77th St., Ralston, NE",
         spots: [
           {
-            name: "Wildwood Park",
+            name: "Wildewood Park",
             address: "78th & Ralston Ave., Ralston, NE",
           },
           {
@@ -329,7 +329,7 @@ export const homepageHighlights: HomepageHighlight[] = [
     title: "Youth Paintout",
     description: "Young artists paint en plein air in the park.",
     time: "10 AM – Noon",
-    location: "Wildwood Park (78th & Ralston Ave., Ralston, NE)",
+    location: "Wildewood Park (78th & Ralston Ave., Ralston, NE)",
     ticketHref: "/tickets#youth-paintout",
     ticketLabel: "Free — pre-registration required →",
   },
