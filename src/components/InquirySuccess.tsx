@@ -45,7 +45,7 @@ const InquirySuccess = ({
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <header className="bg-foreground pt-44 pb-16">
+      <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <div className="mb-6 flex justify-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/15">

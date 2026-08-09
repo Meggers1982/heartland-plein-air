@@ -16,6 +16,15 @@ export type FestivalLocation = {
   websiteUrl?: string;
 };
 
+// Coordinates were re-derived from each address by geocoding on 2026-08-09.
+// The whole Ralston cluster had been sitting roughly 1.3 km northwest of where
+// it belonged. If you change an `address`, re-geocode and update lat/lng with
+// it — the two are not kept in sync automatically, and a stale pin is invisible
+// until someone drives to the wrong place.
+//
+// The three Creative District entries are areas, not single venues, so their
+// address is the anchoring cross-street and the pin sits at the middle of the
+// district rather than on one building.
 export const festivalLocations: FestivalLocation[] = [
   {
     key: "wildewood-park",
@@ -33,8 +42,8 @@ export const festivalLocations: FestivalLocation[] = [
     key: "baright-library",
     name: "Baright Public Library",
     address: "5555 S. 77th St., Ralston, NE",
-    lat: 41.2096,
-    lng: -96.0439,
+    lat: 41.2019,
+    lng: -96.0318,
     description:
       "Ralston's public library, home to the festival's Youth Art Show Reception and Festival Awards Judge Rick J. Delanty's ticketed lecture on Impressionism and Plein Air.",
     events: [
@@ -46,8 +55,8 @@ export const festivalLocations: FestivalLocation[] = [
     key: "downtown-ralston",
     name: "Downtown Ralston / Hinge Creative District",
     address: "Main St. & 77th St., Ralston, NE",
-    lat: 41.2090,
-    lng: -96.0445,
+    lat: 41.2020,
+    lng: -96.0285,
     description:
       "The heart of Ralston's HINGE Creative District, where festival artists paint along Main Street during the Monday Lunch Break Paintout and the Third Thursday evening paintout, and where the Quick Paint Competition takes place on the festival's closing Saturday.",
     events: [
@@ -59,9 +68,9 @@ export const festivalLocations: FestivalLocation[] = [
   {
     key: "cathedral-castle",
     name: "Castle & Cathedral Creative District",
-    address: "Joslyn Castle & St. Cecilia's Cathedral, Omaha, NE",
-    lat: 41.2649,
-    lng: -95.9697,
+    address: "40th & Davenport St., Omaha, NE",
+    lat: 41.2641,
+    lng: -95.9720,
     description:
       "Omaha's Castle & Cathedral Creative District, home to Joslyn Castle and St. Cecilia's Cathedral, hosts a Tuesday Lunch Break Paintout during festival week.",
     events: [
@@ -71,9 +80,9 @@ export const festivalLocations: FestivalLocation[] = [
   {
     key: "benson",
     name: "Benson Creative District",
-    address: "60th & Maple, Omaha, NE",
-    lat: 41.2851,
-    lng: -96.0050,
+    address: "60th & Maple St., Omaha, NE",
+    lat: 41.2849,
+    lng: -96.0054,
     description:
       "Omaha's Benson Creative District hosts a midweek Lunch Break Paintout, with festival artists painting throughout the neighborhood.",
     events: [
@@ -83,9 +92,9 @@ export const festivalLocations: FestivalLocation[] = [
   {
     key: "dundee",
     name: "Dundee Creative District",
-    address: "50th & Underwood, Omaha, NE",
-    lat: 41.2691,
-    lng: -95.9869,
+    address: "50th & Underwood Ave., Omaha, NE",
+    lat: 41.2650,
+    lng: -95.9903,
     description:
       "Omaha's Dundee Creative District hosts a Thursday Lunch Break Paintout before the festival's Third Thursday evening events move to Ralston.",
     events: [
@@ -96,8 +105,8 @@ export const festivalLocations: FestivalLocation[] = [
     key: "the-granary",
     name: "Venues at the Granary",
     address: "7401 Main St., Ralston, NE",
-    lat: 41.2098,
-    lng: -96.0405,
+    lat: 41.2020,
+    lng: -96.0271,
     description:
       "Venues at the Granary in Ralston hosts the festival's Collectors Preview Reception and Awards Presentation, the Saturday Public Exhibition & Sale, and the live auction of Quick Paint pieces.",
     websiteUrl: "https://atthegranary.com/",
