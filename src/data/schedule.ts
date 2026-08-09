@@ -1,10 +1,21 @@
 export type Audience = "public" | "ticketed" | "artists";
 
+// A specific spot within a Lunch Break Paintout district where the public can
+// expect to find artists working. Distinct from the event's own `location`,
+// which names the district as a whole.
+export type PaintoutSpot = {
+  name: string;
+  address?: string;
+  note?: string;
+};
+
 export type ScheduleEvent = {
   time?: string;
   name: string;
   location?: string;
   address?: string;
+  // Individual painting spots within the event's district.
+  spots?: PaintoutSpot[];
   // Per-event sponsor credit. Sits on the event rather than the day so the
   // attribution stays with the event that was actually sponsored.
   sponsor?: string;
@@ -93,6 +104,15 @@ export const days: ScheduleDay[] = [
         name: "Lunch Break Paintout",
         location: "Downtown Ralston / Hinge Creative District",
         address: "Main St. & 77th St., Ralston, NE",
+        spots: [
+          {
+            name: "Wildwood Park",
+            address: "78th & Ralston Ave., Ralston, NE",
+          },
+          {
+            name: "Historic Downtown Ralston",
+          },
+        ],
       },
     ],
   },
@@ -113,6 +133,20 @@ export const days: ScheduleDay[] = [
         name: "Lunch Break Paintout",
         location: "Castle & Cathedral Creative District",
         address: "Joslyn Castle & St. Cecilia's Cathedral, Omaha, NE",
+        spots: [
+          {
+            name: "Joslyn Castle & Gardens",
+            address: "3902 Davenport St., Omaha, NE",
+          },
+          {
+            name: "Cali Commons",
+            address: "40th St. between California St. & Cuming St., Omaha, NE",
+          },
+          {
+            name: "St. Cecilia Cathedral / Cathedral Arts Project",
+            address: "701 N. 40th St., Omaha, NE",
+          },
+        ],
       },
     ],
   },
@@ -133,6 +167,21 @@ export const days: ScheduleDay[] = [
         name: "Lunch Break Paintout",
         location: "Benson Creative District",
         address: "60th & Maple, Omaha, NE",
+        spots: [
+          {
+            name: "Ted & Wally's Parking Lot",
+            address: "6023 Maple St., Omaha, NE",
+            note: "Festival info booth",
+          },
+          {
+            name: "Benson Rain Garden",
+            address: "5801 Maple St., Omaha, NE",
+          },
+          {
+            name: "Gallagher Park",
+            address: "2936 N. 52nd St., Omaha, NE",
+          },
+        ],
       },
       {
         time: "4 – 5:30 PM",
@@ -157,6 +206,17 @@ export const days: ScheduleDay[] = [
         name: "Lunch Break Paintout",
         location: "Dundee Creative District",
         address: "50th & Underwood, Omaha, NE",
+        spots: [
+          {
+            name: "Memorial Park Rose Garden",
+            address: "6005 Underwood Ave., Omaha, NE",
+          },
+          {
+            name: "Dundee Business District Streetscape",
+            address: "49th to 51st & Underwood Ave., Omaha, NE",
+            note: "Antique street lights with hanging flower baskets",
+          },
+        ],
       },
       {
         time: "5 – 6 PM",

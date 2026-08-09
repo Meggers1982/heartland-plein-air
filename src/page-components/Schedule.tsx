@@ -387,6 +387,44 @@ const Schedule = () => {
                             )}
                           </div>
                         )}
+                        {ev.spots && ev.spots.length > 0 && (
+                          <div className="mt-2 border-l-2 border-primary/25 pl-4">
+                            <p className="mb-1.5 font-body text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              Where to find the artists
+                            </p>
+                            <ul className="space-y-1.5">
+                              {ev.spots.map((spot) => (
+                                <li
+                                  key={`${d.id}-${ev.name}-${spot.name}`}
+                                  className="font-body text-sm text-muted-foreground"
+                                >
+                                  {spot.address ? (
+                                    <a
+                                      href={mapUrl(`${spot.name}, ${spot.address}`)}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="transition-colors hover:text-primary hover:underline"
+                                    >
+                                      <span className="font-semibold text-foreground/80">
+                                        {spot.name}
+                                      </span>{" "}
+                                      <span className="text-muted-foreground/90">
+                                        ({spot.address})
+                                      </span>
+                                    </a>
+                                  ) : (
+                                    <span className="font-semibold text-foreground/80">
+                                      {spot.name}
+                                    </span>
+                                  )}
+                                  {spot.note && (
+                                    <span className="text-muted-foreground/80"> — {spot.note}</span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         {ev.sponsor && (
                           <div className="mt-1 flex flex-wrap items-center gap-2 font-body text-sm text-muted-foreground">
                             <span>Sponsored by {ev.sponsor}</span>

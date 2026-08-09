@@ -1691,6 +1691,35 @@ tab — so use `behavior: "auto"` when verifying jump-link offsets.
 
 ---
 
+## 2026-08-09 — Paintout Spots Listed Under Each Lunch Break Paintout
+
+Deb's "Schedule of Events-Final updated 8-9-26" doc named the specific spots
+within each creative district where the public can expect to find artists
+painting. Previously the schedule named only the district.
+
+- **New `spots` field on `ScheduleEvent`** (`src/data/schedule.ts`) — an array
+  of `{ name, address?, note? }`. Kept separate from the event's own
+  `location`/`address`, which still name the district as a whole, so the
+  existing map links, Event schema, and .ics export are untouched.
+- **Spots added to all four Lunch Break Paintouts:**
+  - Mon Sep 14 (Hinge): Wildwood Park; Historic Downtown Ralston (no address
+    given in the doc).
+  - Tue Sep 15 (Castle & Cathedral): Joslyn Castle & Gardens; Cali Commons;
+    St. Cecilia Cathedral / Cathedral Arts Project.
+  - Wed Sep 16 (Benson): Ted & Wally's Parking Lot (festival info booth);
+    Benson Rain Garden; Gallagher Park.
+  - Thu Sep 17 (Dundee): Memorial Park Rose Garden; Dundee Business District
+    Streetscape (antique street lights with hanging flower baskets).
+- **Rendering** (`src/page-components/Schedule.tsx`) — spots render as an
+  indented "Where to find the artists" list beneath the event's district line,
+  each linked to Google Maps when it has an address, with the optional `note`
+  in muted text after an em dash.
+- `npm run lint`, `npm run build`, and `npm test` all pass.
+
+**Two source discrepancies left as-is** — see follow-up 7 below.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -1716,7 +1745,21 @@ tab — so use `behavior: "auto"` when verifying jump-link offsets.
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
    Effectively invisible on a line-art mark, but it's the only one under 1.0. A
    larger source file from the foundation would close it.
-6. One lower-priority item flagged during the QA sweep but intentionally
+6. **Two things to confirm with Deb about the 8-9-26 schedule doc** (from the
+   2026-08-09 paintout-spots change):
+   - The doc lists Monday's first spot as "WildewoodPark - 8000 Ralston Ave,"
+     but Saturday's Youth Paintout in the same doc says "Wildwood Park, 78th and
+     Ralston Ave." The site uses **Wildwood Park, 78th & Ralston Ave.**
+     everywhere (schedule, locations, FAQ), so the new Monday entry was made to
+     match rather than introduce a second spelling and address for one park.
+     Confirm which is right — if it's Wildewood/8000, it needs updating in
+     `schedule.ts`, `locations.ts`, and `faq.ts` together.
+   - "The Antique Street Lights with hanging Flower Baskets" is its own line in
+     the doc with no address. It was folded in as a `note` on the Dundee
+     Business District Streetscape spot, since it reads as a description of what
+     to paint there rather than a separate location. If it's meant to be its own
+     stop, it needs an address.
+7. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,
