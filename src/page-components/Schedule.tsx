@@ -195,7 +195,7 @@ const Schedule = () => {
       />
       <SiteNav />
 
-      <header className="bg-foreground pt-44 pb-16">
+      <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
             Schedule of Events

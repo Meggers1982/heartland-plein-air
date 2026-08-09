@@ -56,7 +56,7 @@ const Advertising = () => {
       />
       <SiteNav />
 
-      <header className="bg-foreground pt-52 pb-16">
+      <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
             Reach Collectors & Attendees

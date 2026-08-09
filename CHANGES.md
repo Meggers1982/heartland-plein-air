@@ -2085,6 +2085,61 @@ can fit a 950px sentence into a 768px box.
 
 ---
 
+## 2026-08-09 — Map Pins Re-Geocoded, Hero Top Padding Balanced
+
+### Four of seven map pins were in the wrong place
+
+Every pin in `locations.ts` was re-derived by geocoding its address. The
+Wildewood Park correction earlier today turned out not to be isolated — the
+whole Ralston cluster was systematically about 1.3 km northwest of where it
+belonged:
+
+| Location | Was off by |
+| --- | --- |
+| Baright Public Library | 1,324 m |
+| Venues at the Granary | 1,417 m |
+| Dundee Creative District | ~530 m |
+| Castle & Cathedral Creative District | 393 m |
+| Benson Creative District | 39 m (fine) |
+| Wildewood Park | 73 m (fine — fixed earlier today) |
+
+Ralston's true centre is about `41.2017, -96.0324`; the stored pins sat around
+`41.209, -96.044`. Corrected coordinates are now geocoded values, not
+estimates.
+
+### Addresses made exact where a real address exists
+
+- Castle & Cathedral had `"Joslyn Castle & St. Cecilia's Cathedral, Omaha, NE"`
+  — two landmark names, not an address, and not geocodable. Now
+  `"40th & Davenport St., Omaha, NE"`, which sits between the two.
+- `"60th & Maple"` → `"60th & Maple St."`, `"50th & Underwood"` →
+  `"50th & Underwood Ave."`.
+- The three Creative Districts keep cross-street addresses on purpose: they are
+  areas, not venues. The individual paint spots inside them already carry exact
+  street addresses in `schedule.ts` (Ted & Wally's, Joslyn Castle, Gallagher
+  Park, and so on).
+
+**`schedule.ts` keeps its own copies of these addresses**, which had drifted out
+of sync and were even inconsistent internally — both `"77th & Main St."` and
+`"Main St. & 77th St."` were in use for the same corner. All normalised. Worth
+knowing: the map pins come from `locations.ts` but the schedule listings and
+Event schema come from `schedule.ts`, so a location edit needs both.
+
+### Hero top padding
+
+Measured rather than eyeballed. The fixed nav plus countdown ribbon is 157px
+tall on desktop, and the headers used `pt-44` (176px) — leaving just **19px** of
+visible space above the eyebrow against 64px of padding below it. That is what
+made the heroes look cramped under the ribbon.
+
+Now `pt-52 md:pt-56` (208px / 224px). The logo is `h-16 md:h-20`, so the nav is
+141px on mobile and 157px on desktop — the responsive pair yields **67px** of
+visible top space at both breakpoints, matching `pb-16`. Applied to all nine
+interior page headers plus `InquirySuccess` and the 404. `Advertising.tsx` was
+already an outlier at `pt-52` with no responsive step and is now in line too.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Finish hardening the Google Maps API key.** Website restrictions were

@@ -132,7 +132,7 @@ export const days: ScheduleDay[] = [
         time: "11 AM – 1:30 PM",
         name: "Lunch Break Paintout",
         location: "Castle & Cathedral Creative District",
-        address: "Joslyn Castle & St. Cecilia's Cathedral, Omaha, NE",
+        address: "40th & Davenport St., Omaha, NE",
         spots: [
           {
             name: "Joslyn Castle & Gardens",
@@ -166,7 +166,7 @@ export const days: ScheduleDay[] = [
         time: "11 AM – 1:30 PM",
         name: "Lunch Break Paintout",
         location: "Benson Creative District",
-        address: "60th & Maple, Omaha, NE",
+        address: "60th & Maple St., Omaha, NE",
         spots: [
           {
             name: "Ted & Wally's Parking Lot",
@@ -205,7 +205,7 @@ export const days: ScheduleDay[] = [
         time: "11 AM – 1:30 PM",
         name: "Lunch Break Paintout",
         location: "Dundee Creative District",
-        address: "50th & Underwood, Omaha, NE",
+        address: "50th & Underwood Ave., Omaha, NE",
         spots: [
           {
             name: "Memorial Park Rose Garden",
@@ -228,7 +228,7 @@ export const days: ScheduleDay[] = [
         time: "6 – 8 PM",
         name: "Third Thursday — Artists Painting During Tunes in Town Square",
         location: "Downtown Ralston",
-        address: "77th & Main St., Ralston, NE",
+        address: "Main St. & 77th St., Ralston, NE",
       },
     ],
   },
@@ -270,7 +270,7 @@ export const days: ScheduleDay[] = [
         time: "7:30 – 8:30 AM",
         name: "Artist Breakfast",
         location: "Gazebo",
-        address: "77th & Main St., Ralston, NE",
+        address: "Main St. & 77th St., Ralston, NE",
       },
       {
         time: "9 – 11 AM",
