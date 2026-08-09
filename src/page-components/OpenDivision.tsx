@@ -90,8 +90,8 @@ const OpenDivision = () => {
           </AnimatedSection>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {quickFacts.map((item, i) => (
-              <AnimatedSection key={item.title} delay={i * 100}>
-                <div className="group rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <AnimatedSection key={item.title} delay={i * 100} className="h-full">
+                <div className="group flex h-full flex-col rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
                     <item.icon className="h-6 w-6 text-primary" />
                   </div>

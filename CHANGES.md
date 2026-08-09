@@ -1934,6 +1934,60 @@ constructed. **The pins still need eyes on them in a Vercel deploy.**
 
 ---
 
+## 2026-08-09 — Hydration Mismatch Fixed, Plus Four Content/Layout Fixes
+
+### Hydration mismatch (React error #418) — fixed
+
+Every page threw a hydration error on load. Cause: **both** countdown
+components computed `Date.now()` during the initial render —
+`CountdownBanner.tsx` and `CountdownRibbon.tsx` (the latter is rendered by
+`SiteNav` on every route except `/`). Because these pages are **statically
+prerendered**, those digits were baked into the HTML at *build* time, so the
+client always computed something different on hydration. React reported a text
+mismatch and re-rendered the subtree.
+
+- New shared hook `src/hooks/useCountdown.ts` returns `null` until mounted, then
+  ticks every second. Both components now use it, and both got their duplicate
+  copies of `getTimeLeft` deleted.
+- Pre-mount the digits render as `00` with Tailwind's `invisible` rather than
+  being omitted, so each box reserves its exact final width and nothing shifts
+  when the first tick lands.
+- `CountdownRibbon` previously called `Date.now()` again during render to decide
+  whether to hide itself after the festival. That is now an `isExpired()` check
+  against the hook's value, so no time is read during render at all.
+
+Verified: the prerendered HTML now contains stable `00` placeholders instead of
+build-time digits, and the console is clean across `/about`, `/schedule`, and
+`/open-division`. **Note for future debugging:** an intermediate test appeared
+to show the error surviving the fix — that was a browser-cached copy of the
+pre-fix HTML. Cache-bust when verifying hydration changes.
+
+`AdvertisingDeadlineBanner.tsx` and `Advertising.tsx` were checked and are
+already correct — they initialise to a static `false` and update in an effect.
+
+### Content and layout
+
+- **The Sherwood Foundation is now linked** on the About page
+  (https://sherwoodfoundation.org/), matching the plain `<a>` pattern used by
+  the adjacent funder links rather than introducing `renderRichText`.
+- **Sponsors intro copy fixed** — it read "the generous support of our generous
+  sponsors and partners", using "generous" twice in one sentence. Now reads
+  "the generous support of our sponsors and partners", with `text-pretty` added
+  to prevent an orphan line (Tailwind 3.4.17 supports it).
+- **Open Division "Quick Facts" cards are now equal height.** The grid does
+  stretch its children, but the stretched child was the `AnimatedSection`
+  wrapper — the card `div` inside it sized to its own text. Fixed with `h-full`
+  on the wrapper and `flex h-full flex-col` on the card, the same pattern
+  `InquirySuccess.tsx` already uses. No fixed pixel height, so longer copy
+  still can't clip.
+- **Youth Paintout success page updated** for the expanded form: the recap card
+  now leads with "Arrive by 9:45 AM to check in" and states that a parent or
+  guardian must stay in the park for the full session — the two facts a family
+  most needs after registering. The calendar `.ics` description was updated to
+  match.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -1986,18 +2040,8 @@ constructed. **The pins still need eyes on them in a Vercel deploy.**
      "couldn't load" fallback on localhost regardless of these changes (true
      of the old code too). If pins are missing, the Map ID is likely in a
      different Google Cloud project than the API key.
-8. **Hydration mismatch on every page (React error #418).**
-   `CountdownBanner.tsx` line 7 does `useState(getTimeLeft())`, which calls
-   `Date.now()` during the initial render. That runs once on the server and
-   again on the client, producing different text and a hydration mismatch, so
-   React throws and re-renders that subtree client-side. Pre-existing, found
-   during the 2026-08-09 QA, and unrelated to any change made that day —
-   reproduced on `/about`, which has no map. Low user impact (the countdown
-   still displays correctly) but it throws on every page load. The fix is to
-   initialise the state to a static placeholder and populate it in the existing
-   `useEffect` after mount, accepting one frame where the digits are blank.
-   Not applied, because it changes what the first paint looks like.
-9. ~~Create a Google Maps Map ID~~ — **resolved 2026-08-09.** Original note kept
+
+8. ~~Create a Google Maps Map ID~~ — **resolved 2026-08-09.** Original note kept
    below for reference on how the Map ID was obtained.
    `google.maps.Marker` is deprecated in favour of `AdvancedMarkerElement`,
    but advanced markers require a Map ID and fail silently without one (map
@@ -2021,11 +2065,11 @@ constructed. **The pins still need eyes on them in a Vercel deploy.**
    replace `marker.setMap()`/`marker.getPosition()` with the `.map`/`.position`
    properties in the day-filter effect. The map passes no `styles` array, so a
    Cloud-styled Map ID will not conflict with anything.
-10. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
+9. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
    see the "Partner removals reached the footer and homepage too" entry above.
    Both partners are back in the footer and on the homepage; only the /sponsors
    grid excludes them, and Art of the West is additionally in Platinum.
-11. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
+10. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
    expansion):
    - The paper form has a wet-signature line and date. There is no online
      equivalent; the typed guardian name plus the required consent checkbox
@@ -2035,7 +2079,7 @@ constructed. **The pins still need eyes on them in a Vercel deploy.**
      image used"). Online this is the *absence* of a check on the optional
      photo-release box. Functionally equivalent, but a guardian scanning the
      online form will not see an explicit opt-out. Confirm that's acceptable.
-12. One lower-priority item flagged during the QA sweep but intentionally
+11. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,

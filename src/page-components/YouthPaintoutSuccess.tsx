@@ -19,10 +19,10 @@ const dayOfInstructions = [
       "There is nothing to print and nothing to show when you get there. Go to the registration table, give your first and last name, and you will be checked in. You are already on the list from this form.",
   },
   {
-    name: "Where and when to show up",
+    name: "Arrive by 9:45 AM to check in",
     icon: MapPin,
     detail:
-      "Saturday, September 12, 10 AM–Noon at Wildwood Park, 78th & Ralston Ave., Ralston. Try to arrive a few minutes early so there is time to check in and get set up before painting starts.",
+      "Saturday, September 12, 10 AM–Noon at Wildwood Park, 78th & Ralston Ave., Ralston. Please check in no later than 9:45 AM, and plan for a parent or guardian to stay in the park for the full session.",
   },
   {
     name: "Come back that evening",
@@ -51,7 +51,7 @@ const YouthPaintoutSuccess = () => {
       location: "Wildwood Park",
       address: "78th & Ralston Ave., Ralston, NE",
       description:
-        "Wear clothes that can get paint on them. No ticket needed — give your name at the registration table when you arrive.",
+        "Wear clothes that can get paint on them. No ticket needed — give your name at the registration table when you arrive. Check in by 9:45 AM; a parent or guardian must stay in the park for the full session.",
     });
     downloadIcs("youth-paintout-sep-12.ics", ics);
   };
