@@ -2016,30 +2016,22 @@ already correct — they initialise to a static `false` and update in an effect.
 
 ## Known follow-ups (not code — need your action)
 
-1. **Activate Formspree forms** — submit one test through each of the forms
-   listed in §8 and confirm via the email Formspree sends. The Youth Paintout
-   form (`xzepdkyb`) has been tested and is delivering as of 2026-08-08; the
-   others still need checking.
-2. **Have someone confirm the Youth Paintout consent wording is what you want
-   legally.** The form now captures a parent/guardian name, a required
-   participation consent, and an optional photo release, but the checkbox text
-   was written to be plain and readable, not vetted by anyone.
-3. **Google Maps referrer allowlist** — add production/preview domains in
+1. **Google Maps referrer allowlist** — add production/preview domains in
    Google Cloud Console (see §9), and confirm the key is restricted to
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-4. **One Silver sponsor logo still missing** — Pivot at the Hinge renders as a
+2. **One Silver sponsor logo still missing** — Pivot at the Hinge renders as a
    plain name until artwork arrives. (Debra Joy Groesser Fine Art's logo was
    added 2026-08-09.) To add one: drop the WebP in
    `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
    `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
-5. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
+3. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
    the enlarged Grant Partners row — its content is 863×402, and the slot wants
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
    Effectively invisible on a line-art mark, but it's the only one under 1.0. A
    larger source file from the foundation would close it.
-6. **One thing left to confirm with Deb about the 8-9-26 schedule doc:**
+4. **One thing left to confirm with Deb about the 8-9-26 schedule doc:**
    - ~~Wildwood vs Wildewood~~ — **resolved 2026-08-09: it is Wildewood Park.**
      Renamed everywhere (`schedule.ts`, `locations.ts` incl. the `wildewood-park`
      key, `faq.ts`, `Tickets.tsx`, `YouthPaintoutSuccess.tsx`, `ics.test.ts`).
@@ -2055,7 +2047,7 @@ already correct — they initialise to a static `false` and update in an effect.
      Business District Streetscape spot, since it reads as a description of what
      to paint there rather than a separate location. If it's meant to be its own
      stop, it needs an address.
-7. **Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` to Vercel, then check the pins.**
+5. **Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` to Vercel, then check the pins.**
    The Map ID (`ef19084726c98ff58da5a447`) is in local `.env` and the code
    migration shipped 2026-08-09. Two things remain, both requiring you:
    - Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID=ef19084726c98ff58da5a447` in Vercel →
@@ -2068,48 +2060,15 @@ already correct — they initialise to a static `false` and update in an effect.
      "couldn't load" fallback on localhost regardless of these changes (true
      of the old code too). If pins are missing, the Map ID is likely in a
      different Google Cloud project than the API key.
-
-8. ~~Create a Google Maps Map ID~~ — **resolved 2026-08-09.** Original note kept
-   below for reference on how the Map ID was obtained.
-   `google.maps.Marker` is deprecated in favour of `AdvancedMarkerElement`,
-   but advanced markers require a Map ID and fail silently without one (map
-   renders, pins do not). Not urgent — Google has not scheduled removal and
-   still ships regression fixes — but to unblock it:
-   1. Google Cloud Console → Google Maps Platform → **Map Management**, in the
-      **same project that owns the existing Maps API key**. A Map ID from a
-      different project will not work.
-   2. **Create Map ID** → name it e.g. `heartland-festival-map`, Map type
-      **JavaScript**, style **Raster** (closest to the current look) or
-      **Vector**. Both support advanced markers.
-   3. Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID=<the id>` to `.env` **and** to Vercel
-      → Settings → Environment Variables, then redeploy. `NEXT_PUBLIC_*` vars
-      are inlined at build time, so an existing deployment will not pick it up
-      without a rebuild. The Map ID is a public client-side identifier, not a
-      secret.
-   Then the code change in `LocationsMap.tsx` is: add `libraries=marker` to the
-   loader URL, pass `mapId` to `new google.maps.Map`, swap to
-   `AdvancedMarkerElement` with `gmpClickable: true` (advanced markers are NOT
-   clickable by default — omitting this silently kills every info window), and
-   replace `marker.setMap()`/`marker.getPosition()` with the `.map`/`.position`
-   properties in the day-filter effect. The map passes no `styles` array, so a
-   Cloud-styled Map ID will not conflict with anything.
-9. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
-   see the "Partner removals reached the footer and homepage too" entry above.
-   Both partners are back in the footer and on the homepage; only the /sponsors
-   grid excludes them, and Art of the West is additionally in Platinum.
-10. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
-   expansion):
-   - The paper form has a wet-signature line and date. There is no online
-     equivalent; the typed guardian name plus the required consent checkbox
-     serve as the attestation. If Deb wants it explicit, add wording like "By
-     typing your name you are electronically signing this form."
-   - The paper form has an opt-*out* photo checkbox ("I do not want my child's
-     image used"). Online this is the *absence* of a check on the optional
-     photo-release box. Functionally equivalent, but a guardian scanning the
-     online form will not see an explicit opt-out. Confirm that's acceptable.
-11. One lower-priority item flagged during the QA sweep but intentionally
+6. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,
    but plausibly intentional for image-heavy pages, so left as a design
    decision rather than unilaterally changed.
+7. **Nebraska Arts Council / Cultural Endowment logo is a broken composite.**
+   In `public/assets/nebraska-arts-council-logo.png`, the script "Endless"
+   wordmark is superimposed directly over the word "ENDOWMENT" — both are
+   unreadable. The defect is baked into the source file, so it cannot be fixed
+   with CSS or a re-export. This logo shows in the /sponsors grid, the footer of
+   every page, and the homepage row. Ask them for a clean horizontal lockup.
