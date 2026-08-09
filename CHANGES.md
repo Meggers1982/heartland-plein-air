@@ -1732,7 +1732,9 @@ painting. Previously the schedule named only the district.
   (`sponsors.ts`). Their image files were deliberately left in
   `public/assets/` rather than deleted, so restoring either is a one-line
   change. **Note:** Art of the West is a Platinum-level supporter that was only
-  ever shown in this grid — it now appears nowhere on the site. See follow-up 7.
+  ever shown in this grid. **Same-day follow-up:** it was then added to the
+  Platinum tier, where it is now recognized. Plein Air Magazine remains
+  unlisted — see follow-up 7.
 - **Three Silver sponsor logos added/replaced** (all in
   `public/assets/sponsors/`):
   - `debra-joy-groesser-fine-art.webp` (1200×360) — **new**; she previously
@@ -1819,15 +1821,12 @@ pages were both verified in a real browser.
      Business District Streetscape spot, since it reads as a description of what
      to paint there rather than a separate location. If it's meant to be its own
      stop, it needs an address.
-7. **Art of the West now appears nowhere on the site** (from the 2026-08-09
-   sponsor change). It was removed from the renamed "Presented with Support
-   From" grid as requested, but it was only ever displayed there — the Platinum
-   tier deliberately did not duplicate it. A Platinum-level supporter with no
-   presence on the page is probably not what anyone intends. Either add it to
-   the Platinum array in `sponsors.ts` (the logo file is still at
-   `public/assets/art-of-the-west-logo.png`) or confirm the omission is
-   deliberate. Same question applies to Plein Air Magazine, though it was a
-   media partner rather than a paid tier.
+7. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**:
+   added to the Platinum tier in `sponsors.ts`, alongside Ralston Keno.
+   **Still open:** Plein Air Magazine was removed from the same grid and has not
+   been re-added anywhere. It was a media partner rather than a paid tier, so
+   the omission may well be intentional — confirm either way. Its logo is still
+   at `public/assets/plein-air-magazine-logo.png`.
 8. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
    expansion):
    - The paper form has a wet-signature line and date. There is no online
