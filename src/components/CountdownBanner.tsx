@@ -1,31 +1,18 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useCountdown } from "@/hooks/useCountdown";
 
 const TARGET = new Date("2026-09-13T00:00:00").getTime();
 
 const CountdownBanner = () => {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
-
-  function getTimeLeft() {
-    const diff = Math.max(0, TARGET - Date.now());
-    return {
-      days: Math.floor(diff / 86400000),
-      hours: Math.floor((diff % 86400000) / 3600000),
-      minutes: Math.floor((diff % 3600000) / 60000),
-      seconds: Math.floor((diff % 60000) / 1000),
-    };
-  }
-
-  useEffect(() => {
-    const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
-    return () => clearInterval(id);
-  }, []);
+  // null until mounted — see the hook for why the first value can't be
+  // computed during render on these statically prerendered pages.
+  const timeLeft = useCountdown(TARGET);
 
   const units = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: "Days", value: timeLeft?.days ?? 0 },
+    { label: "Hours", value: timeLeft?.hours ?? 0 },
+    { label: "Minutes", value: timeLeft?.minutes ?? 0 },
+    { label: "Seconds", value: timeLeft?.seconds ?? 0 },
   ];
 
   return (
@@ -54,9 +41,14 @@ const CountdownBanner = () => {
               <div key={u.label} className="flex items-end gap-2 sm:gap-4 md:gap-6">
                 <div className="flex flex-col items-center">
                   <div className="relative rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-3 py-2 shadow-inner backdrop-blur-sm sm:px-5 sm:py-3">
+                    {/* Pre-mount the digits render invisibly rather than being
+                        omitted, so the box reserves its exact final width and
+                        nothing shifts when the first tick lands. */}
                     <span
-                      key={u.value}
-                      className="block font-display text-4xl font-bold tabular-nums text-primary-foreground animate-in fade-in slide-in-from-top-1 duration-500 sm:text-5xl md:text-6xl"
+                      key={timeLeft ? u.value : "placeholder"}
+                      className={`block font-display text-4xl font-bold tabular-nums text-primary-foreground animate-in fade-in slide-in-from-top-1 duration-500 sm:text-5xl md:text-6xl ${
+                        timeLeft ? "" : "invisible"
+                      }`}
                     >
                       {String(u.value).padStart(2, "0")}
                     </span>

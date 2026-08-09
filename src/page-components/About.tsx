@@ -139,7 +139,11 @@ const About = () => {
                 <a href="https://visitnebraska.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
                   Visit Nebraska
                 </a>
-                , and the Sherwood Foundation.
+                , and the{" "}
+                <a href="https://sherwoodfoundation.org/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                  Sherwood Foundation
+                </a>
+                .
               </p>
             </div>
           </AnimatedSection>

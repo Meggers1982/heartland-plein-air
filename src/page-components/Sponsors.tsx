@@ -244,8 +244,8 @@ const Sponsors = () => {
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
                 Our Sponsors
               </h2>
-              <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-                The 2026 Heartland Plein Air Festival is made possible through the generous support of our generous sponsors and partners.
+              <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85 text-pretty">
+                The 2026 Heartland Plein Air Festival is made possible through the generous support of our sponsors and partners.
               </p>
             </div>
             <h3
