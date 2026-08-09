@@ -237,18 +237,20 @@ const Sponsors = () => {
           <AnimatedSection>
             {/* scroll-mt clears the fixed nav + countdown ribbon (~157px) so
                 the "Thank You" eyebrow isn't tucked under them on jump. */}
-            <div id="our-sponsors" className="max-w-3xl scroll-mt-48">
+            <div id="our-sponsors" className="scroll-mt-48">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Thank You
               </p>
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
                 Our Sponsors
               </h2>
-              {/* text-balance, not text-pretty: this is a short standalone
-                  sentence that wrapped to one full line plus a three-word tail.
-                  `pretty` only prevents single-word orphans; `balance` splits
-                  the two lines evenly so the break reads as intentional. */}
-              <p className="mb-10 text-balance font-body text-lg leading-relaxed text-foreground/85">
+              {/* No max-w here on purpose. This block used to be capped at
+                  max-w-3xl (768px), but the sentence needs ~950px at text-lg,
+                  so it always broke — and no amount of text-wrap tuning fixes
+                  a container that's too narrow. Letting it use the section's
+                  max-w-6xl puts it on one line on desktop; it still wraps
+                  naturally on narrower screens, which is correct. */}
+              <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
                 The 2026 Heartland Plein Air Festival is made possible through the generous support of our sponsors and partners.
               </p>
             </div>

@@ -2011,6 +2011,8 @@ already correct — they initialise to a static `false` and update in an effect.
   `text-wrap: pretty` only prevents single-word orphans, and this sentence was
   breaking into one full line plus a three-word tail. Swapped to `text-balance`,
   which splits it into two even lines so the break reads as deliberate.
+  **Superseded later the same day — see below. The real cause was the container
+  width, not the wrap algorithm.**
 
 ---
 
@@ -2059,6 +2061,27 @@ Artists and Gallery — it existed to clear the fixed nav, which the header's
 
 Verified: all nine interior pages emit the header class exactly once, each page
 still has exactly one `<h1>`, and no page ended up with nested `<main>`.
+
+---
+
+## 2026-08-09 — Sponsors Intro Now Fits on One Line
+
+Third attempt, and the first one that addressed the actual cause. The sentence
+("The 2026 Heartland Plein Air Festival is made possible through the generous
+support of our sponsors and partners.") needs roughly 950px at `text-lg`, but
+the block was capped at `max-w-3xl` — 768px. It was never going to fit, so both
+earlier attempts were tuning *how* it broke rather than stopping it breaking:
+`text-pretty` did nothing (it only prevents single-word orphans), and
+`text-balance` made it two even lines, which the client found worse.
+
+Removed the `max-w-3xl` cap so the block uses the section's `max-w-6xl`
+(~1104px of usable width). One line on desktop, still wrapping naturally on
+narrower screens. Both wrap utilities were dropped — unnecessary once the
+container is wide enough.
+
+**Lesson for next time:** when text wraps somewhere awkward, check the
+container width before reaching for `text-wrap` utilities. No wrap algorithm
+can fit a 950px sentence into a 768px box.
 
 ---
 
