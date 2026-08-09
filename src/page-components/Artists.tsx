@@ -84,6 +84,16 @@ const Artists = () => {
 
         <section className="pb-24">
           <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-12 text-center">
+              <AnimatedSection>
+                <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                  The Roster
+                </p>
+                <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+                  The 2026 Invited Artists
+                </h2>
+              </AnimatedSection>
+            </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {artists.map((artist, i) => (
                 <AnimatedSection key={artist.name} delay={i * 80}>
@@ -223,7 +233,7 @@ const Artists = () => {
                     {active.location}
                   </DialogDescription>
                 </DialogHeader>
-                {active.bio ? (
+                {active.bio && (
                   <div className="mt-4 space-y-3">
                     {active.bio.split("\n\n").map((paragraph, idx) => (
                       <p key={idx} className="font-body text-sm leading-relaxed text-muted-foreground">
@@ -231,10 +241,6 @@ const Artists = () => {
                       </p>
                     ))}
                   </div>
-                ) : (
-                  <p className="mt-4 font-body text-sm italic leading-relaxed text-muted-foreground">
-                    Bio coming soon.
-                  </p>
                 )}
                 {(active.website || active.instagram || active.facebook) && (
                   <div className="mt-6 flex gap-3">

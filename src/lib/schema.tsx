@@ -52,7 +52,7 @@ export function breadcrumbSchema(crumbs: Crumb[]) {
 
 import { artists } from "@/data/artists";
 
-const invitedCount = artists.length;
+const invitedCount = artists.length + 1; // +1 — Rick J. Delanty judges and also paints
 
 export const ticketOffers = [
   {

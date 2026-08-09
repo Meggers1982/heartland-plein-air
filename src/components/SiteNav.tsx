@@ -38,141 +38,156 @@ const SiteNav = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          aria-label="Heartland Plein Air Festival home"
-          className="relative block h-16 md:h-20 aspect-[1376/729] overflow-hidden"
-        >
-          <img
-            src="/assets/heartland-logo.png"
-            alt="heartland plein air festival sunset artist logo"
-            className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
-          />
-        </Link>
-        <div className="hidden items-center gap-6 md:flex">
-          {navLinksBeforeAbout.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={closeMenus}
-              className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          <div
-            className="flex items-center gap-1"
-            onMouseEnter={() => setAboutOpen(true)}
-            onMouseLeave={() => setAboutOpen(false)}
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <Link
+            href="/"
+            aria-label="Heartland Plein Air Festival home"
+            className="relative block h-16 md:h-20 aspect-[1376/729] overflow-hidden"
           >
+            <img
+              src="/assets/heartland-logo.png"
+              alt="heartland plein air festival sunset artist logo"
+              className="absolute left-[-20.86%] top-[-65.71%] w-[139.53%] max-w-none"
+            />
+          </Link>
+          <div className="hidden items-center gap-6 md:flex">
+            {navLinksBeforeAbout.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={closeMenus}
+                className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <div
+              className="flex items-center gap-1"
+              onMouseEnter={() => setAboutOpen(true)}
+              onMouseLeave={() => setAboutOpen(false)}
+            >
+              <Link
+                href="/about"
+                onClick={closeMenus}
+                className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+              >
+                About
+              </Link>
+              <DropdownMenu open={aboutOpen} onOpenChange={setAboutOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    type="button"
+                    className="flex items-center text-foreground/80 transition-colors hover:text-primary"
+                    aria-haspopup="menu"
+                    aria-expanded={aboutOpen}
+                    aria-label="Advertising submenu"
+                  >
+                    <ChevronDown
+                      className={`h-3.5 w-3.5 transition-transform ${aboutOpen ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="start"
+                  sideOffset={12}
+                  className="min-w-[10rem] rounded-md border border-border bg-popover p-1 font-body text-popover-foreground shadow-lg"
+                >
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/advertising"
+                      onClick={closeMenus}
+                      className="cursor-pointer rounded-sm px-3 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary focus:bg-muted focus:text-primary"
+                    >
+                      Advertising
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {navLinksAfterAbout.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={closeMenus}
+                className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <button
+            className="md:hidden text-foreground"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+        {showRibbon && <CountdownRibbon />}
+        {showAdBanner && <AdvertisingDeadlineBanner />}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
+            open ? "max-h-[32rem] border-t border-border" : "max-h-0"
+          }`}
+        >
+          <div className="flex flex-col gap-1 px-6 py-4">
+            {navLinksBeforeAbout.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={closeMenus}
+                className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
               href="/about"
               onClick={closeMenus}
-              className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
+              className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
             >
               About
             </Link>
-            <DropdownMenu open={aboutOpen} onOpenChange={setAboutOpen}>
-              <DropdownMenuTrigger asChild>
-                <button
-                  type="button"
-                  className="flex items-center text-foreground/80 transition-colors hover:text-primary"
-                  aria-haspopup="menu"
-                  aria-expanded={aboutOpen}
-                  aria-label="Advertising submenu"
-                >
-                  <ChevronDown
-                    className={`h-3.5 w-3.5 transition-transform ${aboutOpen ? "rotate-180" : ""}`}
-                    aria-hidden="true"
-                  />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="start"
-                sideOffset={12}
-                className="min-w-[10rem] rounded-md border border-border bg-popover p-1 font-body text-popover-foreground shadow-lg"
+            <Link
+              href="/advertising"
+              onClick={closeMenus}
+              className="ml-4 rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
+            >
+              Advertising
+            </Link>
+            {navLinksAfterAbout.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={closeMenus}
+                className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
               >
-                <DropdownMenuItem asChild>
-                  <Link
-                    href="/advertising"
-                    onClick={closeMenus}
-                    className="cursor-pointer rounded-sm px-3 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary focus:bg-muted focus:text-primary"
-                  >
-                    Advertising
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                {link.label}
+              </Link>
+            ))}
           </div>
-
-          {navLinksAfterAbout.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={closeMenus}
-              className="font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
         </div>
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-      </div>
-      {showRibbon && <CountdownRibbon />}
-      {showAdBanner && <AdvertisingDeadlineBanner />}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          open ? "max-h-[32rem] border-t border-border" : "max-h-0"
-        }`}
-      >
-        <div className="flex flex-col gap-1 px-6 py-4">
-          {navLinksBeforeAbout.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={closeMenus}
-              className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/about"
-            onClick={closeMenus}
-            className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
-          >
-            About
-          </Link>
-          <Link
-            href="/advertising"
-            onClick={closeMenus}
-            className="ml-4 rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
-          >
-            Advertising
-          </Link>
-          {navLinksAfterAbout.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={closeMenus}
-              className="rounded px-3 py-2 font-body text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-muted hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </nav>
+      </nav>
+      {/*
+        Skip-link target (see the "Skip to main content" link rendered in
+        src/app/layout.tsx). SiteNav is rendered by every page-component as
+        the first element in its own JSX tree — layout.tsx never wraps
+        {children} in a landmark of its own — so this marker, placed here as
+        SiteNav's own trailing sibling, is guaranteed to land after the nav
+        and before each page's real content in DOM order on every route.
+        Some page-components (Gallery, Artists) render their own <main>;
+        wrapping {children} in another <main> in layout.tsx would nest
+        landmarks invalidly, so this uses a plain, visually hidden,
+        programmatically focusable element instead.
+      */}
+      <div id="main-content" tabIndex={-1} className="sr-only" />
+    </>
   );
 };
 

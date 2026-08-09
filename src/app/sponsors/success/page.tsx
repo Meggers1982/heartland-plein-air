@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Thank you for your sponsorship inquiry for the Heartland Plein Air Festival.",
   alternates: { canonical: "https://heartlandpleinair.org/sponsors/success" },
+  robots: { index: false, follow: false },
 };
 
 export default function SponsorsSuccessPage() {

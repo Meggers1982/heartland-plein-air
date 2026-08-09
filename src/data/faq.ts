@@ -52,7 +52,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How many artists participate in the festival?",
         a: [
-          "The inaugural Heartland Plein Air Festival brings together 24 nationally acclaimed invited artists (see them all on the [Artists page](/artists)), plus Awards Judge Rick J. Delanty. The festival also includes an [Open Division](/open-division) with up to 40 additional artists who apply online, for a total of up to 64 participating artists.",
+          "The inaugural Heartland Plein Air Festival brings together 25 nationally acclaimed invited artists (see them all on the [Artists page](/artists)), including Awards Judge Rick J. Delanty, who both judges and paints. The festival also includes an [Open Division](/open-division) with up to 40 additional artists who apply online, for a total of up to 65 participating artists.",
         ],
       },
       {
@@ -133,7 +133,7 @@ export const categories: FaqCategory[] = [
           "September 17 — Judge's Lecture: Impressionism & Plein Air at Baright Library (5–6 PM, ticketed); Third Thursday concert with artists painting downtown (6–8 PM, free).",
           "September 18 — Collectors Preview Reception and Awards Presentation at [the Granary](https://atthegranary.com/), Ralston (5:30–8 PM, ticketed).",
           "September 19 — Quick Paint Competition (9–11 AM, Ralston Hinge Creative District); Public Exhibition & Sale at [the Granary](https://atthegranary.com/) (11 AM–4 PM, free); Live Auction of Quick Paint Pieces at [Granary Green](https://atthegranary.com/) (Noon–1 PM).",
-          "September 19–October 2 — Online art sale.",
+          "September 21–October 4 — Online art sale.",
           "See the [Schedule page](/schedule) for the full day-by-day itinerary and a map of locations.",
         ],
       },
@@ -186,7 +186,7 @@ export const categories: FaqCategory[] = [
         featured: true,
         a: [
           "Paintings are available for purchase at two events: the Collectors Preview Reception and Awards Presentation on September 18 (5:30–8 PM at [the Granary](https://atthegranary.com/), 7401 Main Street, Ralston) and the Public Exhibition on September 19 (11 AM–4 PM, also at the Granary). Works at both events are sold at the artist's listed price. The Collectors Preview Reception and Awards Presentation is ticketed; the Public Exhibition is free.",
-          "For anyone unable to attend in person, an online sale of remaining artworks runs from September 19 through October 2 at HeartlandPleinAir.org and RalstonArts.org.",
+          "For anyone unable to attend in person, an online sale of remaining artworks runs from September 21 through October 4 at HeartlandPleinAir.org and RalstonArts.org.",
         ],
       },
       {
@@ -204,7 +204,7 @@ export const categories: FaqCategory[] = [
       {
         q: "How does the online sale work?",
         a: [
-          "Following the Public Exhibition on September 19, any paintings that remain available will move to an online sale running through October 2. The sale will be accessible through HeartlandPleinAir.org and RalstonArts.org.",
+          "Following the Public Exhibition on September 19, any paintings that remain available will move to an online sale running through October 4. The sale will be accessible through HeartlandPleinAir.org and RalstonArts.org.",
           "Details on how to browse available works and complete a purchase will be published closer to the event. Sign up for the newsletter in the footer to be notified when the online sale opens.",
         ],
       },

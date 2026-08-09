@@ -47,7 +47,7 @@ const OpenDivision = () => {
     window.scrollTo(0, 0);
     document.title = "Register to Paint Plein Air With the Pros: Omaha 2026";
     return setPageMeta(
-      "Register to paint alongside 25 national artists during festival week. Limited to 30 spots at $30. All mediums welcome. Sept. 13–19, 2026, Omaha metro.",
+      "Register to paint alongside 25 national artists during festival week. Limited to 40 spots at $30. All mediums welcome. Sept. 13–19, 2026, Omaha metro.",
     );
   }, []);
 
@@ -122,7 +122,7 @@ const OpenDivision = () => {
             </h2>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                Registration is $30 and limited to 30 artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
+                Registration is $30 and limited to 40 artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
               </p>
               <p>
                 Check-in runs from 11am to 5pm on Monday, September 14th, at the Ralston Baright Public Library (5500 S. 77th St, Ralston). You'll receive your information packet and lanyard, and can have your canvases stamped.
@@ -246,7 +246,7 @@ const OpenDivision = () => {
                 Ready to Register?
               </p>
               <p className="font-body text-base leading-relaxed text-muted-foreground">
-                Fill out the form below to reserve your spot. Registration is $30 and limited to 30 artists, first come, first served.
+                Fill out the form below to reserve your spot. Registration is $30 and limited to 40 artists, first come, first served.
               </p>
               <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
                 After submitting the form, pay your fee via PayPal or by mailing a check. Any registration without payment will not be accepted.

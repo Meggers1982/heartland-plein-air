@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Thank you for reserving ad space in the Heartland Plein Air Festival catalog.",
   alternates: { canonical: "https://heartlandpleinair.org/advertising/success" },
+  robots: { index: false, follow: false },
 };
 
 export default function AdvertisingSuccessPage() {

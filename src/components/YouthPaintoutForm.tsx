@@ -172,7 +172,7 @@ const YouthPaintoutForm = () => {
       router.push("/tickets/youth-paintout/success");
     } catch {
       setSubmitError(
-        "Something went wrong sending your registration. Please try again, or email us directly at ralstoncreativedistrict@gmail.com.",
+        "Something went wrong sending your registration. Please try again, or email us directly at info@ralstonarts.org.",
       );
     } finally {
       setSubmitting(false);
