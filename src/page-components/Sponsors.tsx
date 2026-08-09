@@ -248,11 +248,13 @@ const Sponsors = () => {
               id="grant-partners"
               className="mb-6 scroll-mt-32 font-display text-2xl font-semibold text-foreground"
             >
-              Our Grant Partners
+              Presented with Support From
             </h3>
             {/* Grant partners sit above the paid tiers, so their cell is taller
-                than Platinum's (h-44/h-56). Two columns keeps the wide marks —
-                Art of the West is ~16:1 — as large as the container allows. */}
+                than Platinum's (h-44/h-56). None of the remaining five marks
+                is especially wide (all roughly 1:1 to 2:1), so two columns is
+                just a generous, balanced size for this tier rather than a fix
+                for an outlier aspect ratio. */}
             <div className="grid gap-6 sm:grid-cols-2">
               {sponsors.map((sponsor) =>
                 sponsor.logo ? (

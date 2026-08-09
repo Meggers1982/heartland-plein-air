@@ -37,6 +37,17 @@ const passBenefits = [
   },
 ];
 
+// From the paper backup registration form Deb provides on-site — logistics a
+// registrant needs to know but that aren't a field to fill in.
+const youthPaintoutGoodToKnow = [
+  "Open to ages 5 to 18 (kindergarten through high school).",
+  "Please arrive no later than 9:45 AM to check in — painting runs 10 AM–Noon.",
+  "A parent or guardian must stay in the park for the full session.",
+  "So we can welcome as many families as possible, participation is limited to 2 youth per family.",
+  "Each young artist receives an art kit to keep.",
+  "Finished paintings are framed and displayed at the Baright Public Library, then celebrated at the Youth Art Show Reception that evening.",
+];
+
 // Jump links shown under the hero — one per ticket type on the page, in the
 // order the sections appear. Keep `id` in sync with each section's id.
 const ticketOptions = [
@@ -45,7 +56,6 @@ const ticketOptions = [
   { id: "collectors-preview-reception", name: "Collectors Preview Reception", price: "$95" },
   { id: "public-exhibition-sale", name: "Public Exhibition & Sale", price: "Free" },
   { id: "youth-paintout", name: "Youth Paintout", price: "Free" },
-  { id: "youth-art-show-reception", name: "Youth Art Show Reception", price: "Free" },
 ];
 
 const Tickets = () => {
@@ -295,6 +305,21 @@ const Tickets = () => {
                 Free
               </p>
             </div>
+            <div className="mx-auto mb-10 max-w-xl rounded-lg border border-border bg-card p-6 md:p-8">
+              <p className="mb-4 font-display text-lg font-semibold text-foreground">
+                Good to Know Before You Arrive
+              </p>
+              <ul className="space-y-3">
+                {youthPaintoutGoodToKnow.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <Check className="mt-1 h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
+                    <span className="font-body text-sm leading-relaxed text-foreground/85">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="rounded-lg border border-border bg-card p-8 md:p-12">
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
                 Register for the Youth Paintout
@@ -307,8 +332,10 @@ const Tickets = () => {
 
       <BrushStrokeDivider />
 
-      {/* Youth Art Show Reception — free, nothing to book, but it lives here so
-          the schedule can link somewhere when people go looking for a ticket. */}
+      {/* Youth Art Show Reception — no RSVP or ticket of any kind, just an
+          open house. Not in `ticketOptions` above since there is nothing to
+          jump here to buy or register for; the section stays so the event is
+          still listed and described. */}
       <section id="youth-art-show-reception" className="scroll-mt-40 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>

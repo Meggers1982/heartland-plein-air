@@ -16,6 +16,31 @@ const schema = z.object({
     .trim()
     .min(1, { message: "Please enter the youth's last name." })
     .max(100, { message: "Last name must be less than 100 characters." }),
+  age: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter the youth's age." })
+    .regex(/^\d{1,2}$/, { message: "Please enter a valid age." }),
+  streetAddress: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter a street address." })
+    .max(200, { message: "Street address must be less than 200 characters." }),
+  city: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter a city." })
+    .max(100, { message: "City must be less than 100 characters." }),
+  state: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter a state." })
+    .max(50, { message: "State must be less than 50 characters." }),
+  zip: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter a ZIP code." })
+    .regex(/^\d{5}(-\d{4})?$/, { message: "Please enter a valid ZIP code." }),
   phone: z
     .string()
     .trim()
@@ -33,6 +58,22 @@ const schema = z.object({
     .trim()
     .min(1, { message: "Please enter the parent or guardian's name." })
     .max(150, { message: "Name must be less than 150 characters." }),
+  emergencyContactName: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter an emergency contact name." })
+    .max(150, { message: "Name must be less than 150 characters." }),
+  emergencyContactPhone: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter an emergency contact phone number." })
+    .max(30, { message: "Phone number must be less than 30 characters." })
+    .regex(/^[\d\s()+.\-extEXT]{7,}$/, { message: "Please enter a valid phone number." }),
+  relationship: z
+    .string()
+    .trim()
+    .min(1, { message: "Please enter the emergency contact's relationship to the student." })
+    .max(100, { message: "Relationship must be less than 100 characters." }),
   // Participation consent is required. The photo release is deliberately
   // separate and optional — permission to attend shouldn't be conditional on
   // agreeing to be photographed.
@@ -45,9 +86,17 @@ const schema = z.object({
 type FormState = {
   firstName: string;
   lastName: string;
+  age: string;
+  streetAddress: string;
+  city: string;
+  state: string;
+  zip: string;
   phone: string;
   email: string;
   parentName: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  relationship: string;
   consent: boolean;
   photoRelease: boolean;
 };
@@ -58,9 +107,17 @@ const YouthPaintoutForm = () => {
   const [form, setForm] = useState<FormState>({
     firstName: "",
     lastName: "",
+    age: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zip: "",
     phone: "",
     email: "",
     parentName: "",
+    emergencyContactName: "",
+    emergencyContactPhone: "",
+    relationship: "",
     consent: false,
     photoRelease: false,
   });
@@ -96,9 +153,17 @@ const YouthPaintoutForm = () => {
           event: "Youth Paintout — Saturday, September 12",
           firstName: result.data.firstName,
           lastName: result.data.lastName,
+          age: result.data.age,
+          streetAddress: result.data.streetAddress,
+          city: result.data.city,
+          state: result.data.state,
+          zip: result.data.zip,
           phone: result.data.phone,
           email: result.data.email,
           parentGuardian: result.data.parentName,
+          emergencyContactName: result.data.emergencyContactName,
+          emergencyContactPhone: result.data.emergencyContactPhone,
+          relationshipToStudent: result.data.relationship,
           parentConsent: "Yes — permission to participate given",
           photoRelease: result.data.photoRelease ? "Yes" : "No",
         }),
@@ -120,7 +185,20 @@ const YouthPaintoutForm = () => {
     "block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground";
   const errorClass = "mt-1 px-1 font-body text-xs";
 
-  type TextKey = "firstName" | "lastName" | "phone" | "email" | "parentName";
+  type TextKey =
+    | "firstName"
+    | "lastName"
+    | "age"
+    | "streetAddress"
+    | "city"
+    | "state"
+    | "zip"
+    | "phone"
+    | "email"
+    | "parentName"
+    | "emergencyContactName"
+    | "emergencyContactPhone"
+    | "relationship";
 
   const field = (
     key: TextKey,
@@ -195,9 +273,21 @@ const YouthPaintoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6 text-left">
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-3">
         {field("firstName", "Youth's First Name", "text", "First name", 100, "given-name")}
         {field("lastName", "Youth's Last Name", "text", "Last name", 100, "family-name")}
+        {field("age", "Youth's Age", "text", "Age", 3, "off")}
+      </div>
+
+      {field("streetAddress", "Street Address", "text", "Street address", 200, "address-line1")}
+
+      <div className="grid gap-6 sm:grid-cols-3">
+        {field("city", "City", "text", "City", 100, "address-level2")}
+        {field("state", "State", "text", "State", 50, "address-level1")}
+        {field("zip", "ZIP Code", "text", "ZIP code", 10, "postal-code")}
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2">
         {field("phone", "Phone", "tel", "(402) 555-0100", 30, "tel")}
         {field("email", "Email Address", "email", "you@example.com", 255, "email")}
       </div>
@@ -209,6 +299,27 @@ const YouthPaintoutForm = () => {
         "Parent or guardian's full name",
         150,
         "name",
+      )}
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        {field("emergencyContactName", "Emergency Contact Name", "text", "Full name", 150, "off")}
+        {field(
+          "emergencyContactPhone",
+          "Emergency Contact Phone",
+          "tel",
+          "(402) 555-0100",
+          30,
+          "off",
+        )}
+      </div>
+
+      {field(
+        "relationship",
+        "Emergency Contact's Relationship to Student",
+        "text",
+        "e.g. Grandparent, family friend",
+        100,
+        "off",
       )}
 
       <div className="space-y-4 rounded-sm border border-border bg-muted/40 p-5">
