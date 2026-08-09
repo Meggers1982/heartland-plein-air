@@ -1887,6 +1887,53 @@ all 22 routes prerendered, plus curl verification of every fix above.
 
 ---
 
+## 2026-08-09 — Google Maps Migrated to AdvancedMarkerElement
+
+The client supplied a Map ID, unblocking the migration deferred earlier today.
+`src/components/LocationsMap.tsx`:
+
+- Loader URL now requests `libraries=marker` (required for
+  `AdvancedMarkerElement`; without it `google.maps.marker` is undefined).
+- The map is constructed with `mapId` from
+  `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID`.
+- Markers are `AdvancedMarkerElement` with **`gmpClickable: true`** — advanced
+  markers are not clickable by default, and omitting it renders pins that
+  silently do nothing when clicked.
+- Click handling uses the native `gmp-click` event for advanced markers
+  (`addListener("click", …)` works but Google logs a warning telling you to
+  switch); legacy markers keep the Maps event system.
+- The day filter uses `.map` / `.position` properties instead of `setMap()` /
+  `getPosition()`, via `setMarkerVisible` / `getMarkerPosition` helpers that
+  handle both marker kinds.
+- Click handlers are now bound once and read the current filter from a ref.
+  The old code re-bound them on every filter change via `clearListeners()`,
+  which is fragile against a DOM custom element.
+- Markers are detached on unmount — advanced markers are real DOM nodes and
+  leak more readily than legacy ones.
+
+**Two safety nets, because advanced markers fail *silently* (pins simply never
+appear) when the Map ID is missing or wrong:**
+
+1. If `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` is absent at build time, the code uses
+   legacy `Marker` instead. `NEXT_PUBLIC_*` vars are inlined at build time, so
+   a deploy without the var set would otherwise ship a pinless map.
+2. A `mapcapabilities_changed` listener detects advanced markers being
+   unavailable at runtime and **rebuilds the markers as legacy ones**, logging
+   a warning. The deprecation notice coming back is a far better outcome than
+   an empty map.
+
+**Verification limits — read this before trusting it.** The Maps API key is
+referrer-restricted, so the map cannot render on `localhost` at all: it shows
+the "Map couldn't load" fallback. This was confirmed to be **pre-existing** by
+stashing the change and rebuilding — the original committed code fails the same
+way locally. So this migration could NOT be visually confirmed. What was
+confirmed: the build inlines both the Map ID and `libraries=marker`, the old
+`google.maps.Marker` deprecation warning is gone, and Google's
+`<gmp-advanced-marker>` warning appeared — proving advanced markers really were
+constructed. **The pins still need eyes on them in a Vercel deploy.**
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -1902,9 +1949,9 @@ all 22 routes prerendered, plus curl verification of every fix above.
    `heartlandpleinair.org/*`. This is the actual mitigation for the exposed
    key — see the 2026-07-12 entry above for why rewriting git history
    wouldn't help.
-4. **Two Silver sponsor logos still missing** — Pivot at the Hinge and Debra Joy
-   Groesser Fine Art render as plain names
-   until artwork arrives. To add one: drop the WebP in
+4. **One Silver sponsor logo still missing** — Pivot at the Hinge renders as a
+   plain name until artwork arrives. (Debra Joy Groesser Fine Art's logo was
+   added 2026-08-09.) To add one: drop the WebP in
    `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
    `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
 5. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
@@ -1926,7 +1973,32 @@ all 22 routes prerendered, plus curl verification of every fix above.
      Business District Streetscape spot, since it reads as a description of what
      to paint there rather than a separate location. If it's meant to be its own
      stop, it needs an address.
-7. **Create a Google Maps Map ID so the marker migration can happen.**
+7. **Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` to Vercel, then check the pins.**
+   The Map ID (`ef19084726c98ff58da5a447`) is in local `.env` and the code
+   migration shipped 2026-08-09. Two things remain, both requiring you:
+   - Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID=ef19084726c98ff58da5a447` in Vercel →
+     Settings → Environment Variables, then **redeploy**. `NEXT_PUBLIC_*` vars
+     are inlined at build time, so an existing deployment will not pick it up.
+     Until then the code falls back to legacy markers, so the map still works.
+   - **Look at the map on the deployed site and confirm the pins are there,
+     and that clicking one opens its popup.** This could not be verified
+     locally — the API key is referrer-restricted, so the map shows its
+     "couldn't load" fallback on localhost regardless of these changes (true
+     of the old code too). If pins are missing, the Map ID is likely in a
+     different Google Cloud project than the API key.
+8. **Hydration mismatch on every page (React error #418).**
+   `CountdownBanner.tsx` line 7 does `useState(getTimeLeft())`, which calls
+   `Date.now()` during the initial render. That runs once on the server and
+   again on the client, producing different text and a hydration mismatch, so
+   React throws and re-renders that subtree client-side. Pre-existing, found
+   during the 2026-08-09 QA, and unrelated to any change made that day —
+   reproduced on `/about`, which has no map. Low user impact (the countdown
+   still displays correctly) but it throws on every page load. The fix is to
+   initialise the state to a static placeholder and populate it in the existing
+   `useEffect` after mount, accepting one frame where the digits are blank.
+   Not applied, because it changes what the first paint looks like.
+9. ~~Create a Google Maps Map ID~~ — **resolved 2026-08-09.** Original note kept
+   below for reference on how the Map ID was obtained.
    `google.maps.Marker` is deprecated in favour of `AdvancedMarkerElement`,
    but advanced markers require a Map ID and fail silently without one (map
    renders, pins do not). Not urgent — Google has not scheduled removal and
@@ -1949,11 +2021,11 @@ all 22 routes prerendered, plus curl verification of every fix above.
    replace `marker.setMap()`/`marker.getPosition()` with the `.map`/`.position`
    properties in the day-filter effect. The map passes no `styles` array, so a
    Cloud-styled Map ID will not conflict with anything.
-8. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
+10. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
    see the "Partner removals reached the footer and homepage too" entry above.
    Both partners are back in the footer and on the homepage; only the /sponsors
    grid excludes them, and Art of the West is additionally in Platinum.
-9. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
+11. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
    expansion):
    - The paper form has a wet-signature line and date. There is no online
      equivalent; the typed guardian name plus the required consent checkbox
@@ -1963,7 +2035,7 @@ all 22 routes prerendered, plus curl verification of every fix above.
      image used"). Online this is the *absence* of a check on the optional
      photo-release box. Functionally equivalent, but a guardian scanning the
      online form will not see an explicit opt-out. Confirm that's acceptable.
-10. One lower-priority item flagged during the QA sweep but intentionally
+12. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,
