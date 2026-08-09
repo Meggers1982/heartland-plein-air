@@ -1,6 +1,39 @@
-// "Presented with Support From" partners — funders and media partners, shown
-// above the paid sponsor tiers.
-export const sponsors = [
+export type Partner = {
+  name: string;
+  logo: string;
+  alt: string;
+  url?: string;
+  // Kept out of the "Presented with Support From" grid on /sponsors, but still
+  // shown in the site footer strip and the homepage "Made Possible By" row.
+  // Use this instead of deleting the entry — the array feeds all three places,
+  // so removing a partner here removes them from every page on the site.
+  hideFromPartnersGrid?: boolean;
+};
+
+// Funders and media partners. Rendered in THREE places, so edit with care:
+//   1. /sponsors — the "Presented with Support From" grid (respects
+//      `hideFromPartnersGrid`)
+//   2. SiteFooter — the "Sponsors & Partners" strip, on every page
+//   3. SponsorsSection — the homepage "Made Possible By" row
+export const sponsors: Partner[] = [
+  {
+    // Media partner. Off the /sponsors grid per client request 2026-08-09,
+    // but still credited in the footer and on the homepage.
+    name: "Plein Air Magazine",
+    logo: "/assets/plein-air-magazine-logo.png",
+    alt: "pleinair magazine logo",
+    url: "https://pleinairmagazine.com/",
+    hideFromPartnersGrid: true,
+  },
+  {
+    // Off the /sponsors grid per client request 2026-08-09; recognized there
+    // in the Platinum tier instead. Still credited in the footer and homepage.
+    name: "Art of the West",
+    logo: "/assets/art-of-the-west-logo.png",
+    alt: "art of the west magazine logo",
+    url: "https://aotw.com/",
+    hideFromPartnersGrid: true,
+  },
   {
     name: "Visit Nebraska",
     logo: "/assets/visit-nebraska-logo.png",
