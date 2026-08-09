@@ -2103,3 +2103,13 @@ still has exactly one `<h1>`, and no page ended up with nested `<main>`.
    `schedule.ts`. Low stakes either way — the location is listed, just nested.
    (This was briefly lost when the Wildewood Park address question it was
    bundled with got resolved; re-added 2026-08-09.)
+6. **Two names for the Judge's Lecture — pick one.** The same ticketed event is
+   called two different things across the site:
+   - "Introduction to Impressionism" — `schema.tsx` ticket offer and the
+     Tickets page (×2)
+   - "Judge's Lecture — Impressionism & Plein Air" — `schedule.ts`,
+     `locations.ts`, and `faq.ts`
+   Someone comparing the Tickets page to the Schedule page sees what reads as
+   two different lectures. Not changed here because renaming an event is a
+   content decision, and the offer title is also what appears on the Passage
+   ticketing page. Tell me which is right and it's a quick sweep.
