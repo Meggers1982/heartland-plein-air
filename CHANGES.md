@@ -2094,3 +2094,12 @@ still has exactly one `<h1>`, and no page ended up with nested `<main>`.
    unreadable. The defect is baked into the source file, so it cannot be fixed
    with CSS or a re-export. This logo shows in the /sponsors grid, the footer of
    every page, and the homepage row. Ask them for a clean horizontal lockup.
+5. **One small question for Deb, still unanswered.** In the 8-9-26 schedule
+   doc, "The Antique Street Lights with hanging Flower Baskets" sits on its own
+   line under Thursday's Dundee paintout, with no address. It was folded in as a
+   `note` on the Dundee Business District Streetscape spot, on the reading that
+   it describes what to paint there rather than naming a separate location. If
+   it is meant to be its own stop, it needs an address in
+   `schedule.ts`. Low stakes either way — the location is listed, just nested.
+   (This was briefly lost when the Wildewood Park address question it was
+   bundled with got resolved; re-added 2026-08-09.)
