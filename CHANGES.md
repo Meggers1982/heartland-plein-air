@@ -1720,6 +1720,66 @@ painting. Previously the schedule named only the district.
 
 ---
 
+## 2026-08-09 — Sponsor Logos, Section Rename, Dundee's New Logo, Youth Paintout Form
+
+### Sponsors page
+
+- **"Our Grant Partners" renamed to "Presented with Support From"**
+  (`Sponsors.tsx`). The `id="grant-partners"` anchor was left unchanged — a
+  repo-wide grep found nothing linking to it, so renaming the id would have
+  been churn with no benefit.
+- **Plein Air Magazine and Art of the West removed** from that grid
+  (`sponsors.ts`). Their image files were deliberately left in
+  `public/assets/` rather than deleted, so restoring either is a one-line
+  change. **Note:** Art of the West is a Platinum-level supporter that was only
+  ever shown in this grid — it now appears nowhere on the site. See follow-up 7.
+- **Three Silver sponsor logos added/replaced** (all in
+  `public/assets/sponsors/`):
+  - `debra-joy-groesser-fine-art.webp` (1200×360) — **new**; she previously
+    rendered as a name-only card. Closes half of the old follow-up 4.
+  - `ecreamery.webp` (1200×237) — replaced the 1076×213 version.
+  - `lovely-brew-co.webp` (1933×243) — replaces `lovely-brewing.webp`. The
+    sponsor's displayed name also changed from "Lovely Brewing Co." to **"Lovely
+    Brew Co."** to match their new logo and their domain (lovelybrewco.com).
+    The new artwork is a transparent dark-on-light wordmark, so the old comment
+    about their logo only existing as cream-on-a-dark-plate is now obsolete and
+    was removed. The logo's cream "ESTABLISHED 2025 · RALSTON, NEBRASKA" tagline
+    was cropped off — it is cream on a cream page background and would have been
+    invisible. `lovely-brewing.webp` is left on disk, unreferenced.
+
+### Schedule page
+
+- **Dundee Creative District's new logo** now appears in the Thursday Sept 17
+  section. Dundee supplied it as an Affinity `.af` file (unreadable without
+  Affinity Designer) plus a usable WebP export; the export was the source.
+  It arrived as opaque RGB on pure white, which would have shown as a white box
+  on the cream card, so the white was converted to alpha with a soft edge ramp
+  and the result saved as `public/assets/dundee-logo.webp` (512×180, 29 KB).
+  The old `dundee-logo.png` was deleted — `schedule.ts` was its only reference.
+
+### Tickets page
+
+- **Youth Paintout registration form expanded to match the paper form**
+  (`YouthPaintoutForm.tsx`). Added: `age`; `streetAddress` / `city` / `state` /
+  `zip`; and `emergencyContactName` / `emergencyContactPhone` / `relationship`.
+  All required, all wired into the Formspree POST body, all following the
+  existing `field()` helper and zod validation conventions. The guardian consent
+  and photo-release checkboxes were left exactly as they were.
+- **"Good to Know Before You Arrive" info block added** above the form, carrying
+  the non-field content from the paper version: ages 5–18, arrive by 9:45 AM,
+  a guardian must stay in the park, limit 2 youth per family, art kit to keep,
+  paintings framed and displayed at Baright Library.
+- **Youth Art Show Reception RSVP removed** — the client confirmed no RSVP is
+  needed. Removed its entry from the Tickets page `ticketOptions` jump-nav and
+  removed `ticketHref`/`ticketLabel` from its `homepageHighlights` entry in
+  `schedule.ts`. The event itself is untouched and still listed everywhere. No
+  `ticketOffers` entry existed for it in `schema.tsx`.
+
+`npm run lint`, `npm run build`, and `npm test` all pass. Sponsors and schedule
+pages were both verified in a real browser.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -1759,7 +1819,26 @@ painting. Previously the schedule named only the district.
      Business District Streetscape spot, since it reads as a description of what
      to paint there rather than a separate location. If it's meant to be its own
      stop, it needs an address.
-7. One lower-priority item flagged during the QA sweep but intentionally
+7. **Art of the West now appears nowhere on the site** (from the 2026-08-09
+   sponsor change). It was removed from the renamed "Presented with Support
+   From" grid as requested, but it was only ever displayed there — the Platinum
+   tier deliberately did not duplicate it. A Platinum-level supporter with no
+   presence on the page is probably not what anyone intends. Either add it to
+   the Platinum array in `sponsors.ts` (the logo file is still at
+   `public/assets/art-of-the-west-logo.png`) or confirm the omission is
+   deliberate. Same question applies to Plein Air Magazine, though it was a
+   media partner rather than a paid tier.
+8. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
+   expansion):
+   - The paper form has a wet-signature line and date. There is no online
+     equivalent; the typed guardian name plus the required consent checkbox
+     serve as the attestation. If Deb wants it explicit, add wording like "By
+     typing your name you are electronically signing this form."
+   - The paper form has an opt-*out* photo checkbox ("I do not want my child's
+     image used"). Online this is the *absence* of a check on the optional
+     photo-release box. Functionally equivalent, but a guardian scanning the
+     online form will not see an explicit opt-out. Confirm that's acceptable.
+9. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,

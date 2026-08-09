@@ -195,7 +195,7 @@ export const days: ScheduleDay[] = [
     dayLong: "Thursday, September 17",
     title: "Third Thursday & An Evening Worth Staying Out For",
     audience: "public",
-    logo: "/assets/dundee-logo.png",
+    logo: "/assets/dundee-logo.webp",
     logoAlt: "dundee creative district logo",
     logoUrl: "https://www.visitdundeeomaha.com",
     narrative:
@@ -343,8 +343,6 @@ export const homepageHighlights: HomepageHighlight[] = [
     sponsorLogo: "/assets/sponsors/hy-vee.webp",
     sponsorAlt: "hy-vee logo",
     sponsorUrl: "https://www.hy-vee.com/",
-    ticketHref: "/tickets#youth-art-show-reception",
-    ticketLabel: "Free — no ticket needed →",
   },
   {
     dayId: "day-sep-13",

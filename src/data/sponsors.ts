@@ -1,17 +1,6 @@
-// Grant partners — funders and media partners, shown above the paid sponsor tiers.
+// "Presented with Support From" partners — funders and media partners, shown
+// above the paid sponsor tiers.
 export const sponsors = [
-  {
-    name: "Plein Air Magazine",
-    logo: "/assets/plein-air-magazine-logo.png",
-    alt: "pleinair magazine logo",
-    url: "https://pleinairmagazine.com/",
-  },
-  {
-    name: "Art of the West",
-    logo: "/assets/art-of-the-west-logo.png",
-    alt: "art of the west magazine logo",
-    url: "https://aotw.com/",
-  },
   {
     name: "Visit Nebraska",
     logo: "/assets/visit-nebraska-logo.png",
@@ -50,8 +39,8 @@ export const sponsorLevels = [
   {
     name: "Platinum Sponsors",
     id: "platinum-sponsors",
-    // Art of the West is a Platinum-level supporter but is recognized in the
-    // Grant Partners grid above rather than duplicated here.
+    // Art of the West is a Platinum-level supporter, but its logo is not
+    // currently displayed on the page.
     sponsors: [
       {
         name: "Ralston Keno",
@@ -149,6 +138,8 @@ export const sponsorLevels = [
       },
       {
         name: "Debra Joy Groesser Fine Art",
+        logo: "/assets/sponsors/debra-joy-groesser-fine-art.webp",
+        alt: "debra joy groesser fine art logo",
         url: "https://www.debrajoygroesserfineart.com/",
       },
       {
@@ -158,11 +149,11 @@ export const sponsorLevels = [
         url: "https://southoroofing.com/",
       },
       {
-        // Their logo only exists as cream type on a dark plate — there is no
-        // dark-on-light version, so it keeps its own background.
-        name: "Lovely Brewing Co.",
-        logo: "/assets/sponsors/lovely-brewing.webp",
-        alt: "lovely brewing co. logo, ralston nebraska",
+        // The tagline was cropped off this mark — it's cream-on-cream and
+        // would be invisible against the page background.
+        name: "Lovely Brew Co.",
+        logo: "/assets/sponsors/lovely-brew-co.webp",
+        alt: "lovely brew co. logo",
         url: "https://www.lovelybrewco.com/",
       },
     ],
