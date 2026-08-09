@@ -238,7 +238,7 @@ const Schedule = () => {
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Where to find us
               </p>
-              <h2 className="mb-4 font-display text-4xl font-bold text-foreground">
+              <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
                 Festival Locations
               </h2>
               <p className="mx-auto max-w-2xl font-body text-lg text-muted-foreground">

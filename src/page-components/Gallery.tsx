@@ -105,7 +105,7 @@ const Gallery = () => {
       </header>
 
       <main>
-        <section className="py-16">
+        <section className="py-20">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <AnimatedSection>
               <p className="mx-auto font-body text-lg leading-relaxed text-muted-foreground">
@@ -169,7 +169,7 @@ const Gallery = () => {
             >
               <div className="mx-auto max-w-6xl px-6">
                 <AnimatedSection>
-                  <h2 className="mb-8 font-display text-4xl font-bold text-foreground">
+                  <h2 className="mb-8 font-display text-4xl font-bold leading-tight text-foreground">
                     {artist.name}
                   </h2>
                 </AnimatedSection>

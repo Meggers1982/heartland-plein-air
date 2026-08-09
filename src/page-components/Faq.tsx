@@ -118,7 +118,7 @@ const Faq = () => {
               />
             </div>
             <div className="mt-8">
-              <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Browse by topic
               </p>
               <nav className="flex flex-wrap justify-center gap-2">
@@ -163,7 +163,7 @@ const Faq = () => {
             {filtered.map((c, idx) => (
               <AnimatedSection key={c.id} delay={idx * 50}>
                 <div id={c.id} className="mb-14 scroll-mt-28">
-                  <h2 className="mb-6 font-display text-4xl font-bold text-foreground">
+                  <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
                     {c.title}
                   </h2>
                   <Accordion type="single" collapsible className="w-full">

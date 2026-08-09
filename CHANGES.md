@@ -2140,6 +2140,61 @@ already an outlier at `pt-52` with no responsive step and is now in line too.
 
 ---
 
+## 2026-08-09 — Design Consistency Audit (Second Pass)
+
+Audited every page-component for drift in section rhythm, headings, eyebrow
+labels, containers, buttons, cards and link styles.
+
+### Already consistent
+
+All 10 `<h1>` elements are byte-identical. Nav, footer and page headers are
+single shared components. Container widths vary (`max-w-3xl` for prose,
+`max-w-4xl` for centred intros, `max-w-6xl` for grids) but the variation tracks
+content type rather than being random.
+
+### Fixed
+
+- **Section rhythm.** `py-20` was the site standard (20 uses) but the Artists
+  and Gallery intro sections were `py-16` — a holdover from when those blocks
+  doubled as the page header. Both are now `py-20`, so every interior section
+  on the site shares one vertical rhythm.
+- **`<h2>` typography is now uniform.** Nine headings were missing
+  `leading-tight` that the other fourteen had. All `<h2>`s are now
+  `font-display text-4xl font-bold leading-tight text-foreground`, differing
+  only in bottom margin, which legitimately varies by what follows.
+- **Artists' section headings were a size larger than the rest of the site**
+  (`md:text-5xl` on "The 2026 Invited Artists" and "Awards Judge" — the only
+  two `<h2>`s anywhere with a responsive step). Now plain `text-4xl` like every
+  other page.
+- **Eyebrow labels.** Three variants existed. The FAQ had a one-off at `text-xs`
+  where every other eyebrow is `text-sm` — fixed. Artists used
+  `mb-2` + `text-primary` while all other interior pages use
+  `mb-3` + `text-muted-foreground` — normalised. Interior pages now share one
+  eyebrow style. (The `text-secondary` variant is a different thing: it's the
+  eyebrow on the dark header band, where cream is required for contrast.)
+
+### Deliberately left alone
+
+**The homepage keeps its own accent treatment**, and this is the one real
+remaining difference:
+
+- Its five section eyebrows are `text-primary` (burnt orange) where interior
+  pages use `text-muted-foreground` (grey).
+- Its buttons are `px-7 py-3 / text-sm / tracking-[0.15em]`, where Tickets and
+  Contact use `px-10 py-4 / text-xs font-bold / tracking-[0.2em]`.
+
+Both are defensible: the homepage is a marketing surface with a hero image, a
+three-button row that needs the smaller scale to fit, and a full-bleed orange
+countdown band, so warmer accents read as intentional rather than accidental.
+Flagged rather than flattened — see follow-up. Changing either is a one-line
+find-and-replace if the client wants strict uniformity.
+
+Minor and contextual, not changed: card padding is `p-6` on dense grids and
+`p-8` on feature cards; `<h2>` bottom margins run `mb-6` / `mb-4` / none
+depending on whether a paragraph or a grid follows.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Finish hardening the Google Maps API key.** Website restrictions were
@@ -2191,3 +2246,11 @@ already an outlier at `pt-52` with no responsive step and is now in line too.
    two different lectures. Not changed here because renaming an event is a
    content decision, and the offer title is also what appears on the Passage
    ticketing page. Tell me which is right and it's a quick sweep.
+7. **Decide whether the homepage should match the interior pages exactly.**
+   After the 2026-08-09 consistency pass, every interior page shares one
+   eyebrow style and one button scale. The homepage deliberately keeps its own:
+   orange (`text-primary`) section eyebrows rather than grey, and a smaller
+   button scale (`px-7 py-3 text-sm`) rather than the interior `px-10 py-4
+   text-xs`. It reads as intentional given the hero image and the three-button
+   row, so it was left alone. If you want strict site-wide uniformity, both are
+   one-line changes in `Index.tsx`.

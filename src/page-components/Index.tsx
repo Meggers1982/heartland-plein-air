@@ -180,7 +180,7 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               What to Expect
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
               Festival Highlights
             </h2>
           </AnimatedSection>
@@ -216,7 +216,7 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Get Closer to the Art
             </p>
-            <h2 className="mb-6 font-display text-4xl font-bold text-foreground">
+            <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
               Collector VIP Pass
             </h2>
             <p className="mx-auto mb-8 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
@@ -241,7 +241,7 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Where the Art Happens
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
               Painting Locations
             </h2>
             <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-primary/60" />
@@ -275,7 +275,7 @@ const Index = () => {
             <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Questions?
             </p>
-            <h2 className="font-display text-4xl font-bold text-foreground">
+            <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
               Frequently Asked Questions
             </h2>
           </AnimatedSection>
