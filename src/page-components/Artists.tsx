@@ -74,7 +74,7 @@ const Artists = () => {
         </div>
       </header>
       <main>
-        <section className="py-16">
+        <section className="py-20">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <AnimatedSection>
               <p className="mx-auto font-body text-lg leading-relaxed text-muted-foreground">
@@ -96,10 +96,10 @@ const Artists = () => {
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
               <AnimatedSection>
-                <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   The Roster
                 </p>
-                <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+                <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
                   The 2026 Invited Artists
                 </h2>
               </AnimatedSection>
@@ -170,10 +170,10 @@ const Artists = () => {
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-12 text-center">
               <AnimatedSection>
-                <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   Awards
                 </p>
-                <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
+                <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
                   Awards Judge
                 </h2>
               </AnimatedSection>
