@@ -1782,6 +1782,41 @@ pages were both verified in a real browser.
 
 ---
 
+## 2026-08-09 — Partner Removals Reached the Footer and Homepage Too (Fix)
+
+**The bug:** deleting Plein Air Magazine and Art of the West from the `sponsors`
+array earlier the same day was treated as a /sponsors-page change. It wasn't.
+That array is consumed in **three** places:
+
+1. `Sponsors.tsx` — the "Presented with Support From" grid on /sponsors
+2. `SiteFooter.tsx` — the "Sponsors & Partners" strip, on **every page**
+3. `SponsorsSection.tsx` — the homepage "Made Possible By" row
+
+So both partners silently vanished site-wide, not just from the grid. Adding
+Art of the West to the Platinum tier didn't bring it back either, since the
+tier arrays are only rendered on /sponsors. The homepage row is also
+`lg:grid-cols-7`, sized for the seven entries the array used to hold, so it
+had been left short by two.
+
+**The fix:** both entries are restored to `sponsors`, each flagged
+`hideFromPartnersGrid: true`. A new exported `Partner` type carries the field,
+and `Sponsors.tsx` filters on it via a module-level `partnersGrid` constant.
+Net result:
+
+| Surface | Plein Air Magazine | Art of the West |
+| --- | --- | --- |
+| /sponsors grid | hidden | hidden |
+| /sponsors Platinum tier | — | shown |
+| Site footer (all pages) | shown | shown |
+| Homepage "Made Possible By" | shown | shown |
+
+The `Partner` type's doc comment warns that deleting an entry removes that
+partner from all three surfaces, and to reach for the flag instead. Verified in
+a browser on /sponsors, /schedule, and the homepage; lint, build, and tests
+pass.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -1821,12 +1856,10 @@ pages were both verified in a real browser.
      Business District Streetscape spot, since it reads as a description of what
      to paint there rather than a separate location. If it's meant to be its own
      stop, it needs an address.
-7. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**:
-   added to the Platinum tier in `sponsors.ts`, alongside Ralston Keno.
-   **Still open:** Plein Air Magazine was removed from the same grid and has not
-   been re-added anywhere. It was a media partner rather than a paid tier, so
-   the omission may well be intentional — confirm either way. Its logo is still
-   at `public/assets/plein-air-magazine-logo.png`.
+7. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
+   see the "Partner removals reached the footer and homepage too" entry above.
+   Both partners are back in the footer and on the homepage; only the /sponsors
+   grid excludes them, and Art of the West is additionally in Platinum.
 8. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
    expansion):
    - The paper form has a wet-signature line and date. There is no online

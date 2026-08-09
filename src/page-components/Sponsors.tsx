@@ -71,6 +71,10 @@ const namedOpportunities = [
   },
 ];
 
+// The shared `sponsors` array also feeds the footer strip and the homepage.
+// Only this page's grid honours `hideFromPartnersGrid`.
+const partnersGrid = sponsors.filter((s) => !s.hideFromPartnersGrid);
+
 const Sponsors = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -250,13 +254,15 @@ const Sponsors = () => {
             >
               Presented with Support From
             </h3>
-            {/* Grant partners sit above the paid tiers, so their cell is taller
-                than Platinum's (h-44/h-56). None of the remaining five marks
+            {/* These partners sit above the paid tiers, so their cell is taller
+                than Platinum's (h-44/h-56). None of the five marks shown here
                 is especially wide (all roughly 1:1 to 2:1), so two columns is
                 just a generous, balanced size for this tier rather than a fix
-                for an outlier aspect ratio. */}
+                for an outlier aspect ratio.
+                `hideFromPartnersGrid` entries are filtered out here only — they
+                still appear in the footer strip and on the homepage. */}
             <div className="grid gap-6 sm:grid-cols-2">
-              {sponsors.map((sponsor) =>
+              {partnersGrid.map((sponsor) =>
                 sponsor.logo ? (
                   <div
                     key={sponsor.name}
