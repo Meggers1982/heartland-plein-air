@@ -33,7 +33,10 @@ function loadMapsScript(): Promise<GoogleMapsLib> {
     const s = document.createElement("script");
     s.id = SCRIPT_ID;
     s.async = true;
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&callback=__initFestivalMap${channel ? `&channel=${channel}` : ""}`;
+    // `libraries=marker` is required for AdvancedMarkerElement — without it
+    // `google.maps.marker` is undefined and we silently fall back to the
+    // deprecated Marker (see `useAdvanced` below).
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=marker&callback=__initFestivalMap${channel ? `&channel=${channel}` : ""}`;
     s.onerror = () => reject(new Error("Failed to load Google Maps"));
     document.head.appendChild(s);
   });
@@ -68,6 +71,19 @@ function smoothScrollToDay(id: string) {
   history.replaceState(null, "", `#${id}`);
 }
 
+// AdvancedMarkerElement is a DOM custom element, not a legacy Marker: it uses
+// `.map` / `.position` properties where Marker used setMap() / getPosition().
+// These two helpers let the filter effect work against either kind, so the
+// legacy fallback below stays functional.
+function setMarkerVisible(marker: any, visible: boolean, map: any) {
+  if (typeof marker.setMap === "function") marker.setMap(visible ? map : null);
+  else marker.map = visible ? map : null;
+}
+
+function getMarkerPosition(marker: any) {
+  return typeof marker.getPosition === "function" ? marker.getPosition() : marker.position;
+}
+
 type DayOption = { id: string; label: string };
 
 function getDayOptions(): DayOption[] {
@@ -92,6 +108,11 @@ const LocationsMap = () => {
   const [dayFilter, setDayFilter] = useState<string>("all");
   const [listOpen, setListOpen] = useState(false);
   const dayOptions = useMemo(getDayOptions, []);
+  // Marker click handlers are bound once at creation and read the filter from
+  // this ref. The previous approach re-bound them on every filter change via
+  // clearListeners(), which is fragile against AdvancedMarkerElement's DOM
+  // event model.
+  const dayFilterRef = useRef(dayFilter);
   const visibleLocations = useMemo(
     () =>
       dayFilter === "all"
@@ -120,31 +141,70 @@ const LocationsMap = () => {
         if (cancelled || !mapRef.current) return;
         googleRef.current = g;
         const bounds = new g.maps.LatLngBounds();
+        // AdvancedMarkerElement requires a Map ID and fails SILENTLY without
+        // one — the map renders but no pins appear. NEXT_PUBLIC_* vars are
+        // inlined at build time, so a deploy missing this var would ship a
+        // pinless map. Fall back to the deprecated Marker in that case: a
+        // console deprecation warning is far better than an empty map.
+        const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID;
+        const useAdvanced = Boolean(mapId) && Boolean(g.maps.marker?.AdvancedMarkerElement);
         const map = new g.maps.Map(mapRef.current, {
           center: { lat: 41.24, lng: -96.0 },
           zoom: 11,
           mapTypeControl: false,
           streetViewControl: false,
           fullscreenControl: false,
+          ...(mapId ? { mapId } : {}),
         });
         mapInstanceRef.current = map;
         const infoWindow = new g.maps.InfoWindow();
         infoWindowRef.current = infoWindow;
 
-        festivalLocations.forEach((loc) => {
-          const position = { lat: loc.lat, lng: loc.lng };
-          bounds.extend(position);
-          const marker = new g.maps.Marker({
-            position,
-            map,
-            title: loc.name,
+        festivalLocations.forEach((loc) => bounds.extend({ lat: loc.lat, lng: loc.lng }));
+
+        const buildMarkers = (advanced: boolean) => {
+          markersRef.current.forEach(({ marker }) => setMarkerVisible(marker, false, null));
+          markersRef.current = [];
+          festivalLocations.forEach((loc) => {
+            const position = { lat: loc.lat, lng: loc.lng };
+            const marker = advanced
+              ? new g.maps.marker.AdvancedMarkerElement({
+                  position,
+                  map,
+                  title: loc.name,
+                  // Advanced markers are NOT clickable by default. Omitting
+                  // this leaves the pins visible but kills every info window.
+                  gmpClickable: true,
+                })
+              : new g.maps.Marker({ position, map, title: loc.name });
+            const openPopup = () => {
+              infoWindow.setContent(popupHtml(loc, dayFilterRef.current));
+              infoWindow.open({ anchor: marker, map });
+            };
+            // Advanced markers are DOM custom elements and want the native
+            // "gmp-click" event; legacy markers use the Maps event system.
+            if (advanced) marker.addEventListener("gmp-click", openPopup);
+            else marker.addListener("click", openPopup);
+            markersRef.current.push({ marker, loc });
           });
-          marker.addListener("click", () => {
-            infoWindow.setContent(popupHtml(loc, "all"));
-            infoWindow.open({ anchor: marker, map });
+        };
+
+        buildMarkers(useAdvanced);
+
+        // Advanced markers fail SILENTLY if the Map ID is wrong or missing —
+        // pins simply never appear. Rather than surface an error state, drop
+        // back to legacy markers so the map always has pins. The deprecation
+        // warning returning is a much better outcome than an empty map.
+        if (useAdvanced) {
+          map.addListener("mapcapabilities_changed", () => {
+            if (!map.getMapCapabilities?.().isAdvancedMarkersAvailable) {
+              console.warn(
+                "Google Maps: advanced markers unavailable — falling back to legacy markers. Check NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID.",
+              );
+              buildMarkers(false);
+            }
           });
-          markersRef.current.push({ marker, loc });
-        });
+        }
 
         map.fitBounds(bounds, 60);
 
@@ -169,8 +229,17 @@ const LocationsMap = () => {
     return () => {
       cancelled = true;
       if (window.gm_authFailure) window.gm_authFailure = undefined;
+      // Advanced markers are real DOM nodes and leak more readily than legacy
+      // markers, so detach them explicitly on unmount.
+      markersRef.current.forEach(({ marker }) => setMarkerVisible(marker, false, null));
+      markersRef.current = [];
+      infoWindowRef.current?.close();
     };
   }, []);
+
+  useEffect(() => {
+    dayFilterRef.current = dayFilter;
+  }, [dayFilter]);
 
   // Apply day filter: show/hide markers, refit bounds, update open popup
   useEffect(() => {
@@ -181,16 +250,9 @@ const LocationsMap = () => {
     let visibleCount = 0;
     markersRef.current.forEach(({ marker, loc }) => {
       const visible = dayFilter === "all" || loc.events.some((e) => e.dayId === dayFilter);
-      marker.setMap(visible ? map : null);
-      marker.__loc = loc;
-      // Re-bind click to use current filter
-      g.maps.event.clearListeners(marker, "click");
-      marker.addListener("click", () => {
-        infoWindowRef.current.setContent(popupHtml(loc, dayFilter));
-        infoWindowRef.current.open({ anchor: marker, map });
-      });
+      setMarkerVisible(marker, visible, map);
       if (visible) {
-        bounds.extend(marker.getPosition());
+        bounds.extend(getMarkerPosition(marker));
         visibleCount++;
       }
     });
