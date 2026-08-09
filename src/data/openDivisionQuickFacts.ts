@@ -4,7 +4,7 @@ export const quickFacts = [
   {
     icon: DollarSign,
     title: "$30 Registration",
-    description: "Limited to 30 artists, first come, first served. A waiting list opens once registration is full.",
+    description: "Limited to 40 artists, first come, first served. A waiting list opens once registration is full.",
   },
   {
     icon: Ruler,

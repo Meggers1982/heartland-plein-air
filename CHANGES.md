@@ -1817,6 +1817,76 @@ pass.
 
 ---
 
+## 2026-08-09 — Full-Site QA Pass and Fixes
+
+A full QA sweep (routes, assets, links, content consistency, SEO, structured
+data, accessibility) surfaced the following, all fixed here except where noted.
+
+### Content accuracy
+
+- **Artist count is 25, not 24.** The client confirmed Rick J. Delanty is the
+  Awards Judge *and* a painting artist, so he counts toward the total. He stays
+  rendered in his own section rather than moving into the `artists` array.
+  `schema.tsx` now uses `artists.length + 1` so the JSON-LD reports 25 instead
+  of contradicting the visible copy (it had been emitting 24 site-wide). The FAQ
+  answer was rewritten from "24 … plus Awards Judge Rick J. Delanty" to "25 …
+  including Awards Judge Rick J. Delanty, who both judges and paints" — the old
+  phrasing would have double-counted him.
+- **Open Division capacity is 40, not 30.** Corrected in
+  `openDivisionQuickFacts.ts`, `OpenDivision.tsx` (×3), `OpenDivisionSuccess.tsx`,
+  and the route metadata. The **$30 registration fee is unchanged** — every
+  affected line reads "$30 … limited to 40 artists". PayPal amounts untouched.
+  With 25 + 40, the FAQ's total is now **65** (was 64).
+- **Online Exhibition and Sale moved to September 21 – October 4** per the
+  client's "Schedule of Events-Final updated 8-9-26" doc (site had Sept 19 –
+  Oct 2). Updated in `schedule.ts` (`dayShort`, `dayLong`, narrative), three FAQ
+  answers, and the hardcoded `"Sep 19+"` jump-nav label in `Schedule.tsx`. The
+  Sept 19 exhibition day itself is unchanged — only the online window moved.
+- **One contact email.** `YouthPaintoutForm.tsx`'s error message pointed at
+  `ralstoncreativedistrict@gmail.com` while the other eight files use
+  `info@ralstonarts.org`. Normalised to `info@ralstonarts.org`, which forwards
+  to that gmail.
+
+### SEO
+
+- **Success pages are no longer crawlable.** All five `/success` routes now set
+  `robots: { index: false, follow: false }` via the App Router metadata API.
+  Verified the eleven real routes remain indexable.
+- **Trailing-slash mismatch fixed.** The sitemap emitted
+  `https://heartlandpleinair.org/` for the root while every canonical omits the
+  slash. Standardised on no trailing slash, fixed in `sitemap.ts`.
+
+### Accessibility
+
+- **Skip link added** (WCAG 2.4.1, Level A) — every page opened with a ten-item
+  nav and no way to bypass it. `layout.tsx` renders a "Skip to main content"
+  link as the first focusable element in `<body>`, `sr-only` until focused then
+  visible in brand styling. The target is an `sr-only` div with `tabIndex={-1}`
+  rendered by `SiteNav` immediately after `</nav>`, which is where it needs to
+  be given page components own their own layout. Verified present on all 16
+  routes including the success pages.
+- **`/artists` heading order fixed** — it jumped h1 → h3. A real `<h2>`
+  ("The 2026 Invited Artists") now introduces the roster. Order is h1 → h2 → h3
+  with no skipped levels.
+
+### Cleanup
+
+- Deleted the orphaned `public/assets/sponsors/lovely-brewing.webp`.
+- Removed the dead "Bio coming soon." fallback on `/artists` — all artists have
+  bios. Bio rendering is now a plain `{active.bio && …}` guard.
+
+### Deliberately NOT changed
+
+- **`google.maps.Marker` deprecation** — see follow-up 7. Migrating requires a
+  Cloud Console Map ID we do not have, and advanced markers fail *silently*
+  without one, which would mean a map with no pins. The deprecated API is not
+  scheduled for removal and still receives fixes, so the warning stays for now.
+
+Verified: clean `.next` rebuild, `npm run lint` (no errors), `npm test` (9/9),
+all 22 routes prerendered, plus curl verification of every fix above.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Activate Formspree forms** — submit one test through each of the forms
@@ -1856,11 +1926,34 @@ pass.
      Business District Streetscape spot, since it reads as a description of what
      to paint there rather than a separate location. If it's meant to be its own
      stop, it needs an address.
-7. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
+7. **Create a Google Maps Map ID so the marker migration can happen.**
+   `google.maps.Marker` is deprecated in favour of `AdvancedMarkerElement`,
+   but advanced markers require a Map ID and fail silently without one (map
+   renders, pins do not). Not urgent — Google has not scheduled removal and
+   still ships regression fixes — but to unblock it:
+   1. Google Cloud Console → Google Maps Platform → **Map Management**, in the
+      **same project that owns the existing Maps API key**. A Map ID from a
+      different project will not work.
+   2. **Create Map ID** → name it e.g. `heartland-festival-map`, Map type
+      **JavaScript**, style **Raster** (closest to the current look) or
+      **Vector**. Both support advanced markers.
+   3. Add `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID=<the id>` to `.env` **and** to Vercel
+      → Settings → Environment Variables, then redeploy. `NEXT_PUBLIC_*` vars
+      are inlined at build time, so an existing deployment will not pick it up
+      without a rebuild. The Map ID is a public client-side identifier, not a
+      secret.
+   Then the code change in `LocationsMap.tsx` is: add `libraries=marker` to the
+   loader URL, pass `mapId` to `new google.maps.Map`, swap to
+   `AdvancedMarkerElement` with `gmpClickable: true` (advanced markers are NOT
+   clickable by default — omitting this silently kills every info window), and
+   replace `marker.setMap()`/`marker.getPosition()` with the `.map`/`.position`
+   properties in the day-filter effect. The map passes no `styles` array, so a
+   Cloud-styled Map ID will not conflict with anything.
+8. ~~Art of the West appears nowhere on the site~~ — **resolved 2026-08-09**,
    see the "Partner removals reached the footer and homepage too" entry above.
    Both partners are back in the footer and on the homepage; only the /sponsors
    grid excludes them, and Art of the West is additionally in Platinum.
-8. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
+9. **Two Youth Paintout form questions for Deb** (from the 2026-08-09 form
    expansion):
    - The paper form has a wet-signature line and date. There is no online
      equivalent; the typed guardian name plus the required consent checkbox
@@ -1870,7 +1963,7 @@ pass.
      image used"). Online this is the *absence* of a check on the optional
      photo-release box. Functionally equivalent, but a guardian scanning the
      online form will not see an explicit opt-out. Confirm that's acceptable.
-9. One lower-priority item flagged during the QA sweep but intentionally
+10. One lower-priority item flagged during the QA sweep but intentionally
    left alone (a judgment call, not a bug): Artists/Gallery pages use a
    lighter page-header style than the other 5 interior pages (no dark
    `bg-foreground` band) — flagged as a possible site-wide inconsistency,

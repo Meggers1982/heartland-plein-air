@@ -32,7 +32,10 @@ const routes: RouteConfig[] = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
-    url: `${SITE_URL}${route.path}`,
+    // The site's canonical URLs never carry a trailing slash (see the
+    // homepage's `alternates.canonical` and SITE_URL in src/lib/schema.tsx),
+    // so the root route must not gain one just because its path is "/".
+    url: route.path === "/" ? SITE_URL : `${SITE_URL}${route.path}`,
     lastModified: LAST_MODIFIED,
     changeFrequency: route.changeFrequency,
     priority: route.priority,

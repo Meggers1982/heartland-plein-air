@@ -294,12 +294,12 @@ export const days: ScheduleDay[] = [
   },
   {
     id: "day-online",
-    dayShort: "Sep 19 – Oct 2",
-    dayLong: "September 19 – October 2",
+    dayShort: "Sep 21 – Oct 4",
+    dayLong: "September 21 – October 4",
     title: "Can't Make It in Person?",
     audience: "public",
     narrative:
-      "Unsold works remain available for purchase online through October 2. Original, one-of-a-kind paintings of the Omaha metro — created on-site during the festival — available from wherever you are.",
+      "Unsold works remain available for purchase online through October 4. Original, one-of-a-kind paintings of the Omaha metro — created on-site during the festival — available from wherever you are.",
   },
 ];
 

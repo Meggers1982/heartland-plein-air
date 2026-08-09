@@ -175,7 +175,7 @@ const Schedule = () => {
 
   const weekItems = filteredDays.map((d) => {
     if (d.id === "day-online") {
-      return { id: d.id, weekday: "Sep 19+", label: "Online" };
+      return { id: d.id, weekday: "Sep 21+", label: "Online" };
     }
     const parts = d.dayShort.split(" ");
     return { id: d.id, weekday: parts[0], date: parts[parts.length - 1] };

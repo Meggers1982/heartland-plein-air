@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Thank you for registering for the Open Division at the Heartland Plein Air Festival.",
   alternates: { canonical: "https://heartlandpleinair.org/open-division/success" },
+  robots: { index: false, follow: false },
 };
 
 export default function OpenDivisionSuccessPage() {

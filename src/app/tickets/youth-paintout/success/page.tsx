@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://heartlandpleinair.org/tickets/youth-paintout/success",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function YouthPaintoutSuccessPage() {
