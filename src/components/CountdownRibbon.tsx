@@ -1,12 +1,11 @@
 'use client';
 import { useCountdown, isExpired } from "@/hooks/useCountdown";
-
-const TARGET = new Date("2026-09-13T00:00:00").getTime();
+import { FESTIVAL_START } from "@/lib/festivalDate";
 
 const CountdownRibbon = () => {
   // null until mounted — see the hook for why the first value can't be
   // computed during render on these statically prerendered pages.
-  const t = useCountdown(TARGET);
+  const t = useCountdown(FESTIVAL_START);
 
   // Only hide once the countdown has actually mounted and run out. Checking
   // Date.now() during render would reintroduce the hydration mismatch this

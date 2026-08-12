@@ -15,6 +15,12 @@ declare global {
 
 const SCRIPT_ID = "google-maps-js";
 
+// Shared across every loadMapsScript() call (e.g. a remount after the script
+// tag from a previous mount already failed): everyone waiting gets notified
+// together when the shared <script> tag finally succeeds or errors, instead
+// of only whichever single call happened to attach the original onerror.
+let pendingLoaders: Array<{ resolve: (g: GoogleMapsLib) => void; reject: (err: Error) => void }> = [];
+
 function loadMapsScript(): Promise<GoogleMapsLib> {
   return new Promise((resolve, reject) => {
     if (window.google?.maps) {
@@ -27,9 +33,25 @@ function loadMapsScript(): Promise<GoogleMapsLib> {
       reject(new Error("Google Maps key missing"));
       return;
     }
-    window.__initFestivalMap = () => resolve(window.google!);
-    const existing = document.getElementById(SCRIPT_ID);
-    if (existing) return;
+
+    pendingLoaders.push({ resolve, reject });
+    window.__initFestivalMap = () => {
+      const g = window.google!;
+      pendingLoaders.forEach((p) => p.resolve(g));
+      pendingLoaders = [];
+    };
+
+    const existing = document.getElementById(SCRIPT_ID) as HTMLScriptElement | null;
+    // A script tag that already failed once will never call back or error
+    // again — remove it and retry fresh instead of leaving every future
+    // mount waiting on a promise that can never settle. A tag that's still
+    // genuinely loading (or already succeeded — handled by the early return
+    // above) is left alone; this call's resolve/reject was already queued.
+    if (existing) {
+      if (existing.dataset.failed === "true") existing.remove();
+      else return;
+    }
+
     const s = document.createElement("script");
     s.id = SCRIPT_ID;
     s.async = true;
@@ -37,9 +59,27 @@ function loadMapsScript(): Promise<GoogleMapsLib> {
     // `google.maps.marker` is undefined and we silently fall back to the
     // deprecated Marker (see `useAdvanced` below).
     s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=marker&callback=__initFestivalMap${channel ? `&channel=${channel}` : ""}`;
-    s.onerror = () => reject(new Error("Failed to load Google Maps"));
+    s.onerror = () => {
+      s.dataset.failed = "true";
+      const err = new Error("Failed to load Google Maps");
+      pendingLoaders.forEach((p) => p.reject(err));
+      pendingLoaders = [];
+    };
     document.head.appendChild(s);
   });
+}
+
+// Location/event data is static and developer-controlled today, but this
+// still escapes it before dropping it into an HTML string for
+// InfoWindow.setContent() — so a future data entry containing `<`, `&`, or a
+// stray quote can't corrupt the popup markup.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function popupHtml(loc: FestivalLocation, dayFilter: string): string {
@@ -48,18 +88,18 @@ function popupHtml(loc: FestivalLocation, dayFilter: string): string {
     .map(
       (e) => `
         <li style="margin-bottom:6px;">
-          <a href="#${e.dayId}" data-day-id="${e.dayId}" class="festival-map-day-link" style="color:#C46A3B;font-weight:600;text-decoration:none;cursor:pointer;">${e.dayLabel}</a>
-          ${e.time ? `<span style="color:#692D4A;"> · ${e.time}</span>` : ""}
-          <div style="color:#37484B;">${e.name}</div>
+          <a href="#${escapeHtml(e.dayId)}" data-day-id="${escapeHtml(e.dayId)}" class="festival-map-day-link" style="color:#C46A3B;font-weight:600;text-decoration:none;cursor:pointer;">${escapeHtml(e.dayLabel)}</a>
+          ${e.time ? `<span style="color:#692D4A;"> · ${escapeHtml(e.time)}</span>` : ""}
+          <div style="color:#37484B;">${escapeHtml(e.name)}</div>
         </li>`,
     )
     .join("");
   return `
     <div style="font-family:'Source Sans 3',sans-serif;max-width:260px;padding:4px 2px;">
-      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#37484B;margin-bottom:2px;">${loc.name}</div>
-      <div style="font-size:12px;color:#692D4A;margin-bottom:6px;">${loc.address}</div>
-      <div style="font-size:12px;color:#37484B;margin-bottom:6px;">${loc.description}</div>
-      ${loc.websiteUrl ? `<div style="margin-bottom:10px;"><a href="${loc.websiteUrl}" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:#C46A3B;font-weight:600;text-decoration:none;">Visit website</a></div>` : `<div style="margin-bottom:10px;"></div>`}
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#37484B;margin-bottom:2px;">${escapeHtml(loc.name)}</div>
+      <div style="font-size:12px;color:#692D4A;margin-bottom:6px;">${escapeHtml(loc.address)}</div>
+      <div style="font-size:12px;color:#37484B;margin-bottom:6px;">${escapeHtml(loc.description)}</div>
+      ${loc.websiteUrl ? `<div style="margin-bottom:10px;"><a href="${escapeHtml(loc.websiteUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:#C46A3B;font-weight:600;text-decoration:none;">Visit website</a></div>` : `<div style="margin-bottom:10px;"></div>`}
       <ul style="list-style:none;padding:0;margin:0 0 8px 0;font-size:13px;">${eventsHtml}</ul>
     </div>`;
 }
