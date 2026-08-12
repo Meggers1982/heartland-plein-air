@@ -125,7 +125,7 @@ const OpenDivision = () => {
                 Registration is $30 and limited to 40 artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
               </p>
               <p>
-                Check-in runs from 11am to 5pm on Monday, September 14th, at the Ralston Baright Public Library (5500 S. 77th St, Ralston). You'll receive your information packet and lanyard, and can have your canvases stamped.
+                Check-in runs from 11am to 5pm on Monday, September 14th, at the Ralston Baright Public Library (5555 S. 77th St, Ralston). You'll receive your information packet and lanyard, and can have your canvases stamped.
               </p>
               <p>
                 All canvases and painting substrates must be stamped before you paint on them — no painting will be accepted without a prior stamp. You may have an unlimited number of surfaces stamped, but only one or two finished pieces may be submitted for exhibition and awards.

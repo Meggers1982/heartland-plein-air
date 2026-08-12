@@ -9,12 +9,16 @@ declare global {
       Buttons: (options: {
         style?: Record<string, string | number>;
         createOrder: (data: unknown, actions: PayPalActions) => Promise<string>;
-        onApprove: (data: unknown, actions: PayPalActions) => Promise<void>;
+        onApprove: (data: OnApproveData, actions: PayPalActions) => Promise<void>;
         onError?: (err: unknown) => void;
       }) => { render: (container: HTMLElement) => void };
     };
   }
 }
+
+type OnApproveData = {
+  orderID: string;
+};
 
 type PayPalActions = {
   order: {
@@ -58,9 +62,19 @@ const PayPalButton = ({ amount, description }: PayPalButtonProps) => {
               },
             ],
           }),
-        onApprove: async (_data, actions) => {
+        onApprove: async (data, actions) => {
           await actions.order.capture();
           setStatus("success");
+          // Fire-and-forget: independently re-checks the captured amount against
+          // PayPal's own record of the order via a server-side call (the client
+          // can't be trusted to report its own amount honestly). Mismatches are
+          // logged server-side for manual reconciliation — payment has already
+          // been captured either way, so this can't block or reverse it.
+          fetch("/api/verify-paypal-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderId: data.orderID, expectedAmount: amount }),
+          }).catch((err) => console.error("[paypal-verify] request failed", err));
         },
         onError: () => setStatus("error"),
       })

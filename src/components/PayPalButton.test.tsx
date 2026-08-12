@@ -49,4 +49,60 @@ describe("PayPalButton", () => {
 
     expect(screen.queryByText(/something went wrong with paypal/i)).not.toBeInTheDocument();
   });
+
+  it("posts the captured order to the server-side verification endpoint on approve", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ verified: true }) });
+    vi.stubGlobal("fetch", fetchMock);
+
+    let capturedOnApprove: ((data: { orderID: string }, actions: unknown) => Promise<void>) | undefined;
+    window.paypal = {
+      Buttons: (options) => {
+        capturedOnApprove = options.onApprove as typeof capturedOnApprove;
+        return { render: () => {} };
+      },
+    };
+
+    render(<PayPalButton amount="30.00" description="Test registration" />);
+
+    const actions = { order: { capture: vi.fn().mockResolvedValue(undefined) } };
+    await act(async () => {
+      await capturedOnApprove?.({ orderID: "ORDER123" }, actions);
+    });
+
+    expect(actions.order.capture).toHaveBeenCalled();
+    expect(screen.getByText(/payment received/i)).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/verify-paypal-payment",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ orderId: "ORDER123", expectedAmount: "30.00" }),
+      })
+    );
+
+    vi.unstubAllGlobals();
+  });
+
+  it("still shows the success state even if the verification request fails", async () => {
+    const fetchMock = vi.fn().mockRejectedValue(new Error("network down"));
+    vi.stubGlobal("fetch", fetchMock);
+
+    let capturedOnApprove: ((data: { orderID: string }, actions: unknown) => Promise<void>) | undefined;
+    window.paypal = {
+      Buttons: (options) => {
+        capturedOnApprove = options.onApprove as typeof capturedOnApprove;
+        return { render: () => {} };
+      },
+    };
+
+    render(<PayPalButton amount="30.00" description="Test registration" />);
+
+    const actions = { order: { capture: vi.fn().mockResolvedValue(undefined) } };
+    await act(async () => {
+      await capturedOnApprove?.({ orderID: "ORDER123" }, actions);
+    });
+
+    expect(screen.getByText(/payment received/i)).toBeInTheDocument();
+
+    vi.unstubAllGlobals();
+  });
 });

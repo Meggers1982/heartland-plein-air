@@ -1,12 +1,11 @@
 'use client';
 import { useCountdown } from "@/hooks/useCountdown";
-
-const TARGET = new Date("2026-09-13T00:00:00").getTime();
+import { FESTIVAL_START } from "@/lib/festivalDate";
 
 const CountdownBanner = () => {
   // null until mounted — see the hook for why the first value can't be
   // computed during render on these statically prerendered pages.
-  const timeLeft = useCountdown(TARGET);
+  const timeLeft = useCountdown(FESTIVAL_START);
 
   const units = [
     { label: "Days", value: timeLeft?.days ?? 0 },

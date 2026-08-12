@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
@@ -23,7 +23,20 @@ const SponsorPaymentForm = () => {
   };
 
   const numericAmount = Number(amount);
-  const isValidAmount = Number.isFinite(numericAmount) && numericAmount > 0;
+  // Checked against the rounded value, not the raw one — PayPal only ever
+  // sees numericAmount.toFixed(2), so e.g. 0.004 must be rejected here too
+  // instead of rounding down to a $0.00 order that PayPal rejects anyway.
+  const isPositiveAtTwoDecimals = (n: number) => Number.isFinite(n) && Number(n.toFixed(2)) > 0;
+  const isValidAmount = isPositiveAtTwoDecimals(numericAmount);
+
+  // Debounced so the PayPal button (which fully tears down and re-renders on
+  // every amount change) doesn't rebuild on each keystroke while typing.
+  const [debouncedAmount, setDebouncedAmount] = useState(numericAmount);
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebouncedAmount(numericAmount), 500);
+    return () => clearTimeout(timeout);
+  }, [numericAmount]);
+  const isValidDebouncedAmount = isPositiveAtTwoDecimals(debouncedAmount);
 
   return (
     <div>
@@ -78,10 +91,12 @@ const SponsorPaymentForm = () => {
             <p className="mb-3 font-body text-sm font-semibold text-foreground">
               Pay Online
             </p>
-            <PayPalButton
-              amount={numericAmount.toFixed(2)}
-              description={`Heartland Plein Air Festival — ${tierName} Sponsorship`}
-            />
+            {isValidDebouncedAmount && (
+              <PayPalButton
+                amount={debouncedAmount.toFixed(2)}
+                description={`Heartland Plein Air Festival — ${tierName} Sponsorship`}
+              />
+            )}
           </div>
           <div className="border-t border-border pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
             <MailCheckOption amount={numericAmount.toLocaleString()} />

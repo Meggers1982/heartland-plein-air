@@ -1,7 +1,7 @@
 # Heartland Plein Air Arts Festival — Agent Guide
 
 ## What This Project Is
-A static festival website for the Heartland Plein Air Arts Festival (September 13–19, 2026) in Douglas and Sarpy County. Features 25 nationally recognized artists, an interactive schedule, Google Maps venue integration, artist bios, a gallery lightbox, and newsletter signup. There is no backend — all data is static TypeScript files.
+A static festival website for the Heartland Plein Air Arts Festival (September 13–19, 2026) in Douglas and Sarpy County. Features 25 nationally recognized artists, an interactive schedule, Google Maps venue integration, artist bios, a gallery lightbox, and newsletter signup. There is no backend — all data is static TypeScript files — with one narrow exception: a single serverless route (`src/app/api/verify-paypal-payment/route.ts`) that independently re-checks captured PayPal payment amounts against PayPal's own records (see "PayPal Payment Verification" below). Do not add further backend/database functionality beyond this.
 
 ## Tech Stack
 - **Framework:** Next.js 15 (App Router)
@@ -86,8 +86,15 @@ Every route must:
 - Do not modify `package-lock.json` directly — only via `npm install`
 - Do not reintroduce Vite tooling (`vite.config.ts`, `index.html`, `vite-env.d.ts`, bun lockfiles) — the project fully migrated to Next.js; these were removed as dead artifacts
 
+## PayPal Payment Verification
+- `PayPalButton.tsx` runs the whole order lifecycle (create → approve → capture) client-side, per PayPal's standard no-backend Smart Buttons pattern — but that means a captured amount is whatever the browser reported, not something the site can trust on its own.
+- After `actions.order.capture()` succeeds, `onApprove` fires a fire-and-forget POST to `/api/verify-paypal-payment` with the order ID and the amount the site expected. That route (`src/app/api/verify-paypal-payment/route.ts`, logic in `src/lib/paypalVerify.ts`) authenticates to PayPal's REST API server-side and re-fetches the order to compare PayPal's own captured amount against what was expected.
+- This can only detect and log a mismatch (via `console.error`, visible in Vercel function logs) — payment has already been captured by the time it runs, so it cannot block or reverse anything. Treat a mismatch log as a signal for manual follow-up (refund/contact), not an automated safeguard.
+- Requires two **server-only** env vars (not `NEXT_PUBLIC_*`, so they never reach the client bundle): `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET`, from the same Live PayPal app as `NEXT_PUBLIC_PAYPAL_CLIENT_ID`. Without them the verification call fails (logged, not thrown to the user) — the visitor-facing payment flow is unaffected either way.
+
 ## Sensitive Files — Do Not Touch
 - `.env` — contains live Google Maps API keys (`NEXT_PUBLIC_GOOGLE_MAPS_KEY`, `NEXT_PUBLIC_GOOGLE_MAPS_TRACKING_ID`); never log, expose, or commit. These are `NEXT_PUBLIC_*` so they do ship in the client bundle by design — the real safeguard is domain-restricting the key in Google Cloud Console, not keeping it out of the bundle.
+- `PAYPAL_CLIENT_SECRET` (server-only, no `NEXT_PUBLIC_` prefix) — used by `/api/verify-paypal-payment` to authenticate to PayPal's REST API. Unlike the Maps keys, this one must never ship to the client; if it's ever accidentally renamed with a `NEXT_PUBLIC_` prefix, rotate it immediately in the PayPal Developer Dashboard.
 - `/public/assets/artists/` — artist headshot images; replace only with confirmed new images
 
 ## Adding New Content
