@@ -4,7 +4,6 @@ import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
@@ -152,7 +151,6 @@ const About = () => {
 
       <CountdownBanner />
       <NewsletterCTA />
-      <SiteFooter />
       <BackToTop />
     </div>
   );

@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
-import { sponsorTiers } from "@/data/sponsorTiers";
+import type { SponsorTier } from "@/sanity/queries/sponsors";
 
 const inputClass =
   "w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20";
 const labelClass =
   "block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground";
 
-const defaultTier = sponsorTiers[sponsorTiers.length - 1];
-
-const SponsorPaymentForm = () => {
+const SponsorPaymentForm = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
+  const defaultTier = sponsorTiers[sponsorTiers.length - 1];
   const [tierName, setTierName] = useState(defaultTier.name);
   const [amount, setAmount] = useState(String(defaultTier.min));
 

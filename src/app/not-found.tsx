@@ -1,8 +1,10 @@
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import { getFunders } from "@/sanity/queries/sponsors";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const sponsors = await getFunders();
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
@@ -25,7 +27,7 @@ export default function NotFound() {
           </Link>
         </div>
       </header>
-      <SiteFooter />
+      <SiteFooter sponsors={sponsors} />
     </div>
   );
 }

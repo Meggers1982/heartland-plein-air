@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
 import { setPageMeta } from "@/lib/meta";
-import { sponsorTiers } from "@/data/sponsorTiers";
+import { ICON_MAP } from "@/sanity/lib/iconMap";
+import type { SponsorTier } from "@/sanity/queries/sponsors";
 
-const SponsorSuccess = () => {
+const SponsorSuccess = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Sponsorship Inquiry Received | Heartland Plein Air Festival";
@@ -23,7 +24,7 @@ const SponsorSuccess = () => {
       recapItems={sponsorTiers.map((tier) => ({
         name: tier.name,
         price: tier.price,
-        icon: tier.icon,
+        icon: ICON_MAP[tier.icon],
         detail: tier.benefits.join(" · "),
       }))}
       backHref="/sponsors"
@@ -33,7 +34,7 @@ const SponsorSuccess = () => {
         <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
           Pay Your Sponsorship Online
         </p>
-        <SponsorPaymentForm />
+        <SponsorPaymentForm sponsorTiers={sponsorTiers} />
       </div>
     </InquirySuccess>
   );
