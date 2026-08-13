@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { festivalLocations, type FestivalLocation } from "@/data/locations";
+import type { FestivalLocation } from "@/sanity/queries/schedule";
 
 type GoogleMapsLib = typeof window.google;
 
@@ -83,12 +83,12 @@ function escapeHtml(value: string): string {
 }
 
 function popupHtml(loc: FestivalLocation, dayFilter: string): string {
-  const events = dayFilter === "all" ? loc.events : loc.events.filter((e) => e.dayId === dayFilter);
+  const events = dayFilter === "all" ? loc.events ?? [] : (loc.events ?? []).filter((e) => e.day._id === dayFilter);
   const eventsHtml = events
     .map(
       (e) => `
         <li style="margin-bottom:6px;">
-          <a href="#${escapeHtml(e.dayId)}" data-day-id="${escapeHtml(e.dayId)}" class="festival-map-day-link" style="color:#C46A3B;font-weight:600;text-decoration:none;cursor:pointer;">${escapeHtml(e.dayLabel)}</a>
+          <a href="#${escapeHtml(e.day._id)}" data-day-id="${escapeHtml(e.day._id)}" class="festival-map-day-link" style="color:#C46A3B;font-weight:600;text-decoration:none;cursor:pointer;">${escapeHtml(e.day.dayShort)}</a>
           ${e.time ? `<span style="color:#692D4A;"> · ${escapeHtml(e.time)}</span>` : ""}
           <div style="color:#37484B;">${escapeHtml(e.name)}</div>
         </li>`,
@@ -126,11 +126,11 @@ function getMarkerPosition(marker: any) {
 
 type DayOption = { id: string; label: string };
 
-function getDayOptions(): DayOption[] {
+function getDayOptions(festivalLocations: FestivalLocation[]): DayOption[] {
   const seen = new Map<string, string>();
   festivalLocations.forEach((loc) =>
-    loc.events.forEach((e) => {
-      if (!seen.has(e.dayId)) seen.set(e.dayId, e.dayLabel);
+    (loc.events ?? []).forEach((e) => {
+      if (!seen.has(e.day._id)) seen.set(e.day._id, e.day.dayShort);
     }),
   );
   return Array.from(seen.entries())
@@ -138,7 +138,7 @@ function getDayOptions(): DayOption[] {
     .sort((a, b) => a.id.localeCompare(b.id));
 }
 
-const LocationsMap = () => {
+const LocationsMap = ({ festivalLocations }: { festivalLocations: FestivalLocation[] }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const infoWindowRef = useRef<any>(null);
@@ -147,7 +147,7 @@ const LocationsMap = () => {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [dayFilter, setDayFilter] = useState<string>("all");
   const [listOpen, setListOpen] = useState(false);
-  const dayOptions = useMemo(getDayOptions, []);
+  const dayOptions = useMemo(() => getDayOptions(festivalLocations), [festivalLocations]);
   // Marker click handlers are bound once at creation and read the filter from
   // this ref. The previous approach re-bound them on every filter change via
   // clearListeners(), which is fragile against AdvancedMarkerElement's DOM
@@ -157,8 +157,8 @@ const LocationsMap = () => {
     () =>
       dayFilter === "all"
         ? festivalLocations
-        : festivalLocations.filter((l) => l.events.some((e) => e.dayId === dayFilter)),
-    [dayFilter],
+        : festivalLocations.filter((l) => (l.events ?? []).some((e) => e.day._id === dayFilter)),
+    [dayFilter, festivalLocations],
   );
 
   useEffect(() => {
@@ -275,7 +275,7 @@ const LocationsMap = () => {
       markersRef.current = [];
       infoWindowRef.current?.close();
     };
-  }, []);
+  }, [festivalLocations]);
 
   useEffect(() => {
     dayFilterRef.current = dayFilter;
@@ -289,7 +289,7 @@ const LocationsMap = () => {
     const bounds = new g.maps.LatLngBounds();
     let visibleCount = 0;
     markersRef.current.forEach(({ marker, loc }) => {
-      const visible = dayFilter === "all" || loc.events.some((e) => e.dayId === dayFilter);
+      const visible = dayFilter === "all" || (loc.events ?? []).some((e) => e.day._id === dayFilter);
       setMarkerVisible(marker, visible, map);
       if (visible) {
         bounds.extend(getMarkerPosition(marker));
@@ -389,10 +389,12 @@ const LocationsMap = () => {
             <ul className="grid gap-4 sm:grid-cols-2">
               {visibleLocations.map((loc) => {
                 const events =
-                  dayFilter === "all" ? loc.events : loc.events.filter((e) => e.dayId === dayFilter);
+                  dayFilter === "all"
+                    ? loc.events ?? []
+                    : (loc.events ?? []).filter((e) => e.day._id === dayFilter);
                 return (
                   <li
-                    key={loc.key}
+                    key={loc._id}
                     className="rounded-lg border border-border bg-card p-4 shadow-sm"
                   >
                     <h3 className="font-display text-lg font-bold text-foreground">{loc.name}</h3>
@@ -411,17 +413,17 @@ const LocationsMap = () => {
                       </a>
                     )}
                     <ul className="space-y-2 font-body text-sm">
-                      {events.map((e, i) => (
-                        <li key={`${e.dayId}-${i}`}>
+                      {events.map((e) => (
+                        <li key={e._key}>
                           <a
-                            href={`#${e.dayId}`}
+                            href={`#${e.day._id}`}
                             onClick={(ev) => {
                               ev.preventDefault();
-                              smoothScrollToDay(e.dayId);
+                              smoothScrollToDay(e.day._id);
                             }}
                             className="font-semibold text-primary hover:underline"
                           >
-                            {e.dayLabel}
+                            {e.day.dayShort}
                           </a>
                           {e.time && <span className="text-muted-foreground"> · {e.time}</span>}
                           <div className="text-foreground">{e.name}</div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Schedule from "@/page-components/Schedule";
+import { getFestivalLocations, getScheduleDays } from "@/sanity/queries/schedule";
 
 export const metadata: Metadata = {
   title: "Plan Your Visit: Plein Air Festival Schedule Omaha",
@@ -25,6 +26,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SchedulePage() {
-  return <Schedule />;
+export default async function SchedulePage() {
+  const [days, festivalLocations] = await Promise.all([
+    getScheduleDays(),
+    getFestivalLocations(),
+  ]);
+  return <Schedule days={days} festivalLocations={festivalLocations} />;
 }

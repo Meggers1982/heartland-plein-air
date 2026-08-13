@@ -21,6 +21,7 @@ import BackToTop from "@/components/BackToTop";
 import { renderRichText } from "@/lib/richText";
 import { categories as faqCategories } from "@/data/faq";
 import type { Sponsor } from "@/sanity/queries/sponsors";
+import type { FestivalLocation, HomepageHighlight } from "@/sanity/queries/schedule";
 
 const highlights = [
   {
@@ -51,7 +52,15 @@ const highlights = [
 
 const faqs = faqCategories.flatMap((c) => c.items).filter((i) => i.featured);
 
-const Index = ({ funders }: { funders: Sponsor[] }) => {
+const Index = ({
+  funders,
+  homepageHighlights,
+  festivalLocations,
+}: {
+  funders: Sponsor[];
+  homepageHighlights: HomepageHighlight[];
+  festivalLocations: FestivalLocation[];
+}) => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
 
@@ -205,7 +214,7 @@ const Index = ({ funders }: { funders: Sponsor[] }) => {
       </section>
 
       {/* Schedule */}
-      <ScheduleSection />
+      <ScheduleSection homepageHighlights={homepageHighlights} />
 
       <BrushStrokeDivider className="py-4" />
 
@@ -253,7 +262,7 @@ const Index = ({ funders }: { funders: Sponsor[] }) => {
             </p>
           </AnimatedSection>
           <AnimatedSection delay={100}>
-            <LocationsMap />
+            <LocationsMap festivalLocations={festivalLocations} />
           </AnimatedSection>
         </div>
       </section>

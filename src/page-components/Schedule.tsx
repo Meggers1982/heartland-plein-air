@@ -11,11 +11,12 @@ import BackToTop from "@/components/BackToTop";
 import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
+import RichText from "@/components/RichText";
 import { cn } from "@/lib/utils";
-import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema, ticketOffers, SITE_URL } from "@/lib/schema";
-import { days, type Audience } from "@/data/schedule";
-import { festivalLocations } from "@/data/locations";
+import { urlFor } from "@/sanity/lib/image";
+import { portableTextToPlainText } from "@/sanity/lib/portableText";
+import type { Audience, FestivalLocation, ScheduleDay } from "@/sanity/queries/schedule";
 
 // Events that are internal logistics, not something the public attends —
 // excluded from Event schema entirely (see the address filter below for
@@ -89,52 +90,67 @@ const slugify = (s: string) =>
 // Participants Only") — excluded rather than given a placeholder location,
 // since Google requires a location for Event rich results and these aren't
 // real public events to surface in search anyway.
-const scheduleEventsSchema = days
-  .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
-  .flatMap((d) =>
-    d.events!
-      .filter((ev) => ev.address && !internalOnlyEventNames.has(ev.name))
-      .map((ev) => ({
-        "@type": "Event",
-        name: ev.name,
-        description: d.narrative,
-        startDate: d.id.replace("day-", "2026-").replace("sep-", "09-"),
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        eventStatus: "https://schema.org/EventScheduled",
-        location: {
-          "@type": "Place",
-          name: ev.location,
-          address: ev.address,
-        },
-        image: `${SITE_URL}/assets/hero-pleinair.jpg`,
-        offers: ticketedEventOffers[ev.name] ?? freeEventOffer,
-        // Derived per-event, not from the day's overall audience — a paid
-        // sub-event (e.g. the Judge's Lecture) can fall on an otherwise
-        // free/public day, and isAccessibleForFree must match its own offer.
-        isAccessibleForFree: !ticketedEventOffers[ev.name],
-        organizer: {
-          "@type": "Organization",
-          name: "Heartland Plein Air Festival",
-          url: "https://heartlandpleinair.org",
-        },
-      })),
-  );
+function buildScheduleEventsSchema(days: ScheduleDay[]) {
+  return days
+    .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
+    .flatMap((d) =>
+      d.events!
+        .filter((ev) => ev.address && !internalOnlyEventNames.has(ev.name))
+        .map((ev) => ({
+          "@type": "Event",
+          name: ev.name,
+          description: portableTextToPlainText(d.narrative),
+          startDate: d._id.replace("day-", "2026-").replace("sep-", "09-"),
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          eventStatus: "https://schema.org/EventScheduled",
+          location: {
+            "@type": "Place",
+            name: ev.location,
+            address: ev.address,
+          },
+          image: `${SITE_URL}/assets/hero-pleinair.jpg`,
+          offers: ticketedEventOffers[ev.name] ?? freeEventOffer,
+          // Derived per-event, not from the day's overall audience — a paid
+          // sub-event (e.g. the Judge's Lecture) can fall on an otherwise
+          // free/public day, and isAccessibleForFree must match its own offer.
+          isAccessibleForFree: !ticketedEventOffers[ev.name],
+          organizer: {
+            "@type": "Organization",
+            name: "Heartland Plein Air Festival",
+            url: "https://heartlandpleinair.org",
+          },
+        })),
+    );
+}
 
-const festivalLocationSchema = festivalLocations.map((loc) => ({
-  "@type": "Place",
-  name: loc.name,
-  description: loc.description,
-  address: loc.address,
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: loc.lat,
-    longitude: loc.lng,
-  },
-  ...(loc.websiteUrl ? { url: loc.websiteUrl } : {}),
-}));
+function buildFestivalLocationSchema(festivalLocations: FestivalLocation[]) {
+  return festivalLocations.map((loc) => ({
+    "@type": "Place",
+    name: loc.name,
+    description: loc.description,
+    address: loc.address,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: loc.lat,
+      longitude: loc.lng,
+    },
+    ...(loc.websiteUrl ? { url: loc.websiteUrl } : {}),
+  }));
+}
 
-const Schedule = () => {
+const Schedule = ({
+  days,
+  festivalLocations,
+}: {
+  days: ScheduleDay[];
+  festivalLocations: FestivalLocation[];
+}) => {
   const [eventFilter, setEventFilter] = useState<EventFilter>("all");
+  const scheduleEventsSchema = useMemo(() => buildScheduleEventsSchema(days), [days]);
+  const festivalLocationSchema = useMemo(
+    () => buildFestivalLocationSchema(festivalLocations),
+    [festivalLocations],
+  );
 
   const filteredDays = useMemo(() => {
     if (eventFilter === "public") return days.filter((d) => d.audience === "public");
@@ -144,7 +160,7 @@ const Schedule = () => {
         d.events?.some((e) => e.name.toLowerCase().includes("competition")),
       );
     return days;
-  }, [eventFilter]);
+  }, [eventFilter, days]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -173,11 +189,11 @@ const Schedule = () => {
   }, []);
 
   const weekItems = filteredDays.map((d) => {
-    if (d.id === "day-online") {
-      return { id: d.id, weekday: "Sep 21+", label: "Online" };
+    if (d._id === "day-online") {
+      return { id: d._id, weekday: "Sep 21+", label: "Online" };
     }
     const parts = d.dayShort.split(" ");
-    return { id: d.id, weekday: parts[0], date: parts[parts.length - 1] };
+    return { id: d._id, weekday: parts[0], date: parts[parts.length - 1] };
   });
 
   return (
@@ -244,7 +260,7 @@ const Schedule = () => {
                 Click any marker to see what's happening at that location and jump to the day in the schedule.
               </p>
             </div>
-            <LocationsMap />
+            <LocationsMap festivalLocations={festivalLocations} />
           </AnimatedSection>
         </div>
       </section>
@@ -278,8 +294,8 @@ const Schedule = () => {
             </p>
           )}
           {filteredDays.map((d, i) => (
-            <AnimatedSection key={d.id} delay={i * 60}>
-              <article id={d.id} className="scroll-mt-32 rounded-lg bg-card p-8 shadow-sm md:p-10">
+            <AnimatedSection key={d._id} delay={i * 60}>
+              <article id={d._id} className="scroll-mt-32 rounded-lg bg-card p-8 shadow-sm md:p-10">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <p className="font-display text-2xl font-bold tracking-tight text-primary">
                     {d.dayShort}
@@ -304,24 +320,24 @@ const Schedule = () => {
                         className="inline-block transition-opacity hover:opacity-80"
                       >
                         <img
-                          src={d.logo}
-                          alt={d.logoAlt}
+                          src={urlFor(d.logo).width(480).auto("format").url()}
+                          alt={d.logoAlt ?? d.title}
                           className="max-h-12 w-auto max-w-[240px] object-contain"
                         />
                       </a>
                     ) : (
                       <img
-                        src={d.logo}
-                        alt={d.logoAlt}
+                        src={urlFor(d.logo).width(480).auto("format").url()}
+                        alt={d.logoAlt ?? d.title}
                         className="max-h-12 w-auto max-w-[240px] object-contain"
                       />
                     )}
                   </div>
                 )}
                 <p className="mb-6 font-body text-lg leading-relaxed text-muted-foreground">
-                  {renderRichText(d.narrative)}
+                  <RichText value={d.narrative} />
                 </p>
-                {d.id === "day-online" && (
+                {d._id === "day-online" && (
                   <a
                     href="#newsletter"
                     className="mb-2 inline-flex items-center gap-2 rounded bg-primary px-5 py-2.5 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
@@ -329,34 +345,34 @@ const Schedule = () => {
                     Notify me when online sales open
                   </a>
                 )}
-                {["day-sep-13", "day-sep-17", "day-sep-18", "day-sep-19"].includes(d.id) && (
+                {["day-sep-13", "day-sep-17", "day-sep-18", "day-sep-19"].includes(d._id) && (
                   <Link
                     href="/tickets"
                     className="mb-6 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
                   >
-                    {standaloneTicketCta[d.id] ?? "Included in the Collector VIP Pass →"}
+                    {standaloneTicketCta[d._id] ?? "Included in the Collector VIP Pass →"}
                   </Link>
                 )}
                 {d.events && d.events.length > 0 && (
                   <ul className="space-y-4 border-t border-border pt-6">
                     {d.events.map((ev) => {
-                      const date = dayIdToDate(d.id);
+                      const date = dayIdToDate(d._id);
                       const canDownload = !!date;
                       const handleAddToCalendar = () => {
                         if (!date) return;
                         const ics = buildEventIcs({
-                          uid: `${d.id}-${slugify(ev.name)}`,
+                          uid: `${d._id}-${slugify(ev.name)}`,
                           date,
                           time: ev.time,
                           name: ev.name,
                           location: ev.location,
                           address: ev.address,
-                          description: d.narrative,
+                          description: portableTextToPlainText(d.narrative),
                         });
-                        downloadIcs(`${d.id}-${slugify(ev.name)}.ics`, ics);
+                        downloadIcs(`${d._id}-${slugify(ev.name)}.ics`, ics);
                       };
                       return (
-                      <li key={`${d.id}-${ev.name}`} className="flex flex-col gap-1">
+                      <li key={`${d._id}-${ev.name}`} className="flex flex-col gap-1">
                         <div className="flex flex-wrap items-baseline gap-x-3">
                           {ev.time && (
                             <span className="inline-flex items-center gap-1.5 font-body text-sm font-semibold text-primary">
@@ -394,7 +410,7 @@ const Schedule = () => {
                             <ul className="space-y-1.5">
                               {ev.spots.map((spot) => (
                                 <li
-                                  key={`${d.id}-${ev.name}-${spot.name}`}
+                                  key={spot._key}
                                   className="font-body text-sm text-muted-foreground"
                                 >
                                   {spot.address ? (
@@ -437,15 +453,15 @@ const Schedule = () => {
                                   className="inline-flex transition-opacity hover:opacity-80"
                                 >
                                   <img
-                                    src={ev.sponsorLogo}
-                                    alt={ev.sponsorAlt}
+                                    src={urlFor(ev.sponsorLogo).width(240).auto("format").url()}
+                                    alt={ev.sponsorAlt ?? ev.sponsor}
                                     className="h-7 w-auto max-w-[120px] object-contain"
                                   />
                                 </a>
                               ) : (
                                 <img
-                                  src={ev.sponsorLogo}
-                                  alt={ev.sponsorAlt}
+                                  src={urlFor(ev.sponsorLogo).width(240).auto("format").url()}
+                                  alt={ev.sponsorAlt ?? ev.sponsor}
                                   className="h-7 w-auto max-w-[120px] object-contain"
                                 />
                               ))}
