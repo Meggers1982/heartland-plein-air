@@ -9,6 +9,8 @@ const ORDERABLE_TYPES = [
   "homepageHighlight",
   "festivalLocation",
   "adSize",
+  "faqCategory",
+  "faqItem",
 ];
 
 export const structure: StructureResolver = (S, context) =>

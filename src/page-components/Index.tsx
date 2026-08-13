@@ -18,10 +18,10 @@ import SponsorsSection from "@/components/SponsorsSection";
 import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
-import { renderRichText } from "@/lib/richText";
-import { categories as faqCategories } from "@/data/faq";
+import RichText from "@/components/RichText";
 import type { Sponsor } from "@/sanity/queries/sponsors";
 import type { FestivalLocation, HomepageHighlight } from "@/sanity/queries/schedule";
+import type { FaqItem } from "@/sanity/queries/faq";
 
 const highlights = [
   {
@@ -50,16 +50,16 @@ const highlights = [
   },
 ];
 
-const faqs = faqCategories.flatMap((c) => c.items).filter((i) => i.featured);
-
 const Index = ({
   funders,
   homepageHighlights,
   festivalLocations,
+  faqs,
 }: {
   funders: Sponsor[];
   homepageHighlights: HomepageHighlight[];
   festivalLocations: FestivalLocation[];
+  faqs: FaqItem[];
 }) => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
@@ -290,14 +290,16 @@ const Index = ({
           </AnimatedSection>
           <AnimatedSection delay={100}>
             <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`item-${i}`}>
+              {faqs.map((faq) => (
+                <AccordionItem key={faq._id} value={faq._id}>
                   <AccordionTrigger className="font-display text-lg font-semibold text-foreground">
-                    {faq.q}
+                    {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
-                    {faq.a.map((paragraph, pi) => (
-                      <p key={pi}>{renderRichText(paragraph)}</p>
+                    {faq.answer.map((block) => (
+                      <p key={block._key}>
+                        <RichText value={[block]} />
+                      </p>
                     ))}
                   </AccordionContent>
                 </AccordionItem>
