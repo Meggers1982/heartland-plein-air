@@ -164,28 +164,6 @@ const Schedule = ({
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Plan Your Visit: Plein Air Festival Schedule Omaha";
-    const desc =
-      "Full event schedule for the Heartland Plein Air Festival — daily paint-outs, the Judge's Lecture, Collectors Preview, and the Sept. 19 public exhibition.";
-
-    const ensureMeta = (name: string) => {
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      return el;
-    };
-    ensureMeta("description").setAttribute("content", desc);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://heartlandpleinair.org/schedule");
   }, []);
 
   const weekItems = filteredDays.map((d) => {

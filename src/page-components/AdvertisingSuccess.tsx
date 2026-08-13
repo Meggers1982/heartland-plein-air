@@ -1,17 +1,12 @@
 'use client';
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
-import { setPageMeta } from "@/lib/meta";
 import { ICON_MAP } from "@/sanity/lib/iconMap";
 import type { AdSize } from "@/sanity/queries/advertising";
 
 const AdvertisingSuccess = ({ adSizes }: { adSizes: AdSize[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Ad Reservation Received | Heartland Plein Air Festival";
-    return setPageMeta(
-      "Thank you for reserving ad space in the Heartland Plein Air Festival catalog.",
-    );
   }, []);
 
   return (

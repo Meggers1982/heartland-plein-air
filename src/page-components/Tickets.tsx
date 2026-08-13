@@ -7,7 +7,6 @@ import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import YouthPaintoutForm from "@/components/YouthPaintoutForm";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const passBenefits = [
@@ -69,10 +68,6 @@ const Tickets = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Buy Plein Air Festival Tickets: Get Closer to the Art";
-    return setPageMeta(
-      "Most festival events are free. Get the $125 Collector VIP Pass, or buy standalone tickets: $25 lecture, $95 Collectors Preview Reception.",
-    );
   }, []);
 
   return (

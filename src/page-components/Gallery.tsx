@@ -8,7 +8,6 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
@@ -49,10 +48,6 @@ const Gallery = ({ galleryArtists }: { galleryArtists: Artist[] }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Preview Artist Portfolios: Plein Air Festival 2026";
-    return setPageMeta(
-      "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
-    );
   }, []);
 
   // Keyboard navigation for lightbox

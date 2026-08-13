@@ -2,17 +2,12 @@
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
-import { setPageMeta } from "@/lib/meta";
 import { ICON_MAP } from "@/sanity/lib/iconMap";
 import type { SponsorTier } from "@/sanity/queries/sponsors";
 
 const SponsorSuccess = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Sponsorship Inquiry Received | Heartland Plein Air Festival";
-    return setPageMeta(
-      "Thank you for your sponsorship inquiry for the Heartland Plein Air Festival.",
-    );
   }, []);
 
   return (

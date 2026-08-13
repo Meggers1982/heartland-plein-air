@@ -1,15 +1,10 @@
 'use client';
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
-import { setPageMeta } from "@/lib/meta";
 
 const ContactSuccess = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Message Sent | Heartland Plein Air Festival";
-    return setPageMeta(
-      "Thank you for contacting the Heartland Plein Air Festival.",
-    );
   }, []);
 
   return (

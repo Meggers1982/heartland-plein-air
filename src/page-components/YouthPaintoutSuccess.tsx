@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import { Shirt, ClipboardCheck, MapPin, Palette, CalendarPlus, Printer } from "lucide-react";
 import InquirySuccess from "@/components/InquirySuccess";
-import { setPageMeta } from "@/lib/meta";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 
 const dayOfInstructions = [
@@ -36,10 +35,6 @@ const dayOfInstructions = [
 const YouthPaintoutSuccess = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Youth Paintout Registration Received | Heartland Plein Air Festival";
-    return setPageMeta(
-      "You're registered for the Youth Paintout on September 12. Here's what to wear and what to do when you arrive.",
-    );
   }, []);
 
   const handleAddToCalendar = () => {

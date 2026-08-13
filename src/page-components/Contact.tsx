@@ -10,7 +10,6 @@ import CountdownBanner from "@/components/CountdownBanner";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import FestivalContactInfo from "@/components/FestivalContactInfo";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const topicOptions = ["Sponsorship", "Advertising", "Tickets", "General Questions"] as const;
@@ -63,10 +62,6 @@ const Contact = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Contact the Plein Air Festival Team: Ralston, NE";
-    return setPageMeta(
-      "Questions about the festival, sponsorships, volunteering, or advertising? Reach the Heartland Plein Air Festival team in Ralston, Nebraska.",
-    );
   }, []);
 
   const update = <K extends keyof FormState>(key: K, value: string) => {
