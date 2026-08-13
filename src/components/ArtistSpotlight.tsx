@@ -3,11 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
-import { artists, placeholderHeadshot } from "@/data/artists";
+import { urlFor } from "@/sanity/lib/image";
+import type { Artist } from "@/sanity/queries/artists";
 
 const ROTATION_MS = 6000;
+const PLACEHOLDER_HEADSHOT = "/assets/artists/placeholder-headshot.svg";
 
-const ArtistSpotlight = () => {
+const ArtistSpotlight = ({ artists: roster }: { artists: Artist[] }) => {
+  const artists = roster.filter((a) => !a.isJudge);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reducedMotionRef = useRef(false);
@@ -23,7 +26,7 @@ const ArtistSpotlight = () => {
       setIndex((i) => (i + 1) % artists.length);
     }, ROTATION_MS);
     return () => window.clearInterval(id);
-  }, [paused]);
+  }, [paused, artists.length]);
 
   const artist = artists[index];
   const bioPreview = artist.bio.split("\n\n")[0];
@@ -65,16 +68,20 @@ const ArtistSpotlight = () => {
               <div className="grid md:grid-cols-2 md:h-[520px]">
                 <div className="aspect-square md:aspect-auto md:h-full overflow-hidden bg-muted">
                   <img
-                    key={artist.name}
-                    src={artist.src}
-                    alt={artist.alt ?? artist.name}
+                    key={artist._id}
+                    src={
+                      artist.headshot
+                        ? urlFor(artist.headshot).width(800).auto("format").url()
+                        : PLACEHOLDER_HEADSHOT
+                    }
+                    alt={artist.headshotAlt ?? artist.name}
                     className="h-full w-full object-cover animate-in fade-in slide-in-from-right-8 duration-700 ease-out"
                     style={{ objectPosition: artist.objectPosition ?? "center", willChange: "transform, opacity" }}
-                    onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
+                    onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_HEADSHOT; }}
                   />
                 </div>
                 <div className="flex flex-col justify-center p-8 md:p-10 md:h-full md:overflow-hidden">
-                  <div key={artist.name} className="animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out" style={{ willChange: "transform, opacity" }}>
+                  <div key={artist._id} className="animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out" style={{ willChange: "transform, opacity" }}>
                     <h3 className="font-display text-3xl font-semibold text-foreground">
                       {artist.name}
                     </h3>
@@ -130,7 +137,7 @@ const ArtistSpotlight = () => {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             {artists.map((a, i) => (
               <button
-                key={a.name}
+                key={a._id}
                 type="button"
                 onClick={() => setIndex(i)}
                 aria-label={`Show ${a.name}`}

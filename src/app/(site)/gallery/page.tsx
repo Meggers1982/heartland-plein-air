@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Gallery from "@/page-components/Gallery";
+import { getGalleryArtists } from "@/sanity/queries/artists";
 
 export const metadata: Metadata = {
   title: "Preview Artist Portfolios: Plein Air Festival 2026",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function GalleryPage() {
-  return <Gallery />;
+export default async function GalleryPage() {
+  const galleryArtists = await getGalleryArtists();
+  return <Gallery galleryArtists={galleryArtists} />;
 }

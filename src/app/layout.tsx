@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Providers from "@/App";
-import { JsonLd, organizationSchema, festivalEventSchema } from "@/lib/schema";
+import { JsonLd, organizationSchema, buildFestivalEventSchema } from "@/lib/schema";
+import { getArtistCount } from "@/sanity/queries/artists";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,11 +28,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const invitedCount = await getArtistCount();
   return (
     <html lang="en">
       <head>
@@ -41,7 +43,7 @@ export default function RootLayout({
         <JsonLd
           data={{
             "@context": "https://schema.org",
-            "@graph": [organizationSchema, festivalEventSchema],
+            "@graph": [organizationSchema, buildFestivalEventSchema(invitedCount)],
           }}
         />
       </head>

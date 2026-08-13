@@ -8,19 +8,25 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
-import { artists, awardsJudge, placeholderHeadshot, type Artist } from "@/data/artists";
 import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema, SITE_URL } from "@/lib/schema";
+import { urlFor } from "@/sanity/lib/image";
+import type { Artist } from "@/sanity/queries/artists";
 
-const toPersonSchema = (artist: Artist, jobTitle: string) => {
+const PLACEHOLDER_HEADSHOT = "/assets/artists/placeholder-headshot.svg";
+
+const headshotUrl = (artist: Artist) =>
+  artist.headshot ? urlFor(artist.headshot).width(800).auto("format").url() : PLACEHOLDER_HEADSHOT;
+
+const toPersonSchema = (artist: Artist) => {
   const sameAs = [artist.website, artist.instagram, artist.facebook].filter(
     (url): url is string => !!url,
   );
   return {
     "@type": "Person",
     name: artist.name,
-    jobTitle,
-    image: `${SITE_URL}${artist.src}`,
+    jobTitle: artist.isJudge ? "Judge of Awards" : "Plein Air Artist",
+    image: artist.headshot ? headshotUrl(artist) : undefined,
     description: artist.bio?.split("\n\n").join(" "),
     homeLocation: { "@type": "Place", name: artist.location },
     ...(artist.website ? { url: artist.website } : {}),
@@ -28,18 +34,14 @@ const toPersonSchema = (artist: Artist, jobTitle: string) => {
   };
 };
 
-const artistPersonSchema = [
-  ...artists.map((artist) => toPersonSchema(artist, "Plein Air Artist")),
-  toPersonSchema(awardsJudge, "Judge of Awards"),
-];
-
-// Rick J. Delanty judges the awards AND paints the festival, so he belongs in
-// the roster — without him the grid shows 24 cards while the copy says 25.
-// Appended last so existing indices into `artists` (used by the lightbox and
-// its prev/next controls) stay valid.
-const roster: Artist[] = [...artists, awardsJudge];
-
-const Artists = () => {
+const Artists = ({ roster }: { roster: Artist[] }) => {
+  // Rick J. Delanty judges the awards AND paints the festival, so he belongs
+  // in the roster — without him the grid shows 24 cards while the copy says
+  // 25. He's appended last in the fetched roster so indices into `artists`
+  // (used by the lightbox and its prev/next controls) stay valid.
+  const artists = roster.filter((a) => !a.isJudge);
+  const awardsJudge = roster.find((a) => a.isJudge)!;
+  const artistPersonSchema = roster.map(toPersonSchema);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const active = openIndex !== null ? artists[openIndex] : null;
   useEffect(() => {
@@ -107,19 +109,19 @@ const Artists = () => {
               {roster.map((artist, i) => {
                 // The judge is appended last, so indices 0..artists.length-1
                 // still line up with the `artists` array the lightbox reads.
-                const isJudge = i === artists.length;
+                const isJudge = artist.isJudge;
                 const cardClass =
                   "group block w-full text-left overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary";
                 const cardInner = (
                   <>
                     <div className="aspect-square overflow-hidden relative">
                       <img
-                        src={artist.src}
-                        alt={artist.alt ?? artist.name}
+                        src={headshotUrl(artist)}
+                        alt={artist.headshotAlt ?? artist.name}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         style={{ objectPosition: artist.objectPosition ?? "center" }}
                         loading="lazy"
-                        onError={(e) => { (e.target as HTMLImageElement).src = placeholderHeadshot; }}
+                        onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_HEADSHOT; }}
                       />
                       {isJudge && (
                         <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-3 py-1 font-body text-[0.65rem] font-semibold uppercase tracking-widest text-primary-foreground shadow-sm">
@@ -146,7 +148,7 @@ const Artists = () => {
                   </>
                 );
                 return (
-                  <AnimatedSection key={artist.name} delay={i * 80}>
+                  <AnimatedSection key={artist._id} delay={i * 80}>
                     {isJudge ? (
                       // Sends people to the featured Awards Judge section below
                       // rather than repeating his full bio in the lightbox.
@@ -182,8 +184,8 @@ const Artists = () => {
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
                     <img
-                      src={awardsJudge.src}
-                      alt={awardsJudge.alt ?? awardsJudge.name}
+                      src={headshotUrl(awardsJudge)}
+                      alt={awardsJudge.headshotAlt ?? awardsJudge.name}
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -251,7 +253,7 @@ const Artists = () => {
               <div className="overflow-hidden rounded-lg bg-background shadow-lg">
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
-                <img src={active.src} alt={active.alt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: active.objectPosition ?? "center" }} />
+                <img src={headshotUrl(active)} alt={active.headshotAlt ?? active.name} className="h-full w-full object-cover" style={{ objectPosition: active.objectPosition ?? "center" }} />
               </div>
               <div className="p-6 md:p-8">
                 <DialogHeader>

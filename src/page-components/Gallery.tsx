@@ -10,7 +10,8 @@ import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { galleryArtists, allPaintings } from "@/data/gallery";
+import { urlFor } from "@/sanity/lib/image";
+import type { Artist } from "@/sanity/queries/artists";
 
 type MediumFilter = "all" | "oil-and-pastel" | "watercolor";
 
@@ -20,9 +21,26 @@ const mediumTabs: { value: MediumFilter; label: string }[] = [
   { value: "watercolor", label: "Watercolor" },
 ];
 
-const Gallery = () => {
+type FlatPainting = {
+  _key: string;
+  image: NonNullable<Artist["paintings"]>[number]["image"];
+  title: string;
+  alt: string;
+  artistName: string;
+  artistSlug: string;
+};
+
+const Gallery = ({ galleryArtists }: { galleryArtists: Artist[] }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [mediumFilter, setMediumFilter] = useState<MediumFilter>("all");
+
+  const allPaintings: FlatPainting[] = galleryArtists.flatMap((a) =>
+    (a.paintings ?? []).map((p) => ({
+      ...p,
+      artistName: a.name,
+      artistSlug: a.slug,
+    })),
+  );
   const active = openIndex !== null ? allPaintings[openIndex] : null;
 
   const filteredArtists = mediumFilter === "all"
@@ -51,7 +69,7 @@ const Gallery = () => {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [openIndex]);
+  }, [openIndex, allPaintings.length]);
 
   // Prevent body scroll when lightbox is open
   useEffect(() => {
@@ -173,13 +191,13 @@ const Gallery = () => {
                   </h2>
                 </AnimatedSection>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {artist.paintings.map((painting, pi) => {
+                  {(artist.paintings ?? []).map((painting, pi) => {
                     const globalIndex =
                       galleryArtists
                         .slice(0, originalArtistIndex)
-                        .reduce((sum, a) => sum + a.paintings.length, 0) + pi;
+                        .reduce((sum, a) => sum + (a.paintings?.length ?? 0), 0) + pi;
                     return (
-                      <AnimatedSection key={painting.filename} delay={pi * 80}>
+                      <AnimatedSection key={painting._key} delay={pi * 80}>
                         <button
                           type="button"
                           onClick={() => setOpenIndex(globalIndex)}
@@ -187,7 +205,7 @@ const Gallery = () => {
                         >
                           <div className="relative aspect-[4/3] overflow-hidden">
                             <img
-                              src={`/artwork/${painting.filename}`}
+                              src={urlFor(painting.image).width(600).auto("format").url()}
                               alt={painting.alt}
                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                               loading="lazy"
@@ -239,7 +257,7 @@ const Gallery = () => {
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-square md:aspect-auto overflow-hidden bg-muted">
                     <img
-                      src={`/artwork/${active.filename}`}
+                      src={urlFor(active.image).width(1200).auto("format").url()}
                       alt={active.alt}
                       className="h-full w-full object-cover"
                     />
