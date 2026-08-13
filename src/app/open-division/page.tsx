@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import OpenDivision from "@/page-components/OpenDivision";
+import { getQuickFacts } from "@/sanity/queries/openDivision";
 
 export const metadata: Metadata = {
   title: "Register to Paint Plein Air With the Pros: Omaha 2026",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function OpenDivisionPage() {
-  return <OpenDivision />;
+export default async function OpenDivisionPage() {
+  const quickFacts = await getQuickFacts();
+  return <OpenDivision quickFacts={quickFacts} />;
 }

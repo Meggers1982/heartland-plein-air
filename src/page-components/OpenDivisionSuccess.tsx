@@ -4,9 +4,14 @@ import InquirySuccess from "@/components/InquirySuccess";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
 import { setPageMeta } from "@/lib/meta";
-import { quickFacts } from "@/data/openDivisionQuickFacts";
+import { ICON_MAP } from "@/sanity/lib/iconMap";
+import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 
-const OpenDivisionSuccess = () => {
+const OpenDivisionSuccess = ({
+  quickFacts,
+}: {
+  quickFacts: OpenDivisionQuickFact[];
+}) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Registration Received | Heartland Plein Air Festival";
@@ -23,7 +28,7 @@ const OpenDivisionSuccess = () => {
       recapTitle="Open Division Quick Facts"
       recapItems={quickFacts.map((fact) => ({
         name: fact.title,
-        icon: fact.icon,
+        icon: ICON_MAP[fact.icon],
         detail: fact.description,
       }))}
       backHref="/open-division"
