@@ -8,7 +8,6 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { ICON_MAP } from "@/sanity/lib/iconMap";
 import { urlFor } from "@/sanity/lib/image";
@@ -88,10 +87,6 @@ const Sponsors = ({
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Sponsor the Plein Air Festival: Put Your Name on It";
-    return setPageMeta(
-      "Support the Heartland Plein Air Festival. Sponsorship levels from $100 to $5,000+, with logo placement, catalog ads, and VIP passes. 501(c)(3) org.",
-    );
   }, []);
 
   return (

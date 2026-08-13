@@ -1,7 +1,7 @@
 # Heartland Plein Air Arts Festival — Agent Guide
 
 ## What This Project Is
-A static festival website for the Heartland Plein Air Arts Festival (September 13–19, 2026) in Douglas and Sarpy County. Features 25 nationally recognized artists, an interactive schedule, Google Maps venue integration, artist bios, a gallery lightbox, and newsletter signup. There is no backend — all data is static TypeScript files — with one narrow exception: a single serverless route (`src/app/api/verify-paypal-payment/route.ts`) that independently re-checks captured PayPal payment amounts against PayPal's own records (see "PayPal Payment Verification" below). Do not add further backend/database functionality beyond this.
+A festival website for the Heartland Plein Air Arts Festival (September 13–19, 2026) in Douglas and Sarpy County. Features 25 nationally recognized artists, an interactive schedule, Google Maps venue integration, artist bios, a gallery lightbox, and newsletter signup. Content (artists, gallery, schedule, locations, FAQ, sponsors, ad sizes, open division facts) lives in Sanity CMS, edited through an embedded Studio at `/studio` — see "Sanity CMS" below. Two other backend surfaces exist: `src/app/api/revalidate/route.ts` (Sanity webhook, revalidates ISR cache on publish) and `src/app/api/verify-paypal-payment/route.ts`, a single serverless route that independently re-checks captured PayPal payment amounts against PayPal's own records (see "PayPal Payment Verification" below). Do not add further backend/database functionality beyond these three.
 
 ## Tech Stack
 - **Framework:** Next.js 15 (App Router)
@@ -25,10 +25,16 @@ A static festival website for the Heartland Plein Air Arts Festival (September 1
   │                         — named this way (not `pages/`) specifically to avoid Next.js Pages
   │                         Router auto-pickup
   ├── components/         → Custom components + /ui (shadcn primitives)
-  ├── data/                → ALL static data lives here (artists.ts, gallery.ts, faq.ts,
-  │                         locations.ts, schedule.ts, sponsors.ts, etc.)
-  ├── lib/                 → Utilities: utils.ts (cn helper), meta.ts (client-side meta helper),
-  │                         ics.ts (calendar export), schema.tsx (structured data)
+  ├── sanity/              → Sanity source of truth: schemaTypes/ (document + object schemas),
+  │                         queries/ (one module per content area, e.g. queries/artists.ts),
+  │                         lib/ (image.ts urlFor() helper, iconMap.ts, portableText.ts),
+  │                         client.ts, env.ts, structure.ts (Studio desk structure)
+  ├── lib/                 → Utilities: utils.ts (cn helper), ics.ts (calendar export),
+  │                         schema.tsx (structured data), richText.tsx (renderRichText — only
+  │                         for the handful of plain strings that still use inline
+  │                         [label](url) links and were never migrated to Sanity Portable
+  │                         Text: OpenDivision.tsx's static requirement lists and
+  │                         HomepageHighlight.description; don't assume it's dead)
   ├── hooks/               → useInView.ts, use-mobile.tsx, use-toast.ts
   ├── App.tsx              → Client-side providers (React Query, Toaster, TooltipProvider) —
   │                         mounted from src/app/layout.tsx, not a router
@@ -61,9 +67,10 @@ Every route must:
 3. New internal links use `next/link`'s `<Link>` — do not use `<a>` tags for internal navigation
 
 ### Data
-- All content lives in `/src/data/` as TypeScript files — this is the source of truth
-- To update artist info, bios, photos, events, FAQs, or map locations: edit the relevant file in `/src/data/`
-- Do not hardcode content inside components — import from `/src/data/`
+- All content lives in Sanity — editors change it in Studio at `/studio`, not via a code PR. See "Sanity CMS" below
+- Route `page.tsx` files fetch via `src/sanity/queries/*.ts` and pass data down as props to the (usually `'use client'`) page-component — page-components don't fetch directly
+- Do not hardcode content inside components — it should come from a Sanity query, passed in as a prop
+- `src/data/` no longer exists — it held the pre-migration static TypeScript files; every one of the 9 files was fully replaced by a Sanity document type and deleted
 
 ### Styling
 - Brand colors are defined as CSS custom properties in `src/app/globals.css` and as Tailwind config tokens
@@ -79,7 +86,7 @@ Every route must:
 ## What Not to Do
 - Do not edit files in `/src/components/ui/` — these are shadcn/ui primitives managed by the CLI
 - Do not commit `.env` — it contains live Google Maps API keys and is gitignored; keep it that way
-- Do not add a backend or database — this is intentionally a static frontend
+- Do not add a backend, database, or server framework beyond Sanity + the two serverless routes already listed under "What This Project Is" — content changes go through Sanity Studio, not new app infrastructure
 - Do not install new packages without confirming first
 - Do not use inline styles or `<style>` tags — use Tailwind classes
 - Do not use `<a>` tags for internal navigation — use `next/link`'s `<Link>`
@@ -97,21 +104,19 @@ Every route must:
 - `PAYPAL_CLIENT_SECRET` (server-only, no `NEXT_PUBLIC_` prefix) — used by `/api/verify-paypal-payment` to authenticate to PayPal's REST API. Unlike the Maps keys, this one must never ship to the client; if it's ever accidentally renamed with a `NEXT_PUBLIC_` prefix, rotate it immediately in the PayPal Developer Dashboard.
 - `/public/assets/artists/` — artist headshot images; replace only with confirmed new images
 
-## Adding New Content
+## Sanity CMS
+- Project ID `e2m4q82h`, dataset `production`. Env vars in `.env.local` (gitignored) and in Vercel's Production/Preview/Development env vars
+- Studio is embedded in this app at `/studio` (not a separate deploy) — `sanity.config.ts`/`sanity.cli.ts` at repo root, schema in `src/sanity/schemaTypes/`
+- Editors (Ralston HINGE Creative District staff/volunteers) manage their own Studio access at sanity.io/manage — that's an account/role question, not something this codebase controls
+- Content types: `openDivisionQuickFact`, `sponsorTier`, `sponsor`, `scheduleDay`, `homepageHighlight`, `festivalLocation`, `adSize`, `faqCategory`, `faqItem`, `artist` (folds in what used to be `gallery.ts`'s paintings). Most support drag-to-reorder in Studio via `@sanity/orderable-document-list` (see `ORDERABLE_TYPES` in `src/sanity/structure.ts`)
+- Rich text (FAQ answers, `scheduleDay.narrative`) is Portable Text, rendered with `src/components/RichText.tsx`. A handful of other fields (e.g. `homepageHighlight.description`) are still plain strings with inline `[label](url)` links, rendered via `renderRichText()` in `src/lib/richText.tsx` — that file is not dead code
+- Icon fields (e.g. `sponsorTier.icon`) store a Lucide icon name as a string; resolve it to a component via `ICON_MAP` in `src/sanity/lib/iconMap.ts`
+- Images are Sanity assets, rendered via `urlFor()` from `src/sanity/lib/image.ts` + a plain `<img>` (not `next/image` — several grids, e.g. Sponsors.tsx's tier grids, depend on each image's natural intrinsic aspect ratio, which `next/image`'s `fill` sizing model doesn't preserve the same way)
+- Freshness model: ISR with `revalidate: 3600` + tags (see any `src/sanity/queries/*.ts` file), backed by a webhook at `src/app/api/revalidate/route.ts` that Sanity calls on publish so changes usually show up within seconds, not an hour
+- One growing migration script, `scripts/migrate-to-sanity.mjs`, was used to seed all the content from the original `src/data/*.ts` files (now deleted) — run with `set -a && source .env.local && set +a && node scripts/migrate-to-sanity.mjs [section]`. It's idempotent (deterministic `_id`s + `createOrReplace`) but re-running it after Studio edits will overwrite those edits — treat it as historical record, not a sync tool
+- To add a genuinely new document type: define the schema in `src/sanity/schemaTypes/`, register it in `schemaTypes/index.ts`, add a query in `src/sanity/queries/`, and wire it into the relevant `page.tsx` + page-component the same way the existing types are wired
 
-### New artist
-Edit `/src/data/artists.ts` — add an entry to the `artists` array following the existing shape.
-
-### New gallery painting
-Edit `/src/data/gallery.ts` — add to the `galleryArtists` array, linked by artist ID.
-
-### New FAQ item
-Edit `/src/data/faq.ts` — add to the `faqItems` array with `question` and `answer` fields.
-
-### New map location
-Edit `/src/data/locations.ts` — add an entry with `id`, `name`, `lat`, `lng`, and associated events.
-
-### New page
+## Adding a New Page
 1. Create the component in `/src/page-components/`
 2. Create the route wrapper at `/src/app/<route>/page.tsx` that exports `metadata` and renders it
 3. Add a link in `SiteNav.tsx` if it should appear in navigation

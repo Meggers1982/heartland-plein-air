@@ -15,7 +15,6 @@ import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { ICON_MAP } from "@/sanity/lib/iconMap";
 import type { AdSize } from "@/sanity/queries/advertising";
@@ -40,10 +39,6 @@ const Advertising = ({ adSizes }: { adSizes: AdSize[] }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Advertise in the Plein Air Festival Catalog: Omaha";
-    return setPageMeta(
-      "Place an ad in the Heartland Plein Air Festival catalog — 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
-    );
   }, []);
 
   return (

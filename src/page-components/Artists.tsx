@@ -8,7 +8,6 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-react";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema, SITE_URL } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
@@ -46,10 +45,6 @@ const Artists = ({ roster }: { roster: Artist[] }) => {
   const active = openIndex !== null ? artists[openIndex] : null;
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Meet the Artists: 25 Plein Air Painters in Omaha 2026";
-    return setPageMeta(
-      "Browse bios for all 25 invited plein air artists painting the Omaha metro in September 2026 — plus meet Rick J. Delanty, the 2026 Judge of Awards.",
-    );
   }, []);
 
   return (

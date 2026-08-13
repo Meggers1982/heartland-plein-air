@@ -15,7 +15,6 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
-import { setPageMeta } from "@/lib/meta";
 import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { ICON_MAP } from "@/sanity/lib/iconMap";
@@ -45,10 +44,6 @@ const salesInfo = [
 const OpenDivision = ({ quickFacts }: { quickFacts: OpenDivisionQuickFact[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Register to Paint Plein Air With the Pros: Omaha 2026";
-    return setPageMeta(
-      "Register to paint alongside 25 national artists during festival week. Limited to 40 spots at $30. All mediums welcome. Sept. 13–19, 2026, Omaha metro.",
-    );
   }, []);
 
   return (

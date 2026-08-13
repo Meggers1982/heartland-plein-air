@@ -7,16 +7,11 @@ import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
-import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Learn About the Plein Air Festival: Omaha, NE 2026";
-    return setPageMeta(
-      "Learn what plein air painting is, how festival week works, and who organizes it. 25 national artists paint the Omaha metro live, Sept. 13–19, 2026.",
-    );
   }, []);
 
   return (

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
-import { setPageMeta } from "@/lib/meta";
 import { ICON_MAP } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 
@@ -14,10 +13,6 @@ const OpenDivisionSuccess = ({
 }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Registration Received | Heartland Plein Air Festival";
-    return setPageMeta(
-      "Thank you for registering for the Open Division at the Heartland Plein Air Festival.",
-    );
   }, []);
 
   return (
