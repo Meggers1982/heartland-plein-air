@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import BackToTop from "@/components/BackToTop";
@@ -191,7 +190,6 @@ const Faq = () => {
         <NewsletterCTA />
       </div>
 
-      <SiteFooter />
       <BackToTop />
     </div>
   );

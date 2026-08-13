@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SponsorSuccess from "@/page-components/SponsorSuccess";
+import { getSponsorTiers } from "@/sanity/queries/sponsors";
 
 export const metadata: Metadata = {
   title: "Sponsorship Inquiry Received | Heartland Plein Air Festival",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function SponsorsSuccessPage() {
-  return <SponsorSuccess />;
+export default async function SponsorsSuccessPage() {
+  const sponsorTiers = await getSponsorTiers();
+  return <SponsorSuccess sponsorTiers={sponsorTiers} />;
 }

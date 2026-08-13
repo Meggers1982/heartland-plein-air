@@ -1,8 +1,9 @@
 import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
-import { sponsors } from "@/data/sponsors";
+import { urlFor } from "@/sanity/lib/image";
+import type { Sponsor } from "@/sanity/queries/sponsors";
 
-const SponsorsSection = () => {
+const SponsorsSection = ({ sponsors }: { sponsors: Sponsor[] }) => {
   return (
     <section className="border-t border-border py-16">
       <div className="mx-auto max-w-6xl px-6">
@@ -18,17 +19,21 @@ const SponsorsSection = () => {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-7">
             {sponsors.map((sponsor) => {
               const href = sponsor.url;
-              const img = (
+              const img = sponsor.logo ? (
                 <img
-                  src={sponsor.logo}
-                  alt={sponsor.alt}
+                  src={urlFor(sponsor.logo).width(240).auto("format").url()}
+                  alt={sponsor.alt ?? sponsor.name}
                   className="max-h-12 w-auto max-w-full object-contain sm:max-h-16"
                 />
+              ) : (
+                <span className="font-body text-sm font-semibold text-foreground">
+                  {sponsor.name}
+                </span>
               );
 
               return (
                 <div
-                  key={sponsor.name}
+                  key={sponsor._id}
                   className="flex items-center justify-center px-2 py-2"
                 >
                   {href ? (

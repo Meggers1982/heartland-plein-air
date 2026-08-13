@@ -16,11 +16,11 @@ import ArtistSpotlight from "@/components/ArtistSpotlight";
 import LocationsMap from "@/components/LocationsMap";
 import SponsorsSection from "@/components/SponsorsSection";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import { renderRichText } from "@/lib/richText";
 import { categories as faqCategories } from "@/data/faq";
+import type { Sponsor } from "@/sanity/queries/sponsors";
 
 const highlights = [
   {
@@ -51,7 +51,7 @@ const highlights = [
 
 const faqs = faqCategories.flatMap((c) => c.items).filter((i) => i.featured);
 
-const Index = () => {
+const Index = ({ funders }: { funders: Sponsor[] }) => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
 
@@ -266,7 +266,7 @@ const Index = () => {
       <BrushStrokeDivider className="py-4" />
 
       {/* Sponsors */}
-      <SponsorsSection />
+      <SponsorsSection sponsors={funders} />
 
       {/* FAQ */}
       <section id="faq" className="py-24">
@@ -311,7 +311,6 @@ const Index = () => {
         <NewsletterCTA />
       </div>
 
-      <SiteFooter />
       <BackToTop />
     </div>
   );

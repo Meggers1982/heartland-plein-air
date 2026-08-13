@@ -4,7 +4,6 @@ import { Check } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import YouthPaintoutForm from "@/components/YouthPaintoutForm";
@@ -372,7 +371,6 @@ const Tickets = () => {
       </section>
 
       <NewsletterCTA />
-      <SiteFooter />
       <BackToTop />
     </div>
   );

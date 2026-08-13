@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Index from "@/page-components/Index";
+import { getFunders } from "@/sanity/queries/sponsors";
 
 export const metadata: Metadata = {
   title: "Heartland Plein Air Festival: See Art Made in the Open",
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://heartlandpleinair.org" },
 };
 
-export default function HomePage() {
-  return <Index />;
+export default async function HomePage() {
+  const funders = await getFunders();
+  return <Index funders={funders} />;
 }

@@ -5,7 +5,6 @@ import { MapPin, Clock, CalendarPlus } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import ScheduleJumpNav from "@/components/ScheduleJumpNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
@@ -477,7 +476,6 @@ const Schedule = () => {
 
       <NewsletterCTA />
 
-      <SiteFooter />
       <BackToTop />
     </div>
   );

@@ -6,7 +6,6 @@ import { ChevronDown } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import CountdownBanner from "@/components/CountdownBanner";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
@@ -289,7 +288,6 @@ const Contact = () => {
       <BrushStrokeDivider />
       <CountdownBanner />
       <NewsletterCTA />
-      <SiteFooter />
       <BackToTop />
     </div>
   );

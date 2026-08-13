@@ -12,7 +12,6 @@ import {
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
@@ -253,7 +252,6 @@ const Advertising = () => {
       </section>
 
       <NewsletterCTA />
-      <SiteFooter />
       <BackToTop />
     </div>
   );
