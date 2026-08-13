@@ -1,16 +1,21 @@
 User-agent: Googlebot
 Allow: /
+Disallow: /studio
 
 User-agent: Bingbot
 Allow: /
+Disallow: /studio
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /studio
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /studio
 
 User-agent: *
 Allow: /
+Disallow: /studio
 
 Sitemap: https://heartlandpleinair.org/sitemap.xml
