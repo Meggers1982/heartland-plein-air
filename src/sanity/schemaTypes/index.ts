@@ -1,5 +1,6 @@
 import type { SchemaTypeDefinition } from "sanity";
 
+import { adSize } from "./adSize";
 import { festivalLocation } from "./festivalLocation";
 import { homepageHighlight } from "./homepageHighlight";
 import { locationEvent } from "./objects/locationEvent";
@@ -12,6 +13,7 @@ import { sponsorTier } from "./sponsorTier";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
+    adSize,
     openDivisionQuickFact,
     sponsorTier,
     sponsor,

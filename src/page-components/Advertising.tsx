@@ -17,7 +17,8 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { setPageMeta } from "@/lib/meta";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { adSizes } from "@/data/adSizes";
+import { ICON_MAP } from "@/sanity/lib/iconMap";
+import type { AdSize } from "@/sanity/queries/advertising";
 import { AD_DEADLINE } from "@/lib/adDeadline";
 
 const fileSpecs = [
@@ -27,7 +28,7 @@ const fileSpecs = [
   { icon: Layers, text: "All fonts and images embedded" },
 ];
 
-const Advertising = () => {
+const Advertising = ({ adSizes }: { adSizes: AdSize[] }) => {
   const [deadlinePassed, setDeadlinePassed] = useState(false);
 
   useEffect(() => {
@@ -87,11 +88,13 @@ const Advertising = () => {
           </AnimatedSection>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {adSizes.map((size, i) => (
-              <AnimatedSection key={size.name} delay={i * 80} className="h-full">
+            {adSizes.map((size, i) => {
+              const Icon = ICON_MAP[size.icon];
+              return (
+              <AnimatedSection key={size._id} delay={i * 80} className="h-full">
                 <div className="flex h-full flex-col rounded-lg bg-card p-8 shadow-sm">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                    <size.icon className="h-6 w-6 text-primary" aria-hidden="true" />
+                    <Icon className="h-6 w-6 text-primary" aria-hidden="true" />
                   </div>
                   <h3 className="mb-1 font-display text-xl font-semibold text-foreground">
                     {size.name}
@@ -104,7 +107,8 @@ const Advertising = () => {
                   </p>
                 </div>
               </AnimatedSection>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

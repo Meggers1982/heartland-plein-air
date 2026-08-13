@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Advertising from "@/page-components/Advertising";
+import { getAdSizes } from "@/sanity/queries/advertising";
 
 export const metadata: Metadata = {
   title: "Advertise in the Plein Air Festival Catalog: Omaha",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdvertisingPage() {
-  return <Advertising />;
+export default async function AdvertisingPage() {
+  const adSizes = await getAdSizes();
+  return <Advertising adSizes={adSizes} />;
 }
