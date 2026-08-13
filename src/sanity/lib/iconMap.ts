@@ -1,0 +1,32 @@
+import {
+  Award,
+  Crown,
+  DollarSign,
+  Gem,
+  Heart,
+  LayoutGrid,
+  Maximize2,
+  Medal,
+  Percent,
+  Rows2,
+  Ruler,
+  Stamp,
+  Star,
+  type LucideIcon,
+} from "lucide-react";
+
+export const ICON_MAP: Record<string, LucideIcon> = {
+  DollarSign,
+  Ruler,
+  Stamp,
+  Percent,
+  Crown,
+  Gem,
+  Award,
+  Medal,
+  Star,
+  Heart,
+  Maximize2,
+  Rows2,
+  LayoutGrid,
+};

@@ -19,7 +19,8 @@ import MailCheckOption from "@/components/MailCheckOption";
 import { setPageMeta } from "@/lib/meta";
 import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { quickFacts } from "@/data/openDivisionQuickFacts";
+import { ICON_MAP } from "@/sanity/lib/iconMap";
+import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 
 const paintingRequirements = [
   "Two-dimensional work only: oils, acrylics, watercolor, gouache, casein, pastel, or oil sticks.",
@@ -42,7 +43,7 @@ const salesInfo = [
   "The Ralston Hinge Creative District retains a 40% commission on all sales, supporting future programming in the creative district.",
 ];
 
-const OpenDivision = () => {
+const OpenDivision = ({ quickFacts }: { quickFacts: OpenDivisionQuickFact[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Register to Paint Plein Air With the Pros: Omaha 2026";
@@ -89,21 +90,24 @@ const OpenDivision = () => {
             </div>
           </AnimatedSection>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {quickFacts.map((item, i) => (
-              <AnimatedSection key={item.title} delay={i * 100} className="h-full">
-                <div className="group flex h-full flex-col rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
-                    <item.icon className="h-6 w-6 text-primary" />
+            {quickFacts.map((item, i) => {
+              const Icon = ICON_MAP[item.icon];
+              return (
+                <AnimatedSection key={item._id} delay={i * 100} className="h-full">
+                  <div className="group flex h-full flex-col rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
+                      <Icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
+                      {item.title}
+                    </h3>
+                    <p className="font-body text-sm leading-relaxed text-muted-foreground">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </p>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import OpenDivisionSuccess from "@/page-components/OpenDivisionSuccess";
+import { getQuickFacts } from "@/sanity/queries/openDivision";
 
 export const metadata: Metadata = {
   title: "Registration Received | Heartland Plein Air Festival",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function OpenDivisionSuccessPage() {
-  return <OpenDivisionSuccess />;
+export default async function OpenDivisionSuccessPage() {
+  const quickFacts = await getQuickFacts();
+  return <OpenDivisionSuccess quickFacts={quickFacts} />;
 }
