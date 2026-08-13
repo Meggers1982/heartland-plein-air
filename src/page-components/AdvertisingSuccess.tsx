@@ -2,9 +2,10 @@
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
 import { setPageMeta } from "@/lib/meta";
-import { adSizes } from "@/data/adSizes";
+import { ICON_MAP } from "@/sanity/lib/iconMap";
+import type { AdSize } from "@/sanity/queries/advertising";
 
-const AdvertisingSuccess = () => {
+const AdvertisingSuccess = ({ adSizes }: { adSizes: AdSize[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Ad Reservation Received | Heartland Plein Air Festival";
@@ -22,7 +23,7 @@ const AdvertisingSuccess = () => {
       recapItems={adSizes.map((size) => ({
         name: size.name,
         price: size.price,
-        icon: size.icon,
+        icon: ICON_MAP[size.icon],
         detail: size.dimensions,
       }))}
       backHref="/advertising"

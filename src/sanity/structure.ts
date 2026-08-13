@@ -8,6 +8,7 @@ const ORDERABLE_TYPES = [
   "scheduleDay",
   "homepageHighlight",
   "festivalLocation",
+  "adSize",
 ];
 
 export const structure: StructureResolver = (S, context) =>

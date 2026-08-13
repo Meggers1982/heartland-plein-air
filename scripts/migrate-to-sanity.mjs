@@ -743,9 +743,54 @@ async function migrateSchedule() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// adSize (Phase 3)
+// ---------------------------------------------------------------------------
+
+const AD_SIZES = [
+  {
+    slug: "full-page",
+    name: "Full Page Ad",
+    price: "$300",
+    icon: "Maximize2",
+    dimensions: '6" x 6" plus .125" bleed on all sides',
+  },
+  {
+    slug: "half-page",
+    name: "Half Page Ad",
+    price: "$200",
+    icon: "Rows2",
+    dimensions: 'Vertical: 2.8125"w x 5.75"h — or Horizontal: 5.75"w x 2.8125"h',
+  },
+  {
+    slug: "quarter-page",
+    name: "Quarter Page Ad",
+    price: "$125",
+    icon: "LayoutGrid",
+    dimensions: '2.8" x 2.8"',
+  },
+];
+
+async function migrateAdSizes() {
+  console.log("Uploading adSize documents...");
+  for (const [i, size] of AD_SIZES.entries()) {
+    await client.createOrReplace({
+      _id: `adSize-${size.slug}`,
+      _type: "adSize",
+      name: size.name,
+      price: size.price,
+      icon: size.icon,
+      dimensions: size.dimensions,
+      orderRank: `a${i}`,
+    });
+    console.log(`  adSize: ${size.name}`);
+  }
+}
+
 const SECTIONS = {
   sponsors: migrateSponsors,
   schedule: migrateSchedule,
+  adSizes: migrateAdSizes,
 };
 
 async function main() {
