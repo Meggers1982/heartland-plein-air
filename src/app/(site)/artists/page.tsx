@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Artists from "@/page-components/Artists";
+import { getArtists } from "@/sanity/queries/artists";
 
 export const metadata: Metadata = {
   title: "Meet the Artists: 25 Plein Air Painters in Omaha 2026",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ArtistsPage() {
-  return <Artists />;
+export default async function ArtistsPage() {
+  const roster = await getArtists();
+  return <Artists roster={roster} />;
 }

@@ -11,6 +11,7 @@ const ORDERABLE_TYPES = [
   "adSize",
   "faqCategory",
   "faqItem",
+  "artist",
 ];
 
 export const structure: StructureResolver = (S, context) =>

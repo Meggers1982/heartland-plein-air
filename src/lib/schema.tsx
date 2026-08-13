@@ -54,10 +54,6 @@ export function breadcrumbSchema(crumbs: Crumb[]) {
   };
 }
 
-import { artists } from "@/data/artists";
-
-const invitedCount = artists.length + 1; // +1 — Rick J. Delanty judges and also paints
-
 export const ticketOffers = [
   {
     "@type": "Offer",
@@ -94,7 +90,8 @@ export const ticketOffers = [
   },
 ];
 
-export const festivalEventSchema = {
+export function buildFestivalEventSchema(invitedCount: number) {
+  return {
   "@type": "Event",
   "@id": `${SITE_URL}/#festival`,
   name: "Heartland Plein Air Arts Festival",
@@ -136,4 +133,5 @@ export const festivalEventSchema = {
     name: "Invited Plein Air Artists",
     description: `${invitedCount} nationally recognized plein air painters selected from across the United States, plus an Open Division of up to 40 local and regional artists.`,
   },
-};
+  };
+}

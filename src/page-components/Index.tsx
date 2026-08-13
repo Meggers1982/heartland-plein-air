@@ -22,6 +22,7 @@ import RichText from "@/components/RichText";
 import type { Sponsor } from "@/sanity/queries/sponsors";
 import type { FestivalLocation, HomepageHighlight } from "@/sanity/queries/schedule";
 import type { FaqItem } from "@/sanity/queries/faq";
+import type { Artist } from "@/sanity/queries/artists";
 
 const highlights = [
   {
@@ -55,11 +56,13 @@ const Index = ({
   homepageHighlights,
   festivalLocations,
   faqs,
+  artists,
 }: {
   funders: Sponsor[];
   homepageHighlights: HomepageHighlight[];
   festivalLocations: FestivalLocation[];
   faqs: FaqItem[];
+  artists: Artist[];
 }) => {
   const [scrollY, setScrollY] = useState(0);
   const [heroLoaded, setHeroLoaded] = useState(false);
@@ -270,7 +273,7 @@ const Index = ({
       <BrushStrokeDivider className="py-4" />
 
       {/* Artist Spotlight */}
-      <ArtistSpotlight />
+      <ArtistSpotlight artists={artists} />
 
       <BrushStrokeDivider className="py-4" />
 

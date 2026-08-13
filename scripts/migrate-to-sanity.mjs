@@ -1069,11 +1069,225 @@ async function migrateFaq() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// artist (Phase 3) — folds gallery.ts's paintings onto the artist document
+// ---------------------------------------------------------------------------
+
+const ARTISTS = [
+  { name: "Hector Acuna", src: "/assets/artists/hector-acuna.webp", alt: "side profile portrait of man in glasses and corduroy cap painting outdoors at sunset", location: "Wisconsin", bio: "Hector Acuna is a Wisconsin-based painter known for observational work that moves fluidly between studio and plein air. He holds a BFA from the University of Wisconsin-Stevens Point and an MFA from Michigan State University — and has quickly become one of the most recognized names in contemporary plein air painting.\n\nIn 2022, Plein Air Magazine named him one of three Artists to Watch. The following year, he received the inaugural M. Stephen Doherty Breakthrough Artist of the Year Award. A sought-after instructor and juror, he teaches workshops across the country and builds his own painting supports and frames by hand in his wood shop in Grafton, Wisconsin.", website: "https://www.acunaarts.com", instagram: "https://www.instagram.com/hectoracuna.pleinair/", facebook: "https://www.facebook.com/AcunaArt/" },
+  { name: "Jason Bailey", src: "/assets/artists/jason-bailey.webp", objectPosition: "70% center", alt: "bearded artist smiling in black and white studio portrait", location: "Kentucky", bio: "Jason Bailey is a Kentucky-based impressionist painter and Signature Member of both the American Impressionist Society and the National Oil and Acrylic Painters Society. He paints primarily outdoors, drawn to small-town street scenes, railroad tracks, riverbanks, and the quiet energy of places most people walk past without stopping.\n\nHis work has been featured in Plein Air Magazine and Fine Art Connoisseur, and he has earned awards at competitions across the country including the Oil Painters of America Eastern Regional, NOAPS Best of America, and the Olmsted Plein Air Invitational in Atlanta. In 2025, he was accepted into the OPA National Exhibition.", website: "https://www.jasonbaileyfineart.com", instagram: "https://www.instagram.com/jasonbaileyfineart/", facebook: "https://www.facebook.com/jasonbaileyfineart/" },
+  { name: "Jacalyn Beam", src: "/assets/artists/jacalyn-beam.webp", alt: "close-up portrait of a smiling woman with blonde bob haircut wearing a pearl necklace and earrings", location: "Delaware", bio: "Jacalyn Beam is an accomplished painter based in the Brandywine Valley, known for luminous impressionistic landscapes, still lifes, and plein air work. Influenced by Sorolla, Sargent, and the Wyeth family, she paints primarily from life — believing direct observation is the most authentic way to capture light, shadow, and atmosphere.\n\nA Signature Member of the American Impressionist Society, Oil Painters of America, and the Washington Society of Landscape Painters, her work has been featured in publications including 100 Mid-Atlantic Plein Air Painters, HUNT Magazine, and Art Collector Magazine. She has also served on the Delaware Arts Council and contributed to arts education initiatives nationally.", website: "https://www.jacalynbeam.com", instagram: "https://www.instagram.com/jacalynbeam/" },
+  { name: "Bob Beck", src: "/assets/artists/bob-beck.webp", alt: "man wearing glasses outdoors in plaid button-up shirt", location: "Wisconsin", bio: "Bob Beck is a Wisconsin-based oil painter and Signature Member of both the American Impressionist Society and Oil Painters of America. He has won awards at national and international plein air competitions and has been featured in Plein Air Magazine. He has been accepted into the Oil Painters of America National Juried Exhibition four times — in 2022, 2023, 2025, and 2026.\n\nFor Bob, painting on location is everything. Working fast, reading light, and getting the drawing down before the scene shifts — that's the practice. He has painted extensively across the U.S. and abroad, spending time at the Monet Gardens in Giverny, Venice, and Prague.\n\nBob earned a BFA in painting and has operated the Bob Beck Art Gallery in Manitowoc, Wisconsin for the past 30 years.", website: "https://www.bobbeckartist.com" },
+  { name: "Michele Byrne", src: "/assets/artists/michele-byrne.webp", alt: "woman with curly blonde hair wearing glasses and a wide-brim hat smiling outdoors", location: "New Mexico", bio: "Michele Byrne is an award-winning impressionistic oil painter known for energetic palette knife work, bold color, and what she calls \"The Art of Conversation\" — lively cafés, bustling street scenes, and atmospheric landscapes filled with movement and human connection. Her work was featured on the cover of PleinAir Magazine in January 2020.\n\nA Royal Talens Artist Ambassador and sought-after instructor, Michele teaches workshops across the U.S. and internationally in Europe. She is a Signature Member of the American Impressionist Society and Plein Air Artists of New Mexico, and exhibits with Reinert Fine Art in South Carolina and James R. Ross Fine Art in Indiana.", website: "https://www.michelebyrne.com", instagram: "https://www.instagram.com/michelebyrneart/", facebook: "https://www.facebook.com/michelebyrneart/" },
+  { name: "Robin Cheers", src: "/assets/artists/robin-cheers.webp", objectPosition: "30% center", alt: "smiling woman with glasses in art studio beside painting", location: "Texas", bio: "Robin Cheers is an Austin-based oil painter working in the impressionist tradition, known for figure work and everyday scenes that capture the overlooked moments of modern life. A founding member of Plein Air Austin, she teaches workshops across the U.S. and abroad and has released an instructional video, Brushwork Secrets Unleashed, through Streamline Publishing.\n\nA Signature Member of the American Impressionist Society and National Oil and Acrylic Painters Society and elected member of the Salmagundi Club, her work has earned awards in both plein air competitions and juried exhibitions and is collected worldwide.", website: "https://www.robincheers.com", instagram: "https://www.instagram.com/robincheers/", facebook: "https://www.facebook.com/Robin-Cheers-71815508131/" },
+  { name: "Larry DeGraff", src: "/assets/artists/larry-degraff.webp", alt: "smiling man outdoors in striped shirt and green backdrop", location: "Kansas", bio: "After a successful career as a greeting card artist at Hallmark Cards, Larry DeGraff transitioned into fine art — bringing with him a refined eye for composition and emotional nuance developed at the Kansas City Art Institute. Working primarily in oils, he's best known for atmospheric landscapes centered on water, quiet natural settings, and the understated beauty of places that transform under the right light.\n\nHis work has been featured in Southwest Art and PleinAir Magazine. He is a Signature Member of the National Oil and Acrylic Painters Society.", website: "https://www.larrydegraff.com", instagram: "https://www.instagram.com/larrydegraff/", facebook: "https://www.facebook.com/degrafffineart/" },
+  { name: "John Evans", src: "/assets/artists/john-evans.webp", alt: "artist painting outdoors at easel wearing white hat", location: "Iowa", bio: "John Evans is an Iowa-based pastel painter and retired art educator with nearly 40 years in the classroom. Working in the space between realism and impressionism, he paints landscapes driven by light — searching out the moments when ordinary places become something worth stopping for.\n\nA charter member, Signature Member, and Past President of the Iowa Pastel Society, his work reflects a belief that pastel bridges painting and drawing in a way no other medium quite does.", website: "https://www.johnevans.faso.com", instagram: "https://www.instagram.com/johnevans1016/", facebook: "https://www.facebook.com/JohnEvans.Studio61/" },
+  { name: "Debra Joy Groesser", src: "/assets/artists/debra-joy-groesser.webp", alt: "smiling woman with glasses posing in front of framed coastal paintings in an art gallery", location: "Nebraska", bio: "Debra Joy Groesser is a Nebraska-based painter best known for her impressionistic landscapes and plein air work. She holds a BFA from Bellevue College and has built an extensive exhibition record spanning national juried shows, solo exhibitions, and invitational events across the country. Her commissioned portrait of Richard and Mary Holland hangs permanently at the Holland Performing Arts Center in Omaha.\n\nA Signature Member and Past Board Chair of the American Impressionist Society, Master Signature Member of Plein Air Artists Colorado, and Signature Member of Oil Painters of America and LPAPA, her work has been featured in International Artist, Southwest Art, American Art Collector, and Plein Air Magazine. She has served as faculty at the Plein Air Convention and is represented by galleries in Montana and Nebraska — including her own gallery in Ralston.", website: "https://www.debrajoygroesser.com", instagram: "https://www.instagram.com/debrajoygroesser/", facebook: "https://www.facebook.com/DebraJoyGroesserFineArt/" },
+  { name: "Kristin K. Hosbein", src: "/assets/artists/kristin-hosbein.webp", objectPosition: "30% center", alt: "smiling woman posing beside floral painting in art studio", location: "Michigan", bio: "Kristin K. Hosbein is an award-winning contemporary impressionist painter based in St. Joseph, Michigan. Painting en plein air since 2009, she's known for capturing fleeting light and atmosphere through expressive brushwork and luminous color — whether she's painting a quiet marina, vibrant blooms, or sunlit woodland scenes.\n\nA member of the American Impressionist Society and Oil Painters of America, Kristin has participated in plein air events across the U.S. and internationally. As a member of the United States Coast Guard Artist Program, her work is held in the national collection in Washington, D.C.", website: "https://www.kristinhosbein.com", instagram: "https://www.instagram.com/kristinkkh/", facebook: "https://www.facebook.com/kristinkhosbeinfineart/" },
+  { name: "Ann Larsen", src: "/assets/artists/ann-larsen.webp", objectPosition: "center 25%", alt: "black and white portrait of a woman with curly hair smiling, wearing a turtleneck and a beaded pendant necklace", location: "New York", bio: "Ann Larsen is an award-winning plein air painter based in New York, invited to paint at some of the country's most celebrated events — including the Grand Canyon Plein Air Celebration of Art, Sedona Plein Air Festival, and the Rocky Mountain Plein Air Painters National Show at Grand Teton National Park.\n\nHer work has been exhibited at the Tucson Desert Art Museum, Booth Museum, and the National Cowboy & Western Heritage Museum. Awards include a Silver Medal from American Women Artists, Bronze Medal from OPA Eastern Regional, and Second Place at the AIS National Exhibition.", website: "https://www.annlarsen.com" },
+  { name: "John Lasater", src: "/assets/artists/john-lasater.webp", alt: "black and white portrait of a man with glasses and beard wearing a cap and long sleeve shirt", location: "Arkansas", bio: "Based in Northwest Arkansas, John Lasater is an acclaimed contemporary landscape painter known for his thoughtful approach to light, atmosphere, and simplified design. His work — winding rural roads, peaceful streams, open fields — captures not just a location but the emotional experience of being present within it.\n\nA member of the Plein Air Painters of America, Lasater has earned numerous awards at prestigious national events and is widely respected as a teacher, writer, and mentor.", website: "https://www.lasaterart.com", instagram: "https://www.instagram.com/johnplasater/", facebook: "https://www.facebook.com/lasaterart/" },
+  { name: "Dan Marshall", src: "/assets/artists/dan-marshall.webp", alt: "portrait of a man wearing round glasses, a tan brimmed hat, and a black t-shirt with tattooed arms", location: "Colorado", bio: "Dan Marshall is a Denver-based watercolor artist whose work captures the quiet poetry of everyday scenes — expansive landscapes, intimate street moments, and the human figure. Working primarily en plein air, he distills complex environments into mood-driven compositions through a restrained palette and a focus on value, edges, and subtle temperature shifts.\n\nHis writing has appeared in Watercolor Artist, Outdoor Painter, and PleinAir Magazine. He is a Signature Member of AWS, AIS, and LPAPA.", website: "https://www.danmarshallart.com", instagram: "https://www.instagram.com/danmarshallart/", facebook: "https://www.facebook.com/DanMarshallArt/" },
+  { name: "Fernando Micheli", src: "/assets/artists/fernando-micheli.webp", objectPosition: "25% center", alt: "artist painting coastal landscape aboard boat near rocky shoreline", location: "California", bio: "Fernando Micheli came to painting late — picking up a brush for the first time in 2013 after a 36-year career as a landscape architect in Laguna Beach, California. It turned out to be a natural fit. Born in Tuscany and trained in Florence, he'd spent decades studying how light moves through built and natural environments. Plein air gave him a way to put that eye to work.\n\nA Signature Member of the Laguna Plein Air Painters Association, American Impressionist Society, and California Art Club, his work was featured in Plein Air Magazine's \"10 Artists to Collect Now\" in 2021. He maintains a studio and gallery in Laguna Beach and exhibits regularly at the Sawdust Festival.", website: "https://fernandomicheli.faso.com", instagram: "https://www.instagram.com/fernando1951micheli/", facebook: "https://www.facebook.com/p/Fernando-Micheli-Fine-Art-100036867775846/" },
+  { name: "Brenda Pinnick", src: "/assets/artists/brenda-pinnick.webp", alt: "smiling woman in black cap standing in wooded area", location: "Georgia", bio: "Brenda Pinnick is an impressionist painter who uses color and brushwork to tell the story of time and place — landscapes, street scenes, still lifes, always chasing the light. A lifelong artist and former graphic designer at Hallmark Cards, she paints primarily on location in and around north Georgia, though a good road trip with her gear in tow is never out of the question.\n\nA Member of Excellence in the Southeastern Pastel Society, her work balances oil and pastel with equal fluency. She lives in Woodstock, Georgia with her husband, one perfect granddaughter, and a stubborn little white dog named Holli.", website: "https://www.brendapinnick.com", instagram: "https://www.instagram.com/brendapinnickfinearts/", facebook: "https://www.facebook.com/brendapinnickartist/" },
+  { name: "Radhika Srinivas", src: "/assets/artists/radhika-srinivas.webp", alt: "woman with glasses smiling outdoors beside an easel with a watercolor painting of bright pink azaleas", location: "Pennsylvania", bio: "Radhika Srinivas is an award-winning watercolor artist based in the Philadelphia area, recognized for work that spans national juried exhibitions and plein air events. Her paintings are held in notable collections including the City of Wilmington, Valley Forge National Park, Raymond James Financial, and the private collection of Miles Copeland III, former manager of The Police.\n\nNotable awards include the Outstanding Watercolor Award in the Bold Brush Online competition (2015, 2016, 2018, 2023) and second place in the Plein Air Salon monthly competition in August 2023.", website: "https://www.radhikasrinivas.com", instagram: "https://www.instagram.com/radhikasrinivasfineart/", facebook: "https://www.facebook.com/rswatercolors/" },
+  { name: "Steve Stauffer", src: "/assets/artists/steve-stauffer.webp", alt: "portrait of a man with a white beard wearing a cowboy hat and a yellow button-down shirt", location: "Utah", bio: "Steve Stauffer is a Utah-based oil painter whose love of plein air has taken him to some of the most spectacular landscapes in the country. His work captures those fleeting moments — a sunrise, a shift in light — that most people experience once and rarely get to hold onto.\n\nHe is a member of Oil Painters of America, the American Impressionist Society, Plein Air Painters of Utah, and Plein Air Utah Live.", website: "https://www.stevestauffer.com", instagram: "https://www.instagram.com/staufferstephen/", facebook: "https://www.facebook.com/p/Stauffer-Studios-100063588282297/" },
+  { name: "Jill Stefani Wagner", src: "/assets/artists/jill-wagner.webp", alt: "smiling woman in black cap outdoors among trees", location: "Michigan", bio: "Jill Stefani Wagner is a Michigan-based pastel artist who paints landscapes, interiors, and figures — always with light as the subject. An avid plein air painter, she travels the country painting each unique region and spends winters in the studio working on larger pieces, still chasing the same thing.\n\nA Master Pastelist with both the Pastel Society of America and the International Association of Pastel Societies, Jill has been pastel faculty at the Plein Air Convention six times and teaches workshops around the world. She holds a BFA from the University of Michigan and owned an award-winning advertising firm in Ann Arbor before becoming a full-time artist. Her work is held in collections across the U.S. and Europe.", website: "https://www.jillwagnerart.com", instagram: "https://www.instagram.com/jillwagnerart/", facebook: "https://www.facebook.com/jill.s.wagner/" },
+  { name: "Durre Waseem", src: "/assets/artists/durre-waseem.webp", alt: "woman with dark hair and glasses smiling outdoors against a bright sky", location: "California", bio: "Durre Waseem is an award-winning plein air and figurative painter based in Corona, California. Originally from Pakistan, she earned an MFA from Punjab University and taught graduate art students for nearly a decade before moving to the U.S. in 2001. Working across oils, watercolor, pastel, and acrylic, she's known for bold brushwork and an expressionistic style that captures both the character of a place and the energy of the people within it.\n\nRecent awards include Best of Show at TECHE Plein Air 2025, Artists' Choice Award at North Carolina Plein Air 2025, and Best Figurative Award at Cape Ann Plein Air 2025. She is a Signature Artist with the Laguna Plein Air Painters Association.", website: "https://dwaseem.faso.com", instagram: "https://www.instagram.com/waseemdurre/", facebook: "https://www.facebook.com/durre.waseem/" },
+  { name: "Ann Watcher", src: "/assets/artists/ann-watcher.webp", objectPosition: "center 35%", alt: "woman with dark hair smiling while seated in tall golden grass wearing a blue jacket outdoors", location: "North Carolina", bio: "Ann Watcher grew up sketching in South Carolina and went on to earn a BFA from the University of South Carolina before studying at the New York Studio School in Greenwich Village. Working both in the studio and en plein air, she paints still lifes, interiors, figures, and landscapes — known for vivid color, dynamic compositions, and confident brushwork that captures mood as much as form.\n\nIn 2017, she was invited by the Ambassador of Bahrain to participate in the exhibition \"Women Artists of the American South.\" She is a Signature Member of the American Impressionist Society and an Associate Member of Oil Painters of America.", website: "https://www.annwatcher.com", instagram: "https://www.instagram.com/annwatcherart/" },
+  { name: "Robin Weiss", src: "/assets/artists/robin-weiss.webp", objectPosition: "65% 35%", alt: "smiling gray-bearded man in a denim shirt and bandana in an art gallery", location: "Washington", bio: "Robin Weiss is a Pacific Northwest painter drawn to the fleeting moments most people catch only from the corner of their eye — brief flashes of light and shadow that appear and vanish before you can name them. Working alla prima, he begins and finishes each painting in a single sitting, letting the immediacy of the process match the immediacy of what he's trying to capture.\n\nHis work is rooted in the ever-changing landscape of the Pacific Northwest and driven by a search for what he calls truth and beauty in the ordinary.", website: "https://www.robinweissfineart.com", instagram: "https://www.instagram.com/robinpaulweiss/", facebook: "https://www.facebook.com/p/Robin-Weiss-Fine-Art-100064944795231/" },
+  { name: "Chris Willey", src: "/assets/artists/chris-willey.webp", alt: "smiling artist standing beside framed paintings in gallery", location: "Missouri", bio: "Chris Willey is a Missouri-based painter with an MFA in Illustration from Syracuse University and a BFA in Drawing and Painting from the University of Nebraska. A former art professor at the University of Central Missouri, she has competed in 19 national juried plein air events and earned more than 77 awards across international, national, and regional competitions — including Best of Show and Gold.\n\nHer work is held in private and corporate collections in the U.S., Netherlands, and France. She holds Signature status in the Missouri Valley Impressionist Society, MidAmerica Pastel Society, and the International Society of Acrylic Painters, and has been awarded artist residencies in both Italy and the United States.", website: "https://www.chriswilley.com", instagram: "https://www.instagram.com/willey_chris/" },
+  { name: "Jeff Williams", src: "/assets/artists/jeff-williams.webp", objectPosition: "30% center", alt: "smiling man in black and white portrait by brick wall", location: "Oklahoma", bio: "Jeff Williams is an Oklahoma-based watercolor painter whose work focuses on the contemporary western landscape — particularly sites with historic architectural components that carry the weight of a place's story. Working both en plein air and in the studio, he paints primarily in larger half-sheet and full-sheet formats, using each painting as a way to document, draw attention to, and start a conversation about the places he encounters.\n\nHis work has been shown in juried and invitational plein air events and exhibitions primarily across the eastern United States, with his current focus turning west.", website: "https://www.jeffwilliamswatercolor.com", instagram: "https://www.instagram.com/jeffwilliamswatercolor/", facebook: "https://www.facebook.com/people/Jeff-Williams-Watercolor/100063542743670/" },
+  { name: "Stephen Wysocki", src: "/assets/artists/stephen-wysocki.webp", objectPosition: "30% center", alt: "artist outdoors beside easel painting vintage truck scene", location: "Wisconsin", bio: "Stephen Wysocki is a Wisconsin-based oil painter with a straightforward philosophy: show the beauty in the ordinary. He gravitates toward everyday structures, roadside objects, and the worn textures of things that get overlooked — finding the hard edges, the rust, the odd color, and building paintings that let those things speak.\n\nHe works on toned canvases with thin washes built up to thick sculptural highlights, often exploring warm and cool color triads to create atmosphere and mood. When the studio ideas run dry, he heads outside. Born in 1970, he raises buffalo, loves trout fishing, and gets homesick every time he travels to a painting event.", website: "https://swysockiart.fineartstudioonline.com", instagram: "https://www.instagram.com/swysockiart/" },
+];
+
+const AWARDS_JUDGE = { name: "Rick J. Delanty", location: "California", website: "https://www.delantyfineart.com", instagram: "https://www.instagram.com/rickj.delanty/", facebook: "https://www.facebook.com/RickDelantyFineArt/", src: "/assets/artists/rick-j-delanty.webp", alt: "black and white portrait of smiling older man in black blazer and turtleneck sweater", bio: "Rick J. Delanty is a nationally recognized painter with a career spanning more than fifty years, known for award-winning plein air landscapes and coastal scenes throughout the American West. His work is held in the permanent collections of several museums, and he is the author of Beauty Unites Us. The Art Renewal Center designated him as an Associate Living Master.\n\nA Signature Member of the American Society of Marine Artists, the American Impressionist Society, and the Laguna Plein Air Painters Association, Rick has spent decades teaching, judging national competitions, and mentoring fellow artists." };
+
+const GALLERY_ARTISTS = [
+  { name: "Hector Acuna", slug: "hector-acuna", medium: "oil-and-pastel", paintings: [
+    { filename: "hector-acuna-artist-at-the-easel.webp", title: "Artist at the Easel", alt: "plein air painting of artist painting at an easel on a suburban street" },
+    { filename: "hector-acuna-aveda-window-reflection.webp", title: "Aveda Window Reflection", alt: "plein air painting of storefront window reflection of a town square" },
+    { filename: "hector-acuna-summer-at-the-beach.webp", title: "Summer at the Beach", alt: "plein air painting of beach scene with an inner tube and figures on shore" },
+  ] },
+  { name: "Jason Bailey", slug: "jason-bailey", medium: "oil-and-pastel", paintings: [
+    { filename: "jason-bailey-main-street-intersection.webp", title: "Main Street Intersection", alt: "plein air painting of small town intersection with american flags on poles" },
+    { filename: "jason-bailey-alley-with-utility-poles.webp", title: "Alley with Utility Poles", alt: "plein air painting of alley with brick buildings, utility poles, mountains" },
+    { filename: "jason-bailey-railroad-tracks.webp", title: "Railroad Tracks", alt: "plein air painting of freight train on railroad tracks through wooded hills" },
+  ] },
+  { name: "Jacalyn Beam", slug: "jacalyn-beam", medium: "oil-and-pastel", paintings: [
+    { filename: "jacalyn-beam-floral-still-life.webp", title: "Floral Still Life", alt: "plein air painting of floral still life with yellow and pink flowers in vases" },
+    { filename: "jacalyn-beam-field-colors.webp", title: "Field Colors", alt: "plein air painting of white farmhouse amid golden autumn trees and meadow" },
+    { filename: "jacalyn-beam-morning-on-the-canal.webp", title: "Morning on the Canal", alt: "plein air painting of calm canal reflecting sailboats and waterfront buildings" },
+  ] },
+  { name: "Bob Beck", slug: "bob-beck", medium: "oil-and-pastel", paintings: [
+    { filename: "bob-beck-the-little-stream.webp", title: "The Little Stream", alt: "plein air painting of snowy winter forest with bare trees and small stream" },
+    { filename: "bob-beck-may-20th.webp", title: "May 20th", alt: "plein air painting of rural barns and outbuildings in summer landscape" },
+    { filename: "bob-beck-moss-point-farm.webp", title: "Moss Point Farm", alt: "plein air painting of farm with silo and barn amid autumn foliage" },
+  ] },
+  { name: "Michele Byrne", slug: "michele-byrne", medium: "oil-and-pastel", paintings: [
+    { filename: "michele-byrne-basilica-morning-light.webp", title: "Basilica Morning Light", alt: "plein air painting of crowd walking toward a grand basilica at golden hour" },
+    { filename: "michele-byrne-first-day-in-paris.webp", title: "First Day in Paris", alt: "plein air painting of paris street cafe with red awning and pedestrians" },
+  ] },
+  { name: "Robin Cheers", slug: "robin-cheers", medium: "oil-and-pastel", paintings: [
+    { filename: "robin-cheers-late-afternoon-st-remy.webp", title: "Late Afternoon, St. Rémy", alt: "plein air painting of narrow stone alley with arch and shops in provence" },
+    { filename: "robin-cheers-little-pink-house.webp", title: "Little Pink House", alt: "plein air painting of pink cottage with blooming cherry tree in spring" },
+    { filename: "robin-cheers-marble-falls-charm.webp", title: "Marble Falls Charm", alt: "plein air painting of teal corner building with utility pole on sunny street" },
+  ] },
+  { name: "Larry DeGraff", slug: "larry-degraff", medium: "oil-and-pastel", paintings: [
+    { filename: "larry-degraff-where-the-rivers-meet.webp", title: "Where the Rivers Meet", alt: "plein air painting of city skyline with tall buildings reflected in a river" },
+    { filename: "larry-degraff-wind-on-the-water.webp", title: "Wind on the Water", alt: "plein air painting of calm river with green trees reflected in sunlit water" },
+    { filename: "larry-degraff-winters-gems.webp", title: "Winter's Gems", alt: "plein air painting of bare winter trees leaning over a snow-edged river" },
+  ] },
+  { name: "Rick J. Delanty", slug: "rick-delanty", medium: "oil-and-pastel", paintings: [
+    { filename: "rick-delanty-beach-trail.webp", title: "Beach Trail", alt: "plein air painting of a sunlit coastal path along san clemente bluffs overlooking the ocean" },
+    { filename: "rick-delanty-dusks-gentle-touch.webp", title: "Dusk's Gentle Touch", alt: "plein air painting of trees silhouetted against a dusky purple sky over calm water" },
+    { filename: "rick-delanty-a-quiet-halleluia.webp", title: "A Quiet Halleluia", alt: "plein air painting of golden sunlight bursting through clouds over ocean waves" },
+  ] },
+  { name: "John Evans", slug: "john-evans", medium: "oil-and-pastel", paintings: [
+    { filename: "john-evans-around-the-bend.webp", title: "Around the Bend", alt: "plein air painting of bridge on rural road with red barn and spring tree" },
+    { filename: "john-evans-behind-the-sale-barn-3.webp", title: "Behind the Sale Barn", alt: "plein air painting of grain silo and farm buildings on green rolling land" },
+    { filename: "john-evans-going-to-town.webp", title: "Going to Town", alt: "plein air painting of rural road leading past a barn and utility poles" },
+  ] },
+  { name: "Debra Joy Groesser", slug: "debra-joy-groesser", medium: "oil-and-pastel", paintings: [
+    { filename: "debra-joy-groesser-autumn-farm-stormy-sky.webp", title: "Calm Before the Storm", alt: "plein air painting of autumn farm buildings under a stormy sky" },
+    { filename: "debra-joy-groesser-rocky-coastal-cliffs-ocean.webp", title: "Reverence", alt: "plein air painting of rocky coastal cliffs above the ocean" },
+    { filename: "debra-joy-groesser-wetland-marsh-lily-pads.webp", title: "Morning Light, Narada Lake", alt: "plein air painting of a wetland marsh with lily pads at dawn" },
+  ] },
+  { name: "Kristin Hosbein", slug: "kristin-hosbein", medium: "oil-and-pastel", paintings: [
+    { filename: "kristin-hosbein-boats-at-the-marina.webp", title: "Boats at the Marina", alt: "plein air painting of blue sailboat and red motorboat docked at a marina" },
+    { filename: "kristin-hosbein-harmony-at-dawn.webp", title: "Harmony at Dawn", alt: "plein air painting of red barn in a green meadow with red peony flowers" },
+    { filename: "kristin-hosbein-heart-of-the-hill.webp", title: "Heart of the Hill", alt: "plein air painting of close-up of vibrant hot pink peonies in bloom" },
+    { filename: "kristin-hosbein-summer-blooms.webp", title: "Summer Blooms", alt: "plein air painting of pink white and yellow roses blooming in a garden" },
+  ] },
+  { name: "Ann Larsen", slug: "ann-larsen", medium: "oil-and-pastel", paintings: [
+    { filename: "ann-larsen-pier-reflections.webp", title: "Pier Reflections", alt: "plein air painting of wooden pier pilings and green water reflections" },
+    { filename: "ann-larsen-apalachicola-blues.webp", title: "Apalachicola Blues", alt: "plein air painting of bright blue building with palm tree on sunny street" },
+    { filename: "ann-larsen-beals-island.webp", title: "Beals Island", alt: "plein air painting of two colorful sheds with laundry on a rural dirt road" },
+    { filename: "ann-larsen-pumpkin-island-light.webp", title: "Pumpkin Island Light", alt: "plein air painting of lighthouse and buildings on island surrounded by water" },
+  ] },
+  { name: "John Lasater", slug: "john-lasater", medium: "oil-and-pastel", paintings: [
+    { filename: "john-lasater-sinks-cascade.webp", title: "Sinks Cascade", alt: "plein air painting of rushing stream flowing through rocky canyon boulders" },
+    { filename: "john-lasater-sunday-mood.webp", title: "Sunday Mood", alt: "plein air painting of country road at dusk with rolling hills and farms" },
+    { filename: "john-lasater-the-peaceful-hour.webp", title: "The Peaceful Hour", alt: "plein air painting of weathered barn at sunset with purple hills and dirt path" },
+  ] },
+  { name: "Dan Marshall", slug: "dan-marshall", medium: "watercolor", paintings: [
+    { filename: "dan-marshall-golden-hills-landscape.webp", title: "Golden Hills Landscape", alt: "plein air painting of watercolor of rolling golden hills under gray sky" },
+    { filename: "dan-marshall-mountain-town.webp", title: "Mountain Town", alt: "plein air painting of watercolor of a mountain town with autumn foliage" },
+    { filename: "dan-marshall-prairie-cloudscape.webp", title: "Prairie Cloudscape", alt: "plein air painting of watercolor prairie with dramatic storm clouds" },
+  ] },
+  { name: "Brenda Pinnick", slug: "brenda-pinnick", medium: "oil-and-pastel", paintings: [
+    { filename: "brenda-pinnick-all-the-colors.webp", title: "All the Colors", alt: "plein air painting of red and yellow flowers in a blue vase with cherries" },
+    { filename: "brenda-pinnick-ode-to-spring.webp", title: "Ode to Spring", alt: "plein air painting of cottage with flowering shrubs along a garden path" },
+    { filename: "brenda-pinnick-our-door-is-always-open.webp", title: "Our Door Is Always Open", alt: "plein air painting of sunlit cottage with pink flowering shrubs and trees" },
+  ] },
+  { name: "Radhika Srinivas", slug: "radhika-srinivas", medium: "watercolor", paintings: [
+    { filename: "radhika-srinivas-columbia-downtown.webp", title: "Columbia Downtown", alt: "plein air painting of black and white watercolor of downtown with clock tower" },
+    { filename: "radhika-srinivas-morning-light-in-salzburg.webp", title: "Morning Light in Salzburg", alt: "plein air painting of european street corner with domed building and bicycles" },
+    { filename: "radhika-srinivas-rte-441.webp", title: "Rte. 441", alt: "plein air painting of watercolor highway scene under dramatic storm clouds" },
+  ] },
+  { name: "Steve Stauffer", slug: "steve-stauffer", medium: "oil-and-pastel", paintings: [
+    { filename: "steve-stauffer-a-poplar-fall.webp", title: "A Poplar Fall", alt: "plein air painting of tall golden poplar trees with snow-capped mountains" },
+    { filename: "steve-stauffer-borrego-plein-air.webp", title: "Borrego Plein Air", alt: "plein air painting of artist easel in desert with yellow wildflowers" },
+    { filename: "steve-stauffer-cottonwood-creek-gold.webp", title: "Cottonwood Creek Gold", alt: "plein air painting of mountain creek with golden cottonwood trees in fall" },
+  ] },
+  { name: "Jill Stefani Wagner", slug: "jill-stefani-wagner", medium: "oil-and-pastel", paintings: [
+    { filename: "jill-stefani-wagner-my-path.webp", title: "My Path", alt: "plein air painting of sandy path through golden grasses leading to a river" },
+    { filename: "jill-stefani-wagner-pleasanton-bakery.webp", title: "Pleasanton Bakery", alt: "plein air painting of outdoor cafe with red umbrellas on a sunny afternoon" },
+    { filename: "jill-stefani-wagner-the-queen-and-her-court.webp", title: "The Queen and Her Court", alt: "plein air painting of white wildflowers blooming in a lush purple meadow" },
+  ] },
+  { name: "Durre Waseem", slug: "durre-waseem", medium: "oil-and-pastel", paintings: [
+    { filename: "durre-waseem-outdoor-cafe.webp", title: "Outdoor Café", alt: "plein air painting of sunny outdoor cafe with orange umbrellas and patrons" },
+    { filename: "durre-waseem-tennessee-street.webp", title: "Tennessee Street", alt: "plein air painting of city street with tennessee theatre sign and figures" },
+    { filename: "durre-waseem-horses-under-trees.webp", title: "Horses Under Trees", alt: "plein air painting of horses grazing in dappled shade under green trees" },
+  ] },
+  { name: "Ann Watcher", slug: "ann-watcher", medium: "oil-and-pastel", paintings: [
+    { filename: "ann-watcher-orange-slices.webp", title: "Orange Slices", alt: "plein air painting of orange slices in a blue bowl on gray background" },
+    { filename: "ann-watcher-teapot-and-azaleas.webp", title: "Teapot and Azaleas", alt: "plein air painting of silver teapot with green cup and orange flowers" },
+    { filename: "ann-watcher-under-the-pink-dogwood.webp", title: "Under the Pink Dogwood", alt: "plein air painting of garden with pink blooming trees and outdoor table" },
+  ] },
+  { name: "Robin Weiss", slug: "robin-weiss", medium: "oil-and-pastel", paintings: [
+    { filename: "robin-weiss-morning-hike.webp", title: "Morning Hike", alt: "plein air painting of two figures walking on a driftwood-strewn beach" },
+    { filename: "robin-weiss-spring-barn.webp", title: "Spring Barn", alt: "plein air painting of red barn in a spring meadow with blooming trees" },
+  ] },
+  { name: "Chris Willey", slug: "chris-willey", medium: "oil-and-pastel", paintings: [
+    { filename: "chris-willey-padula-hillside.webp", title: "Padula Hillside", alt: "plein air painting of rolling hillside with mountains in the background" },
+    { filename: "chris-willey-sidewalk-gardens.webp", title: "Sidewalk Gardens", alt: "plein air painting of garden path lined with purple, white, and yellow blooms" },
+    { filename: "chris-willey-tuscan-sunset.webp", title: "Tuscan Sunset", alt: "plein air painting of vivid orange sunset over a rocky hilly landscape" },
+  ] },
+  { name: "Jeff Williams", slug: "jeff-williams", medium: "watercolor", paintings: [
+    { filename: "jeff-williams-san-saba-river-rocks.webp", title: "San Saba River Rocks", alt: "plein air painting of dry riverbed with rocky banks under a moody sky" },
+    { filename: "jeff-williams-all-in-a-days-work.webp", title: "All in a Day's Work", alt: "plein air painting of oak tree with small boat resting at the rivers edge" },
+    { filename: "jeff-williams-cimbar-still-life.webp", title: "Cimbar Still Life", alt: "plein air painting of industrial grain elevator and conveyor belt structure" },
+  ] },
+  { name: "Stephen Wysocki", slug: "stephen-wysocki", medium: "oil-and-pastel", paintings: [
+    { filename: "stephen-wysocki-boat-at-the-dock.webp", title: "Boat at the Dock", alt: "plein air painting of small boat floating beneath a weathered wooden dock" },
+    { filename: "stephen-wysocki-lakeside-pines.webp", title: "Lakeside Pines", alt: "plein air painting of calm lakeside with tall pine trees and soft clouds" },
+    { filename: "stephen-wysocki-vineyard-landscape.webp", title: "Vineyard Landscape", alt: "plein air painting of colorful vineyard field with trees and lavender hills" },
+  ] },
+];
+
+function normalizeArtistName(name) {
+  return name
+    .split(/\s+/)
+    .filter((token) => !/^[a-z]\.?$/i.test(token))
+    .join(" ")
+    .toLowerCase();
+}
+
+async function migrateArtists() {
+  console.log("Uploading artist documents (this uploads ~95 images, expect it to take a while)...");
+
+  const galleryByNormalizedName = new Map(
+    GALLERY_ARTISTS.map((g) => [normalizeArtistName(g.name), g])
+  );
+
+  const roster = [...ARTISTS, AWARDS_JUDGE];
+  for (const [i, person] of roster.entries()) {
+    const isJudge = person === AWARDS_JUDGE;
+    const gallery = galleryByNormalizedName.get(normalizeArtistName(person.name));
+    if (!gallery) {
+      console.warn(`  WARNING: no gallery.ts entry matches "${person.name}" — creating with no paintings.`);
+    }
+
+    const headshot = await uploadImageAsset(person.src);
+    const paintings = gallery
+      ? await Promise.all(
+          gallery.paintings.map(async (p, pi) => ({
+            _key: `p${pi}`,
+            image: await uploadImageAsset(`/artwork/${p.filename}`),
+            title: p.title,
+            alt: p.alt,
+          }))
+        )
+      : undefined;
+
+    await client.createOrReplace({
+      _id: `artist-${slugify(person.name)}`,
+      _type: "artist",
+      name: person.name,
+      slug: { _type: "slug", current: gallery?.slug ?? slugify(person.name) },
+      headshot,
+      ...(person.alt && { headshotAlt: person.alt }),
+      ...(person.objectPosition && { objectPosition: person.objectPosition }),
+      location: person.location,
+      bio: person.bio,
+      ...(person.website && { website: person.website }),
+      ...(person.instagram && { instagram: person.instagram }),
+      ...(person.facebook && { facebook: person.facebook }),
+      isJudge,
+      ...(gallery && { medium: gallery.medium }),
+      ...(paintings && { paintings }),
+      orderRank: `a${i}`,
+    });
+    console.log(`  artist: ${person.name}${gallery ? ` (${gallery.paintings.length} paintings)` : ""}`);
+  }
+}
+
 const SECTIONS = {
   sponsors: migrateSponsors,
   schedule: migrateSchedule,
   adSizes: migrateAdSizes,
   faq: migrateFaq,
+  artists: migrateArtists,
 };
 
 async function main() {
