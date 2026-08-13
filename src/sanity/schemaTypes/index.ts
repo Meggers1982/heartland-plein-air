@@ -1,6 +1,8 @@
 import type { SchemaTypeDefinition } from "sanity";
 
 import { adSize } from "./adSize";
+import { faqCategory } from "./faqCategory";
+import { faqItem } from "./faqItem";
 import { festivalLocation } from "./festivalLocation";
 import { homepageHighlight } from "./homepageHighlight";
 import { locationEvent } from "./objects/locationEvent";
@@ -20,6 +22,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     scheduleDay,
     homepageHighlight,
     festivalLocation,
+    faqCategory,
+    faqItem,
     paintoutSpot,
     scheduleEvent,
     locationEvent,

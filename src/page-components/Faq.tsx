@@ -14,29 +14,31 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import BackToTop from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
-import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { categories } from "@/data/faq";
+import RichText from "@/components/RichText";
+import { portableTextToPlainText } from "@/sanity/lib/portableText";
+import type { FaqCategory } from "@/sanity/queries/faq";
 
-const stripLinks = (text: string) => text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+function buildFaqPageSchema(categories: FaqCategory[]) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: categories.flatMap((c) =>
+      c.items.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: portableTextToPlainText(item.answer).replace(/\n\n+/g, " "),
+        },
+      })),
+    ),
+  };
+}
 
-const faqPageSchema = {
-  "@type": "FAQPage",
-  mainEntity: categories.flatMap((c) =>
-    c.items.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.a.map(stripLinks).join(" "),
-      },
-    })),
-  ),
-};
-
-const Faq = () => {
+const Faq = ({ categories }: { categories: FaqCategory[] }) => {
   const [query, setQuery] = useState("");
-  const [activeId, setActiveId] = useState<string>(categories[0].id);
+  const [activeId, setActiveId] = useState<string>(categories[0]._id);
+  const faqPageSchema = useMemo(() => buildFaqPageSchema(categories), [categories]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -46,20 +48,20 @@ const Faq = () => {
         ...c,
         items: c.items.filter(
           (i) =>
-            i.q.toLowerCase().includes(q) ||
-            i.a.some((p) => p.toLowerCase().includes(q)),
+            i.question.toLowerCase().includes(q) ||
+            portableTextToPlainText(i.answer).toLowerCase().includes(q),
         ),
       }))
       .filter((c) => c.items.length > 0);
-  }, [query]);
+  }, [query, categories]);
 
   useEffect(() => {
     const handler = () => {
       const offset = 160;
-      let current = filtered[0]?.id ?? "";
+      let current = filtered[0]?._id ?? "";
       for (const c of filtered) {
-        const el = document.getElementById(c.id);
-        if (el && el.getBoundingClientRect().top <= offset) current = c.id;
+        const el = document.getElementById(c._id);
+        if (el && el.getBoundingClientRect().top <= offset) current = c._id;
       }
       if (current) setActiveId(current);
     };
@@ -123,11 +125,11 @@ const Faq = () => {
               <nav className="flex flex-wrap justify-center gap-2">
                 {filtered.map((c) => (
                   <button
-                    key={c.id}
-                    onClick={() => scrollTo(c.id)}
+                    key={c._id}
+                    onClick={() => scrollTo(c._id)}
                     className={cn(
                       "rounded-full border px-4 py-2 font-body text-sm transition-colors",
-                      activeId === c.id
+                      activeId === c._id
                         ? "border-primary/40 bg-primary/10 font-semibold text-primary"
                         : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
                     )}
@@ -160,20 +162,22 @@ const Faq = () => {
             )}
 
             {filtered.map((c, idx) => (
-              <AnimatedSection key={c.id} delay={idx * 50}>
-                <div id={c.id} className="mb-14 scroll-mt-28">
+              <AnimatedSection key={c._id} delay={idx * 50}>
+                <div id={c._id} className="mb-14 scroll-mt-28">
                   <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
                     {c.title}
                   </h2>
                   <Accordion type="single" collapsible className="w-full">
-                    {c.items.map((item, i) => (
-                      <AccordionItem key={i} value={`${c.id}-${i}`}>
+                    {c.items.map((item) => (
+                      <AccordionItem key={item._id} value={item._id}>
                         <AccordionTrigger className="font-display text-lg font-semibold text-foreground text-left">
-                          {item.q}
+                          {item.question}
                         </AccordionTrigger>
                         <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
-                          {item.a.map((paragraph, pi) => (
-                            <p key={pi}>{renderRichText(paragraph)}</p>
+                          {item.answer.map((block) => (
+                            <p key={block._key}>
+                              <RichText value={[block]} />
+                            </p>
                           ))}
                         </AccordionContent>
                       </AccordionItem>

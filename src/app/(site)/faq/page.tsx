@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Faq from "@/page-components/Faq";
+import { getFaqCategories } from "@/sanity/queries/faq";
 
 export const metadata: Metadata = {
   title: "Get Answers: Plein Air Festival FAQ Omaha 2026",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function FaqPage() {
-  return <Faq />;
+export default async function FaqPage() {
+  const categories = await getFaqCategories();
+  return <Faq categories={categories} />;
 }
