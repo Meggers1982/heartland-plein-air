@@ -2,9 +2,10 @@ import Link from "next/link";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Calendar, MapPin } from "lucide-react";
 import { renderRichText } from "@/lib/richText";
-import { days, homepageHighlights } from "@/data/schedule";
+import { urlFor } from "@/sanity/lib/image";
+import type { HomepageHighlight } from "@/sanity/queries/schedule";
 
-const ScheduleSection = () => {
+const ScheduleSection = ({ homepageHighlights }: { homepageHighlights: HomepageHighlight[] }) => {
   return (
     <section id="schedule" className="bg-secondary/50 py-24">
       <div className="mx-auto max-w-4xl px-6">
@@ -24,10 +25,10 @@ const ScheduleSection = () => {
           <div className="space-y-8">
             {homepageHighlights.map((event, i) => {
               const isLeft = i % 2 === 0;
-              const day = days.find((d) => d.id === event.dayId);
+              const day = event.day;
               const dayLabel = day?.dayLong ?? "";
               return (
-                <AnimatedSection key={event.dayId + event.title} delay={i * 80}>
+                <AnimatedSection key={event._id} delay={i * 80}>
                   <div className={`relative flex flex-col gap-4 md:flex-row md:items-start ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}>
                     {/* Content card */}
                     <div className={`flex-1 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
@@ -49,15 +50,15 @@ const ScheduleSection = () => {
                                 className="transition-opacity hover:opacity-80"
                               >
                                 <img
-                                  src={day.logo}
-                                  alt={day.logoAlt}
+                                  src={urlFor(day.logo).width(440).auto("format").url()}
+                                  alt={day.logoAlt ?? day.dayLong}
                                   className="max-h-10 w-auto max-w-[220px] object-contain"
                                 />
                               </a>
                             ) : (
                               <img
-                                src={day.logo}
-                                alt={day.logoAlt}
+                                src={urlFor(day.logo).width(440).auto("format").url()}
+                                alt={day.logoAlt ?? day.dayLong}
                                 className="max-h-10 w-auto max-w-[220px] object-contain"
                               />
                             )}
@@ -101,15 +102,15 @@ const ScheduleSection = () => {
                                   className="inline-flex transition-opacity hover:opacity-80"
                                 >
                                   <img
-                                    src={event.sponsorLogo}
-                                    alt={event.sponsorAlt}
+                                    src={urlFor(event.sponsorLogo).width(200).auto("format").url()}
+                                    alt={event.sponsorAlt ?? event.sponsor}
                                     className="h-6 w-auto max-w-[100px] object-contain"
                                   />
                                 </a>
                               ) : (
                                 <img
-                                  src={event.sponsorLogo}
-                                  alt={event.sponsorAlt}
+                                  src={urlFor(event.sponsorLogo).width(200).auto("format").url()}
+                                  alt={event.sponsorAlt ?? event.sponsor}
                                   className="h-6 w-auto max-w-[100px] object-contain"
                                 />
                               ))}

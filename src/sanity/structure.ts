@@ -1,7 +1,14 @@
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import type { StructureResolver } from "sanity/structure";
 
-const ORDERABLE_TYPES = ["openDivisionQuickFact", "sponsorTier", "sponsor"];
+const ORDERABLE_TYPES = [
+  "openDivisionQuickFact",
+  "sponsorTier",
+  "sponsor",
+  "scheduleDay",
+  "homepageHighlight",
+  "festivalLocation",
+];
 
 export const structure: StructureResolver = (S, context) =>
   S.list()
