@@ -12,6 +12,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import { urlFor } from "@/sanity/lib/image";
 import type { SponsorTierWithSponsors, Sponsor } from "@/sanity/queries/sponsors";
+import type { FormConfig } from "@/sanity/queries/formConfig";
 
 // Logo size steps down by level — Platinum reads largest, Bronze is name-only.
 // Column count matters as much as cell height: several logos are very wide
@@ -73,9 +74,11 @@ const namedOpportunities = [
 const Sponsors = ({
   funders,
   sponsorTiers,
+  inquiryFormConfig,
 }: {
   funders: Sponsor[];
   sponsorTiers: SponsorTierWithSponsors[];
+  inquiryFormConfig: FormConfig;
 }) => {
   // The shared `funders` list also feeds the footer strip and the homepage.
   // Only this page's grid honours `hideFromPartnersGrid`.
@@ -178,17 +181,15 @@ const Sponsors = ({
                 </p>
               </div>
               <InquiryForm
+                config={inquiryFormConfig}
                 formspreeEndpoint="https://formspree.io/f/xykqbjnp"
                 successHref="/sponsors/success"
-                levelLabel="Sponsorship Level"
+                levelPayloadKey="Sponsorship Level"
                 levelOptions={[
                   ...sponsorTiers.map((tier) => `${tier.name} (${tier.price})`),
                   "Award / Event Sponsorship",
                   "Not sure yet — general inquiry",
                 ]}
-                submitLabel="Submit Sponsorship Inquiry"
-                successTitle="Inquiry sent"
-                successMessage="Thanks for your interest in sponsoring the festival — we'll follow up soon."
               />
             </div>
           </AnimatedSection>

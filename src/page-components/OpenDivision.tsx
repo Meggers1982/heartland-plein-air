@@ -19,6 +19,7 @@ import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
+import type { FormConfig } from "@/sanity/queries/formConfig";
 
 const paintingRequirements = [
   "Two-dimensional work only: oils, acrylics, watercolor, gouache, casein, pastel, or oil sticks.",
@@ -41,7 +42,13 @@ const salesInfo = [
   "The Ralston Hinge Creative District retains a 40% commission on all sales, supporting future programming in the creative district.",
 ];
 
-const OpenDivision = ({ quickFacts }: { quickFacts: OpenDivisionQuickFact[] }) => {
+const OpenDivision = ({
+  quickFacts,
+  inquiryFormConfig,
+}: {
+  quickFacts: OpenDivisionQuickFact[];
+  inquiryFormConfig: FormConfig;
+}) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -252,11 +259,11 @@ const OpenDivision = ({ quickFacts }: { quickFacts: OpenDivisionQuickFact[] }) =
             </div>
             <div className="rounded-lg border border-border bg-card p-8 md:p-12">
               <InquiryForm
+                config={inquiryFormConfig}
                 formspreeEndpoint="https://formspree.io/f/xbdvpkdb"
-                levelLabel="Primary Medium"
+                levelPayloadKey="Primary Medium"
                 levelOptions={["Oils", "Acrylics", "Watercolor", "Gouache", "Casein", "Pastel", "Oil Sticks"]}
                 addressFields
-                submitLabel="Submit Registration"
                 successHref="/open-division/success"
               />
             </div>

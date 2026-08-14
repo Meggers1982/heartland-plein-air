@@ -18,6 +18,7 @@ import InquiryForm from "@/components/InquiryForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import type { AdSize } from "@/sanity/queries/advertising";
+import type { FormConfig } from "@/sanity/queries/formConfig";
 import { AD_DEADLINE } from "@/lib/adDeadline";
 
 const fileSpecs = [
@@ -27,7 +28,13 @@ const fileSpecs = [
   { icon: Layers, text: "All fonts and images embedded" },
 ];
 
-const Advertising = ({ adSizes }: { adSizes: AdSize[] }) => {
+const Advertising = ({
+  adSizes,
+  inquiryFormConfig,
+}: {
+  adSizes: AdSize[];
+  inquiryFormConfig: FormConfig;
+}) => {
   const [deadlinePassed, setDeadlinePassed] = useState(false);
 
   useEffect(() => {
@@ -235,13 +242,11 @@ const Advertising = ({ adSizes }: { adSizes: AdSize[] }) => {
                     </p>
                   </div>
                   <InquiryForm
+                    config={inquiryFormConfig}
                     formspreeEndpoint="https://formspree.io/f/xeebpkrr"
                     successHref="/advertising/success"
-                    levelLabel="Ad Size"
+                    levelPayloadKey="Ad Size"
                     levelOptions={adSizes.map((size) => `${size.name} (${size.price})`)}
-                    submitLabel="Submit Ad Reservation"
-                    successTitle="Reservation sent"
-                    successMessage="Thanks for reserving your ad space — we'll follow up with next steps."
                   />
                 </>
               )}

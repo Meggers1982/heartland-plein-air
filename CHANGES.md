@@ -2195,6 +2195,52 @@ depending on whether a paragraph or a grid follows.
 
 ---
 
+## 2026-08-14 — Sanity CMS Migration Phase 6: Form Content Moved to Studio
+
+Site forms (Contact, Sponsorship Inquiry, Advertising Inquiry, Open Division
+Registration, Youth Paintout Registration) had their field labels,
+placeholders, character limits, and submit-button text hardcoded in
+components. Editors can now change that copy in Studio without a code change.
+
+### Added
+
+- New `formConfig` document type (`src/sanity/schemaTypes/formConfig.ts`) —
+  one document per form, holding a name, submit label, optional success
+  title/message, and an array of field configs (key, label, placeholder,
+  type, required, maxLength). Each `formKey` restricts which field `key`s are
+  allowed, so a field can't be silently renamed to something no component
+  reads.
+- `src/sanity/queries/formConfig.ts` (`getFormConfig(formKey)`) and
+  `src/lib/buildZodSchemaFromConfig.ts`, which turns a fetched field list into
+  a live Zod schema — so toggling "required" or a max length in Studio changes
+  real validation, not just displayed copy.
+- 5 `formConfig` documents seeded via `scripts/migrate-to-sanity.mjs
+  formConfigs`, one per form.
+
+### Changed
+
+- `InquiryForm.tsx` (shared by Sponsors, Advertising, Open Division),
+  `Contact.tsx`, and `YouthPaintoutForm.tsx` now take a `config` prop and
+  render labels/placeholders/character limits/validation from it, fetched
+  server-side in each route's `page.tsx` via `getFormConfig()`.
+
+### Deliberately not editable from Studio
+
+- **Formspree payload keys for "level"-style dropdowns** (e.g. "Sponsorship
+  Level", "Ad Size", "Primary Medium"). These fields' *options* stay
+  code-driven (they're derived from sponsor tiers / ad sizes / a fixed medium
+  list, not free content), and each form now passes an explicit
+  `levelPayloadKey` prop so renaming the field's display label in Studio can
+  never change what key Formspree/Zapier/notification templates receive.
+- **Regex/pattern validation** (the old age/ZIP/phone format checks on the
+  Youth Paintout form). The field-config model only supports required +
+  max-length + email-format, so those fields now validate as plain required
+  text. Traded a little format strictness for making the fields editable.
+- **Youth Paintout's two consent/photo-release checkboxes** — legal/liability
+  copy, kept hardcoded rather than added to the editable config.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Finish hardening the Google Maps API key.** Website restrictions were
