@@ -2330,6 +2330,25 @@ in Sanity" rule** — see the follow-up below to close it out.
    and the two `pendingSponsorsForTier` references in
    `src/page-components/Sponsors.tsx`. The WebP files in
    `public/assets/sponsors/` can be uploaded to Sanity as-is and then removed.
+
+   **This was attempted on 2026-08-14 and is blocked on credentials.** The
+   Sanity CLI on the Mac is logged in as `REDACTED@example.com` (user
+   `gJXwxRvYV`), which is **not a member of project `e2m4q82h`** — the API
+   returns `projectUserNotFoundError`, so that login cannot write. Nothing
+   partial was created. To unblock, either (a) create a token with Editor
+   permissions at sanity.io/manage → `e2m4q82h` → API → Tokens and put it in
+   the gitignored `.env.local` as `SANITY_API_WRITE_TOKEN`, or (b) run
+   `npx sanity login` as whichever account actually owns the project (likely a
+   Ralston HINGE Creative District account). Worth grabbing a Viewer token as
+   `SANITY_API_READ_TOKEN` at the same time — without it `npm run build` fails
+   locally at "Collecting page data", which is why this change was verified on
+   the deployed site rather than a local build.
+
+   **`orderRank` gotcha for whoever does this:** `order(orderRank)` sorts as a
+   *string*, and the seed script used a naive `a${i}`, so Silver currently
+   sorts a0, a1, a10, a11, a2 … a9. Giving the new docs "a12"/"a13" would land
+   them 5th and 6th, not last. Use "b0"/"b1" to reproduce their current
+   position at the end of the grid.
 4. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
    the enlarged Grant Partners row — its content is 863×402, and the slot wants
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
