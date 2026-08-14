@@ -2241,6 +2241,44 @@ components. Editors can now change that copy in Studio without a code change.
 
 ---
 
+## 2026-08-14 — Two Silver Sponsors Added in Code (Omaha Lancers, Linhart Construction)
+
+Omaha Lancers and Linhart Construction joined at the Silver level. They were
+added straight to the repo rather than to Sanity, to get them live without a
+Studio round-trip. **This is a deliberate exception to the "all content lives
+in Sanity" rule** — see the follow-up below to close it out.
+
+### Added
+
+- `public/assets/sponsors/omaha-lancers.webp` (366×355, alpha preserved from
+  the supplied PNG — the white keyline is part of the mark, not a background)
+  and `public/assets/sponsors/linhart-construction.webp` (886×670). The
+  Linhart source was a JPEG on a flat white background, which would have shown
+  as a white box against the cream page (`--background: #FFE7C2`). The
+  background was knocked out to transparency with a corner flood-fill, so only
+  the *outer* white cleared — the white knockout text inside the red blocks
+  ("CONSTRUCTION, INC.") is enclosed and stayed opaque. Then trimmed to the
+  alpha bounding box so the mark fills its grid cell like the others.
+- `src/lib/pendingSponsors.ts` — a small, clearly-temporary list of code-side
+  sponsors (`name`, `tier`, `logoSrc`, `alt`, `url`). Alt text follows the
+  existing lowercase `"<company> logo"` convention. URLs verified live:
+  [lancers.com](https://lancers.com/) (the USHL team's official site —
+  note `omahalancers.com` is now a parked domain and must not be used) and
+  [linhartconstruction.com](https://www.linhartconstruction.com/).
+
+### Changed
+
+- `src/page-components/Sponsors.tsx` — the tier grid now maps over
+  `[...tier.sponsors, ...pendingSponsorsForTier(tier.name)]`. Sanity sponsors
+  resolve their logo through `urlFor()`; code-side ones use a plain `/public`
+  path, so the `src` is picked by checking for `logoSrc`. `populatedTiers`
+  also counts code-side entries, so a tier that exists only in the repo still
+  renders a section.
+- Sanity sponsors sort by `orderRank` and these have none, so both land at the
+  end of the Silver grid.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Finish hardening the Google Maps API key.** Website restrictions were
@@ -2257,23 +2295,37 @@ components. Editors can now change that copy in Studio without a code change.
      development. Without it the map shows its "couldn't load" fallback on
      localhost — which is exactly what happened during the 2026-08-09 QA and
      briefly looked like a code bug.
-2. **One Silver sponsor logo still missing** — Pivot at the Hinge renders as a
-   plain name until artwork arrives. (Debra Joy Groesser Fine Art's logo was
-   added 2026-08-09.) To add one: drop the WebP in
-   `public/assets/sponsors/` and add `logo` + `alt` to that sponsor's entry in
-   `src/data/sponsors.ts`. (The rest of the tier work shipped 2026-08-08.)
-3. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
+2. **Sponsor logos still missing** — Pivot at the Hinge (Silver), Embris Group
+   (Bronze), and John L. Hoich Foundation (Bronze) render as plain names until
+   artwork arrives. Bronze is a name-only tier by design, so only Pivot at the
+   Hinge actually wants a logo. To add one now: open that sponsor in Studio at
+   `/studio` and upload the image to its `logo` field, then fill `alt` using
+   the lowercase `"<company> logo"` convention. (This instruction used to point
+   at `src/data/sponsors.ts`, which the Sanity migration deleted.)
+3. **Migrate the two code-side sponsors into Sanity and delete
+   `src/lib/pendingSponsors.ts`.** Omaha Lancers and Linhart Construction were
+   added to the repo on 2026-08-14, not to Studio. Consequence: they do not
+   appear in Studio, so an editor cannot reorder, edit, or remove them, and
+   nothing warns that they exist — a future editor reconciling the sponsor list
+   against Studio will conclude the site is showing two sponsors that "aren't
+   there". To close it out: create a `sponsor` document for each (name, tier
+   Silver, logo, alt, url — all five values are in
+   `src/lib/pendingSponsors.ts`), set their `orderRank`, then delete that file
+   and the two `pendingSponsorsForTier` references in
+   `src/page-components/Sponsors.tsx`. The WebP files in
+   `public/assets/sponsors/` can be uploaded to Sanity as-is and then removed.
+4. **Wiebe Ralston Foundation logo is the one file short of retina-crisp** on
    the enlarged Grant Partners row — its content is 863×402, and the slot wants
    ~984×458 at 2× DPI, so it renders at 0.88 of ideal density (a 1.14× upscale).
    Effectively invisible on a line-art mark, but it's the only one under 1.0. A
    larger source file from the foundation would close it.
-4. **Nebraska Arts Council / Cultural Endowment logo is a broken composite.**
+5. **Nebraska Arts Council / Cultural Endowment logo is a broken composite.**
    In `public/assets/nebraska-arts-council-logo.png`, the script "Endless"
    wordmark is superimposed directly over the word "ENDOWMENT" — both are
    unreadable. The defect is baked into the source file, so it cannot be fixed
    with CSS or a re-export. This logo shows in the /sponsors grid, the footer of
    every page, and the homepage row. Ask them for a clean horizontal lockup.
-5. **One small question for Deb, still unanswered.** In the 8-9-26 schedule
+6. **One small question for Deb, still unanswered.** In the 8-9-26 schedule
    doc, "The Antique Street Lights with hanging Flower Baskets" sits on its own
    line under Thursday's Dundee paintout, with no address. It was folded in as a
    `note` on the Dundee Business District Streetscape spot, on the reading that
@@ -2282,7 +2334,7 @@ components. Editors can now change that copy in Studio without a code change.
    `schedule.ts`. Low stakes either way — the location is listed, just nested.
    (This was briefly lost when the Wildewood Park address question it was
    bundled with got resolved; re-added 2026-08-09.)
-6. **Two names for the Judge's Lecture — pick one.** The same ticketed event is
+7. **Two names for the Judge's Lecture — pick one.** The same ticketed event is
    called two different things across the site:
    - "Introduction to Impressionism" — `schema.tsx` ticket offer and the
      Tickets page (×2)
@@ -2292,7 +2344,7 @@ components. Editors can now change that copy in Studio without a code change.
    two different lectures. Not changed here because renaming an event is a
    content decision, and the offer title is also what appears on the Passage
    ticketing page. Tell me which is right and it's a quick sweep.
-7. **Decide whether the homepage should match the interior pages exactly.**
+8. **Decide whether the homepage should match the interior pages exactly.**
    After the 2026-08-09 consistency pass, every interior page shares one
    eyebrow style and one button scale. The homepage deliberately keeps its own:
    orange (`text-primary`) section eyebrows rather than grey, and a smaller
