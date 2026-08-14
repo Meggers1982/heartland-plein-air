@@ -2295,6 +2295,54 @@ in Sanity" rule** — see the follow-up below to close it out.
 
 ---
 
+## 2026-08-14 — 404 Page Rebuilt to Match the Interior Pages
+
+The site already had a working 404 at `src/app/not-found.tsx` returning a real
+404 status (not a soft 200). It was rebuilt for layout consistency, given a
+correct page title, and given somewhere to go besides the homepage.
+
+### Fixed — the page title
+
+The 404 inherited the site-wide title from `src/app/layout.tsx`, so its browser
+tab read "Heartland Plein Air Festival | September 13–19, 2026". A dead link
+saved to history or bookmarks looked identical to the homepage.
+
+`not-found.tsx` is the one App Router route file that **cannot export a
+`metadata` object**, so this needed a workaround. React 19 hoists a `<title>`
+rendered anywhere in the tree, which would have made it server-rendered — but
+this project is on **React 18.3.1**, so the title is set after mount by a new
+`src/components/SetDocumentTitle.tsx` (`'use client'`, `useEffect`, renders
+`null`). Title is now "Page Not Found | Heartland Plein Air Festival".
+
+No SEO cost: the route already responds 404, which is what crawlers act on —
+this is purely the human-facing tab. **If this project ever upgrades to React
+19, delete `SetDocumentTitle.tsx` and render `<title>` directly instead.**
+
+### Changed — layout now matches every other interior page
+
+The old version packed the eyebrow, H1, body copy, *and* the CTA button all
+inside the dark header, which no other page does. Now it follows the standard
+interior structure: dark `bg-foreground` header holding only the eyebrow and
+the display H1, then content on the cream background below. The "Return to
+Home" button was also on the homepage's smaller button scale (`px-7 py-3
+text-sm`) and now uses the interior scale (`px-10 py-4 text-xs`) settled on in
+the 2026-08-09 consistency pass.
+
+### Added — six destination cards
+
+A visitor who hits a dead link previously had exactly one way out. There is now
+a responsive grid (1/2/3 columns) linking Schedule, Artists, Tickets, Gallery,
+FAQs, and Contact, each with a Lucide icon in the same `bg-primary/10` circle
+the sponsor tier cards use, and a one-line description. Card styling and the
+`AnimatedSection` stagger match the existing tier/opportunity cards.
+
+Card copy was checked against real content rather than assumed — an early draft
+promised the FAQ answered questions about *weather*, which it does not. The
+description now names topics the FAQ actually covers (parking, accessibility,
+watching artists work, buying a painting).
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 1. **Finish hardening the Google Maps API key.** Website restrictions were
