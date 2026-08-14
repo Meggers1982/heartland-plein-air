@@ -15,10 +15,28 @@ import { useEffect } from "react";
  *
  * No SEO cost: the route already responds with a real 404 status, which is
  * what crawlers act on. This is purely for the human-facing tab.
+ *
+ * Why the MutationObserver rather than a one-shot assignment: the page streams,
+ * and Next writes the root layout's `<title>` into `<head>` on a later chunk
+ * than this component's hydration. A plain `useEffect` sets the title and then
+ * loses it moments later — verified on the deployed page, where the tab kept
+ * showing the homepage title. Re-asserting on any `<head>` mutation wins that
+ * race regardless of chunk order. The `!==` guard means our own write doesn't
+ * retrigger the observer into a loop.
  */
 const SetDocumentTitle = ({ title }: { title: string }) => {
   useEffect(() => {
-    document.title = title;
+    const apply = () => {
+      if (document.title !== title) document.title = title;
+    };
+    apply();
+    const observer = new MutationObserver(apply);
+    observer.observe(document.head, {
+      subtree: true,
+      childList: true,
+      characterData: true,
+    });
+    return () => observer.disconnect();
   }, [title]);
   return null;
 };
