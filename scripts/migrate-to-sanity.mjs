@@ -1398,6 +1398,114 @@ async function migrateHomepage() {
   console.log(`  homepage: ${sections.length} sections`);
 }
 
+// ---------------------------------------------------------------------------
+// formConfig (Phase 6) — seeds each form's field list copy-identical to its
+// current hardcoded labels/placeholders/maxLengths, so cutover changes
+// nothing visible. Regex/pattern validation (zip, phone format) and the
+// two youth-paintout consent checkboxes are NOT part of this content type —
+// they stay hardcoded in the form components themselves.
+// ---------------------------------------------------------------------------
+
+const FORM_CONFIGS = [
+  {
+    formKey: "contact",
+    name: "Contact Form",
+    submitLabel: "Send Message",
+    fields: [
+      { key: "name", label: "Name", placeholder: "Your name", type: "text", required: true, maxLength: 100 },
+      { key: "email", label: "Email", placeholder: "hello@example.com", type: "email", required: true, maxLength: 255 },
+      { key: "topic", label: "Topic", type: "select", required: true },
+      { key: "subject", label: "Subject", placeholder: "Give us a quick summary", type: "text", required: true, maxLength: 150 },
+      { key: "message", label: "Message", placeholder: "Tell us more...", type: "textarea", required: true, maxLength: 2000 },
+    ],
+  },
+  {
+    formKey: "sponsorshipInquiry",
+    name: "Sponsorship Inquiry Form",
+    submitLabel: "Submit Sponsorship Inquiry",
+    successTitle: "Inquiry sent",
+    successMessage: "Thanks for your interest in sponsoring the festival — we'll follow up soon.",
+    fields: [
+      { key: "name", label: "Name", placeholder: "Your name", type: "text", required: true, maxLength: 100 },
+      { key: "organization", label: "Organization / Business Name", placeholder: "Your organization", type: "text", required: true, maxLength: 150 },
+      { key: "email", label: "Email", placeholder: "hello@example.com", type: "email", required: true, maxLength: 255 },
+      { key: "phone", label: "Phone", type: "tel", placeholder: "(402) 555-0100", required: false, maxLength: 30 },
+      { key: "level", label: "Sponsorship Level", type: "select", required: true },
+      { key: "message", label: "Message", placeholder: "Anything else we should know?", type: "textarea", required: false, maxLength: 2000 },
+    ],
+  },
+  {
+    formKey: "advertisingInquiry",
+    name: "Advertising Inquiry Form",
+    submitLabel: "Submit Ad Reservation",
+    successTitle: "Reservation sent",
+    successMessage: "Thanks for reserving your ad space — we'll follow up with next steps.",
+    fields: [
+      { key: "name", label: "Name", placeholder: "Your name", type: "text", required: true, maxLength: 100 },
+      { key: "organization", label: "Organization / Business Name", placeholder: "Your organization", type: "text", required: true, maxLength: 150 },
+      { key: "email", label: "Email", placeholder: "hello@example.com", type: "email", required: true, maxLength: 255 },
+      { key: "phone", label: "Phone", type: "tel", placeholder: "(402) 555-0100", required: false, maxLength: 30 },
+      { key: "level", label: "Ad Size", type: "select", required: true },
+      { key: "message", label: "Message", placeholder: "Anything else we should know?", type: "textarea", required: false, maxLength: 2000 },
+    ],
+  },
+  {
+    formKey: "openDivisionInquiry",
+    name: "Open Division Registration Form",
+    submitLabel: "Submit Registration",
+    successTitle: "Inquiry sent",
+    successMessage: "Thanks for reaching out. We'll get back to you as soon as we can.",
+    fields: [
+      { key: "name", label: "Name", placeholder: "Your name", type: "text", required: true, maxLength: 100 },
+      { key: "street", label: "Street Address", placeholder: "123 Main St.", type: "text", required: true, maxLength: 150 },
+      { key: "city", label: "City", placeholder: "Omaha", type: "text", required: true, maxLength: 100 },
+      { key: "state", label: "State", placeholder: "NE", type: "text", required: true, maxLength: 50 },
+      { key: "zip", label: "Zip Code", placeholder: "68127", type: "text", required: true, maxLength: 10 },
+      { key: "email", label: "Email", placeholder: "hello@example.com", type: "email", required: true, maxLength: 255 },
+      { key: "phone", label: "Phone", type: "tel", placeholder: "(402) 555-0100", required: false, maxLength: 30 },
+      { key: "level", label: "Primary Medium", type: "select", required: true },
+      { key: "message", label: "Message", placeholder: "Anything else we should know?", type: "textarea", required: false, maxLength: 2000 },
+    ],
+  },
+  {
+    formKey: "youthPaintout",
+    name: "Youth Paintout Registration Form",
+    submitLabel: "Register for the Youth Paintout",
+    fields: [
+      { key: "firstName", label: "Youth's First Name", placeholder: "First name", type: "text", required: true, maxLength: 100 },
+      { key: "lastName", label: "Youth's Last Name", placeholder: "Last name", type: "text", required: true, maxLength: 100 },
+      { key: "age", label: "Youth's Age", placeholder: "Age", type: "text", required: true, maxLength: 3 },
+      { key: "streetAddress", label: "Street Address", placeholder: "Street address", type: "text", required: true, maxLength: 200 },
+      { key: "city", label: "City", placeholder: "City", type: "text", required: true, maxLength: 100 },
+      { key: "state", label: "State", placeholder: "State", type: "text", required: true, maxLength: 50 },
+      { key: "zip", label: "ZIP Code", placeholder: "ZIP code", type: "text", required: true, maxLength: 10 },
+      { key: "phone", label: "Phone", placeholder: "(402) 555-0100", type: "tel", required: true, maxLength: 30 },
+      { key: "email", label: "Email Address", placeholder: "you@example.com", type: "email", required: true, maxLength: 255 },
+      { key: "parentName", label: "Parent or Guardian Name", placeholder: "Parent or guardian's full name", type: "text", required: true, maxLength: 150 },
+      { key: "emergencyContactName", label: "Emergency Contact Name", placeholder: "Full name", type: "text", required: true, maxLength: 150 },
+      { key: "emergencyContactPhone", label: "Emergency Contact Phone", placeholder: "(402) 555-0100", type: "tel", required: true, maxLength: 30 },
+      { key: "relationship", label: "Emergency Contact's Relationship to Student", placeholder: "e.g. Grandparent, family friend", type: "text", required: true, maxLength: 100 },
+    ],
+  },
+];
+
+async function migrateFormConfigs() {
+  console.log("Uploading formConfig documents...");
+  for (const config of FORM_CONFIGS) {
+    await client.createOrReplace({
+      _id: `formConfig-${config.formKey}`,
+      _type: "formConfig",
+      formKey: config.formKey,
+      name: config.name,
+      submitLabel: config.submitLabel,
+      ...(config.successTitle && { successTitle: config.successTitle }),
+      ...(config.successMessage && { successMessage: config.successMessage }),
+      fields: config.fields.map((f, i) => ({ _key: `f${i}`, ...f })),
+    });
+    console.log(`  formConfig: ${config.name}`);
+  }
+}
+
 const SECTIONS = {
   sponsors: migrateSponsors,
   schedule: migrateSchedule,
@@ -1405,6 +1513,7 @@ const SECTIONS = {
   faq: migrateFaq,
   artists: migrateArtists,
   homepage: migrateHomepage,
+  formConfigs: migrateFormConfigs,
 };
 
 async function main() {

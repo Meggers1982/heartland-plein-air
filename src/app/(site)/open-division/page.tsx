@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import OpenDivision from "@/page-components/OpenDivision";
 import { getQuickFacts } from "@/sanity/queries/openDivision";
+import { getFormConfig } from "@/sanity/queries/formConfig";
 
 export const metadata: Metadata = {
   title: "Register to Paint Plein Air With the Pros: Omaha 2026",
@@ -27,6 +28,9 @@ export const metadata: Metadata = {
 };
 
 export default async function OpenDivisionPage() {
-  const quickFacts = await getQuickFacts();
-  return <OpenDivision quickFacts={quickFacts} />;
+  const [quickFacts, inquiryFormConfig] = await Promise.all([
+    getQuickFacts(),
+    getFormConfig("openDivisionInquiry"),
+  ]);
+  return <OpenDivision quickFacts={quickFacts} inquiryFormConfig={inquiryFormConfig} />;
 }

@@ -2,86 +2,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import type { FormConfig } from "@/sanity/queries/formConfig";
+import { buildZodSchemaFromConfig } from "@/lib/buildZodSchemaFromConfig";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzepdkyb";
-
-const schema = z.object({
-  firstName: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter the youth's first name." })
-    .max(100, { message: "First name must be less than 100 characters." }),
-  lastName: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter the youth's last name." })
-    .max(100, { message: "Last name must be less than 100 characters." }),
-  age: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter the youth's age." })
-    .regex(/^\d{1,2}$/, { message: "Please enter a valid age." }),
-  streetAddress: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a street address." })
-    .max(200, { message: "Street address must be less than 200 characters." }),
-  city: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a city." })
-    .max(100, { message: "City must be less than 100 characters." }),
-  state: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a state." })
-    .max(50, { message: "State must be less than 50 characters." }),
-  zip: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a ZIP code." })
-    .regex(/^\d{5}(-\d{4})?$/, { message: "Please enter a valid ZIP code." }),
-  phone: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a phone number." })
-    .max(30, { message: "Phone number must be less than 30 characters." })
-    .regex(/^[\d\s()+.\-extEXT]{7,}$/, { message: "Please enter a valid phone number." }),
-  email: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter an email address." })
-    .email({ message: "Please enter a valid email address." })
-    .max(255, { message: "Email must be less than 255 characters." }),
-  parentName: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter the parent or guardian's name." })
-    .max(150, { message: "Name must be less than 150 characters." }),
-  emergencyContactName: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter an emergency contact name." })
-    .max(150, { message: "Name must be less than 150 characters." }),
-  emergencyContactPhone: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter an emergency contact phone number." })
-    .max(30, { message: "Phone number must be less than 30 characters." })
-    .regex(/^[\d\s()+.\-extEXT]{7,}$/, { message: "Please enter a valid phone number." }),
-  relationship: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter the emergency contact's relationship to the student." })
-    .max(100, { message: "Relationship must be less than 100 characters." }),
-  // Participation consent is required. The photo release is deliberately
-  // separate and optional — permission to attend shouldn't be conditional on
-  // agreeing to be photographed.
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "A parent or guardian must give permission to participate." }),
-  }),
-  photoRelease: z.boolean(),
-});
 
 type FormState = {
   firstName: string;
@@ -102,8 +26,19 @@ type FormState = {
 };
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
-const YouthPaintoutForm = () => {
+const YouthPaintoutForm = ({ config }: { config: FormConfig }) => {
   const router = useRouter();
+  const getField = (key: string) => config.fields.find((f) => f.key === key);
+  // Participation consent is required. The photo release is deliberately
+  // separate and optional — permission to attend shouldn't be conditional on
+  // agreeing to be photographed. Both are legal/liability-sensitive and are
+  // kept hardcoded here rather than part of the editable form config.
+  const schema = buildZodSchemaFromConfig(config.fields).extend({
+    consent: z.literal(true, {
+      errorMap: () => ({ message: "A parent or guardian must give permission to participate." }),
+    }),
+    photoRelease: z.boolean(),
+  });
   const [form, setForm] = useState<FormState>({
     firstName: "",
     lastName: "",
@@ -202,23 +137,20 @@ const YouthPaintoutForm = () => {
 
   const field = (
     key: TextKey,
-    label: string,
     type: string,
-    placeholder: string,
-    maxLength: number,
     autoComplete: string,
   ) => (
     <div className="space-y-1.5">
       <label htmlFor={`youth-${key}`} className={labelClass}>
-        {label}
+        {getField(key)?.label}
       </label>
       <input
         id={`youth-${key}`}
         type={type}
-        placeholder={placeholder}
+        placeholder={getField(key)?.placeholder}
         value={form[key]}
         onChange={(e) => update(key, e.target.value)}
-        maxLength={maxLength}
+        maxLength={getField(key)?.maxLength}
         autoComplete={autoComplete}
         aria-invalid={errors[key] ? "true" : "false"}
         aria-describedby={errors[key] ? `youth-${key}-error` : undefined}
@@ -274,53 +206,32 @@ const YouthPaintoutForm = () => {
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6 text-left">
       <div className="grid gap-6 sm:grid-cols-3">
-        {field("firstName", "Youth's First Name", "text", "First name", 100, "given-name")}
-        {field("lastName", "Youth's Last Name", "text", "Last name", 100, "family-name")}
-        {field("age", "Youth's Age", "text", "Age", 3, "off")}
+        {field("firstName", "text", "given-name")}
+        {field("lastName", "text", "family-name")}
+        {field("age", "text", "off")}
       </div>
 
-      {field("streetAddress", "Street Address", "text", "Street address", 200, "address-line1")}
+      {field("streetAddress", "text", "address-line1")}
 
       <div className="grid gap-6 sm:grid-cols-3">
-        {field("city", "City", "text", "City", 100, "address-level2")}
-        {field("state", "State", "text", "State", 50, "address-level1")}
-        {field("zip", "ZIP Code", "text", "ZIP code", 10, "postal-code")}
+        {field("city", "text", "address-level2")}
+        {field("state", "text", "address-level1")}
+        {field("zip", "text", "postal-code")}
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        {field("phone", "Phone", "tel", "(402) 555-0100", 30, "tel")}
-        {field("email", "Email Address", "email", "you@example.com", 255, "email")}
+        {field("phone", "tel", "tel")}
+        {field("email", "email", "email")}
       </div>
 
-      {field(
-        "parentName",
-        "Parent or Guardian Name",
-        "text",
-        "Parent or guardian's full name",
-        150,
-        "name",
-      )}
+      {field("parentName", "text", "name")}
 
       <div className="grid gap-6 sm:grid-cols-2">
-        {field("emergencyContactName", "Emergency Contact Name", "text", "Full name", 150, "off")}
-        {field(
-          "emergencyContactPhone",
-          "Emergency Contact Phone",
-          "tel",
-          "(402) 555-0100",
-          30,
-          "off",
-        )}
+        {field("emergencyContactName", "text", "off")}
+        {field("emergencyContactPhone", "tel", "off")}
       </div>
 
-      {field(
-        "relationship",
-        "Emergency Contact's Relationship to Student",
-        "text",
-        "e.g. Grandparent, family friend",
-        100,
-        "off",
-      )}
+      {field("relationship", "text", "off")}
 
       <div className="space-y-4 rounded-sm border border-border bg-muted/40 p-5">
         {checkbox(
@@ -346,7 +257,7 @@ const YouthPaintoutForm = () => {
           disabled={submitting}
           className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {submitting ? "Sending..." : "Register for the Youth Paintout"}
+          {submitting ? "Sending..." : config.submitLabel}
         </button>
       </div>
     </form>

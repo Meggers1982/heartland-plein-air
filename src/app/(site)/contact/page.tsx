@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Contact from "@/page-components/Contact";
+import { getFormConfig } from "@/sanity/queries/formConfig";
 
 export const metadata: Metadata = {
   title: "Contact the Plein Air Festival Team: Ralston, NE",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
-  return <Contact />;
+export default async function ContactPage() {
+  const config = await getFormConfig("contact");
+  return <Contact config={config} />;
 }

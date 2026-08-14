@@ -8,6 +8,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import YouthPaintoutForm from "@/components/YouthPaintoutForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import type { FormConfig } from "@/sanity/queries/formConfig";
 
 const passBenefits = [
   {
@@ -56,7 +57,7 @@ const ticketOptions = [
   { id: "youth-paintout", name: "Youth Paintout", price: "Free" },
 ];
 
-const Tickets = () => {
+const Tickets = ({ youthPaintoutFormConfig }: { youthPaintoutFormConfig: FormConfig }) => {
   const handleJump = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);
@@ -318,7 +319,7 @@ const Tickets = () => {
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
                 Register for the Youth Paintout
               </p>
-              <YouthPaintoutForm />
+              <YouthPaintoutForm config={youthPaintoutFormConfig} />
             </div>
           </AnimatedSection>
         </div>

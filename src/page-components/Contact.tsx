@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { z } from "zod";
 import { ChevronDown } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
@@ -11,44 +10,26 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import FestivalContactInfo from "@/components/FestivalContactInfo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
+import type { FormConfig } from "@/sanity/queries/formConfig";
+import { buildZodSchemaFromConfig } from "@/lib/buildZodSchemaFromConfig";
 
 const topicOptions = ["Sponsorship", "Advertising", "Tickets", "General Questions"] as const;
 
-const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter your name." })
-    .max(100, { message: "Name must be less than 100 characters." }),
-  email: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter your email address." })
-    .email({ message: "Please enter a valid email address." })
-    .max(255, { message: "Email must be less than 255 characters." }),
-  topic: z
-    .string()
-    .trim()
-    .min(1, { message: "Please select a topic." }),
-  subject: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a subject." })
-    .max(150, { message: "Subject must be less than 150 characters." }),
-  message: z
-    .string()
-    .trim()
-    .min(1, { message: "Please enter a message." })
-    .max(2000, { message: "Message must be less than 2000 characters." }),
-});
-
-type FormState = z.infer<typeof contactSchema>;
+type FormState = {
+  name: string;
+  email: string;
+  topic: string;
+  subject: string;
+  message: string;
+};
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojopwyp";
 
-const Contact = () => {
+const Contact = ({ config }: { config: FormConfig }) => {
   const router = useRouter();
+  const getField = (key: string) => config.fields.find((f) => f.key === key);
+  const contactSchema = buildZodSchemaFromConfig(config.fields);
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -139,15 +120,15 @@ const Contact = () => {
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-1.5">
                       <label htmlFor="contact-name" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                        Name
+                        {getField("name")?.label}
                       </label>
                       <input
                         id="contact-name"
                         type="text"
-                        placeholder="Your name"
+                        placeholder={getField("name")?.placeholder}
                         value={form.name}
                         onChange={(e) => update("name", e.target.value)}
-                        maxLength={100}
+                        maxLength={getField("name")?.maxLength}
                         aria-invalid={errors.name ? "true" : "false"}
                         aria-describedby={errors.name ? "contact-name-error" : undefined}
                         className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
@@ -160,15 +141,15 @@ const Contact = () => {
                     </div>
                     <div className="space-y-1.5">
                       <label htmlFor="contact-email" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                        Email
+                        {getField("email")?.label}
                       </label>
                       <input
                         id="contact-email"
                         type="email"
-                        placeholder="hello@example.com"
+                        placeholder={getField("email")?.placeholder}
                         value={form.email}
                         onChange={(e) => update("email", e.target.value)}
-                        maxLength={255}
+                        maxLength={getField("email")?.maxLength}
                         aria-invalid={errors.email ? "true" : "false"}
                         aria-describedby={errors.email ? "contact-email-error" : undefined}
                         className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
@@ -183,7 +164,7 @@ const Contact = () => {
 
                   <div className="space-y-1.5">
                     <label htmlFor="contact-topic" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                      Topic
+                      {getField("topic")?.label}
                     </label>
                     <div className="relative">
                       <select
@@ -217,15 +198,15 @@ const Contact = () => {
 
                   <div className="space-y-1.5">
                     <label htmlFor="contact-subject" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                      Subject
+                      {getField("subject")?.label}
                     </label>
                     <input
                       id="contact-subject"
                       type="text"
-                      placeholder="Give us a quick summary"
+                      placeholder={getField("subject")?.placeholder}
                       value={form.subject}
                       onChange={(e) => update("subject", e.target.value)}
-                      maxLength={150}
+                      maxLength={getField("subject")?.maxLength}
                       aria-invalid={errors.subject ? "true" : "false"}
                       aria-describedby={errors.subject ? "contact-subject-error" : undefined}
                       className="w-full rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
@@ -239,15 +220,15 @@ const Contact = () => {
 
                   <div className="space-y-1.5">
                     <label htmlFor="contact-message" className="block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
-                      Message
+                      {getField("message")?.label}
                     </label>
                     <textarea
                       id="contact-message"
                       rows={6}
-                      placeholder="Tell us more..."
+                      placeholder={getField("message")?.placeholder}
                       value={form.message}
                       onChange={(e) => update("message", e.target.value)}
-                      maxLength={2000}
+                      maxLength={getField("message")?.maxLength}
                       aria-invalid={errors.message ? "true" : "false"}
                       aria-describedby={errors.message ? "contact-message-error" : undefined}
                       className="w-full resize-none rounded-sm border border-border bg-muted/60 px-4 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-card focus:outline-none focus:ring-1 focus:ring-primary/20"
@@ -271,7 +252,7 @@ const Contact = () => {
                       disabled={submitting}
                       className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      {submitting ? "Sending..." : "Send Message"}
+                      {submitting ? "Sending..." : config.submitLabel}
                     </button>
                   </div>
                 </form>

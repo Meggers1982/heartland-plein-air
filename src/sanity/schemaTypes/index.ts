@@ -5,6 +5,7 @@ import { artist } from "./artist";
 import { faqCategory } from "./faqCategory";
 import { faqItem } from "./faqItem";
 import { festivalLocation } from "./festivalLocation";
+import { formConfig } from "./formConfig";
 import { homepage } from "./homepage";
 import { homepageHighlight } from "./homepageHighlight";
 import { artistPainting } from "./objects/artistPainting";
@@ -38,6 +39,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faqCategory,
     faqItem,
     artist,
+    formConfig,
     homepage,
     heroSection,
     aboutSection,

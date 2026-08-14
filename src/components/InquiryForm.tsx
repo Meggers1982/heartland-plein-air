@@ -1,74 +1,9 @@
 'use client';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { z } from "zod";
 import { Check, ChevronDown } from "lucide-react";
-
-const buildSchema = (levelLabel: string, addressFields: boolean) =>
-  z.object({
-    name: z
-      .string()
-      .trim()
-      .min(1, { message: "Please enter your name." })
-      .max(100, { message: "Name must be less than 100 characters." }),
-    organization: addressFields
-      ? z.string().trim().optional().or(z.literal(""))
-      : z
-          .string()
-          .trim()
-          .min(1, { message: "Please enter your organization or business name." })
-          .max(150, { message: "Must be less than 150 characters." }),
-    street: addressFields
-      ? z
-          .string()
-          .trim()
-          .min(1, { message: "Please enter your street address." })
-          .max(150, { message: "Must be less than 150 characters." })
-      : z.string().trim().optional().or(z.literal("")),
-    city: addressFields
-      ? z
-          .string()
-          .trim()
-          .min(1, { message: "Please enter your city." })
-          .max(100, { message: "Must be less than 100 characters." })
-      : z.string().trim().optional().or(z.literal("")),
-    state: addressFields
-      ? z
-          .string()
-          .trim()
-          .min(1, { message: "Please enter your state." })
-          .max(50, { message: "Must be less than 50 characters." })
-      : z.string().trim().optional().or(z.literal("")),
-    zip: addressFields
-      ? z
-          .string()
-          .trim()
-          .min(1, { message: "Please enter your zip code." })
-          .regex(/^\d{5}(-\d{4})?$/, { message: "Please enter a valid zip code." })
-      : z.string().trim().optional().or(z.literal("")),
-    email: z
-      .string()
-      .trim()
-      .min(1, { message: "Please enter your email address." })
-      .email({ message: "Please enter a valid email address." })
-      .max(255, { message: "Email must be less than 255 characters." }),
-    phone: z
-      .string()
-      .trim()
-      .max(30, { message: "Phone number must be less than 30 characters." })
-      .optional()
-      .or(z.literal("")),
-    level: z
-      .string()
-      .trim()
-      .min(1, { message: `Please select a ${levelLabel.toLowerCase()}.` }),
-    message: z
-      .string()
-      .trim()
-      .max(2000, { message: "Message must be less than 2000 characters." })
-      .optional()
-      .or(z.literal("")),
-  });
+import { buildZodSchemaFromConfig } from "@/lib/buildZodSchemaFromConfig";
+import type { FormConfig } from "@/sanity/queries/formConfig";
 
 type FormState = {
   name: string;
@@ -85,32 +20,29 @@ type FormState = {
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
 type InquiryFormProps = {
+  config: FormConfig;
   formspreeEndpoint: string;
-  levelLabel: string;
   levelOptions: string[];
-  organizationLabel?: string;
-  organizationPlaceholder?: string;
+  // Fixed Formspree payload key for the level field (e.g. "Sponsorship
+  // Level"), independent of the editable field label — so an editor
+  // relabeling the dropdown in Studio can't silently change what key a
+  // Zapier zap or notification template keys off of.
+  levelPayloadKey: string;
   addressFields?: boolean;
-  submitLabel?: string;
-  successTitle?: string;
-  successMessage?: string;
   successHref?: string;
 };
 
 const InquiryForm = ({
+  config,
   formspreeEndpoint,
-  levelLabel,
   levelOptions,
-  organizationLabel = "Organization / Business Name",
-  organizationPlaceholder = "Your organization",
+  levelPayloadKey,
   addressFields = false,
-  submitLabel = "Submit Inquiry",
-  successTitle = "Inquiry sent",
-  successMessage = "Thanks for reaching out. We'll get back to you as soon as we can.",
   successHref,
 }: InquiryFormProps) => {
   const router = useRouter();
-  const schema = buildSchema(levelLabel, addressFields);
+  const getField = (key: string) => config.fields.find((f) => f.key === key);
+  const schema = buildZodSchemaFromConfig(config.fields);
   const [form, setForm] = useState<FormState>({
     name: "",
     organization: "",
@@ -159,7 +91,7 @@ const InquiryForm = ({
             : { organization: form.organization }),
           email: form.email,
           phone: form.phone,
-          [levelLabel]: form.level,
+          [levelPayloadKey]: form.level,
           message: form.message,
         }),
       });
@@ -189,10 +121,10 @@ const InquiryForm = ({
           <Check className="h-7 w-7 text-primary" aria-hidden="true" />
         </div>
         <h3 className="mb-2 font-display text-2xl font-bold text-foreground">
-          {successTitle}
+          {config.successTitle}
         </h3>
         <p className="max-w-md font-body text-base text-muted-foreground">
-          {successMessage}
+          {config.successMessage}
         </p>
       </div>
     );
@@ -204,20 +136,31 @@ const InquiryForm = ({
     "block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground";
   const errorClass = "mt-1 px-1 font-body text-xs";
 
+  const name = getField("name");
+  const organization = getField("organization");
+  const street = getField("street");
+  const city = getField("city");
+  const state = getField("state");
+  const zip = getField("zip");
+  const email = getField("email");
+  const phone = getField("phone");
+  const level = getField("level");
+  const message = getField("message");
+
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6 text-left">
       <div className={`grid gap-6 ${addressFields ? "" : "sm:grid-cols-2"}`}>
         <div className="space-y-1.5">
           <label htmlFor="inquiry-name" className={labelClass}>
-            Name
+            {name?.label ?? "Name"}
           </label>
           <input
             id="inquiry-name"
             type="text"
-            placeholder="Your name"
+            placeholder={name?.placeholder}
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
-            maxLength={100}
+            maxLength={name?.maxLength}
             aria-invalid={errors.name ? "true" : "false"}
             aria-describedby={errors.name ? "inquiry-name-error" : undefined}
             className={inputClass}
@@ -228,18 +171,18 @@ const InquiryForm = ({
             </p>
           )}
         </div>
-        {!addressFields && (
+        {!addressFields && organization && (
           <div className="space-y-1.5">
             <label htmlFor="inquiry-organization" className={labelClass}>
-              {organizationLabel}
+              {organization.label}
             </label>
             <input
               id="inquiry-organization"
               type="text"
-              placeholder={organizationPlaceholder}
+              placeholder={organization.placeholder}
               value={form.organization}
               onChange={(e) => update("organization", e.target.value)}
-              maxLength={150}
+              maxLength={organization.maxLength}
               aria-invalid={errors.organization ? "true" : "false"}
               aria-describedby={errors.organization ? "inquiry-organization-error" : undefined}
               className={inputClass}
@@ -257,15 +200,15 @@ const InquiryForm = ({
         <div className="space-y-6">
           <div className="space-y-1.5">
             <label htmlFor="inquiry-street" className={labelClass}>
-              Street Address
+              {street?.label ?? "Street Address"}
             </label>
             <input
               id="inquiry-street"
               type="text"
-              placeholder="123 Main St."
+              placeholder={street?.placeholder}
               value={form.street}
               onChange={(e) => update("street", e.target.value)}
-              maxLength={150}
+              maxLength={street?.maxLength}
               aria-invalid={errors.street ? "true" : "false"}
               aria-describedby={errors.street ? "inquiry-street-error" : undefined}
               className={inputClass}
@@ -279,15 +222,15 @@ const InquiryForm = ({
           <div className="grid gap-6 sm:grid-cols-3">
             <div className="space-y-1.5">
               <label htmlFor="inquiry-city" className={labelClass}>
-                City
+                {city?.label ?? "City"}
               </label>
               <input
                 id="inquiry-city"
                 type="text"
-                placeholder="Omaha"
+                placeholder={city?.placeholder}
                 value={form.city}
                 onChange={(e) => update("city", e.target.value)}
-                maxLength={100}
+                maxLength={city?.maxLength}
                 aria-invalid={errors.city ? "true" : "false"}
                 aria-describedby={errors.city ? "inquiry-city-error" : undefined}
                 className={inputClass}
@@ -300,15 +243,15 @@ const InquiryForm = ({
             </div>
             <div className="space-y-1.5">
               <label htmlFor="inquiry-state" className={labelClass}>
-                State
+                {state?.label ?? "State"}
               </label>
               <input
                 id="inquiry-state"
                 type="text"
-                placeholder="NE"
+                placeholder={state?.placeholder}
                 value={form.state}
                 onChange={(e) => update("state", e.target.value)}
-                maxLength={50}
+                maxLength={state?.maxLength}
                 aria-invalid={errors.state ? "true" : "false"}
                 aria-describedby={errors.state ? "inquiry-state-error" : undefined}
                 className={inputClass}
@@ -321,15 +264,15 @@ const InquiryForm = ({
             </div>
             <div className="space-y-1.5">
               <label htmlFor="inquiry-zip" className={labelClass}>
-                Zip Code
+                {zip?.label ?? "Zip Code"}
               </label>
               <input
                 id="inquiry-zip"
                 type="text"
-                placeholder="68127"
+                placeholder={zip?.placeholder}
                 value={form.zip}
                 onChange={(e) => update("zip", e.target.value)}
-                maxLength={10}
+                maxLength={zip?.maxLength}
                 aria-invalid={errors.zip ? "true" : "false"}
                 aria-describedby={errors.zip ? "inquiry-zip-error" : undefined}
                 className={inputClass}
@@ -347,15 +290,15 @@ const InquiryForm = ({
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="space-y-1.5">
           <label htmlFor="inquiry-email" className={labelClass}>
-            Email
+            {email?.label ?? "Email"}
           </label>
           <input
             id="inquiry-email"
             type="email"
-            placeholder="hello@example.com"
+            placeholder={email?.placeholder}
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
-            maxLength={255}
+            maxLength={email?.maxLength}
             aria-invalid={errors.email ? "true" : "false"}
             aria-describedby={errors.email ? "inquiry-email-error" : undefined}
             className={inputClass}
@@ -368,15 +311,16 @@ const InquiryForm = ({
         </div>
         <div className="space-y-1.5">
           <label htmlFor="inquiry-phone" className={labelClass}>
-            Phone <span className="normal-case text-muted-foreground/90">(optional)</span>
+            {phone?.label ?? "Phone"}{" "}
+            {!phone?.required && <span className="normal-case text-muted-foreground/90">(optional)</span>}
           </label>
           <input
             id="inquiry-phone"
             type="tel"
-            placeholder="(402) 555-0100"
+            placeholder={phone?.placeholder}
             value={form.phone}
             onChange={(e) => update("phone", e.target.value)}
-            maxLength={30}
+            maxLength={phone?.maxLength}
             aria-invalid={errors.phone ? "true" : "false"}
             aria-describedby={errors.phone ? "inquiry-phone-error" : undefined}
             className={inputClass}
@@ -391,7 +335,7 @@ const InquiryForm = ({
 
       <div className="space-y-1.5">
         <label htmlFor="inquiry-level" className={labelClass}>
-          {levelLabel}
+          {level?.label ?? "Level"}
         </label>
         <div className="relative">
           <select
@@ -403,7 +347,7 @@ const InquiryForm = ({
             className={`${inputClass} appearance-none pr-10`}
           >
             <option value="" disabled>
-              Select {levelLabel.toLowerCase()}
+              Select {(level?.label ?? "level").toLowerCase()}
             </option>
             {levelOptions.map((opt) => (
               <option key={opt} value={opt}>
@@ -425,15 +369,16 @@ const InquiryForm = ({
 
       <div className="space-y-1.5">
         <label htmlFor="inquiry-message" className={labelClass}>
-          Message <span className="normal-case text-muted-foreground/90">(optional)</span>
+          {message?.label ?? "Message"}{" "}
+          {!message?.required && <span className="normal-case text-muted-foreground/90">(optional)</span>}
         </label>
         <textarea
           id="inquiry-message"
           rows={4}
-          placeholder="Anything else we should know?"
+          placeholder={message?.placeholder}
           value={form.message}
           onChange={(e) => update("message", e.target.value)}
-          maxLength={2000}
+          maxLength={message?.maxLength}
           aria-invalid={errors.message ? "true" : "false"}
           aria-describedby={errors.message ? "inquiry-message-error" : undefined}
           className={`${inputClass} resize-none`}
@@ -457,7 +402,7 @@ const InquiryForm = ({
           disabled={submitting}
           className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {submitting ? "Sending..." : submitLabel}
+          {submitting ? "Sending..." : config.submitLabel}
         </button>
       </div>
     </form>
