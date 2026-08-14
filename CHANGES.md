@@ -2311,8 +2311,20 @@ saved to history or bookmarks looked identical to the homepage.
 `metadata` object**, so this needed a workaround. React 19 hoists a `<title>`
 rendered anywhere in the tree, which would have made it server-rendered — but
 this project is on **React 18.3.1**, so the title is set after mount by a new
-`src/components/SetDocumentTitle.tsx` (`'use client'`, `useEffect`, renders
-`null`). Title is now "Page Not Found | Heartland Plein Air Festival".
+`src/components/SetDocumentTitle.tsx` (`'use client'`, renders `null`). Title
+is now "Page Not Found | Heartland Plein Air Festival".
+
+A plain one-shot `useEffect` was **not** enough and shipped broken before being
+caught on the deployed page: the page streams, and Next writes the root
+layout's `<title>` into `<head>` on a later chunk than this component's
+hydration, so the title was set and then immediately lost. (The component was
+rendering correctly the whole time — its prop was visible in the RSC payload —
+which is what ruled out the more obvious explanations.) It now re-asserts the
+title on any `<head>` mutation via a `MutationObserver`, which wins regardless
+of chunk order; a `!==` guard keeps its own write from retriggering the
+observer. Verified on the deployed page: `document.title` holds after a 2.5s
+settle. Worth remembering if anything else ever tries to set the title
+client-side here.
 
 No SEO cost: the route already responds 404, which is what crawlers act on —
 this is purely the human-facing tab. **If this project ever upgrades to React
