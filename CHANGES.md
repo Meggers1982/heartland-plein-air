@@ -2250,15 +2250,31 @@ in Sanity" rule** — see the follow-up below to close it out.
 
 ### Added
 
-- `public/assets/sponsors/omaha-lancers.webp` (366×355, alpha preserved from
-  the supplied PNG — the white keyline is part of the mark, not a background)
-  and `public/assets/sponsors/linhart-construction.webp` (886×670). The
-  Linhart source was a JPEG on a flat white background, which would have shown
-  as a white box against the cream page (`--background: #FFE7C2`). The
-  background was knocked out to transparency with a corner flood-fill, so only
-  the *outer* white cleared — the white knockout text inside the red blocks
-  ("CONSTRUCTION, INC.") is enclosed and stayed opaque. Then trimmed to the
-  alpha bounding box so the mark fills its grid cell like the others.
+- `public/assets/sponsors/omaha-lancers.webp` (335×314) and
+  `public/assets/sponsors/linhart-construction.webp` (600×454).
+
+  Both sources arrived on a flat white background, which shows as a white box
+  against the cream page (`--background: #FFE7C2`). The Lancers PNG *reports*
+  an alpha channel but it is fully opaque (min/max both 255), so the white was
+  baked in and survived a naive convert — it rendered as a visible white square
+  on first deploy and was fixed in a follow-up commit. Both files now have the
+  background knocked out by a **corner flood-fill**, which clears only the
+  *outer* white: white that is enclosed by the artwork is never reached, so
+  Linhart's "CONSTRUCTION, INC." knockout text and the Lancers' white
+  "OMAHA LANCERS" / "1986 · 2026" lettering and helmet highlights all stay
+  opaque. (A naive "make every white pixel transparent" key would have
+  destroyed all of those.) Each is then trimmed to its alpha bounding box, so
+  the mark fills its grid cell instead of sitting inset behind dead padding.
+
+  **Sizing:** Sanity serves every other sponsor logo through
+  `urlFor().width(600)`, so 600px on the wide edge is the intrinsic size the
+  rest of the tier renders at. Linhart matches exactly. The Lancers source is
+  only 366×355, so it stays at its native 335×314 after trimming rather than
+  being upscaled — upscaling invents no detail and only bloats the file. This
+  costs nothing visible: the grid caps logo height at `h-32`/`md:h-40`
+  (128/160px), so at 160px tall the Lancers mark still renders at ~2.1× DPI.
+  On-page size is governed by that CSS cap, not the file, so all Silver logos
+  render at the same height regardless.
 - `src/lib/pendingSponsors.ts` — a small, clearly-temporary list of code-side
   sponsors (`name`, `tier`, `logoSrc`, `alt`, `url`). Alt text follows the
   existing lowercase `"<company> logo"` convention. URLs verified live:
