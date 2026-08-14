@@ -8,6 +8,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { stegaClean } from "@sanity/client/stega";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
@@ -44,7 +45,7 @@ const Gallery = ({ galleryArtists }: { galleryArtists: Artist[] }) => {
 
   const filteredArtists = mediumFilter === "all"
     ? galleryArtists
-    : galleryArtists.filter((a) => a.medium === mediumFilter);
+    : galleryArtists.filter((a) => stegaClean(a.medium) === mediumFilter);
 
   useEffect(() => {
     window.scrollTo(0, 0);

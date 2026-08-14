@@ -12,6 +12,7 @@ import CountdownBanner from "@/components/CountdownBanner";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 import LocationsMap from "@/components/LocationsMap";
 import RichText from "@/components/RichText";
+import { stegaClean } from "@sanity/client/stega";
 import { cn } from "@/lib/utils";
 import { JsonLd, breadcrumbSchema, ticketOffers, SITE_URL } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
@@ -92,7 +93,7 @@ const slugify = (s: string) =>
 // real public events to surface in search anyway.
 function buildScheduleEventsSchema(days: ScheduleDay[]) {
   return days
-    .filter((d) => d.audience !== "artists" && d.events && d.events.length > 0)
+    .filter((d) => stegaClean(d.audience) !== "artists" && d.events && d.events.length > 0)
     .flatMap((d) =>
       d.events!
         .filter((ev) => ev.address && !internalOnlyEventNames.has(ev.name))
@@ -153,8 +154,8 @@ const Schedule = ({
   );
 
   const filteredDays = useMemo(() => {
-    if (eventFilter === "public") return days.filter((d) => d.audience === "public");
-    if (eventFilter === "ticketed") return days.filter((d) => d.audience === "ticketed");
+    if (eventFilter === "public") return days.filter((d) => stegaClean(d.audience) === "public");
+    if (eventFilter === "ticketed") return days.filter((d) => stegaClean(d.audience) === "ticketed");
     if (eventFilter === "competitions")
       return days.filter((d) =>
         d.events?.some((e) => e.name.toLowerCase().includes("competition")),
@@ -279,9 +280,9 @@ const Schedule = ({
                     {d.dayShort}
                   </p>
                   <span
-                    className={`inline-flex items-center rounded-full border px-3 py-1 font-body text-xs font-semibold uppercase tracking-wider ${audienceStyle[d.audience]}`}
+                    className={`inline-flex items-center rounded-full border px-3 py-1 font-body text-xs font-semibold uppercase tracking-wider ${audienceStyle[stegaClean(d.audience)]}`}
                   >
-                    {audienceLabel[d.audience]}
+                    {audienceLabel[stegaClean(d.audience)]}
                   </span>
                 </div>
                 <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">

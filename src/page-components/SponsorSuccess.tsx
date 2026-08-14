@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
-import { ICON_MAP } from "@/sanity/lib/iconMap";
+import { getIcon } from "@/sanity/lib/iconMap";
 import type { SponsorTier } from "@/sanity/queries/sponsors";
 
 const SponsorSuccess = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
@@ -19,7 +19,7 @@ const SponsorSuccess = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
       recapItems={sponsorTiers.map((tier) => ({
         name: tier.name,
         price: tier.price,
-        icon: ICON_MAP[tier.icon],
+        icon: getIcon(tier.icon),
         detail: tier.benefits.join(" · "),
       }))}
       backHref="/sponsors"

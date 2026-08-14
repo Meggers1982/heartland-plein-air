@@ -1,6 +1,6 @@
 import type { Image, PortableTextBlock } from "sanity";
 
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export type Audience = "public" | "ticketed" | "artists";
 
@@ -70,33 +70,37 @@ export type FestivalLocation = {
   events?: LocationEvent[];
 };
 
-const TAGS = { next: { revalidate: 3600, tags: ["scheduleDay", "homepageHighlight", "festivalLocation"] } };
+const TAGS = ["scheduleDay", "homepageHighlight", "festivalLocation"];
 
 export async function getScheduleDays() {
-  return client.fetch<ScheduleDay[]>(`*[_type == "scheduleDay"] | order(orderRank)`, {}, TAGS);
+  const { data } = await sanityFetch({
+    query: `*[_type == "scheduleDay"] | order(orderRank)`,
+    tags: TAGS,
+  });
+  return data as ScheduleDay[];
 }
 
 export async function getHomepageHighlights() {
-  return client.fetch<HomepageHighlight[]>(
-    `*[_type == "homepageHighlight"] | order(orderRank) {
+  const { data } = await sanityFetch({
+    query: `*[_type == "homepageHighlight"] | order(orderRank) {
       ...,
       "day": day->{_id, dayShort, dayLong, logo, logoAlt, logoUrl}
     }`,
-    {},
-    TAGS
-  );
+    tags: TAGS,
+  });
+  return data as HomepageHighlight[];
 }
 
 export async function getFestivalLocations() {
-  return client.fetch<FestivalLocation[]>(
-    `*[_type == "festivalLocation"] | order(orderRank) {
+  const { data } = await sanityFetch({
+    query: `*[_type == "festivalLocation"] | order(orderRank) {
       ...,
       "events": events[] {
         ...,
         "day": day->{_id, dayShort, dayLong}
       }
     }`,
-    {},
-    TAGS
-  );
+    tags: TAGS,
+  });
+  return data as FestivalLocation[];
 }

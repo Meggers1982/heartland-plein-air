@@ -4,6 +4,7 @@ import { getFunders } from "@/sanity/queries/sponsors";
 import { getFestivalLocations, getHomepageHighlights } from "@/sanity/queries/schedule";
 import { getFeaturedFaqItems } from "@/sanity/queries/faq";
 import { getArtists } from "@/sanity/queries/artists";
+import { getHomepageSections } from "@/sanity/queries/homepage";
 
 export const metadata: Metadata = {
   title: "Heartland Plein Air Festival: See Art Made in the Open",
@@ -13,15 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [funders, homepageHighlights, festivalLocations, faqs, artists] = await Promise.all([
-    getFunders(),
-    getHomepageHighlights(),
-    getFestivalLocations(),
-    getFeaturedFaqItems(),
-    getArtists(),
-  ]);
+  const [sections, funders, homepageHighlights, festivalLocations, faqs, artists] =
+    await Promise.all([
+      getHomepageSections(),
+      getFunders(),
+      getHomepageHighlights(),
+      getFestivalLocations(),
+      getFeaturedFaqItems(),
+      getArtists(),
+    ]);
   return (
     <Index
+      sections={sections}
       funders={funders}
       homepageHighlights={homepageHighlights}
       festivalLocations={festivalLocations}

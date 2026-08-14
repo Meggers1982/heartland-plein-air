@@ -1,4 +1,4 @@
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export type OpenDivisionQuickFact = {
   _id: string;
@@ -8,9 +8,9 @@ export type OpenDivisionQuickFact = {
 };
 
 export async function getQuickFacts() {
-  return client.fetch<OpenDivisionQuickFact[]>(
-    `*[_type == "openDivisionQuickFact"] | order(orderRank)`,
-    {},
-    { next: { revalidate: 3600, tags: ["openDivisionQuickFact"] } }
-  );
+  const { data } = await sanityFetch({
+    query: `*[_type == "openDivisionQuickFact"] | order(orderRank)`,
+    tags: ["openDivisionQuickFact"],
+  });
+  return data as OpenDivisionQuickFact[];
 }

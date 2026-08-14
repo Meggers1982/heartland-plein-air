@@ -1282,12 +1282,129 @@ async function migrateArtists() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// homepage singleton (Phase 5b) — seeds the section order the homepage
+// already had before section composition existed, so cutover is identical.
+// ---------------------------------------------------------------------------
+
+async function migrateHomepage() {
+  console.log("Uploading homepage singleton...");
+
+  const heroBg = await uploadImageAsset("/assets/spring-greens-djgroesser.webp");
+  const aboutImg = await uploadImageAsset("/assets/plein-air-painter-niobrara-river.webp");
+
+  const sections = [
+    {
+      _key: "hero",
+      _type: "heroSection",
+      eyebrow: "September 13–19, 2026",
+      title: "Heartland Plein Air Festival",
+      subtitle:
+        "Art, out in the open. Twenty-five nationally recognized artists, painting Douglas and Sarpy County exactly as it looks in September.",
+      backgroundImage: heroBg,
+      primaryCta: { label: "View Schedule", href: "/schedule" },
+      secondaryCta: { label: "Buy Tickets", href: "/tickets" },
+      tertiaryCta: { label: "Meet the Artists", href: "/artists" },
+    },
+    {
+      _key: "about",
+      _type: "aboutSection",
+      eyebrow: "About the Festival",
+      title: "Art Made Here",
+      paragraphs: [
+        'Plein air is French for "open air" — painting done outside, on location, in direct response to the light and landscape in front of you. No studio, no reference photos. Just the artist and the scene as it actually is.',
+        "During festival week, 25 nationally recognized artists spread out across more than 20 locations in Douglas and Sarpy Counties — historic neighborhoods, scenic overlooks, landmarks, and everyday places made interesting by the right set of eyes. The public is welcome to follow along, watch the work happen, and talk to the artists as they paint.",
+        "Every piece in the final exhibition was made that week, on-site. What you're seeing — and buying — is a record of a specific place at a specific moment in September 2026. That's not something you can replicate.",
+      ],
+      linkLabel: "Read Our Full Story →",
+      linkHref: "/about",
+      image: aboutImg,
+    },
+    {
+      _key: "highlights",
+      _type: "festivalHighlightsSection",
+      eyebrow: "What to Expect",
+      title: "Festival Highlights",
+      highlights: [
+        {
+          _key: "h0",
+          icon: "Users",
+          title: "25 National Artists",
+          description:
+            "Twenty-five nationally recognized painters, working outdoors across the metro for a full week.",
+        },
+        {
+          _key: "h1",
+          icon: "MapPin",
+          title: "20+ Scenic Locations",
+          description:
+            "Parks, historic neighborhoods, scenic overlooks, and everyday places made interesting by the right set of eyes.",
+        },
+        {
+          _key: "h2",
+          icon: "Eye",
+          title: "Watch Artists Create",
+          description:
+            "Follow artists across the metro, watch the work happen in real time, and talk to them as they paint.",
+        },
+        {
+          _key: "h3",
+          icon: "ShoppingBag",
+          title: "Exhibition & Auction",
+          description:
+            "Every painting in the exhibition was made on-site that week — what you're buying is a record of this place in September 2026.",
+        },
+      ],
+    },
+    { _key: "scheduleTeaser", _type: "scheduleTeaserSection" },
+    {
+      _key: "vipPass",
+      _type: "vipPassTeaserSection",
+      eyebrow: "Get Closer to the Art",
+      title: "Collector VIP Pass",
+      description:
+        "Most festival events are free and open to the public. For $125, the Collector VIP Pass gets you a private artist Meet & Greet, priority seating at the Judge's Lecture, the Collectors Preview Reception and Awards Presentation, and priority seating at the live auction. Prefer a standalone ticket? The lecture is $25 and the Collectors Preview Reception is $95.",
+      ctaLabel: "View Tickets",
+      ctaHref: "/tickets",
+    },
+    {
+      _key: "locations",
+      _type: "paintingLocationsSection",
+      eyebrow: "Where the Art Happens",
+      title: "Painting Locations",
+      description:
+        "More than 20 scenic spots across Douglas & Sarpy County — historic neighborhoods, parks, overlooks, and everyday places worth a second look.",
+      helperText:
+        "Filter by day to see where artists will be painting, then click a pin on the map for location details and directions.",
+    },
+    { _key: "artistSpotlight", _type: "artistSpotlightSection" },
+    { _key: "sponsors", _type: "sponsorsSection" },
+    {
+      _key: "faqTeaser",
+      _type: "faqTeaserSection",
+      eyebrow: "Questions?",
+      title: "Frequently Asked Questions",
+      linkLabel: "View All FAQs",
+      linkHref: "/faq",
+    },
+    { _key: "newsletter", _type: "newsletterCtaSection" },
+  ];
+
+  await client.createOrReplace({
+    _id: "homepage",
+    _type: "homepage",
+    sections,
+  });
+  console.log(`  homepage: ${sections.length} sections`);
+}
+
 const SECTIONS = {
   sponsors: migrateSponsors,
   schedule: migrateSchedule,
   adSizes: migrateAdSizes,
   faq: migrateFaq,
   artists: migrateArtists,
+  homepage: migrateHomepage,
 };
 
 async function main() {

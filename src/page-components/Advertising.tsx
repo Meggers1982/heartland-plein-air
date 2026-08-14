@@ -16,7 +16,7 @@ import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { ICON_MAP } from "@/sanity/lib/iconMap";
+import { getIcon } from "@/sanity/lib/iconMap";
 import type { AdSize } from "@/sanity/queries/advertising";
 import { AD_DEADLINE } from "@/lib/adDeadline";
 
@@ -84,7 +84,7 @@ const Advertising = ({ adSizes }: { adSizes: AdSize[] }) => {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {adSizes.map((size, i) => {
-              const Icon = ICON_MAP[size.icon];
+              const Icon = getIcon(size.icon);
               return (
               <AnimatedSection key={size._id} delay={i * 80} className="h-full">
                 <div className="flex h-full flex-col rounded-lg bg-card p-8 shadow-sm">

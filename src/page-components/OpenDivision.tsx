@@ -17,7 +17,7 @@ import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
 import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { ICON_MAP } from "@/sanity/lib/iconMap";
+import { getIcon } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 
 const paintingRequirements = [
@@ -85,7 +85,7 @@ const OpenDivision = ({ quickFacts }: { quickFacts: OpenDivisionQuickFact[] }) =
           </AnimatedSection>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {quickFacts.map((item, i) => {
-              const Icon = ICON_MAP[item.icon];
+              const Icon = getIcon(item.icon);
               return (
                 <AnimatedSection key={item._id} delay={i * 100} className="h-full">
                   <div className="group flex h-full flex-col rounded-lg bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">

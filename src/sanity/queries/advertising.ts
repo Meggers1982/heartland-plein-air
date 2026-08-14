@@ -1,4 +1,4 @@
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export type AdSize = {
   _id: string;
@@ -9,9 +9,9 @@ export type AdSize = {
 };
 
 export async function getAdSizes() {
-  return client.fetch<AdSize[]>(
-    `*[_type == "adSize"] | order(orderRank)`,
-    {},
-    { next: { revalidate: 3600, tags: ["adSize"] } }
-  );
+  const { data } = await sanityFetch({
+    query: `*[_type == "adSize"] | order(orderRank)`,
+    tags: ["adSize"],
+  });
+  return data as AdSize[];
 }
