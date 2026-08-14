@@ -1,6 +1,6 @@
 import type { Image } from "sanity";
 
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export type Sponsor = {
   _id: string;
@@ -23,31 +23,31 @@ export type SponsorTier = {
 
 export type SponsorTierWithSponsors = SponsorTier & { sponsors: Sponsor[] };
 
-const REVALIDATE = { next: { revalidate: 3600, tags: ["sponsor", "sponsorTier"] } };
+const TAGS = ["sponsor", "sponsorTier"];
 
 export async function getFunders() {
-  return client.fetch<Sponsor[]>(
-    `*[_type == "sponsor" && !defined(tier)] | order(orderRank)`,
-    {},
-    REVALIDATE
-  );
+  const { data } = await sanityFetch({
+    query: `*[_type == "sponsor" && !defined(tier)] | order(orderRank)`,
+    tags: TAGS,
+  });
+  return data as Sponsor[];
 }
 
 export async function getSponsorTiers() {
-  return client.fetch<SponsorTier[]>(
-    `*[_type == "sponsorTier"] | order(orderRank)`,
-    {},
-    REVALIDATE
-  );
+  const { data } = await sanityFetch({
+    query: `*[_type == "sponsorTier"] | order(orderRank)`,
+    tags: TAGS,
+  });
+  return data as SponsorTier[];
 }
 
 export async function getSponsorTiersWithSponsors() {
-  return client.fetch<SponsorTierWithSponsors[]>(
-    `*[_type == "sponsorTier"] | order(orderRank) {
+  const { data } = await sanityFetch({
+    query: `*[_type == "sponsorTier"] | order(orderRank) {
       ...,
       "sponsors": *[_type == "sponsor" && references(^._id)] | order(orderRank)
     }`,
-    {},
-    REVALIDATE
-  );
+    tags: TAGS,
+  });
+  return data as SponsorTierWithSponsors[];
 }

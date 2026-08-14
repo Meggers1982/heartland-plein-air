@@ -9,7 +9,7 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
-import { ICON_MAP } from "@/sanity/lib/iconMap";
+import { getIcon } from "@/sanity/lib/iconMap";
 import { urlFor } from "@/sanity/lib/image";
 import type { SponsorTierWithSponsors, Sponsor } from "@/sanity/queries/sponsors";
 
@@ -135,7 +135,7 @@ const Sponsors = ({
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {sponsorTiers.map((tier, i) => {
-              const Icon = ICON_MAP[tier.icon];
+              const Icon = getIcon(tier.icon);
               return (
               <AnimatedSection key={tier._id} delay={i * 80} className="h-full">
                 <div className="flex h-full flex-col rounded-lg bg-card p-8 shadow-sm">

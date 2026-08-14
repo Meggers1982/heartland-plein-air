@@ -1,6 +1,6 @@
 import type { Image } from "sanity";
 
-import { client } from "@/sanity/client";
+import { sanityFetch } from "@/sanity/lib/live";
 
 export type ArtistPainting = {
   _key: string;
@@ -26,24 +26,28 @@ export type Artist = {
   paintings?: ArtistPainting[];
 };
 
-const TAGS = { next: { revalidate: 3600, tags: ["artist"] } };
+const TAGS = ["artist"];
 
 export async function getArtists() {
-  return client.fetch<Artist[]>(
-    `*[_type == "artist"] | order(orderRank) { ..., "slug": slug.current }`,
-    {},
-    TAGS
-  );
+  const { data } = await sanityFetch({
+    query: `*[_type == "artist"] | order(orderRank) { ..., "slug": slug.current }`,
+    tags: TAGS,
+  });
+  return data as Artist[];
 }
 
 export async function getGalleryArtists() {
-  return client.fetch<Artist[]>(
-    `*[_type == "artist" && defined(medium) && count(paintings) > 0] | order(orderRank) { ..., "slug": slug.current }`,
-    {},
-    TAGS
-  );
+  const { data } = await sanityFetch({
+    query: `*[_type == "artist" && defined(medium) && count(paintings) > 0] | order(orderRank) { ..., "slug": slug.current }`,
+    tags: TAGS,
+  });
+  return data as Artist[];
 }
 
 export async function getArtistCount() {
-  return client.fetch<number>(`count(*[_type == "artist"])`, {}, TAGS);
+  const { data } = await sanityFetch({
+    query: `count(*[_type == "artist"])`,
+    tags: TAGS,
+  });
+  return data as number;
 }

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
-import { ICON_MAP } from "@/sanity/lib/iconMap";
+import { getIcon } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 
 const OpenDivisionSuccess = ({
@@ -23,7 +23,7 @@ const OpenDivisionSuccess = ({
       recapTitle="Open Division Quick Facts"
       recapItems={quickFacts.map((fact) => ({
         name: fact.title,
-        icon: ICON_MAP[fact.icon],
+        icon: getIcon(fact.icon),
         detail: fact.description,
       }))}
       backHref="/open-division"
