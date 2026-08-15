@@ -2572,6 +2572,53 @@ in a comment above the helper.
 
 ---
 
+## 2026-08-15 — Restored the Original Display Order (69 Documents Were Scrambled)
+
+Follow-on to the LexoRank fix. That conversion deliberately preserved the
+*displayed* order so nothing moved unexpectedly — but the displayed order was
+itself wrong, so the fix locked in the damage.
+
+**The scramble:** the seed script's `a${i}` counters were compared as strings by
+`order(orderRank)`, so `a10`–`a24` sorted between `a1` and `a2`. Any list with
+ten or more entries rendered out of sequence. This had been live since the
+2026-08-13 migration.
+
+| Type | Docs | Moved |
+|---|---|---|
+| artist | 25 | 23 |
+| faqItem | 31 | 29 |
+| sponsor | 29 | 17 |
+| *(all other types — under 10 entries each)* | 44 | 0 |
+
+Concretely: on `/artists`, Jacalyn Beam rendered 13th, Bob Beck 19th, Michele
+Byrne 20th. On `/sponsors`, South O Roofing and Lovely Brew Co. sat 3rd and 4th
+in Silver instead of 11th and 12th. FAQ items were ranked with a single *global*
+index across all categories, so the scramble crossed category boundaries — "How
+many artists participate in the festival?" opened nothing, sitting 5th in
+Artists & Events.
+
+**Fixed without guesswork.** The snapshot taken before the LexoRank conversion
+still held every original `a${i}` value, so documents were re-sorted on the
+**numeric** value of the original rank — the real authoring order — and given
+fresh sequential LexoRanks. That the restored artist order came out as clean
+alphabetical-by-surname with Rick J. Delanty (the judge) deliberately appended
+last is the confirmation that this reconstructed intent rather than imposing a
+new one.
+
+Verified on the live `/artists` page after the webhook revalidated: Acuna,
+Bailey, Beam, Beck, Byrne … Wysocki, Delanty.
+
+### Dataset audit run at the same time
+
+Clean: no unpublished drafts, no sponsor logo/alt mismatches, all 25 artists
+have headshot + alt text + bio + website, all 9 schedule days have events, all 7
+festival locations have coordinates, no broken tier references, no orphaned FAQ
+items.
+
+Two content gaps found, both needing someone else's material — see follow-ups.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
@@ -2640,6 +2687,11 @@ in a comment above the helper.
    `/studio` and upload the image to its `logo` field, then fill `alt` using
    the lowercase `"<company> logo"` convention. (This instruction used to point
    at `src/data/sponsors.ts`, which the Sanity migration deleted.)
+2b. **Fernando Micheli has no paintings.** He is the only one of the 25 artists
+   with none — the other 24 supply 73 between them. The `/gallery` page is built
+   from artists' `paintings` arrays, so he is absent from it entirely while
+   every colleague appears. Needs images from him, added in Studio under
+   Artists → Fernando Micheli → paintings.
 3. ~~**Migrate the two code-side sponsors into Sanity and delete
    `src/lib/pendingSponsors.ts`.**~~ **DONE 2026-08-15** — see the entry above.
    Both are now `sponsor` documents editable in Studio, `pendingSponsors.ts`
