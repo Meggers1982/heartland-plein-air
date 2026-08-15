@@ -8,6 +8,7 @@ import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import FestivalContactInfo from "@/components/FestivalContactInfo";
+import type { ContactInfo } from "@/sanity/queries/pages";
 
 type RecapItem = {
   name: string;
@@ -20,6 +21,7 @@ type RecapItem = {
 };
 
 type InquirySuccessProps = {
+  contactInfo: ContactInfo;
   eyebrow: string;
   title: string;
   intro: string;
@@ -38,6 +40,7 @@ const InquirySuccess = ({
   recapItems,
   backHref,
   backLabel,
+  contactInfo,
   children,
 }: InquirySuccessProps) => {
   return (
@@ -166,7 +169,7 @@ const InquirySuccess = ({
           </AnimatedSection>
           <AnimatedSection delay={100}>
             <div className="rounded-lg bg-card p-8 shadow-sm md:p-10">
-              <FestivalContactInfo />
+              <FestivalContactInfo info={contactInfo} />
             </div>
           </AnimatedSection>
         </div>

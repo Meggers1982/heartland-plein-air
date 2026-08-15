@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Contact from "@/page-components/Contact";
 import { getFormConfig } from "@/sanity/queries/formConfig";
+import { getContactInfo } from "@/sanity/queries/pages";
 
 export const metadata: Metadata = {
   title: "Contact the Plein Air Festival Team: Ralston, NE",
@@ -27,6 +28,9 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const config = await getFormConfig("contact");
-  return <Contact config={config} />;
+  const [config, contactInfo] = await Promise.all([
+    getFormConfig("contact"),
+    getContactInfo(),
+  ]);
+  return <Contact config={config} contactInfo={contactInfo} />;
 }

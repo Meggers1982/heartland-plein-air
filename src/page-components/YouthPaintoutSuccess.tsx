@@ -2,37 +2,12 @@
 import { useEffect } from "react";
 import { Shirt, ClipboardCheck, MapPin, Palette, CalendarPlus, Printer } from "lucide-react";
 import InquirySuccess from "@/components/InquirySuccess";
+import type { ContactInfo, TicketsPage } from "@/sanity/queries/pages";
+import { getIcon } from "@/sanity/lib/iconMap";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 
-const dayOfInstructions = [
-  {
-    name: "Wear clothes that can get paint on them",
-    icon: Shirt,
-    detail:
-      "Painting outside is messy, and paint does not always wash out. Wear old clothes and shoes you would not be upset about staining — an apron or an old shirt over the top is a good idea too.",
-  },
-  {
-    name: "No ticket needed — just give your name",
-    icon: ClipboardCheck,
-    detail:
-      "There is nothing to print and nothing to show when you get there. Go to the registration table, give your first and last name, and you will be checked in. You are already on the list from this form.",
-  },
-  {
-    name: "Arrive by 9:45 AM to check in",
-    icon: MapPin,
-    detail:
-      "Saturday, September 12, 10 AM–Noon at Wildewood Park, 8000 Ralston Ave., Ralston. Please check in no later than 9:45 AM, and plan for a parent or guardian to stay in the park for the full session.",
-  },
-  {
-    name: "Come back that evening",
-    icon: Palette,
-    featured: true,
-    detail:
-      "The work made that morning is celebrated at the Youth Art Show Reception, 5–6:30 PM at the Baright Public Library, 5555 S. 77th St. It is free and open to everyone, so bring the whole family. Sponsored by Applewood Hy-Vee.",
-  },
-];
 
-const YouthPaintoutSuccess = () => {
+const YouthPaintoutSuccess = ({ contactInfo, page }: { contactInfo: ContactInfo; page: TicketsPage }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -56,11 +31,12 @@ const YouthPaintoutSuccess = () => {
 
   return (
     <InquirySuccess
+      contactInfo={contactInfo}
       eyebrow="You're Registered"
       title="See You at the Youth Paintout"
       intro="You're on the list — there's nothing else to do to hold your spot. Here's what you'll want to know before Saturday, September 12, whether you're the young artist coming to paint or the parent or guardian bringing them."
       recapTitle="What to Do on the Day"
-      recapItems={dayOfInstructions}
+      recapItems={page.youthPaintoutDayOf.map((i) => ({ ...i, icon: getIcon(i.icon) }))}
       backHref="/tickets"
       backLabel="Back to Tickets"
     >

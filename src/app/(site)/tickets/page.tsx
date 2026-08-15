@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Tickets from "@/page-components/Tickets";
 import { getFormConfig } from "@/sanity/queries/formConfig";
+import { getTicketsPage } from "@/sanity/queries/pages";
 
 export const metadata: Metadata = {
   title: "Buy Plein Air Festival Tickets: Get Closer to the Art",
@@ -28,5 +29,6 @@ export const metadata: Metadata = {
 
 export default async function TicketsPage() {
   const youthPaintoutFormConfig = await getFormConfig("youthPaintout");
-  return <Tickets youthPaintoutFormConfig={youthPaintoutFormConfig} />;
+  const page = await getTicketsPage();
+  return <Tickets page={page} youthPaintoutFormConfig={youthPaintoutFormConfig} />;
 }

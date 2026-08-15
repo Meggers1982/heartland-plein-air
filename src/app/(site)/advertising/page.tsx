@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Advertising from "@/page-components/Advertising";
 import { getAdSizes } from "@/sanity/queries/advertising";
 import { getFormConfig } from "@/sanity/queries/formConfig";
+import { getAdvertisingPage } from "@/sanity/queries/pages";
 
 export const metadata: Metadata = {
   title: "Advertise in the Plein Air Festival Catalog: Omaha",
@@ -28,9 +29,10 @@ export const metadata: Metadata = {
 };
 
 export default async function AdvertisingPage() {
-  const [adSizes, inquiryFormConfig] = await Promise.all([
+  const [adSizes, inquiryFormConfig, page] = await Promise.all([
     getAdSizes(),
     getFormConfig("advertisingInquiry"),
+    getAdvertisingPage(),
   ]);
-  return <Advertising adSizes={adSizes} inquiryFormConfig={inquiryFormConfig} />;
+  return <Advertising page={page} adSizes={adSizes} inquiryFormConfig={inquiryFormConfig} />;
 }

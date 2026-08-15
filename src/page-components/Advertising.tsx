@@ -19,22 +19,20 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import type { AdSize } from "@/sanity/queries/advertising";
 import type { FormConfig } from "@/sanity/queries/formConfig";
+import type { AdvertisingPage } from "@/sanity/queries/pages";
 import { AD_DEADLINE } from "@/lib/adDeadline";
 
-const fileSpecs = [
-  { icon: FileText, text: "PDF format preferred, with no crop marks" },
-  { icon: Ruler, text: "300 dpi resolution" },
-  { icon: Palette, text: "CMYK color" },
-  { icon: Layers, text: "All fonts and images embedded" },
-];
 
 const Advertising = ({
   adSizes,
   inquiryFormConfig,
+  page,
 }: {
   adSizes: AdSize[];
   inquiryFormConfig: FormConfig;
+  page: AdvertisingPage;
 }) => {
+  const { fileSpecs } = page;
   const [deadlinePassed, setDeadlinePassed] = useState(false);
 
   useEffect(() => {
@@ -132,18 +130,21 @@ const Advertising = ({
             </p>
           </AnimatedSection>
           <div className="grid gap-4 sm:grid-cols-2">
-            {fileSpecs.map((spec, i) => (
-              <AnimatedSection key={spec.text} delay={i * 80}>
+            {fileSpecs.map((spec, i) => {
+              const Icon = getIcon(spec.icon);
+              return (
+              <AnimatedSection key={spec._key} delay={i * 80}>
                 <div className="flex items-center gap-4 rounded-lg bg-card p-6 shadow-sm">
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <spec.icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                    <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
                   </div>
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
                     {spec.text}
                   </p>
                 </div>
               </AnimatedSection>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

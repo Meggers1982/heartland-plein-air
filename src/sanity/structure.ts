@@ -35,19 +35,42 @@ const ORDERABLE_GROUPS: { type: string; title: string }[][] = [
 
 const ORDERABLE_TYPES = ORDERABLE_GROUPS.flat();
 
+// Page-level singletons: one document each, pinned to a fixed _id rather than
+// listed as a creatable collection. These hold copy that used to be hardcoded
+// in the page components.
+const PAGE_SINGLETONS: { id: string; title: string }[] = [
+  { id: "aboutPage", title: "About Page" },
+  { id: "ticketsPage", title: "Tickets Page" },
+  { id: "openDivisionPage", title: "Open Division Page" },
+  { id: "sponsorsPage", title: "Sponsors Page" },
+  { id: "advertisingPage", title: "Advertising Page" },
+  { id: "contactInfo", title: "Contact Details" },
+];
+
 // Types hidden from the generic document list: orderable ones (already have
-// their own drag-reorderable list item above) and "homepage", which is a
-// singleton pinned to a fixed document rather than a creatable collection.
-const HIDDEN_TYPES = [...ORDERABLE_TYPES.map(({ type }) => type), "homepage"];
+// their own drag-reorderable list item above), the page singletons, and
+// "homepage" — all pinned to fixed documents rather than creatable collections.
+const HIDDEN_TYPES = [
+  ...ORDERABLE_TYPES.map(({ type }) => type),
+  ...PAGE_SINGLETONS.map(({ id }) => id),
+  "homepage",
+];
 
 export const structure: StructureResolver = (S, context) =>
   S.list()
     .title("Content")
     .items([
+      // Page copy, in roughly the order the pages appear in the site nav.
       S.listItem()
         .id("homepage")
         .title("Homepage")
         .child(S.document().schemaType("homepage").documentId("homepage")),
+      ...PAGE_SINGLETONS.map(({ id, title }) =>
+        S.listItem()
+          .id(id)
+          .title(title)
+          .child(S.document().schemaType(id).documentId(id))
+      ),
       S.divider(),
       ...ORDERABLE_GROUPS.flatMap((group, i) => [
         // Separator before every group except the first — the divider under

@@ -11,9 +11,9 @@ import BackToTop from "@/components/BackToTop";
 import FestivalContactInfo from "@/components/FestivalContactInfo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import type { FormConfig } from "@/sanity/queries/formConfig";
+import type { ContactInfo } from "@/sanity/queries/pages";
 import { buildZodSchemaFromConfig } from "@/lib/buildZodSchemaFromConfig";
 
-const topicOptions = ["Sponsorship", "Advertising", "Tickets", "General Questions"] as const;
 
 type FormState = {
   name: string;
@@ -26,7 +26,13 @@ type FormErrors = Partial<Record<keyof FormState, string>>;
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojopwyp";
 
-const Contact = ({ config }: { config: FormConfig }) => {
+const Contact = ({
+  config,
+  contactInfo,
+}: {
+  config: FormConfig;
+  contactInfo: ContactInfo;
+}) => {
   const router = useRouter();
   const getField = (key: string) => config.fields.find((f) => f.key === key);
   const contactSchema = buildZodSchemaFromConfig(config.fields);
@@ -110,7 +116,7 @@ const Contact = ({ config }: { config: FormConfig }) => {
         <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-5">
           {/* Contact info */}
           <AnimatedSection className="md:col-span-2">
-            <FestivalContactInfo headingLevel="h2" />
+            <FestivalContactInfo info={contactInfo} headingLevel="h2" />
           </AnimatedSection>
 
           {/* Form */}
@@ -178,7 +184,7 @@ const Contact = ({ config }: { config: FormConfig }) => {
                         <option value="" disabled>
                           What can we help with?
                         </option>
-                        {topicOptions.map((topic) => (
+                        {contactInfo.contactTopics.map((topic) => (
                           <option key={topic} value={topic}>
                             {topic}
                           </option>

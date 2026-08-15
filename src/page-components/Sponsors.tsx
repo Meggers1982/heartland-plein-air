@@ -13,6 +13,7 @@ import { getIcon } from "@/sanity/lib/iconMap";
 import { urlFor } from "@/sanity/lib/image";
 import type { SponsorTierWithSponsors, Sponsor } from "@/sanity/queries/sponsors";
 import type { FormConfig } from "@/sanity/queries/formConfig";
+import type { SponsorsPage } from "@/sanity/queries/pages";
 
 // Logo size steps down by level — Platinum reads largest, Bronze is name-only.
 // Column count matters as much as cell height: several logos are very wide
@@ -44,42 +45,19 @@ const levelLayout: Record<string, { grid: string; cell: string; name: string }> 
   },
 };
 
-const namedOpportunities = [
-  {
-    title: "Artist Awards — Professional Artists",
-    description:
-      "Best of Show $4,000 · 2nd Place $2,000 · 3rd Place $1,000. Best of the Creative Districts (Ralston, Dundee, Benson, Castle & Cathedral) — $500 each. Best Ralston Historical Building — $500 (sponsored by Ralston Archives Museum). Three Honorable Mentions at $250 each.",
-  },
-  {
-    title: "Artist Awards — Open Category",
-    description:
-      "1st Place $500 · 2nd Place $300 · 3rd Place $200. Three Honorable Mentions at $100 each.",
-  },
-  {
-    title: "Collectors Gala Reception",
-    description:
-      "Sponsor the festival's signature collector event, up to $10,000.",
-  },
-  {
-    title: "Advertising",
-    description: "Provide matching funds for the festival's advertising grant.",
-  },
-  {
-    title: "General Support",
-    description:
-      "Support the 2026 or 2027 Plein Air Festival, or future Creative District events.",
-  },
-];
 
 const Sponsors = ({
   funders,
   sponsorTiers,
   inquiryFormConfig,
+  page,
 }: {
   funders: Sponsor[];
   sponsorTiers: SponsorTierWithSponsors[];
   inquiryFormConfig: FormConfig;
+  page: SponsorsPage;
 }) => {
+  const { namedOpportunities } = page;
   // The shared `funders` list also feeds the footer strip and the homepage.
   // Only this page's grid honours `hideFromPartnersGrid`.
   const partnersGrid = funders.filter((s) => !s.hideFromPartnersGrid);

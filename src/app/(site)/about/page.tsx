@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import About from "@/page-components/About";
+import { getAboutPage } from "@/sanity/queries/pages";
 
 export const metadata: Metadata = {
   title: "Learn About the Plein Air Festival: Omaha, NE 2026",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
-  return <About />;
+export default async function AboutPage() {
+  const page = await getAboutPage();
+  return <About page={page} />;
 }

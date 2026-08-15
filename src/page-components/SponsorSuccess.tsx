@@ -1,17 +1,23 @@
 'use client';
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
+import type { ContactInfo } from "@/sanity/queries/pages";
 import SponsorPaymentForm from "@/components/SponsorPaymentForm";
 import { getIcon } from "@/sanity/lib/iconMap";
 import type { SponsorTier } from "@/sanity/queries/sponsors";
 
-const SponsorSuccess = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
+const SponsorSuccess = ({
+  contactInfo,
+  sponsorTiers }: {
+  contactInfo: ContactInfo;
+  sponsorTiers: SponsorTier[] }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <InquirySuccess
+      contactInfo={contactInfo}
       eyebrow="Thank You"
       title="Your Sponsorship Inquiry Is In"
       intro="We've received your inquiry and will follow up soon to confirm your level and get you set up. Ready to pay now? Choose your level and pay online or by check below. Here's a recap of the sponsorship levels for your reference."
