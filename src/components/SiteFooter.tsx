@@ -123,36 +123,42 @@ const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-foreground/10 pt-6 text-center md:flex-row md:text-left">
-          <p className="font-body text-xs text-foreground/80">
-            © {new Date().getFullYear()} Heartland Plein Air Festival. All rights reserved. Website built by{" "}
-            <a
-              href="https://thebrandledger.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline transition-colors hover:text-primary"
+        {/* Two columns, not three: this row is `justify-between`, so a third
+            child in the middle has nothing to anchor it and just floats.
+            The legal links belong with the copyright — same register, same
+            side — which keeps the row to the two blocks it was built for. */}
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-6 text-center md:flex-row md:gap-6 md:text-left">
+          <div className="flex flex-col items-center gap-1.5 md:items-start">
+            <p className="font-body text-xs text-foreground/80">
+              © {new Date().getFullYear()} Heartland Plein Air Festival. All rights reserved. Website built by{" "}
+              <a
+                href="https://thebrandledger.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors hover:text-primary"
+              >
+                Brand Ledger
+              </a>
+              .
+            </p>
+            {/* Google Analytics, Meta, and Google Maps each require a posted,
+                reachable privacy policy — so this link is a condition of the
+                scripts already running site-wide, not just good manners. */}
+            <nav
+              aria-label="Legal"
+              className="flex items-center gap-2 font-body text-xs text-foreground/80"
             >
-              Brand Ledger
-            </a>
-            .
-          </p>
-          {/* Google Analytics, Meta, and Google Maps each require a posted,
-              reachable privacy policy — so this link is a condition of the
-              scripts already running site-wide, not just good manners. */}
-          <nav aria-label="Legal" className="flex items-center gap-4">
-            <Link
-              href="/privacy"
-              className="font-body text-xs text-foreground/80 underline transition-colors hover:text-primary"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="font-body text-xs text-foreground/80 underline transition-colors hover:text-primary"
-            >
-              Terms of Use
-            </Link>
-          </nav>
+              <Link href="/privacy" className="underline transition-colors hover:text-primary">
+                Privacy Policy
+              </Link>
+              <span aria-hidden="true" className="text-foreground/40">
+                ·
+              </span>
+              <Link href="/terms" className="underline transition-colors hover:text-primary">
+                Terms of Use
+              </Link>
+            </nav>
+          </div>
           <div className="flex items-center gap-2">
             <p className="font-body text-xs text-foreground/80">
               Presented by the Ralston HINGE Creative District, a registered
