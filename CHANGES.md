@@ -2444,9 +2444,26 @@ routes in `sitemap.ts`.
    - **Governing law: Nebraska** — the obvious assumption for a Ralston
      nonprofit, but still an assumption.
 
-   Also worth deciding: **whether to add a cookie consent banner.** There is
-   none, and GA4 plus the Meta Pixel currently fire before any consent. The
-   privacy policy states this plainly rather than implying otherwise.
+   **Cookie consent banner — decided 2026-08-14: not adding one.** Banners come
+   from EU law (ePrivacy + GDPR); there is no general US requirement, CCPA
+   applies to for-profit businesses meeting revenue/volume thresholds, and this
+   festival's audience is regional. Revisit only if GA4 shows meaningful EU/UK
+   traffic or ads start targeting outside the US. If one is ever added, it must
+   actually gate the scripts — a notice-only "we use cookies, OK" banner that
+   fires GA4 and the pixel anyway is worse than none. The privacy policy states
+   plainly that no banner exists rather than implying otherwise. (The NDPA
+   question above is still worth a lawyer's read.)
+
+   **Meta Pixel — decided 2026-08-14: keeping it, for now.** Removing it
+   entirely was on the table, since it is the sharpest privacy exposure on the
+   site (it loads on `/tickets`, which hosts the Youth Paintout form). The
+   festival confirmed Meta ad campaigns are currently running, so it earns its
+   place. **Remove it when those campaigns end** — at that point it becomes
+   pure liability with no return, and GA4 still covers site analytics. To
+   remove: delete the `fb-pixel-init` `<Script>` block and the `<noscript>`
+   tracking pixel in `src/app/layout.tsx`, then update the "Information
+   collected automatically" and "Who we share it with" sections of
+   `src/page-components/Privacy.tsx` to drop Meta.
 1. **Finish hardening the Google Maps API key.** Website restrictions were
    added 2026-08-09: `https://heartlandpleinair.org/*`,
    `https://www.heartlandpleinair.org/*`, and `https://*.vercel.app/*`. Two
