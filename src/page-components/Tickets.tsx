@@ -9,55 +9,19 @@ import BackToTop from "@/components/BackToTop";
 import YouthPaintoutForm from "@/components/YouthPaintoutForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import type { FormConfig } from "@/sanity/queries/formConfig";
+import type { TicketsPage } from "@/sanity/queries/pages";
 
-const passBenefits = [
-  {
-    day: "Sunday, September 13",
-    title: "Private Meet & Greet",
-    description: "Meet the participating artists before the week begins.",
-  },
-  {
-    day: "Thursday, September 17",
-    title: "Judge's Lecture with Priority Seating",
-    description:
-      "“Introduction to Impressionism,” presented by Judge of Awards and Master Artist Rick J. Delanty.",
-  },
-  {
-    day: "Friday, September 18",
-    title: "Collectors Preview Reception and Awards Presentation",
-    description:
-      "First access to purchase paintings created throughout the week, plus the Awards Presentation with the Judge of Awards. Beverages and hors d'oeuvres included.",
-  },
-  {
-    day: "Saturday, September 19",
-    title: "Live Auction Priority Seating",
-    description:
-      "The auction begins at noon following the Quick Paint in downtown Ralston and runs approximately one hour. The public reception runs 11 AM–4 PM.",
-  },
-];
 
-// From the paper backup registration form Deb provides on-site — logistics a
-// registrant needs to know but that aren't a field to fill in.
-const youthPaintoutGoodToKnow = [
-  "Open to ages 5 to 18 (kindergarten through high school).",
-  "Please arrive no later than 9:45 AM to check in — painting runs 10 AM–Noon.",
-  "A parent or guardian must stay in the park for the full session.",
-  "So we can welcome as many families as possible, participation is limited to 2 youth per family.",
-  "Each young artist receives an art kit to keep.",
-  "Finished paintings are framed and displayed at the Baright Public Library, then celebrated at the Youth Art Show Reception that evening.",
-];
 
-// Jump links shown under the hero — one per ticket type on the page, in the
-// order the sections appear. Keep `id` in sync with each section's id.
-const ticketOptions = [
-  { id: "collector-vip-pass", name: "Collector VIP Pass", price: "$125" },
-  { id: "judges-lecture", name: "Judge's Lecture Only", price: "$25" },
-  { id: "collectors-preview-reception", name: "Collectors Preview Reception", price: "$95" },
-  { id: "public-exhibition-sale", name: "Public Exhibition & Sale", price: "Free" },
-  { id: "youth-paintout", name: "Youth Paintout", price: "Free" },
-];
 
-const Tickets = ({ youthPaintoutFormConfig }: { youthPaintoutFormConfig: FormConfig }) => {
+const Tickets = ({
+  youthPaintoutFormConfig,
+  page,
+}: {
+  youthPaintoutFormConfig: FormConfig;
+  page: TicketsPage;
+}) => {
+  const { ticketOptions, passBenefits, youthPaintoutGoodToKnow } = page;
   const handleJump = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);

@@ -20,35 +20,27 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 import type { FormConfig } from "@/sanity/queries/formConfig";
+import type { OpenDivisionPage } from "@/sanity/queries/pages";
 
-const paintingRequirements = [
-  "Two-dimensional work only: oils, acrylics, watercolor, gouache, casein, pastel, or oil sticks.",
-  "Maximum finished size is 28\" x 28\", including the frame.",
-  "Paintings must be in quality frames, wired on the back for hanging. No unframed gallery-wrap canvases and no sawtooth hangers — no exceptions.",
-  "All work must be created outdoors, on location (en plein air). No painting from photographs or indoors.",
-  "You may have an unlimited number of canvases or substrates stamped, but only one or two finished pieces may be submitted for exhibition and awards.",
-];
 
-const paintingConduct = [
-  "Paint any or all days of the festival, anywhere across the metro.",
-  "Suggested painting locations and maps are available on the [Schedule page](/schedule) and in your information packet.",
-  "Be mindful of other artists — don't block their view when setting up near them.",
-  "Always ask permission before painting on private property.",
-];
 
-const salesInfo = [
-  "All paintings must be for sale — no presales directly off your easel during the festival.",
-  "Direct potential buyers to the Public Exhibition and Sale: Friday evening (ticketed) or Saturday (free and open to the public).",
-  "The Ralston Hinge Creative District retains a 40% commission on all sales, supporting future programming in the creative district.",
-];
 
 const OpenDivision = ({
   quickFacts,
   inquiryFormConfig,
+  page,
 }: {
   quickFacts: OpenDivisionQuickFact[];
   inquiryFormConfig: FormConfig;
+  page: OpenDivisionPage;
 }) => {
+  const { paintingRequirements, paintingConduct, salesInfo, capacity } = page;
+  // One source for the fee: the same number drives this copy and the PayPal
+  // amount below, so a change in Studio can't leave them disagreeing.
+  const fee = page.registrationFee;
+  const feeLabel = `$${fee}`;
+  const payPalAmount = fee.toFixed(2);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -127,7 +119,7 @@ const OpenDivision = ({
             </h2>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                Registration is $30 and limited to 40 artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
+                Registration is {feeLabel} and limited to {capacity} artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
               </p>
               <p>
                 Check-in runs from 11am to 5pm on Monday, September 14th, at the Ralston Baright Public Library (5555 S. 77th St, Ralston). You'll receive your information packet and lanyard, and can have your canvases stamped.
@@ -251,7 +243,7 @@ const OpenDivision = ({
                 Ready to Register?
               </p>
               <p className="font-body text-base leading-relaxed text-muted-foreground">
-                Fill out the form below to reserve your spot. Registration is $30 and limited to 40 artists, first come, first served.
+                Fill out the form below to reserve your spot. Registration is {feeLabel} and limited to {capacity} artists, first come, first served.
               </p>
               <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
                 After submitting the form, pay your fee via PayPal or by mailing a check. Any registration without payment will not be accepted.
@@ -269,7 +261,7 @@ const OpenDivision = ({
             </div>
             <div className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
-                Already Registered? Pay Your $30 Fee
+                Already Registered? Pay Your {feeLabel} Fee
               </p>
               <div className="grid gap-8 sm:grid-cols-2">
                 <div className="text-center">
@@ -277,7 +269,7 @@ const OpenDivision = ({
                     Pay Online
                   </p>
                   <PayPalButton
-                    amount="30.00"
+                    amount={payPalAmount}
                     description="Heartland Plein Air Festival — Open Division Registration"
                   />
                 </div>

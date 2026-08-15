@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Sponsors from "@/page-components/Sponsors";
 import { getFunders, getSponsorTiersWithSponsors } from "@/sanity/queries/sponsors";
 import { getFormConfig } from "@/sanity/queries/formConfig";
+import { getSponsorsPage } from "@/sanity/queries/pages";
 
 export const metadata: Metadata = {
   title: "Sponsor the Plein Air Festival: Put Your Name on It",
@@ -28,12 +29,13 @@ export const metadata: Metadata = {
 };
 
 export default async function SponsorsPage() {
-  const [funders, sponsorTiers, inquiryFormConfig] = await Promise.all([
+  const [funders, sponsorTiers, inquiryFormConfig, page] = await Promise.all([
     getFunders(),
     getSponsorTiersWithSponsors(),
     getFormConfig("sponsorshipInquiry"),
+    getSponsorsPage(),
   ]);
   return (
-    <Sponsors funders={funders} sponsorTiers={sponsorTiers} inquiryFormConfig={inquiryFormConfig} />
+    <Sponsors page={page} funders={funders} sponsorTiers={sponsorTiers} inquiryFormConfig={inquiryFormConfig} />
   );
 }
