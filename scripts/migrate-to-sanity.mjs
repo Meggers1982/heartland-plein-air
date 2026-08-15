@@ -1,3 +1,11 @@
+// HISTORICAL RECORD — the `sponsors` section can no longer run. On 2026-08-15
+// the 15 sponsor logo files it uploads from public/assets/sponsors/ were
+// deleted, since the images now live in Sanity and nothing referenced the local
+// copies. `uploadImageAsset()` will throw ENOENT on the first one. Recover them
+// from git history if you ever genuinely need to re-seed. (hy-vee.webp survives
+// — it is still rendered directly by src/page-components/Tickets.tsx.)
+// Other sections are unaffected.
+//
 // One-off, re-runnable content migration from src/data/*.ts into Sanity.
 // Deterministic _ids + createOrReplace make every section safe to re-run,
 // but re-running after the *source* data has changed will overwrite whatever

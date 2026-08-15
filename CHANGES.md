@@ -2489,9 +2489,31 @@ write.
 - `public/assets/sponsors/omaha-lancers.webp` and `linhart-construction.webp`,
   now redundant since the images live in Sanity.
 
-Note: 16 other files remain in `public/assets/sponsors/` and are referenced by
-nothing — pre-Sanity-migration leftovers. Left alone here rather than widening
-this change, but they are dead weight and could be deleted.
+Note: 16 other files remained in `public/assets/sponsors/`, pre-Sanity-migration
+leftovers. Cleaned up below.
+
+---
+
+## 2026-08-15 — Deleted 15 Orphaned Sponsor Logo Files (Not 16)
+
+Follow-on cleanup after the Sanity migration. `public/assets/sponsors/` held 16
+WebP files left over from before the sponsor content moved into Sanity.
+
+**One of the 16 was not orphaned.** `hy-vee.webp` is rendered directly by
+`src/page-components/Tickets.tsx:359` — the Applewood Hy-Vee logo — so deleting
+it would have broken a live image. It stays. The other 15 were deleted:
+dayspring-bank, debra-joy-groesser-fine-art, ea-consulting-group, ecreamery,
+edward-jones, jensen-gardens, jeo-consulting-group, king-kong, lovely-brew-co,
+pancake-cafe, pj-morgan, ralston-keno, south-o-roofing, tanners-bar-and-grill,
+united-seeds-inc.
+
+**This breaks the `sponsors` section of `scripts/migrate-to-sanity.mjs`**, which
+uploads those files by path — `uploadImageAsset()` will now throw ENOENT. That
+script is already documented as a historical record rather than a sync tool (and
+re-running it would overwrite Studio edits), so the loss is acceptable, but a
+warning was added at the top of the file so it fails understandably rather than
+mysteriously. The files are recoverable from git history if a re-seed is ever
+genuinely needed.
 
 ---
 
