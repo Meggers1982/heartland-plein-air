@@ -9,7 +9,9 @@
     "start": "next start -p 8080",
     "lint": "next lint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prebuild": "node scripts/stamp-legal-updated.mjs",
+    "stamp:legal": "node scripts/stamp-legal-updated.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

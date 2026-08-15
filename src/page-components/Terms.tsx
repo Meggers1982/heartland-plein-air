@@ -1,6 +1,7 @@
 'use client';
 import Link from "next/link";
 import LegalPage, { LegalSection, LegalList } from "@/components/LegalPage";
+import { legalUpdatedIso } from "@/lib/legalDates";
 
 // ---------------------------------------------------------------------------
 // NEEDS CONFIRMATION BY THE FESTIVAL — these clauses state a policy that could
@@ -24,7 +25,7 @@ const OFFICE_EMAIL = "info@ralstonarts.org";
 const Terms = () => (
   <LegalPage
     title="Terms of Use"
-    lastUpdated="August 14, 2026"
+    lastUpdatedIso={legalUpdatedIso("terms")}
     intro={
       <p>
         These terms cover your use of heartlandpleinair.org and your
