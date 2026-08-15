@@ -77,6 +77,21 @@ export default async function RootLayout({
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
+            // autoConfig:false disables Meta's Automatic Advanced Matching and
+            // automatic event logging — the behaviour that scrapes values out of
+            // form fields (names, emails, phone numbers) and sends them to Meta
+            // without anything in our code asking it to.
+            //
+            // This matters most on /tickets, which hosts the Youth Paintout
+            // registration form: a child's name, age, home address, phone and
+            // emergency contact. Excluding the pixel by route was not an option
+            // there — that form shares the page with ticket sales, where the
+            // pixel is presumably wanted for conversion tracking. Turning off
+            // field scraping targets the actual risk instead.
+            //
+            // Kept: the explicit PageView below, and any events we fire
+            // ourselves. Lost: Meta's automatic match-quality enrichment.
+            fbq('set', 'autoConfig', false, '1819681512327549');
             fbq('init', '1819681512327549');
             fbq('track', 'PageView');
           `}

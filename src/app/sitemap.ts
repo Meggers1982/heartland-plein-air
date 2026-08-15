@@ -25,8 +25,10 @@ const routes: RouteConfig[] = [
   { path: "/faq", changeFrequency: "monthly", priority: 0.6 },
   { path: "/gallery", changeFrequency: "weekly", priority: 0.8 },
   { path: "/open-division", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
   { path: "/schedule", changeFrequency: "weekly", priority: 0.9 },
   { path: "/sponsors", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
   { path: "/tickets", changeFrequency: "monthly", priority: 0.8 },
 ];
 
