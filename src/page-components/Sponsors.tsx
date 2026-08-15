@@ -11,7 +11,6 @@ import SponsorPaymentForm from "@/components/SponsorPaymentForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import { urlFor } from "@/sanity/lib/image";
-import { pendingSponsorsForTier } from "@/lib/pendingSponsors";
 import type { SponsorTierWithSponsors, Sponsor } from "@/sanity/queries/sponsors";
 import type { FormConfig } from "@/sanity/queries/formConfig";
 
@@ -87,11 +86,7 @@ const Sponsors = ({
   // Only tiers with at least one paid sponsor get a section, matching the
   // original sponsorLevels data (Titanium and Friend of the District
   // currently have no paid sponsors, so no section renders for them).
-  // Code-side `pendingSponsors` count here too, so a tier that exists only in
-  // the repo still renders.
-  const populatedTiers = sponsorTiers.filter(
-    (tier) => tier.sponsors.length + pendingSponsorsForTier(tier.name).length > 0,
-  );
+  const populatedTiers = sponsorTiers.filter((tier) => tier.sponsors.length > 0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -335,19 +330,11 @@ const Sponsors = ({
                   Our {tier.name} Sponsors
                 </h3>
                 <div className={`grid gap-6 ${layout.grid}`}>
-                  {[...tier.sponsors, ...pendingSponsorsForTier(tier.name)].map((sponsor) => {
-                    // Sanity sponsors carry an image ref resolved through
-                    // urlFor(); code-side ones carry a plain /public path.
-                    const logoUrl =
-                      "logoSrc" in sponsor
-                        ? sponsor.logoSrc
-                        : sponsor.logo
-                          ? urlFor(sponsor.logo).width(600).auto("format").url()
-                          : null;
-                    const showLogo = !tier.nameOnly && logoUrl;
+                  {tier.sponsors.map((sponsor) => {
+                    const showLogo = !tier.nameOnly && sponsor.logo;
                     const content = showLogo ? (
                       <img
-                        src={logoUrl}
+                        src={urlFor(sponsor.logo!).width(600).auto("format").url()}
                         alt={sponsor.alt ?? sponsor.name}
                         loading="lazy"
                         className="max-h-full w-auto max-w-full object-contain"

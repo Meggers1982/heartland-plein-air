@@ -2447,6 +2447,54 @@ invisible. To refresh the committed fallback by hand: `npm run stamp:legal`.
 
 ---
 
+## 2026-08-15 — Omaha Lancers and Linhart Construction Migrated into Sanity
+
+Closes the deliberate exception opened on 2026-08-14. Both Silver sponsors are
+now ordinary `sponsor` documents, editable in Studio like every other one, and
+the repo has a single Sanity-only code path again.
+
+### Access — what was actually blocking it
+
+Not the project ID. The Sanity CLI on the Mac is logged in as
+`REDACTED@example.com` (user `gJXwxRvYV`), but project `e2m4q82h` is
+owned by a **different Google account, `upsidemeagan1982@gmail.com`**, under
+org `olEKlKgeY`. The CLI login had no read grant on either the project or the
+org, so every write 401'd. Resolved with an Editor API token.
+
+Worth knowing for next time: the first token supplied was named "local dev
+write" but its actual role was **Viewer** — Sanity's Add-token dialog defaults
+the permission dropdown to Viewer, and the name is free text. It authenticated
+and read fine, then failed on the first image upload with
+`permission "create" required`. Check `role`/`roles` at
+`GET https://api.sanity.io/v2021-06-07/users/me` before assuming a token can
+write.
+
+### Migrated
+
+- `sponsor-silver-omaha-lancers` and `sponsor-silver-linhart-construction`,
+  each with its logo uploaded as a Sanity image asset, plus alt text, URL, and
+  a Silver tier reference.
+- **`orderRank` is `b0`/`b1`, not `a12`/`a13`.** `order(orderRank)` sorts as a
+  *string*, and the original seed script used a naive `a${i}`, so Silver sorts
+  a0, a1, a10, a11, a2 … a9. `a12` would have landed these two fifth and sixth;
+  `b0`/`b1` sort after `a9` and reproduce the position they already held at the
+  end of the grid.
+
+### Removed
+
+- `src/lib/pendingSponsors.ts` (deleted).
+- The `pendingSponsorsForTier` merge and the `logoSrc`-vs-Sanity-image branch in
+  `src/page-components/Sponsors.tsx` — back to `tier.sponsors.map(...)` with a
+  single `urlFor()` path.
+- `public/assets/sponsors/omaha-lancers.webp` and `linhart-construction.webp`,
+  now redundant since the images live in Sanity.
+
+Note: 16 other files remain in `public/assets/sponsors/` and are referenced by
+nothing — pre-Sanity-migration leftovers. Left alone here rather than widening
+this change, but they are dead weight and could be deleted.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
@@ -2515,8 +2563,14 @@ invisible. To refresh the committed fallback by hand: `npm run stamp:legal`.
    `/studio` and upload the image to its `logo` field, then fill `alt` using
    the lowercase `"<company> logo"` convention. (This instruction used to point
    at `src/data/sponsors.ts`, which the Sanity migration deleted.)
-3. **Migrate the two code-side sponsors into Sanity and delete
-   `src/lib/pendingSponsors.ts`.** Omaha Lancers and Linhart Construction were
+3. ~~**Migrate the two code-side sponsors into Sanity and delete
+   `src/lib/pendingSponsors.ts`.**~~ **DONE 2026-08-15** — see the entry above.
+   Both are now `sponsor` documents editable in Studio, `pendingSponsors.ts`
+   is deleted, and `Sponsors.tsx` is back to a single Sanity-only code path.
+   Original note kept below for context.
+
+   **Original:** Migrate the two code-side sponsors into Sanity and delete
+   `src/lib/pendingSponsors.ts`. Omaha Lancers and Linhart Construction were
    added to the repo on 2026-08-14, not to Studio. Consequence: they do not
    appear in Studio, so an editor cannot reorder, edit, or remove them, and
    nothing warns that they exist — a future editor reconciling the sponsor list
