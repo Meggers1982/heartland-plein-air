@@ -2355,8 +2355,98 @@ watching artists work, buying a painting).
 
 ---
 
+## 2026-08-14 — Privacy Policy, Terms of Use, and a Meta Pixel Privacy Fix
+
+The site had **no privacy policy, no terms, and no footer links to either**,
+while running two trackers and collecting a substantial amount of personal
+information — including about children.
+
+### Why a privacy policy wasn't optional
+
+Two independent reasons. First, contractual: the Google Analytics Terms, Meta
+Business Tools Terms, and Google Maps Platform Terms each require a posted
+privacy policy disclosing the tracking. All three services were already running.
+Second, what's collected — six Formspree endpoints (newsletter, contact,
+sponsorship, advertising, Open Division, Youth Paintout) plus PayPal payments.
+
+### Fixed — Meta Pixel was able to scrape form fields
+
+`fbq('set', 'autoConfig', false, ...)` now runs before `fbq('init', ...)` in
+`src/app/layout.tsx`. This disables Meta's **Automatic Advanced Matching**,
+which reads values out of form fields (names, emails, phone numbers) and sends
+them to Meta without any of our code asking it to.
+
+This matters most on `/tickets`, which hosts the Youth Paintout registration
+form: a child's name, age, home address, phone, and emergency contact. The
+original plan was to exclude the pixel by route — **that turned out to be
+impossible**, because the youth form shares the Tickets page with ticket sales,
+where the pixel is presumably wanted for conversion tracking. Disabling field
+scraping targets the actual risk without giving up conversion measurement.
+
+Kept: the explicit `PageView` and any events fired by our own code. Lost:
+Meta's automatic match-quality enrichment.
+
+### Added — `/privacy`
+
+`src/page-components/Privacy.tsx`, `src/app/(site)/privacy/page.tsx`. Every
+factual claim was checked against the codebase rather than assumed: the
+per-form field lists come from the live `formConfig` documents in Sanity, the
+analytics IDs from `layout.tsx`, org details from `SiteFooter` /
+`FestivalContactInfo`. It names each form and exactly what it asks for, both
+tracker IDs, states plainly that there is no cookie consent banner, and gives
+opt-out links. There is a dedicated **Children's information** section covering
+the Youth Paintout data, the optional photo release, and a parent's right to
+ask what's held, correct it, or have it deleted.
+
+**If a form gains or loses a field, or a new third-party script is added, this
+page has to be updated to match** — it makes specific factual claims.
+
+### Added — `/terms`
+
+`src/page-components/Terms.tsx`, `src/app/(site)/terms/page.tsx`. Written as
+event terms rather than SaaS boilerplate: tickets and payment, refunds,
+sponsorship/advertising, artwork and copyright (artists retain copyright,
+including after a sale), conduct at painting locations, photography, weather and
+schedule changes, liability, governing law.
+
+Also added: `src/components/LegalPage.tsx`, shared chrome for both pages so they
+can't drift apart, plus footer links (in a `<nav aria-label="Legal">`) and both
+routes in `sitemap.ts`.
+
+### Three clauses in /terms are ASSUMPTIONS — see follow-up below
+
+---
+
 ## Known follow-ups (not code — need your action)
 
+0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
+   Both pages went live 2026-08-14 written from what the code actually does.
+   The privacy policy is descriptive and should be accurate as written, but the
+   **children's data and photo-release sections are the ones worth a
+   professional read** — the Youth Paintout form collects a minor's name, age,
+   home address, phone, and emergency contact, which is the highest-sensitivity
+   data on the site. Two statutes to ask about specifically: **COPPA**, and the
+   **Nebraska Data Privacy Act** (effective January 2025 — whether it reaches a
+   501(c)(3) of this size is genuinely unclear, as nonprofit and small-business
+   carve-outs vary).
+
+   Three clauses in `/terms` are **assumptions, not facts**, and are flagged in
+   a comment at the top of `src/page-components/Terms.tsx`:
+   - **Refunds and cancellations** — no refund window, cancellation policy, or
+     rain policy exists anywhere in the codebase or the FAQ. The page currently
+     says the festival will arrange refunds or transfers if it cancels an event
+     outright, and directs all other requests to the office. Replace with the
+     real policy.
+   - **Photography at general events** — the Youth Paintout has an explicit
+     opt-in release, but nothing covered general attendees. The page now says
+     photos may be taken at public events and to tell a volunteer if you'd
+     rather not appear.
+   - **Governing law: Nebraska** — the obvious assumption for a Ralston
+     nonprofit, but still an assumption.
+
+   Also worth deciding: **whether to add a cookie consent banner.** There is
+   none, and GA4 plus the Meta Pixel currently fire before any consent. The
+   privacy policy states this plainly rather than implying otherwise.
 1. **Finish hardening the Google Maps API key.** Website restrictions were
    added 2026-08-09: `https://heartlandpleinair.org/*`,
    `https://www.heartlandpleinair.org/*`, and `https://*.vercel.app/*`. Two

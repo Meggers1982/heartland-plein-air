@@ -136,6 +136,23 @@ const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
             </a>
             .
           </p>
+          {/* Google Analytics, Meta, and Google Maps each require a posted,
+              reachable privacy policy — so this link is a condition of the
+              scripts already running site-wide, not just good manners. */}
+          <nav aria-label="Legal" className="flex items-center gap-4">
+            <Link
+              href="/privacy"
+              className="font-body text-xs text-foreground/80 underline transition-colors hover:text-primary"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="font-body text-xs text-foreground/80 underline transition-colors hover:text-primary"
+            >
+              Terms of Use
+            </Link>
+          </nav>
           <div className="flex items-center gap-2">
             <p className="font-body text-xs text-foreground/80">
               Presented by the Ralston HINGE Creative District, a registered
