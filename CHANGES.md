@@ -2619,6 +2619,73 @@ Two content gaps found, both needing someone else's material — see follow-ups.
 
 ---
 
+## 2026-08-15 — The Rest of the Page Copy (and All SEO Text) Moved into Sanity
+
+`/about` had **no Sanity content at all** — every word needed a developer. So
+did the festival office details, ticket options and prices, Open Division rules,
+named award sponsorships, advertising file specs, and the Youth Paintout
+instructions. Every route also hardcoded its search-result text.
+
+### Added — six page singletons
+
+`aboutPage`, `contactInfo`, `ticketsPage`, `openDivisionPage`,
+`advertisingPage`, `sponsorsPage`, with queries in
+`src/sanity/queries/pages.ts` and each pinned in the Studio sidebar. All copy
+was seeded verbatim.
+
+### Fixed — the Open Division fee was written in eight places
+
+Page copy, the success page, three SEO descriptions, and **two live PayPal
+`amount="30.00"` values**. It is now one number in Sanity driving all of them,
+so the advertised price and the amount actually charged cannot drift apart.
+Zero occurrences of `$30` / "40 spots" / `30.00` remain in code.
+
+### Added — editable SEO on every page
+
+A `pageSeo` document per route plus `buildPageMetadata()`. Each route used to
+repeat its title and description **three times** (page, OpenGraph, Twitter);
+they are now written once. All 13 public routes converted to
+`generateMetadata`, current values seeded.
+
+Two decisions worth knowing:
+
+- **Fallbacks are deliberate.** A missing or unpublished `pageSeo` falls back to
+  the shipped copy rather than blanking a page's tags — far better for search
+  than an empty title.
+- **`route` is a fixed list, not free text.** A typo'd route would create a
+  document no page ever reads, invisible until someone noticed the old text
+  still in Google.
+- `/open-division`'s description quotes the fee, so an editable string would
+  have reintroduced the drift above. `buildPageMetadata` supports `{fee}` and
+  `{capacity}` placeholders fed from the same Sanity fields.
+- The homepage previously inherited the root layout's metadata, leaving the
+  most-linked page as the one editors couldn't touch. It now has its own.
+
+### Deliberately left in code
+
+The gallery medium filter, schedule audience labels, Tailwind class maps,
+schema.org offer objects, PayPal button mechanics, and the five `noindex`
+success pages' metadata. These are UI wiring and structured data, not content —
+putting them behind a CMS field only offers a way to break the page.
+
+`/privacy` and `/terms` also stay in code: they are statements about handling
+visitors' data, still pending legal review, and their "last updated" dates are
+derived from git history, which moving the text to Sanity would break.
+
+### Two bugs caught during the work
+
+- `RichText` renders `normal` blocks as bare fragments, so paragraphs must be
+  wrapped in `<p>` by the caller or they run together. Matches `Faq.tsx`.
+- The Youth Paintout day-of list has a `featured` flag that **is** read — by
+  `InquirySuccess`, which uses it to pull one card out of the grid with an
+  accent treatment. An initial pass mistook it for dead data after grepping
+  only the page component; it is now a schema field.
+
+Verified: all 11 affected pages render text byte-identical to production, and
+all 13 routes produce identical titles and descriptions.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
