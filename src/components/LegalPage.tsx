@@ -3,6 +3,7 @@ import { useEffect, type ReactNode } from "react";
 import AnimatedSection from "@/components/AnimatedSection";
 import SiteNav from "@/components/SiteNav";
 import BackToTop from "@/components/BackToTop";
+import { formatLegalDate } from "@/lib/legalDates";
 
 /**
  * Shared chrome for the Privacy Policy and Terms pages. Same header treatment
@@ -34,12 +35,13 @@ export const LegalList = ({ children }: { children: ReactNode }) => (
 
 const LegalPage = ({
   title,
-  lastUpdated,
+  lastUpdatedIso,
   intro,
   children,
 }: {
   title: string;
-  lastUpdated: string;
+  /** ISO timestamp from src/lib/legalUpdated.json — see legalDates.ts. */
+  lastUpdatedIso: string;
   intro?: ReactNode;
   children: ReactNode;
 }) => {
@@ -66,7 +68,10 @@ const LegalPage = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <p className="mb-8 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Last updated {lastUpdated}
+              Last updated{" "}
+              <time dateTime={lastUpdatedIso.slice(0, 10)}>
+                {formatLegalDate(lastUpdatedIso)}
+              </time>
             </p>
             {intro && <div className={`mb-12 ${legalBody}`}>{intro}</div>}
             <div className="space-y-10">{children}</div>

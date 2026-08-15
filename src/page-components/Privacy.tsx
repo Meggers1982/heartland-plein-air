@@ -1,6 +1,7 @@
 'use client';
 import Link from "next/link";
 import LegalPage, { LegalSection, LegalList } from "@/components/LegalPage";
+import { legalUpdatedIso } from "@/lib/legalDates";
 
 // Every factual claim here was checked against the code rather than assumed:
 // the form field lists come from the `formConfig` documents in Sanity, the
@@ -13,7 +14,7 @@ const OFFICE_EMAIL = "info@ralstonarts.org";
 const Privacy = () => (
   <LegalPage
     title="Privacy Policy"
-    lastUpdated="August 14, 2026"
+    lastUpdatedIso={legalUpdatedIso("privacy")}
     intro={
       <p>
         This policy explains what personal information heartlandpleinair.org
