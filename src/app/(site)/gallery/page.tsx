@@ -1,30 +1,16 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/pageMetadata";
 import Gallery from "@/page-components/Gallery";
 import { getGalleryArtists } from "@/sanity/queries/artists";
 
-export const metadata: Metadata = {
-  title: "Preview Artist Portfolios: Plein Air Festival 2026",
-  description:
-    "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
-  alternates: { canonical: "https://heartlandpleinair.org/gallery" },
-  openGraph: {
-    title: "Preview Artist Portfolios: Plein Air Festival 2026",
-    description:
-      "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
-    type: "website",
-    url: "https://heartlandpleinair.org/gallery",
-    siteName: "Heartland Plein Air Festival",
-    locale: "en_US",
-    images: ["/assets/sunlit-riverside-valley-plein-air-oil-painting.webp"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Preview Artist Portfolios: Plein Air Festival 2026",
-    description:
-      "Preview paintings by all 25 invited festival artists — oils, pastels, and watercolors — before they paint the Omaha metro live in September 2026.",
-    images: ["/assets/sunlit-riverside-valley-plein-air-oil-painting.webp"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    route: "/gallery",
+    fallbackTitle: "Preview Artist Portfolios: Plein Air Festival 2026",
+    fallbackDescription: "Preview paintings by all 25 invited festival artists \u2014 oils, pastels, and watercolors \u2014 before they paint the Omaha metro live in September 2026.",
+    fallbackImage: "/assets/sunlit-riverside-valley-plein-air-oil-painting.webp",
+  });
+}
 
 export default async function GalleryPage() {
   const galleryArtists = await getGalleryArtists();

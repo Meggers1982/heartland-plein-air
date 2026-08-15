@@ -16,6 +16,7 @@ import { locationEvent } from "./objects/locationEvent";
 import { paintoutSpot } from "./objects/paintoutSpot";
 import { scheduleEvent } from "./objects/scheduleEvent";
 import { openDivisionPage } from "./openDivisionPage";
+import { pageSeo } from "./pageSeo";
 import { openDivisionQuickFact } from "./openDivisionQuickFact";
 import { scheduleDay } from "./scheduleDay";
 import { aboutSection } from "./sections/aboutSection";
@@ -55,6 +56,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     openDivisionPage,
     advertisingPage,
     sponsorsPage,
+    pageSeo,
     heroSection,
     aboutSection,
     festivalHighlightsSection,

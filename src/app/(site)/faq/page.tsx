@@ -1,30 +1,15 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/pageMetadata";
 import Faq from "@/page-components/Faq";
 import { getFaqCategories } from "@/sanity/queries/faq";
 
-export const metadata: Metadata = {
-  title: "Get Answers: Plein Air Festival FAQ Omaha 2026",
-  description:
-    "Get answers about the Heartland Plein Air Festival — what plein air is, where artists paint, how to buy artwork, tickets, volunteering, and more.",
-  alternates: { canonical: "https://heartlandpleinair.org/faq" },
-  openGraph: {
-    title: "Get Answers: Plein Air Festival FAQ Omaha 2026",
-    description:
-      "Get answers about the Heartland Plein Air Festival — what plein air is, where artists paint, how to buy artwork, tickets, volunteering, and more.",
-    type: "website",
-    url: "https://heartlandpleinair.org/faq",
-    siteName: "Heartland Plein Air Festival",
-    locale: "en_US",
-    images: ["/assets/hero-pleinair.jpg"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Get Answers: Plein Air Festival FAQ Omaha 2026",
-    description:
-      "Get answers about the Heartland Plein Air Festival — what plein air is, where artists paint, how to buy artwork, tickets, volunteering, and more.",
-    images: ["/assets/hero-pleinair.jpg"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    route: "/faq",
+    fallbackTitle: "Get Answers: Plein Air Festival FAQ Omaha 2026",
+    fallbackDescription: "Get answers about the Heartland Plein Air Festival \u2014 what plein air is, where artists paint, how to buy artwork, tickets, volunteering, and more.",
+  });
+}
 
 export default async function FaqPage() {
   const categories = await getFaqCategories();
