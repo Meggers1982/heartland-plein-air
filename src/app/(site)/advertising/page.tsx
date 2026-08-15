@@ -1,32 +1,17 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/pageMetadata";
 import Advertising from "@/page-components/Advertising";
 import { getAdSizes } from "@/sanity/queries/advertising";
 import { getFormConfig } from "@/sanity/queries/formConfig";
 import { getAdvertisingPage } from "@/sanity/queries/pages";
 
-export const metadata: Metadata = {
-  title: "Advertise in the Plein Air Festival Catalog: Omaha",
-  description:
-    "Place an ad in the Heartland Plein Air Festival catalog — 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
-  alternates: { canonical: "https://heartlandpleinair.org/advertising" },
-  openGraph: {
-    title: "Advertise in the Plein Air Festival Catalog: Omaha",
-    description:
-      "Place an ad in the Heartland Plein Air Festival catalog — 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
-    type: "website",
-    url: "https://heartlandpleinair.org/advertising",
-    siteName: "Heartland Plein Air Festival",
-    locale: "en_US",
-    images: ["/assets/hero-pleinair.jpg"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Advertise in the Plein Air Festival Catalog: Omaha",
-    description:
-      "Place an ad in the Heartland Plein Air Festival catalog — 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
-    images: ["/assets/hero-pleinair.jpg"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata({
+    route: "/advertising",
+    fallbackTitle: "Advertise in the Plein Air Festival Catalog: Omaha",
+    fallbackDescription: "Place an ad in the Heartland Plein Air Festival catalog \u2014 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
+  });
+}
 
 export default async function AdvertisingPage() {
   const [adSizes, inquiryFormConfig, page] = await Promise.all([
