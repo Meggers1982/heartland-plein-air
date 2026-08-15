@@ -2517,6 +2517,61 @@ genuinely needed.
 
 ---
 
+## 2026-08-15 — Sanity Studio Was Completely Broken: All 129 orderRanks Were Invalid
+
+**Studio had never worked.** Loading `/studio` crashed to "An error occurred that
+Sanity Studio was unable to recover from" — no content, no editing, for anyone.
+
+### Cause
+
+```
+Error: Unknown bucket: a2
+  at lexorank/lib/lexoRank/lexoRankBucket.js
+```
+
+`@sanity/orderable-document-list` stores order as a **LexoRank** string —
+`0|hzzzzz:`, where the leading character is a bucket of `0`, `1`, or `2`. The
+seed script wrote plain counters instead (`orderRank: \`a${i}\``). Studio parses
+every rank while building the desk structure, so one bad value took down the
+entire Studio rather than a single list.
+
+Scope: **129 documents with an `orderRank`, 0 of them valid**, across all ten
+orderable types. This dated to the original 2026-08-13 migration, which is why
+Studio was never usable. (The `b0`/`b1` added on 2026-08-14 were equally invalid
+but were not the trigger — the crash names `a2`.)
+
+A second latent bug in the same scheme: `order(orderRank)` compares as a
+**string**, so `a10` and `a11` sorted between `a1` and `a2`. Any type with more
+than ten entries was displaying in a subtly wrong order. `sponsor` also had
+**duplicate `a0` values**, because ranks were generated per-tier rather than
+per-type — harmless for the public pages (each tier sorts its own subquery) but
+ambiguous in Studio's single sponsor list.
+
+### Fix
+
+All 129 `orderRank` values rewritten as sequential LexoRanks. Order was
+preserved exactly: documents were sorted by their *current* value using the same
+plain-string comparison the site's `order(orderRank)` applies (with `_id` as a
+deterministic tiebreak for the duplicate `a0`s), then handed ascending
+LexoRanks. LexoRank sorts correctly as a string by design, so **no public page
+changed** — verified against the live Silver grid, which renders in the same
+order as before, Omaha Lancers and Linhart Construction still last.
+
+A snapshot of the old values was taken before the rewrite.
+
+Verified afterwards: Studio loads, all ten orderable lists render, and the
+sponsor list shows drag handles — drag-to-reorder works for the first time.
+
+### Prevention
+
+`scripts/migrate-to-sanity.mjs` no longer generates plain counters. All ten
+sites now call a new `lexoRankAt(index)` helper backed by the `lexorank`
+package, so a re-run cannot reintroduce this. Note that `lexorank` is a
+*transitive* dependency (via the orderable plugin), not a direct one — flagged
+in a comment above the helper.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**

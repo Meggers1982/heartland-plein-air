@@ -47,6 +47,33 @@ function slugify(name) {
     .replace(/^-+|-+$/g, "");
 }
 
+// orderRank MUST be a LexoRank string (e.g. "0|hzzzzz:"), not a plain counter.
+// @sanity/orderable-document-list parses these with the `lexorank` package, and
+// anything else throws "Unknown bucket: …" while Studio builds its desk
+// structure — which takes the WHOLE Studio down, not just one list. An earlier
+// version of this script wrote `a${i}`, which broke Studio for every editor
+// until all 129 documents were rewritten on 2026-08-15. Do not go back.
+//
+// lexoRankAt(i) returns the i-th rank in ascending order, so callers that
+// already have a positional index keep working unchanged. It also fixes a
+// second bug in the old scheme: `order(orderRank)` compares as a STRING, so
+// a10 and a11 sorted between a1 and a2. LexoRank is designed to sort correctly
+// as a string, so index 10 now really does come after index 9.
+//
+// NOTE: `lexorank` is a TRANSITIVE dependency (via @sanity/orderable-document-
+// list), not a direct one. It resolves today; if a dependency bump ever removes
+// it, add it to package.json rather than reverting to plain counters.
+import { LexoRank } from "lexorank";
+
+const rankCache = [];
+function lexoRankAt(index) {
+  if (rankCache.length === 0) rankCache.push(LexoRank.middle());
+  while (rankCache.length <= index) {
+    rankCache.push(rankCache[rankCache.length - 1].genNext());
+  }
+  return rankCache[index].toString();
+}
+
 // Mirrors src/lib/richText.tsx's LINK_PATTERN exactly, so the migrated
 // Portable Text renders identically to what renderRichText() produced.
 const LINK_PATTERN = /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^)]+)\)/g;
@@ -360,7 +387,7 @@ async function migrateSponsors() {
       icon: tier.icon,
       benefits: tier.benefits,
       nameOnly: Boolean(tier.nameOnly),
-      orderRank: `a${i}`,
+      orderRank: lexoRankAt(i),
     });
     console.log(`  sponsorTier: ${tier.name}`);
   }
@@ -375,7 +402,7 @@ async function migrateSponsors() {
       ...(funder.alt && { alt: funder.alt }),
       ...(funder.url && { url: funder.url }),
       hideFromPartnersGrid: Boolean(funder.hideFromPartnersGrid),
-      orderRank: `a${i}`,
+      orderRank: lexoRankAt(i),
     });
     console.log(`  sponsor (funder): ${funder.name}`);
   }
@@ -396,7 +423,7 @@ async function migrateSponsors() {
         ...(sponsor.alt && { alt: sponsor.alt }),
         ...(sponsor.url && { url: sponsor.url }),
         tier: { _type: "reference", _ref: tierId },
-        orderRank: `a${i}`,
+        orderRank: lexoRankAt(i),
       });
       console.log(`  sponsor (${level.tierSlug}): ${sponsor.name}`);
     }
@@ -714,7 +741,7 @@ async function migrateSchedule() {
       ...(logo && { logo }),
       ...(day.logoAlt && { logoAlt: day.logoAlt }),
       ...(day.logoUrl && { logoUrl: day.logoUrl }),
-      orderRank: `a${SCHEDULE_DAYS.indexOf(day)}`,
+      orderRank: lexoRankAt(SCHEDULE_DAYS.indexOf(day)),
     });
     console.log(`  scheduleDay: ${day.title}`);
   }
@@ -728,7 +755,7 @@ async function migrateSchedule() {
       ...rest,
       ...(sponsorLogo && { sponsorLogo }),
       day: { _type: "reference", _ref: dayId },
-      orderRank: `a${i}`,
+      orderRank: lexoRankAt(i),
     });
     console.log(`  homepageHighlight: ${highlight.title}`);
   }
@@ -745,7 +772,7 @@ async function migrateSchedule() {
         time: ev.time,
         name: ev.name,
       })),
-      orderRank: `a${i}`,
+      orderRank: lexoRankAt(i),
     });
     console.log(`  festivalLocation: ${loc.name}`);
   }
@@ -789,7 +816,7 @@ async function migrateAdSizes() {
       price: size.price,
       icon: size.icon,
       dimensions: size.dimensions,
-      orderRank: `a${i}`,
+      orderRank: lexoRankAt(i),
     });
     console.log(`  adSize: ${size.name}`);
   }
@@ -1057,7 +1084,7 @@ async function migrateFaq() {
       _id: category.id,
       _type: "faqCategory",
       title: category.title,
-      orderRank: `a${ci}`,
+      orderRank: lexoRankAt(ci),
     });
     console.log(`  faqCategory: ${category.title}`);
 
@@ -1069,7 +1096,7 @@ async function migrateFaq() {
         question: item.q,
         answer: paragraphsToPortableText(item.a),
         featured: Boolean(item.featured),
-        orderRank: `a${globalIndex}`,
+        orderRank: lexoRankAt(globalIndex),
       });
       globalIndex++;
     }
@@ -1284,7 +1311,7 @@ async function migrateArtists() {
       isJudge,
       ...(gallery && { medium: gallery.medium }),
       ...(paintings && { paintings }),
-      orderRank: `a${i}`,
+      orderRank: lexoRankAt(i),
     });
     console.log(`  artist: ${person.name}${gallery ? ` (${gallery.paintings.length} paintings)` : ""}`);
   }
