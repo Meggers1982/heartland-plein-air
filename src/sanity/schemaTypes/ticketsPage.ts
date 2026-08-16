@@ -11,9 +11,79 @@ export const ticketsPage = defineType({
   name: "ticketsPage",
   title: "Tickets Page",
   type: "document",
+  groups: [
+    { name: "page", title: "Page text", default: true },
+    { name: "youth", title: "Youth Paintout" },
+  ],
   fields: [
     defineField({
+      name: "eyebrow",
+      title: "Header eyebrow",
+      type: "string",
+      group: "page",
+    }),
+    defineField({ name: "title", title: "Page title", type: "string", group: "page" }),
+    defineField({
+      name: "intro",
+      title: "Introduction",
+      type: "text",
+      rows: 3,
+      group: "page",
+      description: "The paragraph under the page title.",
+    }),
+    defineField({
+      name: "sections",
+      title: "Ticket sections",
+      type: "array",
+      group: "page",
+      description:
+        "One per block down the page. The layout of each is fixed — this is the wording inside it.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "ticketSection",
+          fields: [
+            defineField({
+              name: "id",
+              title: "Section ID",
+              type: "string",
+              description:
+                "Matches the jump link above and the anchor in the page. Changing it breaks both — leave it alone.",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({ name: "eyebrow", type: "string" }),
+            defineField({ name: "heading", type: "string" }),
+            defineField({
+              name: "price",
+              type: "string",
+              description: 'Display text — "$125", "Free". Passage is what actually charges.',
+            }),
+            defineField({
+              name: "description",
+              type: "text",
+              rows: 4,
+              description:
+                "Link to another site by writing [The Granary](https://atthegranary.com/).",
+            }),
+            defineField({
+              name: "ctaLabel",
+              title: "Button label",
+              type: "string",
+            }),
+            defineField({
+              name: "ctaHref",
+              title: "Button link",
+              type: "url",
+              description: "Usually the Passage listing for this ticket.",
+            }),
+          ],
+          preview: { select: { title: "heading", subtitle: "price" } },
+        }),
+      ],
+    }),
+    defineField({
       name: "ticketOptions",
+      group: "page",
       title: "Ticket options",
       description:
         "The jump links under the page header, in the order the sections appear below them.",
@@ -47,6 +117,7 @@ export const ticketsPage = defineType({
     }),
     defineField({
       name: "passBenefits",
+      group: "page",
       title: "Collector VIP Pass — what's included",
       type: "array",
       of: [
@@ -75,6 +146,7 @@ export const ticketsPage = defineType({
     }),
     defineField({
       name: "youthPaintoutGoodToKnow",
+      group: "youth",
       title: "Youth Paintout — good to know",
       type: "array",
       of: [{ type: "text", rows: 2 }],
@@ -84,6 +156,7 @@ export const ticketsPage = defineType({
     }),
     defineField({
       name: "youthPaintoutDayOf",
+      group: "youth",
       title: "Youth Paintout — what to expect on the day",
       description:
         "Shown on the confirmation page after a family registers, not on the Tickets page itself.",
