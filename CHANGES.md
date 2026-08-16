@@ -2686,6 +2686,72 @@ all 13 routes produce identical titles and descriptions.
 
 ---
 
+## 2026-08-16 — The Last of the Page Prose Moved into Sanity
+
+Follow-on to the previous migration, which moved the *data* (lists, prices,
+options) but left the words around it in code. This finishes the job.
+
+### Fixed first — the footer was half-editable
+
+`SiteFooter` hardcoded the organisation name, street address, city/ZIP, phone
+and both social links — the same values that had just moved into `contactInfo`.
+Editing the address in Studio updated `/contact` while the footer on **every
+page** silently kept the old one. That is worse than having it purely in code:
+it looked editable and was only half-wired. Both render sites (the `(site)`
+layout and `not-found`) now read the same document.
+
+### Homepage section headings
+
+Four of the ten section types were marker-only, holding just an `internalNote`
+— the block could be reordered or removed but its heading was baked in.
+`sponsorsSection`, `scheduleTeaserSection`, `artistSpotlightSection` and
+`newsletterCtaSection` now carry an eyebrow and title; the newsletter also holds
+its three perks and the line under the form.
+
+No wiring was needed in `Index.tsx` — it already spreads `{...section}`, so new
+fields flow through. Every prop has a **code fallback**, because `initialValue`
+fires only for newly created blocks: the existing homepage document would
+otherwise have rendered blank headings. It was patched explicitly too.
+
+### Page prose — seven pages
+
+Tickets, Open Division, Advertising, Sponsors, Schedule, Artists and FAQ. Three
+new singletons (`schedulePage`, `artistsPage`, `faqPage`) joined the existing
+five. Tickets keeps each block's bespoke layout by looking sections up by `id`
+rather than rendering a generic loop, so the VIP benefits, youth form and Hy-Vee
+credit stay where they were.
+
+Open Division's editable strings support `{fee}` and `{capacity}` placeholders.
+That matters: its register copy quotes the price, and a plain editable string
+would let someone type a number contradicting what PayPal charges — the exact
+duplication that page was cleaned up to remove.
+
+### Removed
+
+`ArtistsSection.tsx` and `GallerySection.tsx` — zero references, still carrying
+template placeholder data ("Catherine Morales", six paintings by "Sample
+Artist"). The risk was never that they rendered; it was that the next person
+looking for the artist row would find them first.
+
+### A bug this shipped, and how it was caught
+
+`renderRichText`'s link pattern only matched hrefs starting with `/` or
+`http(s)`. The advertising copy's `[info@ralstonarts.org](mailto:...)` therefore
+failed to match and **the raw markdown printed to the live page**. `mailto:` and
+`tel:` are now matched, and neither gets `target="_blank"` — opening a mail
+client in a new tab leaves a blank one behind.
+
+It was caught by diffing every migrated page's rendered text against production
+rather than trusting a green build. The same diff showed an alarming `/artists`
+discrepancy that turned out to be a stale local build, not missing content —
+both render 25 cards with the same roster.
+
+Verified: all 11 migrated pages render byte-identical to production (the one
+intended difference being the mailto fix), and all 14 routes plus `/studio`
+return 200.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
