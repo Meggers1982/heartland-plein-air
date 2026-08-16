@@ -3,16 +3,26 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { urlFor } from "@/sanity/lib/image";
 import type { Sponsor } from "@/sanity/queries/sponsors";
 
-const SponsorsSection = ({ sponsors }: { sponsors: Sponsor[] }) => {
+const SponsorsSection = ({
+  sponsors,
+  // Fallbacks keep the heading intact for homepage documents saved before these
+  // fields existed — a blank <h2> would be a worse failure than stale wording.
+  eyebrow = "Made Possible By",
+  title = "Our Sponsors",
+}: {
+  sponsors: Sponsor[];
+  eyebrow?: string;
+  title?: string;
+}) => {
   return (
     <section className="border-t border-border py-16">
       <div className="mx-auto max-w-6xl px-6">
         <AnimatedSection className="mb-10 text-center">
           <p className="mb-1 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Made Possible By
+            {eyebrow}
           </p>
           <h2 className="font-display text-4xl font-bold text-foreground">
-            Our Sponsors
+            {title}
           </h2>
         </AnimatedSection>
         <AnimatedSection delay={100}>
