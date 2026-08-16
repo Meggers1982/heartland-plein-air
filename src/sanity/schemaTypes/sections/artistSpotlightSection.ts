@@ -1,19 +1,25 @@
 import { defineField, defineType } from "sanity";
 
-// Marker-only: content comes from artist documents. This type just marks the
-// position of the rotating artist spotlight in the homepage's section order.
+// The roster comes from Artist documents; only the heading is set here.
 export const artistSpotlightSection = defineType({
   name: "artistSpotlightSection",
   title: "Artist Spotlight",
   type: "object",
   fields: [
     defineField({
-      name: "internalNote",
+      name: "eyebrow",
       type: "string",
-      description: "Not shown on the site. Content comes from Artist documents.",
+      description: "The small label above the heading.",
+      initialValue: "Meet the Painters",
+    }),
+    defineField({
+      name: "title",
+      type: "string",
+      initialValue: "Artist Spotlight",
     }),
   ],
   preview: {
-    prepare: () => ({ title: "Artist Spotlight", subtitle: "Pulls from Artists" }),
+    select: { subtitle: "title" },
+    prepare: ({ subtitle }) => ({ title: "Artist Spotlight", subtitle }),
   },
 });

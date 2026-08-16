@@ -1,20 +1,26 @@
 import { defineField, defineType } from "sanity";
 
-// Marker-only: content comes from sponsor documents (the untiered funders).
-// This type just marks the position of the "Made Possible By" strip in the
-// homepage's section order.
+// The logos come from Sponsor documents (the untiered funders); only the
+// heading above them is set here.
 export const sponsorsSection = defineType({
   name: "sponsorsSection",
   title: "Sponsors",
   type: "object",
   fields: [
     defineField({
-      name: "internalNote",
+      name: "eyebrow",
       type: "string",
-      description: "Not shown on the site. Content comes from Sponsor documents.",
+      description: "The small label above the heading.",
+      initialValue: "Made Possible By",
+    }),
+    defineField({
+      name: "title",
+      type: "string",
+      initialValue: "Our Sponsors",
     }),
   ],
   preview: {
-    prepare: () => ({ title: "Sponsors", subtitle: "Pulls from Sponsors" }),
+    select: { subtitle: "title" },
+    prepare: ({ subtitle }) => ({ title: "Sponsors", subtitle }),
   },
 });

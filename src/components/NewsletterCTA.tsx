@@ -11,15 +11,30 @@ const emailSchema = z
   .email({ message: "Please enter a valid email address." })
   .max(255, { message: "Email must be less than 255 characters." });
 
-const perks = [
-  { icon: Users, label: "Artist announcements" },
-  { icon: Calendar, label: "Event schedules & maps" },
-  { icon: Sparkles, label: "Early collector access" },
+// Icons stay in code and pair with the labels by position: an editor can
+// reword a perk, but can't pick a mismatched icon or break the row.
+const PERK_ICONS = [Users, Calendar, Sparkles];
+const DEFAULT_PERKS = [
+  "Artist announcements",
+  "Event schedules & maps",
+  "Early collector access",
 ];
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpqgolwo";
 
-const NewsletterCTA = () => {
+const NewsletterCTA = ({
+  // Fallbacks keep the heading intact for homepage documents saved before these
+  // fields existed — a blank heading would be a worse failure than stale wording.
+  eyebrow = "Join the Festival",
+  title = "Be the First to Know",
+  perks: perkLabels,
+  footnote = "No spam. Unsubscribe anytime. Festival updates only.",
+}: {
+  eyebrow?: string;
+  title?: string;
+  perks?: string[];
+  footnote?: string;
+} = {}) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -74,22 +89,25 @@ const NewsletterCTA = () => {
 
       <AnimatedSection className="relative mx-auto max-w-2xl px-6 text-center">
         <p className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.3em] text-primary">
-          Join the Festival
+          {eyebrow}
         </p>
         <h2 className="mb-5 font-display text-4xl font-bold leading-tight text-background md:text-5xl">
-          Be the First to Know
+          {title}
         </h2>
         <p className="mx-auto mb-10 max-w-xl font-body text-base leading-relaxed text-background/75 md:text-lg">
           Be the first to know — get artist announcements, paint-out locations, exhibition previews, and exclusive festival access, right in your inbox.
         </p>
 
         <ul className="mb-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-body text-sm text-background/80">
-          {perks.map(({ icon: Icon, label }) => (
-            <li key={label} className="flex items-center gap-2">
-              <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
-              <span>{label}</span>
-            </li>
-          ))}
+          {(perkLabels?.length ? perkLabels : DEFAULT_PERKS).map((label, i) => {
+            const Icon = PERK_ICONS[i % PERK_ICONS.length];
+            return (
+              <li key={label} className="flex items-center gap-2">
+                <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
+                <span>{label}</span>
+              </li>
+            );
+          })}
         </ul>
 
         {submitted ? (
@@ -149,7 +167,7 @@ const NewsletterCTA = () => {
                   id="newsletter-trust"
                   className="font-body text-xs text-background/80"
                 >
-                  No spam. Unsubscribe anytime. Festival updates only.
+                  {footnote}
                 </p>
               )}
             </div>

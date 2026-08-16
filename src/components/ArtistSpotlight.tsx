@@ -9,7 +9,17 @@ import type { Artist } from "@/sanity/queries/artists";
 const ROTATION_MS = 6000;
 const PLACEHOLDER_HEADSHOT = "/assets/artists/placeholder-headshot.svg";
 
-const ArtistSpotlight = ({ artists: roster }: { artists: Artist[] }) => {
+const ArtistSpotlight = ({
+  artists: roster,
+  // Fallbacks keep the heading intact for homepage documents saved before these
+  // fields existed — a blank heading would be a worse failure than stale wording.
+  eyebrow = "Meet the Painters",
+  title = "Artist Spotlight",
+}: {
+  artists: Artist[];
+  eyebrow?: string;
+  title?: string;
+}) => {
   const artists = roster.filter((a) => !a.isJudge);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -38,10 +48,10 @@ const ArtistSpotlight = ({ artists: roster }: { artists: Artist[] }) => {
       <div className="mx-auto max-w-6xl px-6">
         <AnimatedSection className="mb-12 text-center">
           <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Meet the Painters
+            {eyebrow}
           </p>
           <h2 className="font-display text-4xl font-bold text-foreground">
-            Artist Spotlight
+            {title}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
             Twenty-five painters from across the country are descending on the Omaha metro — easels, brushes, and all — to capture Douglas & Sarpy County in real time. Meet one of them.

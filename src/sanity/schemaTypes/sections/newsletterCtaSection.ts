@@ -1,20 +1,35 @@
 import { defineField, defineType } from "sanity";
 
-// Marker-only: NewsletterCTA.tsx's copy is currently hardcoded in the
-// component itself, not content-managed. This type just marks its position
-// in the homepage's section order.
+// The sign-up form itself is code; everything a visitor reads around it is here.
 export const newsletterCtaSection = defineType({
   name: "newsletterCtaSection",
-  title: "Newsletter CTA",
+  title: "Newsletter Sign-up",
   type: "object",
   fields: [
     defineField({
-      name: "internalNote",
+      name: "eyebrow",
       type: "string",
-      description: "Not shown on the site. Copy is hardcoded in NewsletterCTA.tsx.",
+      description: "The small label above the heading.",
+      initialValue: "Join the Festival",
+    }),
+    defineField({ name: "title", type: "string", initialValue: "Be the First to Know" }),
+    defineField({
+      name: "perks",
+      title: "What subscribers get",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "The short list beside the form. Three reads best.",
+    }),
+    defineField({
+      name: "footnote",
+      title: "Reassurance line",
+      type: "string",
+      description: "The small print under the form.",
+      initialValue: "No spam. Unsubscribe anytime. Festival updates only.",
     }),
   ],
   preview: {
-    prepare: () => ({ title: "Newsletter CTA" }),
+    select: { subtitle: "title" },
+    prepare: ({ subtitle }) => ({ title: "Newsletter Sign-up", subtitle }),
   },
 });

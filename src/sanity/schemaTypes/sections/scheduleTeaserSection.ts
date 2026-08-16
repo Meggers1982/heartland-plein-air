@@ -1,20 +1,25 @@
 import { defineField, defineType } from "sanity";
 
-// Marker-only: content comes from the homepageHighlight documents, which
-// already reference scheduleDay. This type just marks the position of the
-// "Week at a Glance" timeline in the homepage's section order.
+// The days come from Homepage Highlights; only the heading is set here.
 export const scheduleTeaserSection = defineType({
   name: "scheduleTeaserSection",
   title: "Schedule Teaser",
   type: "object",
   fields: [
     defineField({
-      name: "internalNote",
+      name: "eyebrow",
       type: "string",
-      description: "Not shown on the site. Content comes from Homepage Highlights.",
+      description: "The small label above the heading.",
+      initialValue: "The Week at a Glance",
+    }),
+    defineField({
+      name: "title",
+      type: "string",
+      initialValue: "Festival Schedule",
     }),
   ],
   preview: {
-    prepare: () => ({ title: "Schedule Teaser", subtitle: "Pulls from Homepage Highlights" }),
+    select: { subtitle: "title" },
+    prepare: ({ subtitle }) => ({ title: "Schedule Teaser", subtitle }),
   },
 });

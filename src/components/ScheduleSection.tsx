@@ -5,16 +5,26 @@ import { renderRichText } from "@/lib/richText";
 import { urlFor } from "@/sanity/lib/image";
 import type { HomepageHighlight } from "@/sanity/queries/schedule";
 
-const ScheduleSection = ({ homepageHighlights }: { homepageHighlights: HomepageHighlight[] }) => {
+const ScheduleSection = ({
+  homepageHighlights,
+  // Fallbacks keep the heading intact for homepage documents saved before these
+  // fields existed — a blank heading would be a worse failure than stale wording.
+  eyebrow = "The Week at a Glance",
+  title = "Festival Schedule",
+}: {
+  homepageHighlights: HomepageHighlight[];
+  eyebrow?: string;
+  title?: string;
+}) => {
   return (
     <section id="schedule" className="bg-secondary/50 py-24">
       <div className="mx-auto max-w-4xl px-6">
         <AnimatedSection className="mb-16 text-center">
           <p className="mb-2 font-body text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            The Week at a Glance
+            {eyebrow}
           </p>
           <h2 className="font-display text-4xl font-bold text-foreground">
-            Festival Schedule
+            {title}
           </h2>
         </AnimatedSection>
 
