@@ -9,7 +9,8 @@ import BackToTop from "@/components/BackToTop";
 import YouthPaintoutForm from "@/components/YouthPaintoutForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import type { FormConfig } from "@/sanity/queries/formConfig";
-import type { TicketsPage } from "@/sanity/queries/pages";
+import type { TicketsPage, TicketSection } from "@/sanity/queries/pages";
+import { renderRichText } from "@/lib/richText";
 
 
 
@@ -22,6 +23,17 @@ const Tickets = ({
   page: TicketsPage;
 }) => {
   const { ticketOptions, passBenefits, youthPaintoutGoodToKnow } = page;
+  // Each block below keeps its bespoke layout; only the wording is looked up.
+  // Falling back to an empty object means a section missing from Sanity renders
+  // blank text rather than crashing the page.
+  const copy = (id: string): Partial<TicketSection> =>
+    page.sections?.find((sec) => sec.id === id) ?? {};
+  const vip = copy("collector-vip-pass");
+  const lecture = copy("judges-lecture");
+  const reception = copy("collectors-preview-reception");
+  const exhibition = copy("public-exhibition-sale");
+  const youth = copy("youth-paintout");
+  const youthReception = copy("youth-art-show-reception");
   const handleJump = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);
@@ -48,13 +60,13 @@ const Tickets = ({
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            Get Closer to the Art
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Tickets
+            {page.title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl font-body text-lg leading-relaxed text-secondary/80">
-            While most Heartland Plein Air Festival events are free and open to the public, the Collector VIP Pass gets you closer to the art — and the artists.
+            {page.intro}
           </p>
         </div>
       </header>
@@ -88,21 +100,21 @@ const Tickets = ({
           <AnimatedSection>
             <div className="mx-auto max-w-3xl text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Full Access
+                {vip.eyebrow}
               </p>
               <h2 className="mb-2 font-display text-4xl font-bold leading-tight text-foreground">
-                Collector VIP Pass
+                {vip.heading}
               </h2>
               <p className="mb-6 font-body text-lg font-semibold uppercase tracking-wide text-primary">
-                $125
+                {vip.price}
               </p>
               <a
-                href="https://app.gopassage.com/events/heartland-plein-air-festival-vip"
+                href={vip.ctaHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mb-10 inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl"
               >
-                Buy the Collector VIP Pass — $125
+                {vip.ctaLabel}
               </a>
             </div>
           </AnimatedSection>
@@ -131,15 +143,15 @@ const Tickets = ({
           <AnimatedSection delay={340}>
             <div className="mx-auto mt-10 max-w-3xl rounded-lg border border-border bg-card p-8 text-center md:p-12">
               <p className="mb-6 font-body text-lg leading-relaxed text-muted-foreground">
-                Your pass also supports the Ralston HINGE Creative District, community arts programming across all disciplines, and a festival that's on track to become the creative district's signature annual event.
+                {renderRichText(vip.description ?? "")}
               </p>
               <a
-                href="https://app.gopassage.com/events/heartland-plein-air-festival-vip"
+                href={vip.ctaHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full bg-primary px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl"
               >
-                Buy the Collector VIP Pass — $125
+                {vip.ctaLabel}
               </a>
             </div>
           </AnimatedSection>
@@ -153,24 +165,24 @@ const Tickets = ({
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Just the Lecture
+              {lecture.eyebrow}
             </p>
             <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
-              Judge's Lecture Only
+              {lecture.heading}
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-              Prefer just the lecture? "Introduction to Impressionism," presented by Judge of Awards and Master Artist Rick J. Delanty, Thursday, September 17 at the Baright Public Library.
+              {renderRichText(lecture.description ?? "")}
             </p>
             <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
-              $25
+              {lecture.price}
             </p>
             <a
-              href="https://app.gopassage.com/events/heartland-plein-air-festival-lecture-with-delanty"
+              href={lecture.ctaHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
             >
-              Buy Lecture Tickets — $25
+              {lecture.ctaLabel}
             </a>
           </AnimatedSection>
         </div>
@@ -183,28 +195,24 @@ const Tickets = ({
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Just the Reception
+              {reception.eyebrow}
             </p>
             <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
-              Collectors Preview Reception Only
+              {reception.heading}
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-              First access to purchase paintings created throughout the week, plus the Awards Presentation with the Judge of Awards. Beverages and hors d'oeuvres included. Friday, September 18 at{" "}
-              <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
-                the Granary
-              </a>
-              .
+              {renderRichText(reception.description ?? "")}
             </p>
             <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
-              $95
+              {reception.price}
             </p>
             <a
-              href="https://app.gopassage.com/events/heartland-plein-air-festival-collectors-reception-and-awards-presentation"
+              href={reception.ctaHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
             >
-              Buy Reception Tickets — $95
+              {reception.ctaLabel}
             </a>
           </AnimatedSection>
         </div>
@@ -217,28 +225,24 @@ const Tickets = ({
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Free & Open to the Public
+              {exhibition.eyebrow}
             </p>
             <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
-              Public Exhibition & Sale
+              {exhibition.heading}
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-              Browse and purchase paintings made during festival week, Saturday, September 19, 11 AM–4 PM at{" "}
-              <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
-                the Granary
-              </a>{" "}
-              in Ralston. Free to attend — RSVP so we know to expect you.
+              {renderRichText(exhibition.description ?? "")}
             </p>
             <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
-              Free
+              {exhibition.price}
             </p>
             <a
-              href="https://app.gopassage.com/events/heartland-plein-air-festival-exhibition-sale"
+              href={exhibition.ctaHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-10 py-4 font-body text-xs font-bold uppercase tracking-[0.2em] text-primary transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-primary-foreground"
             >
-              RSVP — Free
+              {exhibition.ctaLabel}
             </a>
           </AnimatedSection>
         </div>
@@ -252,16 +256,16 @@ const Tickets = ({
           <AnimatedSection>
             <div className="text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Free · Pre-Registration Required
+                {youth.eyebrow}
               </p>
               <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
-                Youth Paintout
+                {youth.heading}
               </h2>
               <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-                Young artists take their easels outdoors for a morning of open-air painting, Saturday, September 12, 10 AM–Noon at Wildewood Park (8000 Ralston Ave., Ralston). Work created that morning is celebrated at the Youth Art Show Reception that evening.
+                {renderRichText(youth.description ?? "")}
               </p>
               <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
-                Free
+                {youth.price}
               </p>
             </div>
             <div className="mx-auto mb-10 max-w-xl rounded-lg border border-border bg-card p-6 md:p-8">
@@ -299,16 +303,16 @@ const Tickets = ({
         <div className="mx-auto max-w-3xl px-6 text-center">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Free &amp; Open to the Public
+              {youthReception.eyebrow}
             </p>
             <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
-              Youth Art Show Reception
+              {youthReception.heading}
             </h2>
             <p className="mb-2 font-body text-lg leading-relaxed text-foreground/85">
-              The paintings made at the Youth Paintout that morning go on show the same evening. Saturday, September 12, 5–6:30 PM at the Baright Public Library, 5555 S. 77th St., Ralston. No ticket and no registration — just come.
+              {renderRichText(youthReception.description ?? "")}
             </p>
             <p className="mb-8 font-body text-lg font-semibold uppercase tracking-wide text-primary">
-              Free
+              {youthReception.price}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 font-body text-sm text-muted-foreground">
               <span>Sponsored by Applewood Hy-Vee</span>

@@ -42,7 +42,22 @@ export type DayOfInstruction = {
   featured?: boolean;
 };
 
+export type TicketSection = {
+  _key: string;
+  id: string;
+  eyebrow?: string;
+  heading?: string;
+  price?: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+};
+
 export type TicketsPage = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  sections?: TicketSection[];
   ticketOptions: TicketOption[];
   passBenefits: PassBenefit[];
   youthPaintoutGoodToKnow: string[];
