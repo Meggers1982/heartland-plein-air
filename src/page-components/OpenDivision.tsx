@@ -39,6 +39,10 @@ const OpenDivision = ({
   // amount below, so a change in Studio can't leave them disagreeing.
   const fee = page.registrationFee;
   const feeLabel = `$${fee}`;
+  // Lets any editable string quote the price without hardcoding it, so the
+  // wording can never contradict what PayPal actually charges.
+  const fill = (t?: string) =>
+    (t ?? "").replaceAll("{fee}", feeLabel).replaceAll("{capacity}", String(capacity));
   const payPalAmount = fee.toFixed(2);
 
   useEffect(() => {
@@ -58,13 +62,13 @@ const OpenDivision = ({
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            For Artists
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Open Division
+            {page.title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl font-body text-lg leading-relaxed text-secondary/80">
-            Register to paint alongside the festival's invited artists. We recommend some prior plein air experience — spots are limited and go quickly.
+            {fill(page.intro)}
           </p>
         </div>
       </header>
@@ -75,10 +79,10 @@ const OpenDivision = ({
           <AnimatedSection>
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                At a Glance
+                {page.quickFactsEyebrow}
               </p>
               <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
-                Quick Facts
+                {page.quickFactsTitle}
               </h2>
             </div>
           </AnimatedSection>
@@ -112,17 +116,17 @@ const OpenDivision = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Getting Started
+              {page.checkInEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Registration & Check-In
+              {page.checkInTitle}
             </h2>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
                 Registration is {feeLabel} and limited to {capacity} artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
               </p>
               <p>
-                Check-in runs from 11am to 5pm on Monday, September 14th, at the Ralston Baright Public Library (5555 S. 77th St, Ralston). You'll receive your information packet and lanyard, and can have your canvases stamped.
+                {fill(page.checkInBody)}
               </p>
               <p>
                 All canvases and painting substrates must be stamped before you paint on them — no painting will be accepted without a prior stamp. You may have an unlimited number of surfaces stamped, but only one or two finished pieces may be submitted for exhibition and awards.
@@ -131,7 +135,7 @@ const OpenDivision = ({
             <div className="mt-8 flex items-start gap-3 rounded-lg border border-border bg-card p-6">
               <ShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
               <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                A liability release form is required from every Open Division artist at check-in.
+                {fill(page.liabilityNote)}
               </p>
             </div>
           </AnimatedSection>
@@ -145,10 +149,10 @@ const OpenDivision = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              The Work
+              {page.requirementsEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Painting Requirements
+              {page.requirementsTitle}
             </h2>
             <ul className="space-y-4">
               {paintingRequirements.map((item) => (
@@ -171,10 +175,10 @@ const OpenDivision = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Out in the Field
+              {page.conductEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Where & How to Paint
+              {page.conductTitle}
             </h2>
             <ul className="space-y-4">
               {paintingConduct.map((item) => (
@@ -197,10 +201,10 @@ const OpenDivision = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Selling Your Work
+              {page.salesEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Sales, Commission & Exhibition
+              {page.salesTitle}
             </h2>
             <ul className="space-y-4">
               {salesInfo.map((item) => (
@@ -217,15 +221,11 @@ const OpenDivision = ({
               <div className="mb-4 flex items-center gap-3">
                 <Clock className="h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <h3 className="font-display text-lg font-semibold text-foreground">
-                  Turn-In & Pickup
+                  {page.turnInTitle}
                 </h3>
               </div>
               <p className="font-body text-sm leading-relaxed text-foreground/85">
-                Turn in your finished paintings on Friday, September 18th, between 9am and noon at the Venues at{" "}
-                <a href="https://atthegranary.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
-                  the Granary
-                </a>{" "}
-                (74th & Main St, Ralston). Unsold works must be picked up by 5pm on Saturday, September 19th.
+                {renderRichText(fill(page.turnInBody))}
               </p>
             </div>
           </AnimatedSection>
@@ -240,13 +240,13 @@ const OpenDivision = ({
           <AnimatedSection>
             <div className="mb-8 text-center">
               <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                Ready to Register?
+                {page.registerTitle}
               </p>
               <p className="font-body text-base leading-relaxed text-muted-foreground">
-                Fill out the form below to reserve your spot. Registration is {feeLabel} and limited to {capacity} artists, first come, first served.
+                {fill(page.registerBody)}
               </p>
               <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
-                After submitting the form, pay your fee via PayPal or by mailing a check. Any registration without payment will not be accepted.
+                {fill(page.registerPaymentNote)}
               </p>
             </div>
             <div className="rounded-lg border border-border bg-card p-8 md:p-12">

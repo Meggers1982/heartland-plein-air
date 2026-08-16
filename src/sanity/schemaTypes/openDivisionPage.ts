@@ -12,10 +12,53 @@ export const openDivisionPage = defineType({
   title: "Open Division Page",
   type: "document",
   groups: [
-    { name: "registration", title: "Registration", default: true },
+    { name: "page", title: "Page text", default: true },
+    { name: "registration", title: "Registration" },
     { name: "rules", title: "Rules & conduct" },
   ],
   fields: [
+    // Headings and paragraphs, in the order they appear down the page. Write
+    // {fee} or {capacity} anywhere below and the real numbers are filled in, so
+    // the price can never be quoted here in a way that contradicts what PayPal
+    // charges.
+    defineField({ name: "eyebrow", title: "Header eyebrow", type: "string", group: "page" }),
+    defineField({ name: "title", title: "Page title", type: "string", group: "page" }),
+    defineField({
+      name: "intro",
+      title: "Introduction",
+      type: "text",
+      rows: 3,
+      group: "page",
+    }),
+    defineField({ name: "quickFactsEyebrow", type: "string", group: "page" }),
+    defineField({ name: "quickFactsTitle", type: "string", group: "page" }),
+    defineField({ name: "checkInEyebrow", type: "string", group: "page" }),
+    defineField({ name: "checkInTitle", type: "string", group: "page" }),
+    defineField({ name: "checkInBody", type: "text", rows: 3, group: "page" }),
+    defineField({
+      name: "liabilityNote",
+      title: "Liability note",
+      type: "string",
+      group: "page",
+      description: "The highlighted line under check-in.",
+    }),
+    defineField({ name: "requirementsEyebrow", type: "string", group: "page" }),
+    defineField({ name: "requirementsTitle", type: "string", group: "page" }),
+    defineField({ name: "conductEyebrow", type: "string", group: "page" }),
+    defineField({ name: "conductTitle", type: "string", group: "page" }),
+    defineField({ name: "salesEyebrow", type: "string", group: "page" }),
+    defineField({ name: "salesTitle", type: "string", group: "page" }),
+    defineField({ name: "turnInTitle", type: "string", group: "page" }),
+    defineField({
+      name: "turnInBody",
+      type: "text",
+      rows: 3,
+      group: "page",
+      description: "Link out by writing [the Granary](https://atthegranary.com/).",
+    }),
+    defineField({ name: "registerTitle", type: "string", group: "page" }),
+    defineField({ name: "registerBody", type: "text", rows: 2, group: "page" }),
+    defineField({ name: "registerPaymentNote", type: "text", rows: 2, group: "page" }),
     defineField({
       name: "registrationFee",
       title: "Registration fee (USD)",
