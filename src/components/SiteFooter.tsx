@@ -4,8 +4,15 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import FooterSignup from "@/components/FooterSignup";
 import { urlFor } from "@/sanity/lib/image";
 import type { Sponsor } from "@/sanity/queries/sponsors";
+import type { ContactInfo } from "@/sanity/queries/pages";
 
-const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
+const SiteFooter = ({
+  sponsors,
+  contactInfo,
+}: {
+  sponsors: Sponsor[];
+  contactInfo: ContactInfo;
+}) => {
   return (
     <footer className="bg-background text-foreground">
       <BrushStrokeDivider className="pt-6" />
@@ -39,19 +46,19 @@ const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
                 <div>
                   <p className="font-medium text-foreground">
-                    Ralston HINGE Creative District
+                    {contactInfo.organization}
                   </p>
-                  <p>5615 S. 77th St</p>
-                  <p>Ralston, NE 68127</p>
+                  <p>{contactInfo.addressLine1}</p>
+                  <p>{contactInfo.addressLine2}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0 text-primary" aria-hidden="true" />
                 <a
-                  href="tel:+14025926552"
+                  href={`tel:${contactInfo.phoneHref}`}
                   className="transition-colors hover:text-primary"
                 >
-                  (402) 592-6552
+                  {contactInfo.phone}
                 </a>
               </div>
             </address>
@@ -65,8 +72,9 @@ const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
             </h3>
             <FooterSignup />
             <div className="mt-5 flex gap-3">
+              {contactInfo.facebookUrl && (
               <a
-                href="https://www.facebook.com/RalstonArts/"
+                href={contactInfo.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -74,8 +82,10 @@ const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
               >
                 <Facebook className="h-4 w-4" />
               </a>
+              )}
+              {contactInfo.instagramUrl && (
               <a
-                href="https://www.instagram.com/ralstonarts/"
+                href={contactInfo.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -83,6 +93,7 @@ const SiteFooter = ({ sponsors }: { sponsors: Sponsor[] }) => {
               >
                 <Instagram className="h-4 w-4" />
               </a>
+              )}
             </div>
           </div>
         </div>

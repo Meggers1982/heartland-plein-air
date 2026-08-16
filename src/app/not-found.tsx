@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import SetDocumentTitle from "@/components/SetDocumentTitle";
 import { getFunders } from "@/sanity/queries/sponsors";
+import { getContactInfo } from "@/sanity/queries/pages";
 
 // Where a visitor who hit a dead link most likely meant to go. Deliberately
 // not the whole nav — that's already one scroll up. These are the pages with
@@ -50,7 +51,7 @@ const destinations = [
 ];
 
 export default async function NotFound() {
-  const sponsors = await getFunders();
+  const [sponsors, contactInfo] = await Promise.all([getFunders(), getContactInfo()]);
   return (
     <div className="min-h-screen bg-background">
       {/* not-found.tsx can't export `metadata` — see SetDocumentTitle. */}
@@ -116,7 +117,7 @@ export default async function NotFound() {
         </div>
       </section>
 
-      <SiteFooter sponsors={sponsors} />
+      <SiteFooter sponsors={sponsors} contactInfo={contactInfo} />
     </div>
   );
 }
