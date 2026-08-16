@@ -11,6 +11,7 @@ import { Globe, Facebook, Instagram, ChevronLeft, ChevronRight } from "lucide-re
 import { JsonLd, breadcrumbSchema, SITE_URL } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
+import type { ArtistsPage } from "@/sanity/queries/pages";
 
 const PLACEHOLDER_HEADSHOT = "/assets/artists/placeholder-headshot.svg";
 
@@ -33,7 +34,13 @@ const toPersonSchema = (artist: Artist) => {
   };
 };
 
-const Artists = ({ roster }: { roster: Artist[] }) => {
+const Artists = ({
+  roster,
+  page,
+}: {
+  roster: Artist[];
+  page: ArtistsPage;
+}) => {
   // Rick J. Delanty judges the awards AND paints the festival, so he belongs
   // in the roster — without him the grid shows 24 cards while the copy says
   // 25. He's appended last in the fetched roster so indices into `artists`
@@ -62,10 +69,10 @@ const Artists = ({ roster }: { roster: Artist[] }) => {
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            The 2026 Roster
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Meet the Artists
+            {page.title}
           </h1>
         </div>
       </header>
@@ -93,10 +100,10 @@ const Artists = ({ roster }: { roster: Artist[] }) => {
             <div className="mb-12 text-center">
               <AnimatedSection>
                 <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  The Roster
+                  {page.rosterEyebrow}
                 </p>
                 <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
-                  The 2026 Invited Artists
+                  {page.rosterTitle}
                 </h2>
               </AnimatedSection>
             </div>
@@ -137,7 +144,7 @@ const Artists = ({ roster }: { roster: Artist[] }) => {
                         {artist.location}
                       </p>
                       <p className="mt-2 font-body text-xs text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                        Click to see more
+                        {page.cardHint}
                       </p>
                     </div>
                   </>
@@ -167,10 +174,10 @@ const Artists = ({ roster }: { roster: Artist[] }) => {
             <div className="mb-12 text-center">
               <AnimatedSection>
                 <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  Awards
+                  {page.judgeEyebrow}
                 </p>
                 <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
-                  Awards Judge
+                  {page.judgeTitle}
                 </h2>
               </AnimatedSection>
             </div>

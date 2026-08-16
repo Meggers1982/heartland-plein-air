@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/pageMetadata";
 import Artists from "@/page-components/Artists";
+import { getArtistsPage } from "@/sanity/queries/pages";
 import { getArtists } from "@/sanity/queries/artists";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,5 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ArtistsPage() {
   const roster = await getArtists();
-  return <Artists roster={roster} />;
+  const page = await getArtistsPage();
+  return <Artists page={page} roster={roster} />;
 }
