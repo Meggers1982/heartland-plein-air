@@ -101,10 +101,10 @@ const Contact = ({
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            We'd Love to Hear From You
+            {contactInfo.pageEyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Get in Touch
+            {contactInfo.pageTitle}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl font-body text-lg leading-relaxed text-secondary/80">
             Questions about the festival, sponsorship, volunteering, or press? Send us a note and we'll get back to you.

@@ -1,4 +1,5 @@
 'use client';
+import type { SiteChrome } from "@/sanity/queries/pages";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { z } from "zod";
@@ -12,7 +13,7 @@ const emailSchema = z
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpqgolwo";
 
-const FooterSignup = () => {
+const FooterSignup = ({ chrome }: { chrome: SiteChrome }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -50,7 +51,7 @@ const FooterSignup = () => {
         className="flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2.5 font-body text-sm text-foreground"
       >
         <Check className="h-4 w-4 text-primary" aria-hidden="true" />
-        <span>Thanks — you're on the list.</span>
+        <span>{chrome.signupSuccess}</span>
       </div>
     );
   }
@@ -70,7 +71,7 @@ const FooterSignup = () => {
             setEmail(e.target.value);
             if (error) setError(null);
           }}
-          placeholder="your@email.com"
+          placeholder={chrome.signupPlaceholder}
           maxLength={255}
           aria-invalid={error ? "true" : "false"}
           aria-describedby={error ? "footer-email-error" : undefined}
@@ -95,7 +96,7 @@ const FooterSignup = () => {
           </p>
         ) : (
           <p className="font-body text-xs text-foreground/80">
-            No spam. Festival updates only.
+            {chrome.signupFootnote}
           </p>
         )}
       </div>

@@ -3,7 +3,7 @@ import Script from "next/script";
 import Providers from "@/App";
 import { JsonLd, organizationSchema, buildFestivalEventSchema } from "@/lib/schema";
 import { getArtistCount } from "@/sanity/queries/artists";
-import { getFestivalInfo } from "@/sanity/queries/pages";
+import { getFestivalInfo, getSiteChrome } from "@/sanity/queries/pages";
 import { formatFestivalRange } from "@/lib/festivalDate";
 import "./globals.css";
 
@@ -36,9 +36,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [invitedCount, festivalInfo] = await Promise.all([
+  const [invitedCount, festivalInfo, siteChrome] = await Promise.all([
     getArtistCount(),
     getFestivalInfo(),
+    getSiteChrome(),
   ]);
   return (
     <html lang="en">
@@ -64,7 +65,9 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
-        <Providers festivalInfo={festivalInfo}>{children}</Providers>
+        <Providers festivalInfo={festivalInfo} siteChrome={siteChrome}>
+          {children}
+        </Providers>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BQ1HV47WKM"
           strategy="afterInteractive"

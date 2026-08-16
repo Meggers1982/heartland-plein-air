@@ -3,10 +3,15 @@ import type { ContactInfo } from "@/sanity/queries/pages";
 
 type FestivalContactInfoProps = {
   info: ContactInfo;
+  followAlongLabel?: string;
   headingLevel?: "h2" | "h3";
 };
 
-const FestivalContactInfo = ({ info, headingLevel = "h3" }: FestivalContactInfoProps) => {
+const FestivalContactInfo = ({
+  info,
+  followAlongLabel = "Follow Along",
+  headingLevel = "h3",
+}: FestivalContactInfoProps) => {
   const Heading = headingLevel;
   return (
     <div>
@@ -47,7 +52,7 @@ const FestivalContactInfo = ({ info, headingLevel = "h3" }: FestivalContactInfoP
       {(info.facebookUrl || info.instagramUrl) && (
         <div className="mt-8">
           <p className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Follow Along
+            {followAlongLabel}
           </p>
           <div className="flex gap-3">
             {info.facebookUrl && (

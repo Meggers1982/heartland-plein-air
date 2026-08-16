@@ -30,6 +30,8 @@ export type ContactInfo = {
   facebookUrl?: string;
   instagramUrl?: string;
   contactTopics: string[];
+  pageEyebrow?: string;
+  pageTitle?: string;
 };
 
 export type TicketOption = { _key: string; id: string; name: string; price: string };
@@ -139,6 +141,25 @@ export type FestivalInfo = {
   location: string;
 };
 
+export type GalleryPage = { eyebrow?: string; title?: string };
+
+export type SiteChrome = {
+  countdownLabel?: string;
+  ribbonLabelDesktop?: string;
+  ribbonLabelMobile?: string;
+  newsletterTitle?: string;
+  newsletterBody?: string;
+  footerBlurb?: string;
+  footerVisitHeading?: string;
+  footerStayHeading?: string;
+  footerSponsorsHeading?: string;
+  footerPresentedBy?: string;
+  followAlongLabel?: string;
+  signupPlaceholder?: string;
+  signupFootnote?: string;
+  signupSuccess?: string;
+};
+
 async function fetchSingleton<T>(id: string): Promise<T> {
   const { data } = await sanityFetch({
     query: `*[_id == $id][0]`,
@@ -158,3 +179,5 @@ export const getSchedulePage = () => fetchSingleton<SchedulePage>("schedulePage"
 export const getArtistsPage = () => fetchSingleton<ArtistsPage>("artistsPage");
 export const getFaqPage = () => fetchSingleton<FaqPage>("faqPage");
 export const getFestivalInfo = () => fetchSingleton<FestivalInfo>("festivalInfo");
+export const getGalleryPage = () => fetchSingleton<GalleryPage>("galleryPage");
+export const getSiteChrome = () => fetchSingleton<SiteChrome>("siteChrome");

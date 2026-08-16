@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/pageMetadata";
 import Gallery from "@/page-components/Gallery";
+import { getGalleryPage } from "@/sanity/queries/pages";
 import { getGalleryArtists } from "@/sanity/queries/artists";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,5 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function GalleryPage() {
   const galleryArtists = await getGalleryArtists();
-  return <Gallery galleryArtists={galleryArtists} />;
+  const page = await getGalleryPage();
+  return <Gallery page={page} galleryArtists={galleryArtists} />;
 }

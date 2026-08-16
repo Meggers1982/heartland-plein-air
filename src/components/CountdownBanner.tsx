@@ -1,7 +1,7 @@
 'use client';
 import { useCountdown } from "@/hooks/useCountdown";
 import { festivalStartTimestamp, formatFestivalLine } from "@/lib/festivalDate";
-import { useFestivalInfo } from "@/components/FestivalInfoProvider";
+import { useFestivalInfo, useSiteChrome } from "@/components/SiteContext";
 
 const FALLBACK_START = festivalStartTimestamp("2026-09-13");
 
@@ -9,6 +9,7 @@ const CountdownBanner = () => {
   // null until mounted — see the hook for why the first value can't be
   // computed during render on these statically prerendered pages.
   const festival = useFestivalInfo();
+  const chrome = useSiteChrome();
   // Falls back to the shipped dates if the document is ever missing, so the
   // countdown keeps running rather than the component throwing.
   const startsAt = festival ? festivalStartTimestamp(festival.startDate) : FALLBACK_START;
@@ -37,7 +38,7 @@ const CountdownBanner = () => {
         <div className="flex flex-col items-center gap-6 lg:items-start">
           <div className="flex flex-col items-center gap-2 lg:items-start">
             <p className="font-body text-xs font-semibold uppercase tracking-[0.3em] text-primary-foreground/90">
-              The brushes come out in
+              {chrome?.countdownLabel}
             </p>
             <div className="h-px w-12 bg-primary-foreground/40" />
           </div>
@@ -83,10 +84,10 @@ const CountdownBanner = () => {
         {/* CTA */}
         <div className="flex max-w-sm flex-col items-center gap-4 lg:items-start">
           <p className="font-display text-xl text-primary-foreground sm:text-2xl">
-            Don't miss a brushstroke.
+            {chrome?.newsletterTitle}
           </p>
           <p className="text-center font-body text-sm text-primary-foreground/90 lg:text-left">
-            Get festival updates, artist announcements, and event reminders delivered to your inbox.
+            {chrome?.newsletterBody}
           </p>
           <a
             href="#newsletter"

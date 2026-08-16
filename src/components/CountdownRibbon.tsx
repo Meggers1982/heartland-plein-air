@@ -1,7 +1,7 @@
 'use client';
 import { useCountdown, isExpired } from "@/hooks/useCountdown";
 import { festivalStartTimestamp, formatFestivalLine } from "@/lib/festivalDate";
-import { useFestivalInfo } from "@/components/FestivalInfoProvider";
+import { useFestivalInfo, useSiteChrome } from "@/components/SiteContext";
 
 const FALLBACK_START = festivalStartTimestamp("2026-09-13");
 
@@ -9,6 +9,7 @@ const CountdownRibbon = () => {
   // null until mounted — see the hook for why the first value can't be
   // computed during render on these statically prerendered pages.
   const festival = useFestivalInfo();
+  const chrome = useSiteChrome();
   // Falls back to the shipped dates if the document is ever missing, so the
   // countdown keeps running rather than the component throwing.
   const startsAt = festival ? festivalStartTimestamp(festival.startDate) : FALLBACK_START;
@@ -31,10 +32,10 @@ const CountdownRibbon = () => {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         <div className="flex items-center gap-3 sm:gap-5">
           <span className="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90 sm:hidden">
-            Festival in
+            {chrome?.ribbonLabelMobile}
           </span>
           <span className="hidden font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-foreground/90 sm:inline">
-            Brushes Out In
+            {chrome?.ribbonLabelDesktop}
           </span>
           <div className="flex items-baseline gap-2 sm:gap-3">
             {units.map(([label, value], i) => (
