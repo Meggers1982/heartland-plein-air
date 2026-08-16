@@ -93,10 +93,28 @@ export type OpenDivisionPage = {
 };
 
 export type FileSpec = { _key: string; icon: string; text: string };
-export type AdvertisingPage = { fileSpecs: FileSpec[] };
+export type AdvertisingPage = {
+  fileSpecs: FileSpec[];
+  eyebrow?: string; title?: string; intro?: string;
+  catalogEyebrow?: string; catalogTitle?: string;
+  specsEyebrow?: string; specsTitle?: string; specsIntro?: string;
+  reserveEyebrow?: string; reserveTitle?: string; reserveIntro?: string;
+  deadlineTitle?: string; deadlineBody?: string;
+  submitTitle?: string; submitBody?: string;
+  paymentTitle?: string; paymentBody?: string;
+  closedNote?: string; ctaTitle?: string; ctaBody?: string;
+};
 
 export type NamedOpportunity = { _key: string; title: string; description: string };
-export type SponsorsPage = { namedOpportunities: NamedOpportunity[] };
+export type SponsorsPage = {
+  namedOpportunities: NamedOpportunity[];
+  eyebrow?: string; title?: string;
+  becomeEyebrow?: string; becomeTitle?: string; becomeIntro?: string; becomeLinkLabel?: string;
+  ctaTitle?: string; ctaBody?: string; payTitle?: string;
+  givingEyebrow?: string; givingTitle?: string; givingIntro?: string;
+  thankYouEyebrow?: string; thankYouTitle?: string; thankYouBody?: string;
+  partnersTitle?: string;
+};
 
 async function fetchSingleton<T>(id: string): Promise<T> {
   const { data } = await sanityFetch({

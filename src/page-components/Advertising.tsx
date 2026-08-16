@@ -17,6 +17,7 @@ import BackToTop from "@/components/BackToTop";
 import InquiryForm from "@/components/InquiryForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
+import { renderRichText } from "@/lib/richText";
 import type { AdSize } from "@/sanity/queries/advertising";
 import type { FormConfig } from "@/sanity/queries/formConfig";
 import type { AdvertisingPage } from "@/sanity/queries/pages";
@@ -59,13 +60,13 @@ const Advertising = ({
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            Reach Collectors & Attendees
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Advertising Opportunities
+            {page.title}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl font-body text-lg leading-relaxed text-secondary/80">
-            Put your business in front of thousands of art lovers during the Heartland Plein Air Festival, September 13–19, 2026.
+            {page.intro}
           </p>
         </div>
       </header>
@@ -76,10 +77,10 @@ const Advertising = ({
           <AnimatedSection>
             <div className="mx-auto max-w-3xl text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                6x6&quot; Festival Catalog
+                {page.catalogEyebrow}
               </p>
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-                Advertise in the Catalog
+                {page.catalogTitle}
               </h2>
               <p className="mb-14 font-body text-lg leading-relaxed text-foreground/85">
                 The festival catalog is printed in a run of 3,000 copies, plus an online version, and is distributed to collectors, attendees, and art enthusiasts throughout the Omaha metro and beyond. Reach your audience by placing an ad alongside the work of 25 nationally recognized plein air artists.
@@ -120,13 +121,13 @@ const Advertising = ({
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Artwork Requirements
+              {page.specsEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              File Specifications
+              {page.specsTitle}
             </h2>
             <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-              To ensure your ad prints correctly, please submit finished artwork according to the following specs.
+              {page.specsIntro}
             </p>
           </AnimatedSection>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -156,13 +157,13 @@ const Advertising = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Deadline & Payment
+              {page.reserveEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              How to Reserve Your Ad
+              {page.reserveTitle}
             </h2>
             <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-              Space is limited and reserved on a first-come, first-served basis. Here's what to know before you submit.
+              {page.reserveIntro}
             </p>
           </AnimatedSection>
           <div className="space-y-4">
@@ -171,10 +172,10 @@ const Advertising = ({
                 <Calendar className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <div>
                   <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
-                    Deadline
+                    {page.deadlineTitle}
                   </h3>
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
-                    All print-ready ads are due no later than July 17, 2026, ahead of the September 13–19, 2026 festival.
+                    {page.deadlineBody}
                   </p>
                 </div>
               </div>
@@ -184,17 +185,10 @@ const Advertising = ({
                 <Mail className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <div>
                   <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
-                    Submit Your Artwork
+                    {page.submitTitle}
                   </h3>
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
-                    Email your print-ready ad to{" "}
-                    <a
-                      href="mailto:info@ralstonarts.org"
-                      className="font-semibold text-primary hover:underline"
-                    >
-                      info@ralstonarts.org
-                    </a>
-                    .
+                    {renderRichText(page.submitBody ?? "")}
                   </p>
                 </div>
               </div>
@@ -204,10 +198,10 @@ const Advertising = ({
                 <CreditCard className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
                 <div>
                   <h3 className="mb-1 font-display text-lg font-semibold text-foreground">
-                    Payment
+                    {page.paymentTitle}
                   </h3>
                   <p className="font-body text-sm leading-relaxed text-foreground/85">
-                    Mail a check payable to the Ralston Hinge Creative District to 5615 S. 77th St, Ralston, NE 68127.
+                    {page.paymentBody}
                   </p>
                 </div>
               </div>
@@ -219,7 +213,7 @@ const Advertising = ({
               {deadlinePassed ? (
                 <div className="text-center">
                   <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                    Advertising reservations are closed
+                    {page.closedNote}
                   </p>
                   <p className="font-body text-base leading-relaxed text-muted-foreground">
                     The July 17, 2026 deadline has passed and we're no longer accepting new ad reservations for this year's catalog. Questions? Email{" "}
@@ -236,10 +230,10 @@ const Advertising = ({
                 <>
                   <div className="mb-8 text-center">
                     <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                      Ready to reserve your ad space?
+                      {page.ctaTitle}
                     </p>
                     <p className="font-body text-base leading-relaxed text-muted-foreground">
-                      Fill out the form below to reserve your ad. The Ralston Hinge Creative District is a 501(c)(3) nonprofit organization.
+                      {page.ctaBody}
                     </p>
                   </div>
                   <InquiryForm
