@@ -12,6 +12,7 @@ import { stegaClean } from "@sanity/client/stega";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
+import type { GalleryPage } from "@/sanity/queries/pages";
 
 type MediumFilter = "all" | "oil-and-pastel" | "watercolor";
 
@@ -30,7 +31,13 @@ type FlatPainting = {
   artistSlug: string;
 };
 
-const Gallery = ({ galleryArtists }: { galleryArtists: Artist[] }) => {
+const Gallery = ({
+  galleryArtists,
+  page,
+}: {
+  galleryArtists: Artist[];
+  page: GalleryPage;
+}) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [mediumFilter, setMediumFilter] = useState<MediumFilter>("all");
 
@@ -109,10 +116,10 @@ const Gallery = ({ galleryArtists }: { galleryArtists: Artist[] }) => {
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            2026 Festival Art
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            The Gallery
+            {page.title}
           </h1>
         </div>
       </header>

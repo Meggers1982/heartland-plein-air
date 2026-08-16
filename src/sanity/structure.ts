@@ -44,11 +44,13 @@ const PAGE_SINGLETONS: { id: string; title: string }[] = [
   { id: "openDivisionPage", title: "Open Division Page" },
   { id: "schedulePage", title: "Schedule Page" },
   { id: "artistsPage", title: "Artists Page" },
+  { id: "galleryPage", title: "Gallery Page" },
   { id: "faqPage", title: "FAQ Page" },
   { id: "sponsorsPage", title: "Sponsors Page" },
   { id: "advertisingPage", title: "Advertising Page" },
   { id: "contactInfo", title: "Contact Details" },
   { id: "festivalInfo", title: "Festival Dates" },
+  { id: "siteChrome", title: "Site-wide Text" },
 ];
 
 // Types hidden from the generic document list: orderable ones (already have

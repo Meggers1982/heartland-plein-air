@@ -4,14 +4,16 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import FooterSignup from "@/components/FooterSignup";
 import { urlFor } from "@/sanity/lib/image";
 import type { Sponsor } from "@/sanity/queries/sponsors";
-import type { ContactInfo } from "@/sanity/queries/pages";
+import type { ContactInfo, SiteChrome } from "@/sanity/queries/pages";
 
 const SiteFooter = ({
   sponsors,
   contactInfo,
+  chrome,
 }: {
   sponsors: Sponsor[];
   contactInfo: ContactInfo;
+  chrome: SiteChrome;
 }) => {
   return (
     <footer className="bg-background text-foreground">
@@ -32,14 +34,14 @@ const SiteFooter = ({
               />
             </Link>
             <p className="mt-4 font-body text-sm leading-relaxed text-foreground/80">
-              The Heartland Plein Air Festival brings 25 nationally recognized artists to the greater Omaha metro for a week of outdoor painting, public access, and live art-making across more than 20 locations. Watch the work happen, meet the artists, and catch the full collection at the public exhibition and auction on September 19.
+              {chrome.footerBlurb}
             </p>
           </div>
 
           {/* Visit */}
           <div>
             <h3 className="mb-4 font-display text-lg font-semibold text-foreground">
-              Visit
+              {chrome.footerVisitHeading}
             </h3>
             <address className="space-y-3 font-body text-sm not-italic text-foreground/80">
               <div className="flex items-start gap-2">
@@ -68,9 +70,9 @@ const SiteFooter = ({
           {/* Stay in Touch */}
           <div>
             <h3 className="mb-4 font-display text-lg font-semibold text-foreground">
-              Stay in Touch
+              {chrome.footerStayHeading}
             </h3>
-            <FooterSignup />
+            <FooterSignup chrome={chrome} />
             <div className="mt-5 flex gap-3">
               {contactInfo.facebookUrl && (
               <a
@@ -101,7 +103,7 @@ const SiteFooter = ({
         {/* Sponsors & Partners */}
         <div className="mt-12 border-t border-foreground/10 pt-6">
           <p className="mb-4 text-center font-body text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">
-            Sponsors &amp; Partners
+            {chrome.footerSponsorsHeading}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             {sponsors.map((sponsor) => {
@@ -172,8 +174,7 @@ const SiteFooter = ({
           </div>
           <div className="flex items-center gap-2">
             <p className="font-body text-xs text-foreground/80">
-              Presented by the Ralston HINGE Creative District, a registered
-              501(c)(3) nonprofit. Charity ID (EIN): 41-5038534.
+              {chrome.footerPresentedBy}
             </p>
             <a
               href="https://ralstonarts.org"

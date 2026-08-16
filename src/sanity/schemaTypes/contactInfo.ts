@@ -67,6 +67,12 @@ export const contactInfo = defineType({
       type: "url",
     }),
     defineField({
+      name: "pageEyebrow",
+      title: "Contact page — small line above the title",
+      type: "string",
+    }),
+    defineField({ name: "pageTitle", title: "Contact page — title", type: "string" }),
+    defineField({
       name: "contactTopics",
       title: "Contact form topics",
       type: "array",
