@@ -83,10 +83,10 @@ const Sponsors = ({
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            Partners & Support
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Sponsors
+            {page.title}
           </h1>
         </div>
       </header>
@@ -97,19 +97,19 @@ const Sponsors = ({
           <AnimatedSection>
             <div className="mx-auto max-w-3xl text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Get Involved
+                {page.becomeEyebrow}
               </p>
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-                Become a Sponsor
+                {page.becomeTitle}
               </h2>
               <p className="mb-4 font-body text-lg leading-relaxed text-foreground/85">
-                Sponsoring the Heartland Plein Air Festival puts your organization alongside nationally recognized artists and a growing collector community. Choose the level that fits — you'll be recognized in signage, social media, advertising, and the show catalog as noted below.
+                {page.becomeIntro}
               </p>
               <a
                 href="#our-sponsors"
                 className="mb-14 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary hover:underline"
               >
-                See the 2026 Sponsors →
+                {page.becomeLinkLabel}
               </a>
             </div>
           </AnimatedSection>
@@ -152,10 +152,10 @@ const Sponsors = ({
             <div className="mx-auto mt-12 max-w-3xl rounded-lg border border-border bg-card p-8 md:p-12">
               <div className="mb-8 text-center">
                 <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                  Ready to sponsor the festival?
+                  {page.ctaTitle}
                 </p>
                 <p className="font-body text-base leading-relaxed text-muted-foreground">
-                  Fill out the form below to choose a level and become a sponsor. The Ralston Hinge Creative District is a 501(c)(3) nonprofit organization.
+                  {page.ctaBody}
                 </p>
               </div>
               <InquiryForm
@@ -175,7 +175,7 @@ const Sponsors = ({
           <AnimatedSection delay={280}>
             <div className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
-                Already Committed? Pay Your Sponsorship Online
+                {page.payTitle}
               </p>
               <SponsorPaymentForm sponsorTiers={sponsorTiers} />
             </div>
@@ -190,13 +190,13 @@ const Sponsors = ({
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedSection>
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Designated Giving
+              {page.givingEyebrow}
             </p>
             <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-              Award & Event Sponsorships
+              {page.givingTitle}
             </h2>
             <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-              Prefer to support something specific? These named sponsorships fund a particular award, event, or initiative.
+              {page.givingIntro}
             </p>
           </AnimatedSection>
           <div className="space-y-4">
@@ -226,10 +226,10 @@ const Sponsors = ({
                 the "Thank You" eyebrow isn't tucked under them on jump. */}
             <div id="our-sponsors" className="scroll-mt-48">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Thank You
+                {page.thankYouEyebrow}
               </p>
               <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
-                Our Sponsors
+                {page.thankYouTitle}
               </h2>
               {/* No max-w here on purpose. This block used to be capped at
                   max-w-3xl (768px), but the sentence needs ~950px at text-lg,
@@ -238,14 +238,14 @@ const Sponsors = ({
                   max-w-6xl puts it on one line on desktop; it still wraps
                   naturally on narrower screens, which is correct. */}
               <p className="mb-10 font-body text-lg leading-relaxed text-foreground/85">
-                The 2026 Heartland Plein Air Festival is made possible through the generous support of our sponsors and partners.
+                {page.thankYouBody}
               </p>
             </div>
             <h3
               id="grant-partners"
               className="mb-6 scroll-mt-32 font-display text-2xl font-semibold text-foreground"
             >
-              Presented with Support From
+              {page.partnersTitle}
             </h3>
             {/* These partners sit above the paid tiers, so their cell is taller
                 than Platinum's (h-44/h-56). None of the five marks shown here
