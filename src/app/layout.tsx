@@ -3,37 +3,43 @@ import Script from "next/script";
 import Providers from "@/App";
 import { JsonLd, organizationSchema, buildFestivalEventSchema } from "@/lib/schema";
 import { getArtistCount } from "@/sanity/queries/artists";
+import { getFestivalInfo } from "@/sanity/queries/pages";
+import { formatFestivalRange } from "@/lib/festivalDate";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://heartlandpleinair.org"),
-  title: "Heartland Plein Air Festival | September 13–19, 2026",
-  description:
-    "Heartland Plein Air Festival brings 25 nationally recognized artists to the Omaha metro for a week of outdoor painting, public exhibition, and live art-making. September 13–19, 2026.",
-  openGraph: {
-    title: "Heartland Plein Air Festival | September 13–19, 2026",
-    description:
-      "25 nationally recognized plein air artists paint Douglas and Sarpy County live, September 13–19, 2026. Public exhibition and auction on September 19.",
-    type: "website",
-    locale: "en_US",
-    siteName: "Heartland Plein Air Festival",
-    images: ["/assets/hero-pleinair.jpg"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Heartland Plein Air Festival | September 13–19, 2026",
-    description:
-      "25 nationally recognized plein air artists paint Douglas and Sarpy County live, September 13–19, 2026.",
-    images: ["/assets/hero-pleinair.jpg"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { startDate, endDate } = await getFestivalInfo();
+  const range = formatFestivalRange(startDate, endDate);
+  return {
+    metadataBase: new URL("https://heartlandpleinair.org"),
+    title: `Heartland Plein Air Festival | ${range}`,
+    description: `Heartland Plein Air Festival brings 25 nationally recognized artists to the Omaha metro for a week of outdoor painting, public exhibition, and live art-making. ${range}.`,
+    openGraph: {
+      title: `Heartland Plein Air Festival | ${range}`,
+      description: `25 nationally recognized plein air artists paint Douglas and Sarpy County live, ${range}. Public exhibition and auction on September 19.`,
+      type: "website",
+      locale: "en_US",
+      siteName: "Heartland Plein Air Festival",
+      images: ["/assets/hero-pleinair.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Heartland Plein Air Festival | ${range}`,
+      description: `25 nationally recognized plein air artists paint Douglas and Sarpy County live, ${range}.`,
+      images: ["/assets/hero-pleinair.jpg"],
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const invitedCount = await getArtistCount();
+  const [invitedCount, festivalInfo] = await Promise.all([
+    getArtistCount(),
+    getFestivalInfo(),
+  ]);
   return (
     <html lang="en">
       <head>
@@ -43,7 +49,11 @@ export default async function RootLayout({
         <JsonLd
           data={{
             "@context": "https://schema.org",
-            "@graph": [organizationSchema, buildFestivalEventSchema(invitedCount)],
+            "@graph": [organizationSchema, buildFestivalEventSchema(invitedCount, {
+              startDate: festivalInfo.startDate,
+              endDate: festivalInfo.endDate,
+              range: formatFestivalRange(festivalInfo.startDate, festivalInfo.endDate),
+            })],
           }}
         />
       </head>
@@ -54,7 +64,7 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
-        <Providers>{children}</Providers>
+        <Providers festivalInfo={festivalInfo}>{children}</Providers>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BQ1HV47WKM"
           strategy="afterInteractive"

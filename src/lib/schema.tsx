@@ -90,15 +90,18 @@ export const ticketOffers = [
   },
 ];
 
-export function buildFestivalEventSchema(invitedCount: number) {
+export function buildFestivalEventSchema(
+  invitedCount: number,
+  dates: { startDate: string; endDate: string; range: string },
+) {
   return {
   "@type": "Event",
   "@id": `${SITE_URL}/#festival`,
   name: "Heartland Plein Air Arts Festival",
   description:
-    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, September 13–19, 2026. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collector VIP Pass ($125) includes the Collectors Preview Reception and Awards Presentation September 18, also available as a standalone $95 ticket.`,
-  startDate: "2026-09-13",
-  endDate: "2026-09-19",
+    `${invitedCount} nationally recognized plein air artists paint the Omaha metro outdoors for a week, ${dates.range}. Daily Lunch Break Paintouts Monday–Thursday. Quick Paint Competition Saturday morning. Free Public Exhibition & Sale September 19. Collector VIP Pass ($125) includes the Collectors Preview Reception and Awards Presentation September 18, also available as a standalone $95 ticket.`,
+  startDate: dates.startDate,
+  endDate: dates.endDate,
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   isAccessibleForFree: true,
