@@ -65,6 +65,26 @@ export type TicketsPage = {
 };
 
 export type OpenDivisionPage = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  quickFactsEyebrow?: string;
+  quickFactsTitle?: string;
+  checkInEyebrow?: string;
+  checkInTitle?: string;
+  checkInBody?: string;
+  liabilityNote?: string;
+  requirementsEyebrow?: string;
+  requirementsTitle?: string;
+  conductEyebrow?: string;
+  conductTitle?: string;
+  salesEyebrow?: string;
+  salesTitle?: string;
+  turnInTitle?: string;
+  turnInBody?: string;
+  registerTitle?: string;
+  registerBody?: string;
+  registerPaymentNote?: string;
   registrationFee: number;
   capacity: number;
   paintingRequirements: string[];
