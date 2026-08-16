@@ -48,6 +48,7 @@ const PAGE_SINGLETONS: { id: string; title: string }[] = [
   { id: "sponsorsPage", title: "Sponsors Page" },
   { id: "advertisingPage", title: "Advertising Page" },
   { id: "contactInfo", title: "Contact Details" },
+  { id: "festivalInfo", title: "Festival Dates" },
 ];
 
 // Types hidden from the generic document list: orderable ones (already have

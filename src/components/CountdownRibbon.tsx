@@ -1,11 +1,18 @@
 'use client';
 import { useCountdown, isExpired } from "@/hooks/useCountdown";
-import { FESTIVAL_START } from "@/lib/festivalDate";
+import { festivalStartTimestamp, formatFestivalLine } from "@/lib/festivalDate";
+import { useFestivalInfo } from "@/components/FestivalInfoProvider";
+
+const FALLBACK_START = festivalStartTimestamp("2026-09-13");
 
 const CountdownRibbon = () => {
   // null until mounted — see the hook for why the first value can't be
   // computed during render on these statically prerendered pages.
-  const t = useCountdown(FESTIVAL_START);
+  const festival = useFestivalInfo();
+  // Falls back to the shipped dates if the document is ever missing, so the
+  // countdown keeps running rather than the component throwing.
+  const startsAt = festival ? festivalStartTimestamp(festival.startDate) : FALLBACK_START;
+  const t = useCountdown(startsAt);
 
   // Only hide once the countdown has actually mounted and run out. Checking
   // Date.now() during render would reintroduce the hydration mismatch this
@@ -56,7 +63,7 @@ const CountdownRibbon = () => {
           </div>
         </div>
         <p className="hidden font-display text-sm italic text-primary-foreground md:block">
-          Sept 13–19, 2026 · Douglas &amp; Sarpy County, Nebraska
+          {festival && formatFestivalLine(festival.startDate, festival.endDate, festival.location, "short")}
         </p>
       </div>
     </div>

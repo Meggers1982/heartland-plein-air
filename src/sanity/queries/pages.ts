@@ -133,6 +133,12 @@ export type FaqPage = {
   browseLabel?: string; noResultsText?: string;
 };
 
+export type FestivalInfo = {
+  startDate: string;
+  endDate: string;
+  location: string;
+};
+
 async function fetchSingleton<T>(id: string): Promise<T> {
   const { data } = await sanityFetch({
     query: `*[_id == $id][0]`,
@@ -151,3 +157,4 @@ export const getSponsorsPage = () => fetchSingleton<SponsorsPage>("sponsorsPage"
 export const getSchedulePage = () => fetchSingleton<SchedulePage>("schedulePage");
 export const getArtistsPage = () => fetchSingleton<ArtistsPage>("artistsPage");
 export const getFaqPage = () => fetchSingleton<FaqPage>("faqPage");
+export const getFestivalInfo = () => fetchSingleton<FestivalInfo>("festivalInfo");

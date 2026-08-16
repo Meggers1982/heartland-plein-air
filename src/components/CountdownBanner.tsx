@@ -1,11 +1,18 @@
 'use client';
 import { useCountdown } from "@/hooks/useCountdown";
-import { FESTIVAL_START } from "@/lib/festivalDate";
+import { festivalStartTimestamp, formatFestivalLine } from "@/lib/festivalDate";
+import { useFestivalInfo } from "@/components/FestivalInfoProvider";
+
+const FALLBACK_START = festivalStartTimestamp("2026-09-13");
 
 const CountdownBanner = () => {
   // null until mounted — see the hook for why the first value can't be
   // computed during render on these statically prerendered pages.
-  const timeLeft = useCountdown(FESTIVAL_START);
+  const festival = useFestivalInfo();
+  // Falls back to the shipped dates if the document is ever missing, so the
+  // countdown keeps running rather than the component throwing.
+  const startsAt = festival ? festivalStartTimestamp(festival.startDate) : FALLBACK_START;
+  const timeLeft = useCountdown(startsAt);
 
   const units = [
     { label: "Days", value: timeLeft?.days ?? 0 },
@@ -69,7 +76,7 @@ const CountdownBanner = () => {
           </div>
 
           <p className="font-display text-base italic text-primary-foreground sm:text-lg">
-            September 13–19, 2026 · Douglas &amp; Sarpy County, Nebraska
+            {festival && formatFestivalLine(festival.startDate, festival.endDate, festival.location, "long")}
           </p>
         </div>
 
