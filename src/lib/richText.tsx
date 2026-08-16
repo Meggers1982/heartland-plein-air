@@ -1,7 +1,11 @@
 import { Fragment } from "react";
 import Link from "next/link";
 
-const LINK_PATTERN = /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^)]+)\)/g;
+// mailto: and tel: are matched as well as / and http(s). Without them a link
+// like [info@ralstonarts.org](mailto:...) fails to match and the raw markdown
+// is printed to the page — which is exactly what shipped when the advertising
+// copy moved into Sanity.
+const LINK_PATTERN = /\[([^\]]+)\]\(((?:\/|https?:\/\/|mailto:|tel:)[^)]+)\)/g;
 
 export function renderRichText(text: string) {
   const parts: React.ReactNode[] = [];
@@ -16,6 +20,11 @@ export function renderRichText(text: string) {
         <Link href={href} className="font-semibold text-primary hover:underline">
           {label}
         </Link>
+      ) : href.startsWith("mailto:") || href.startsWith("tel:") ? (
+        // No target/rel: opening a mail client in a new tab leaves a blank one behind.
+        <a href={href} className="font-semibold text-primary hover:underline">
+          {label}
+        </a>
       ) : (
         <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
           {label}

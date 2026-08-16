@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/pageMetadata";
 import Schedule from "@/page-components/Schedule";
+import { getSchedulePage } from "@/sanity/queries/pages";
 import { getFestivalLocations, getScheduleDays } from "@/sanity/queries/schedule";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,9 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SchedulePage() {
-  const [days, festivalLocations] = await Promise.all([
+  const [days, festivalLocations, page] = await Promise.all([
     getScheduleDays(),
     getFestivalLocations(),
+    getSchedulePage(),
   ]);
-  return <Schedule days={days} festivalLocations={festivalLocations} />;
+  return <Schedule page={page} days={days} festivalLocations={festivalLocations} />;
 }

@@ -4,8 +4,10 @@ import { aboutPage } from "./aboutPage";
 import { adSize } from "./adSize";
 import { advertisingPage } from "./advertisingPage";
 import { artist } from "./artist";
+import { artistsPage } from "./artistsPage";
 import { contactInfo } from "./contactInfo";
 import { faqCategory } from "./faqCategory";
+import { faqPage } from "./faqPage";
 import { faqItem } from "./faqItem";
 import { festivalLocation } from "./festivalLocation";
 import { formConfig } from "./formConfig";
@@ -19,6 +21,7 @@ import { openDivisionPage } from "./openDivisionPage";
 import { pageSeo } from "./pageSeo";
 import { openDivisionQuickFact } from "./openDivisionQuickFact";
 import { scheduleDay } from "./scheduleDay";
+import { schedulePage } from "./schedulePage";
 import { aboutSection } from "./sections/aboutSection";
 import { artistSpotlightSection } from "./sections/artistSpotlightSection";
 import { faqTeaserSection } from "./sections/faqTeaserSection";
@@ -56,6 +59,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     openDivisionPage,
     advertisingPage,
     sponsorsPage,
+    schedulePage,
+    artistsPage,
+    faqPage,
     pageSeo,
     heroSection,
     aboutSection,

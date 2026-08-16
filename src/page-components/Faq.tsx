@@ -18,6 +18,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import RichText from "@/components/RichText";
 import { portableTextToPlainText } from "@/sanity/lib/portableText";
 import type { FaqCategory } from "@/sanity/queries/faq";
+import type { FaqPage } from "@/sanity/queries/pages";
 
 function buildFaqPageSchema(categories: FaqCategory[]) {
   return {
@@ -35,7 +36,13 @@ function buildFaqPageSchema(categories: FaqCategory[]) {
   };
 }
 
-const Faq = ({ categories }: { categories: FaqCategory[] }) => {
+const Faq = ({
+  categories,
+  page,
+}: {
+  categories: FaqCategory[];
+  page: FaqPage;
+}) => {
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState<string>(categories[0]._id);
   const faqPageSchema = useMemo(() => buildFaqPageSchema(categories), [categories]);
@@ -92,10 +99,10 @@ const Faq = ({ categories }: { categories: FaqCategory[] }) => {
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.25em] text-secondary">
-            Help Center
+            {page.eyebrow}
           </p>
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Everything You Need to Know Before You Go
+            {page.title}
           </h1>
         </div>
       </header>
@@ -105,7 +112,7 @@ const Faq = ({ categories }: { categories: FaqCategory[] }) => {
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <AnimatedSection>
             <p className="mx-auto mb-8 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
-              From registration and judging to paint-outs and prizes — find answers to the most common questions about the Heartland Plein Air Festival, or browse by topic below.
+              {page.intro}
             </p>
             <div className="relative mx-auto max-w-xl">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
@@ -120,7 +127,7 @@ const Faq = ({ categories }: { categories: FaqCategory[] }) => {
             </div>
             <div className="mt-8">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Browse by topic
+                {page.browseLabel}
               </p>
               <nav className="flex flex-wrap justify-center gap-2">
                 {filtered.map((c) => (
@@ -156,7 +163,7 @@ const Faq = ({ categories }: { categories: FaqCategory[] }) => {
                   No results for "{query}"
                 </p>
                 <p className="mt-2 font-body text-sm text-muted-foreground">
-                  Try a different keyword, or clear your search to browse all topics.
+                  {page.noResultsText}
                 </p>
               </div>
             )}

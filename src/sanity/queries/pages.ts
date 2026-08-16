@@ -116,6 +116,23 @@ export type SponsorsPage = {
   partnersTitle?: string;
 };
 
+export type SchedulePage = {
+  title?: string; browseLabel?: string;
+  locationsEyebrow?: string; locationsTitle?: string; locationsIntro?: string;
+  mapHelperText?: string; noEventsText?: string;
+};
+
+export type ArtistsPage = {
+  eyebrow?: string; title?: string;
+  rosterEyebrow?: string; rosterTitle?: string; cardHint?: string;
+  judgeEyebrow?: string; judgeTitle?: string;
+};
+
+export type FaqPage = {
+  eyebrow?: string; title?: string; intro?: string;
+  browseLabel?: string; noResultsText?: string;
+};
+
 async function fetchSingleton<T>(id: string): Promise<T> {
   const { data } = await sanityFetch({
     query: `*[_id == $id][0]`,
@@ -131,3 +148,6 @@ export const getTicketsPage = () => fetchSingleton<TicketsPage>("ticketsPage");
 export const getOpenDivisionPage = () => fetchSingleton<OpenDivisionPage>("openDivisionPage");
 export const getAdvertisingPage = () => fetchSingleton<AdvertisingPage>("advertisingPage");
 export const getSponsorsPage = () => fetchSingleton<SponsorsPage>("sponsorsPage");
+export const getSchedulePage = () => fetchSingleton<SchedulePage>("schedulePage");
+export const getArtistsPage = () => fetchSingleton<ArtistsPage>("artistsPage");
+export const getFaqPage = () => fetchSingleton<FaqPage>("faqPage");

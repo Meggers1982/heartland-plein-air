@@ -18,6 +18,7 @@ import { JsonLd, breadcrumbSchema, ticketOffers, SITE_URL } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import { portableTextToPlainText } from "@/sanity/lib/portableText";
 import type { Audience, FestivalLocation, ScheduleDay } from "@/sanity/queries/schedule";
+import type { SchedulePage } from "@/sanity/queries/pages";
 
 // Events that are internal logistics, not something the public attends —
 // excluded from Event schema entirely (see the address filter below for
@@ -142,9 +143,11 @@ function buildFestivalLocationSchema(festivalLocations: FestivalLocation[]) {
 const Schedule = ({
   days,
   festivalLocations,
+  page,
 }: {
   days: ScheduleDay[];
   festivalLocations: FestivalLocation[];
+  page: SchedulePage;
 }) => {
   const [eventFilter, setEventFilter] = useState<EventFilter>("all");
   const scheduleEventsSchema = useMemo(() => buildScheduleEventsSchema(days), [days]);
@@ -192,7 +195,7 @@ const Schedule = ({
       <header className="bg-foreground pt-52 pb-16 md:pt-56">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
-            Schedule of Events
+            {page.title}
           </h1>
         </div>
       </header>
@@ -205,7 +208,7 @@ const Schedule = ({
           <AnimatedSection>
             <div className="mb-12">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Browse by day
+                {page.browseLabel}
               </p>
               <ScheduleJumpNav items={weekItems} />
             </div>
@@ -230,13 +233,13 @@ const Schedule = ({
           <AnimatedSection>
             <div className="mb-6 text-center">
               <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Where to find us
+                {page.locationsEyebrow}
               </p>
               <h2 className="mb-4 font-display text-4xl font-bold leading-tight text-foreground">
-                Festival Locations
+                {page.locationsTitle}
               </h2>
               <p className="mx-auto max-w-2xl font-body text-lg text-muted-foreground">
-                Click any marker to see what's happening at that location and jump to the day in the schedule.
+                {page.locationsIntro}
               </p>
             </div>
             <LocationsMap festivalLocations={festivalLocations} />
@@ -269,7 +272,7 @@ const Schedule = ({
           </div>
           {filteredDays.length === 0 && (
             <p className="text-center font-body text-sm text-muted-foreground">
-              No events match this filter.
+              {page.noEventsText}
             </p>
           )}
           {filteredDays.map((d, i) => (
@@ -384,7 +387,7 @@ const Schedule = ({
                         {ev.spots && ev.spots.length > 0 && (
                           <div className="mt-2 border-l-2 border-primary/25 pl-4">
                             <p className="mb-1.5 font-body text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                              Where to find the artists
+                              {page.mapHelperText}
                             </p>
                             <ul className="space-y-1.5">
                               {ev.spots.map((spot) => (

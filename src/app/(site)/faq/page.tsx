@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/pageMetadata";
 import Faq from "@/page-components/Faq";
+import { getFaqPage } from "@/sanity/queries/pages";
 import { getFaqCategories } from "@/sanity/queries/faq";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,5 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function FaqPage() {
   const categories = await getFaqCategories();
-  return <Faq categories={categories} />;
+  const page = await getFaqPage();
+  return <Faq page={page} categories={categories} />;
 }
