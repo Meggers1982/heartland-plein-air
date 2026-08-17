@@ -3,7 +3,7 @@ import { buildPageMetadata } from "@/lib/pageMetadata";
 import Sponsors from "@/page-components/Sponsors";
 import { getFunders, getSponsorTiersWithSponsors } from "@/sanity/queries/sponsors";
 import { getFormConfig } from "@/sanity/queries/formConfig";
-import { getSponsorsPage } from "@/sanity/queries/pages";
+import { getSponsorsPage, getContactInfo } from "@/sanity/queries/pages";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
@@ -14,13 +14,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SponsorsPage() {
-  const [funders, sponsorTiers, inquiryFormConfig, page] = await Promise.all([
+  const [funders, sponsorTiers, inquiryFormConfig, page, contactInfo] = await Promise.all([
     getFunders(),
     getSponsorTiersWithSponsors(),
     getFormConfig("sponsorshipInquiry"),
     getSponsorsPage(),
+    getContactInfo(),
   ]);
   return (
-    <Sponsors page={page} funders={funders} sponsorTiers={sponsorTiers} inquiryFormConfig={inquiryFormConfig} />
+    <Sponsors contactInfo={contactInfo} page={page} funders={funders} sponsorTiers={sponsorTiers} inquiryFormConfig={inquiryFormConfig} />
   );
 }

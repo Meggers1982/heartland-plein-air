@@ -12,6 +12,8 @@ export const artistsPage = defineType({
     defineField({ name: "rosterEyebrow", type: "string" }),
     defineField({ name: "rosterTitle", type: "string" }),
     defineField({ name: "cardHint", type: "string", description: "The small prompt on each artist card." }),
+    defineField({ name: "judgeBadge", type: "string", description: 'The badge on the judge\'s card, e.g. "Judge of Awards".' }),
+    defineField({ name: "viewBioLabel", type: "string", description: "Appears when hovering an artist photo." }),
     defineField({ name: "judgeEyebrow", type: "string" }),
     defineField({ name: "judgeTitle", type: "string" }),
   ],

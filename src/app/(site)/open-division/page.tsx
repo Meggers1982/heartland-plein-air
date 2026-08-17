@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/pageMetadata";
 import OpenDivision from "@/page-components/OpenDivision";
-import { getOpenDivisionPage } from "@/sanity/queries/pages";
+import { getOpenDivisionPage, getContactInfo } from "@/sanity/queries/pages";
 import { getQuickFacts } from "@/sanity/queries/openDivision";
 import { getFormConfig } from "@/sanity/queries/formConfig";
 
@@ -18,10 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function OpenDivisionPage() {
-  const [quickFacts, inquiryFormConfig, page] = await Promise.all([
+  const [quickFacts, inquiryFormConfig, page, contactInfo] = await Promise.all([
     getQuickFacts(),
     getFormConfig("openDivisionInquiry"),
     getOpenDivisionPage(),
+    getContactInfo(),
   ]);
-  return <OpenDivision page={page} quickFacts={quickFacts} inquiryFormConfig={inquiryFormConfig} />;
+  return <OpenDivision contactInfo={contactInfo} page={page} quickFacts={quickFacts} inquiryFormConfig={inquiryFormConfig} />;
 }

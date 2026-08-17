@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import YouthPaintoutSuccess from "@/page-components/YouthPaintoutSuccess";
-import { getContactInfo, getTicketsPage } from "@/sanity/queries/pages";
+import { getContactInfo, getTicketsPage, getSiteChrome } from "@/sanity/queries/pages";
 
 export const metadata: Metadata = {
   title: "Youth Paintout Registration Received | Heartland Plein Air Festival",
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function YouthPaintoutSuccessPage() {
   const contactInfo = await getContactInfo();
+  const chrome = await getSiteChrome();
   const page = await getTicketsPage();
-  return <YouthPaintoutSuccess page={page} contactInfo={contactInfo} />;
+  return <YouthPaintoutSuccess chrome={chrome} page={page} contactInfo={contactInfo} />;
 }

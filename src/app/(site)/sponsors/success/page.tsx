@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SponsorSuccess from "@/page-components/SponsorSuccess";
-import { getContactInfo } from "@/sanity/queries/pages";
+import { getContactInfo, getSiteChrome, getSponsorsPage } from "@/sanity/queries/pages";
 import { getSponsorTiers } from "@/sanity/queries/sponsors";
 
 export const metadata: Metadata = {
@@ -14,5 +14,7 @@ export const metadata: Metadata = {
 export default async function SponsorsSuccessPage() {
   const sponsorTiers = await getSponsorTiers();
   const contactInfo = await getContactInfo();
-  return <SponsorSuccess contactInfo={contactInfo} sponsorTiers={sponsorTiers} />;
+  const chrome = await getSiteChrome();
+  const page = await getSponsorsPage();
+  return <SponsorSuccess chrome={chrome} page={page} contactInfo={contactInfo} sponsorTiers={sponsorTiers} />;
 }

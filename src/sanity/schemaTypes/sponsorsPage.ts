@@ -29,6 +29,9 @@ export const sponsorsPage = defineType({
     defineField({ name: "thankYouTitle", type: "string", group: "page" }),
     defineField({ name: "thankYouBody", type: "text", rows: 2, group: "page" }),
     defineField({ name: "partnersTitle", type: "string", group: "page" }),
+    defineField({ name: "successPayTitle", title: "Confirmation page — payment heading", type: "string", group: "page" }),
+    defineField({ name: "paymentHint", title: "Hint before an amount is entered", type: "string", group: "page" }),
+    defineField({ name: "payOnlineLabel", title: 'Label above the online payment option', type: "string", group: "page" }),
     defineField({
       name: "namedOpportunities",
       title: "Award & event sponsorships",

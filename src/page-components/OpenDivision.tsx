@@ -20,7 +20,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 import type { FormConfig } from "@/sanity/queries/formConfig";
-import type { OpenDivisionPage } from "@/sanity/queries/pages";
+import type { ContactInfo, OpenDivisionPage } from "@/sanity/queries/pages";
 
 
 
@@ -29,10 +29,12 @@ const OpenDivision = ({
   quickFacts,
   inquiryFormConfig,
   page,
+  contactInfo,
 }: {
   quickFacts: OpenDivisionQuickFact[];
   inquiryFormConfig: FormConfig;
   page: OpenDivisionPage;
+  contactInfo: ContactInfo;
 }) => {
   const { paintingRequirements, paintingConduct, salesInfo, capacity } = page;
   // One source for the fee: the same number drives this copy and the PayPal
@@ -274,7 +276,7 @@ const OpenDivision = ({
                   />
                 </div>
                 <div className="border-t border-border pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
-                  <MailCheckOption amount="30" />
+                  <MailCheckOption info={contactInfo} amount="30" />
                 </div>
               </div>
             </div>

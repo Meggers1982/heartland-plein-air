@@ -1,4 +1,5 @@
 'use client';
+import type { ContactInfo, SponsorsPage } from "@/sanity/queries/pages";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import PayPalButton from "@/components/PayPalButton";
@@ -10,7 +11,13 @@ const inputClass =
 const labelClass =
   "block px-1 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground";
 
-const SponsorPaymentForm = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) => {
+const SponsorPaymentForm = ({ sponsorTiers,
+  contactInfo,
+  page,
+}: { sponsorTiers: SponsorTier[];
+  contactInfo: ContactInfo;
+  page: SponsorsPage;
+}) => {
   const defaultTier = sponsorTiers[sponsorTiers.length - 1];
   const [tierName, setTierName] = useState(defaultTier.name);
   const [amount, setAmount] = useState(String(defaultTier.min));
@@ -82,13 +89,13 @@ const SponsorPaymentForm = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) =
 
       {!isValidAmount ? (
         <p className="text-center font-body text-sm text-muted-foreground">
-          Enter an amount above to pay online or by check.
+          {page.paymentHint}
         </p>
       ) : (
         <div className="grid gap-8 sm:grid-cols-2">
           <div className="text-center">
             <p className="mb-3 font-body text-sm font-semibold text-foreground">
-              Pay Online
+              {page.payOnlineLabel}
             </p>
             {isValidDebouncedAmount && (
               <PayPalButton
@@ -98,7 +105,7 @@ const SponsorPaymentForm = ({ sponsorTiers }: { sponsorTiers: SponsorTier[] }) =
             )}
           </div>
           <div className="border-t border-border pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
-            <MailCheckOption amount={numericAmount.toLocaleString()} />
+            <MailCheckOption info={contactInfo} amount={numericAmount.toLocaleString()} />
           </div>
         </div>
       )}

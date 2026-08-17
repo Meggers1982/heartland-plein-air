@@ -8,7 +8,7 @@ import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
 import FestivalContactInfo from "@/components/FestivalContactInfo";
-import type { ContactInfo } from "@/sanity/queries/pages";
+import type { ContactInfo, SiteChrome } from "@/sanity/queries/pages";
 
 type RecapItem = {
   name: string;
@@ -22,6 +22,7 @@ type RecapItem = {
 
 type InquirySuccessProps = {
   contactInfo: ContactInfo;
+  chrome: SiteChrome;
   eyebrow: string;
   title: string;
   intro: string;
@@ -41,6 +42,7 @@ const InquirySuccess = ({
   backHref,
   backLabel,
   contactInfo,
+  chrome,
   children,
 }: InquirySuccessProps) => {
   return (
@@ -73,7 +75,7 @@ const InquirySuccess = ({
             <>
               <AnimatedSection className="mb-12 text-center">
                 <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  For Your Reference
+                  {chrome.successRecapHeading}
                 </p>
                 <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
                   {recapTitle}
@@ -161,15 +163,15 @@ const InquirySuccess = ({
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection className="mb-10 text-center">
             <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Questions in the Meantime?
+              {chrome.successContactEyebrow}
             </p>
             <h2 className="font-display text-4xl font-bold leading-tight text-foreground">
-              Get in Touch
+              {chrome.successContactHeading}
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={100}>
             <div className="rounded-lg bg-card p-8 shadow-sm md:p-10">
-              <FestivalContactInfo info={contactInfo} />
+              <FestivalContactInfo info={contactInfo} followAlongLabel={chrome.followAlongLabel} />
             </div>
           </AnimatedSection>
         </div>

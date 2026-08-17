@@ -13,7 +13,7 @@ import { getIcon } from "@/sanity/lib/iconMap";
 import { urlFor } from "@/sanity/lib/image";
 import type { SponsorTierWithSponsors, Sponsor } from "@/sanity/queries/sponsors";
 import type { FormConfig } from "@/sanity/queries/formConfig";
-import type { SponsorsPage } from "@/sanity/queries/pages";
+import type { ContactInfo, SponsorsPage } from "@/sanity/queries/pages";
 
 // Logo size steps down by level — Platinum reads largest, Bronze is name-only.
 // Column count matters as much as cell height: several logos are very wide
@@ -51,11 +51,13 @@ const Sponsors = ({
   sponsorTiers,
   inquiryFormConfig,
   page,
+  contactInfo,
 }: {
   funders: Sponsor[];
   sponsorTiers: SponsorTierWithSponsors[];
   inquiryFormConfig: FormConfig;
   page: SponsorsPage;
+  contactInfo: ContactInfo;
 }) => {
   const { namedOpportunities } = page;
   // The shared `funders` list also feeds the footer strip and the homepage.
@@ -177,7 +179,7 @@ const Sponsors = ({
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
                 {page.payTitle}
               </p>
-              <SponsorPaymentForm sponsorTiers={sponsorTiers} />
+              <SponsorPaymentForm sponsorTiers={sponsorTiers} contactInfo={contactInfo} page={page} />
             </div>
           </AnimatedSection>
         </div>
