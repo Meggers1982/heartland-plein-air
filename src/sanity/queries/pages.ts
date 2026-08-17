@@ -148,7 +148,12 @@ export type FestivalInfo = {
   location: string;
 };
 
-export type GalleryPage = { eyebrow?: string; title?: string };
+export type GalleryPage = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string[];
+  allFilterLabel?: string;
+};
 
 export type SiteChrome = {
   countdownLabel?: string;

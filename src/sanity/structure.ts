@@ -15,6 +15,7 @@ const ORDERABLE_GROUPS: { type: string; title: string }[][] = [
   [
     { type: "homepageHighlight", title: "Homepage Highlights" },
     { type: "artist", title: "Artists" },
+    { type: "galleryMedium", title: "Gallery Mediums" },
     { type: "scheduleDay", title: "Schedule Days" },
     { type: "festivalLocation", title: "Festival Locations" },
   ],

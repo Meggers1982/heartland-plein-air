@@ -38,10 +38,26 @@ export async function getArtists() {
 
 export async function getGalleryArtists() {
   const { data } = await sanityFetch({
-    query: `*[_type == "artist" && defined(medium) && count(paintings) > 0] | order(orderRank) { ..., "slug": slug.current }`,
+    query: `*[_type == "artist" && defined(medium) && count(paintings) > 0] | order(orderRank) {
+      ...,
+      "slug": slug.current,
+      "medium": medium->_id,
+      "mediumLabel": medium->label
+    }`,
     tags: TAGS,
   });
   return data as Artist[];
+}
+
+/** The categories that actually have paintings behind them, in Studio order —
+ *  so the filter never offers a button that returns nothing. */
+export async function getGalleryMediums() {
+  const { data } = await sanityFetch({
+    query: `*[_type == "galleryMedium" && count(*[_type == "artist" && medium._ref == ^._id && count(paintings) > 0]) > 0]
+      | order(orderRank) { "id": _id, label }`,
+    tags: TAGS,
+  });
+  return data as { id: string; label: string }[];
 }
 
 export async function getArtistCount() {
