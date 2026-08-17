@@ -9,18 +9,14 @@ import CountdownBanner from "@/components/CountdownBanner";
 import BackToTop from "@/components/BackToTop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { stegaClean } from "@sanity/client/stega";
+import { renderRichText } from "@/lib/richText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
 import type { GalleryPage } from "@/sanity/queries/pages";
 
-type MediumFilter = "all" | "oil-and-pastel" | "watercolor";
+type MediumFilter = string;
 
-const mediumTabs: { value: MediumFilter; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "oil-and-pastel", label: "Oil & Pastel" },
-  { value: "watercolor", label: "Watercolor" },
-];
 
 type FlatPainting = {
   _key: string;
@@ -32,14 +28,22 @@ type FlatPainting = {
 };
 
 const Gallery = ({
+  mediums,
   galleryArtists,
   page,
 }: {
   galleryArtists: Artist[];
+  mediums: { id: string; label: string }[];
   page: GalleryPage;
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [mediumFilter, setMediumFilter] = useState<MediumFilter>("all");
+  // Built from Sanity: "show everything" first, then one button per medium that
+  // actually has paintings, so a filter can never come up empty.
+  const mediumTabs = [
+    { value: "all", label: page.allFilterLabel ?? "All" },
+    ...mediums.map((m) => ({ value: m.id, label: m.label })),
+  ];
 
   const allPaintings: FlatPainting[] = galleryArtists.flatMap((a) =>
     (a.paintings ?? []).map((p) => ({
@@ -52,7 +56,7 @@ const Gallery = ({
 
   const filteredArtists = mediumFilter === "all"
     ? galleryArtists
-    : galleryArtists.filter((a) => stegaClean(a.medium) === mediumFilter);
+    : galleryArtists.filter((a) => stegaClean(a.medium ?? "") === mediumFilter);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -128,16 +132,14 @@ const Gallery = ({
         <section className="py-20">
           <div className="mx-auto max-w-4xl px-6 text-center">
             <AnimatedSection>
-              <p className="mx-auto font-body text-lg leading-relaxed text-muted-foreground">
-                Get a glimpse of the art created by the artists you'll see across the Omaha metro this September.
-              </p>
-              <p className="mx-auto mt-4 font-body text-lg leading-relaxed text-muted-foreground">
-                Want to know more about each artist? Visit our{" "}
-                <Link href="/artists" className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors">
-                  Artists page
-                </Link>
-                {" "}to read bios and see their full profiles.
-              </p>
+              {(page.intro ?? []).map((paragraph, i) => (
+                <p
+                  key={paragraph}
+                  className={`mx-auto font-body text-lg leading-relaxed text-muted-foreground${i > 0 ? " mt-4" : ""}`}
+                >
+                  {renderRichText(paragraph)}
+                </p>
+              ))}
             </AnimatedSection>
           </div>
         </section>

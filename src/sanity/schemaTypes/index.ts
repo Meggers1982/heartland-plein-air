@@ -9,6 +9,7 @@ import { contactInfo } from "./contactInfo";
 import { faqCategory } from "./faqCategory";
 import { faqPage } from "./faqPage";
 import { festivalInfo } from "./festivalInfo";
+import { galleryMedium } from "./galleryMedium";
 import { galleryPage } from "./galleryPage";
 import { siteChrome } from "./siteChrome";
 import { faqItem } from "./faqItem";
@@ -67,6 +68,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faqPage,
     festivalInfo,
     galleryPage,
+    galleryMedium,
     siteChrome,
     pageSeo,
     heroSection,

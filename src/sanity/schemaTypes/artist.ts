@@ -39,9 +39,11 @@ export const artist = defineType({
     }),
     defineField({
       name: "medium",
-      type: "string",
-      options: { list: ["oil-and-pastel", "watercolor"] },
-      description: "Only set for artists with gallery paintings.",
+      title: "Gallery medium",
+      type: "reference",
+      to: [{ type: "galleryMedium" }],
+      description:
+        "Which filter this artist's paintings sit under on the Gallery page. Only set for artists with gallery paintings. Manage the options under Gallery Mediums.",
     }),
     defineField({
       name: "paintings",
