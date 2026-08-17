@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import AdvertisingSuccess from "@/page-components/AdvertisingSuccess";
-import { getContactInfo } from "@/sanity/queries/pages";
+import { getContactInfo, getSiteChrome } from "@/sanity/queries/pages";
 import { getAdSizes } from "@/sanity/queries/advertising";
 
 export const metadata: Metadata = {
@@ -14,5 +14,6 @@ export const metadata: Metadata = {
 export default async function AdvertisingSuccessPage() {
   const adSizes = await getAdSizes();
   const contactInfo = await getContactInfo();
-  return <AdvertisingSuccess contactInfo={contactInfo} adSizes={adSizes} />;
+  const chrome = await getSiteChrome();
+  return <AdvertisingSuccess chrome={chrome} contactInfo={contactInfo} adSizes={adSizes} />;
 }

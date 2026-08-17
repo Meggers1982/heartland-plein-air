@@ -127,12 +127,12 @@ const Artists = ({
                       />
                       {isJudge && (
                         <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-3 py-1 font-body text-[0.65rem] font-semibold uppercase tracking-widest text-primary-foreground shadow-sm">
-                          Judge of Awards
+                          {page.judgeBadge}
                         </span>
                       )}
                       <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center group-hover:bg-black/30 group-focus-visible:bg-black/30">
                         <span className="font-body text-sm font-medium text-white opacity-0 transition-opacity duration-300 tracking-wide group-hover:opacity-100 group-focus-visible:opacity-100">
-                          View Bio
+                          {page.viewBioLabel}
                         </span>
                       </div>
                     </div>

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from "react";
 import InquirySuccess from "@/components/InquirySuccess";
-import type { ContactInfo, OpenDivisionPage } from "@/sanity/queries/pages";
+import type { ContactInfo, OpenDivisionPage, SiteChrome } from "@/sanity/queries/pages";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
 import { getIcon } from "@/sanity/lib/iconMap";
@@ -9,10 +9,12 @@ import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 
 const OpenDivisionSuccess = ({
   contactInfo,
+  chrome,
   page,
   quickFacts,
 }: {
   contactInfo: ContactInfo;
+  chrome: SiteChrome;
   page: OpenDivisionPage;
   quickFacts: OpenDivisionQuickFact[];
 }) => {
@@ -25,6 +27,7 @@ const OpenDivisionSuccess = ({
   return (
     <InquirySuccess
       contactInfo={contactInfo}
+      chrome={chrome}
       eyebrow="Thank You"
       title="Your Registration Is In"
       intro={`We've received your registration. Registration is ${feeLabel} and limited to ${page.capacity} artists, first come, first served — please pay your fee via PayPal or by mailing a check below. Any registration without payment will not be accepted. Here's a recap of the Open Division quick facts for your reference.`}
@@ -52,7 +55,7 @@ const OpenDivisionSuccess = ({
             />
           </div>
           <div className="border-t border-border pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
-            <MailCheckOption amount="30" />
+            <MailCheckOption info={contactInfo} amount="30" />
           </div>
         </div>
       </div>

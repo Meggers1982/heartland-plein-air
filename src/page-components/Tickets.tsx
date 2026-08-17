@@ -270,7 +270,7 @@ const Tickets = ({
             </div>
             <div className="mx-auto mb-10 max-w-xl rounded-lg border border-border bg-card p-6 md:p-8">
               <p className="mb-4 font-display text-lg font-semibold text-foreground">
-                Good to Know Before You Arrive
+                {page.youthGoodToKnowHeading}
               </p>
               <ul className="space-y-3">
                 {youthPaintoutGoodToKnow.map((item) => (
@@ -285,7 +285,7 @@ const Tickets = ({
             </div>
             <div className="rounded-lg border border-border bg-card p-8 md:p-12">
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
-                Register for the Youth Paintout
+                {page.youthRegisterHeading}
               </p>
               <YouthPaintoutForm config={youthPaintoutFormConfig} />
             </div>
@@ -315,7 +315,7 @@ const Tickets = ({
               {youthReception.price}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 font-body text-sm text-muted-foreground">
-              <span>Sponsored by Applewood Hy-Vee</span>
+              <span>{page.youthReceptionCredit}</span>
               <a
                 href="https://www.hy-vee.com/"
                 target="_blank"

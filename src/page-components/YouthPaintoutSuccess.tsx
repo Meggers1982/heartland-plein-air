@@ -2,12 +2,20 @@
 import { useEffect } from "react";
 import { Shirt, ClipboardCheck, MapPin, Palette, CalendarPlus, Printer } from "lucide-react";
 import InquirySuccess from "@/components/InquirySuccess";
-import type { ContactInfo, TicketsPage } from "@/sanity/queries/pages";
+import type { ContactInfo, TicketsPage, SiteChrome } from "@/sanity/queries/pages";
 import { getIcon } from "@/sanity/lib/iconMap";
 import { buildEventIcs, downloadIcs } from "@/lib/ics";
 
 
-const YouthPaintoutSuccess = ({ contactInfo, page }: { contactInfo: ContactInfo; page: TicketsPage }) => {
+const YouthPaintoutSuccess = ({
+  contactInfo,
+  chrome,
+  page,
+}: {
+  contactInfo: ContactInfo;
+  chrome: SiteChrome;
+  page: TicketsPage;
+}) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -32,6 +40,7 @@ const YouthPaintoutSuccess = ({ contactInfo, page }: { contactInfo: ContactInfo;
   return (
     <InquirySuccess
       contactInfo={contactInfo}
+      chrome={chrome}
       eyebrow="You're Registered"
       title="See You at the Youth Paintout"
       intro="You're on the list — there's nothing else to do to hold your spot. Here's what you'll want to know before Saturday, September 12, whether you're the young artist coming to paint or the parent or guardian bringing them."

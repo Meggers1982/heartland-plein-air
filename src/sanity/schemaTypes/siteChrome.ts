@@ -15,6 +15,7 @@ export const siteChrome = defineType({
     { name: "countdown", title: "Countdown", default: true },
     { name: "footer", title: "Footer" },
     { name: "signup", title: "Email sign-up" },
+    { name: "success", title: "Confirmation pages" },
   ],
   fields: [
     defineField({
@@ -81,6 +82,15 @@ export const siteChrome = defineType({
       group: "signup",
       description: "Validation warnings stay in code — only this confirmation is editable.",
     }),
+    defineField({
+      name: "successRecapHeading",
+      title: "Heading above the recap",
+      type: "string",
+      group: "success",
+      description: "On the page shown after someone submits a form.",
+    }),
+    defineField({ name: "successContactEyebrow", title: "Contact block — small line", type: "string", group: "success" }),
+    defineField({ name: "successContactHeading", title: "Contact block — heading", type: "string", group: "success" }),
   ],
   preview: { prepare: () => ({ title: "Site-wide Text" }) },
 });

@@ -144,6 +144,14 @@ export const ticketsPage = defineType({
       ],
       validation: (Rule) => Rule.required().min(1),
     }),
+    defineField({ name: "youthGoodToKnowHeading", type: "string", group: "youth" }),
+    defineField({ name: "youthRegisterHeading", type: "string", group: "youth" }),
+    defineField({
+      name: "youthReceptionCredit",
+      title: "Sponsor credit under the reception",
+      type: "string",
+      group: "page",
+    }),
     defineField({
       name: "youthPaintoutGoodToKnow",
       group: "youth",

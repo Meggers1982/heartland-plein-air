@@ -64,6 +64,9 @@ export type TicketsPage = {
   passBenefits: PassBenefit[];
   youthPaintoutGoodToKnow: string[];
   youthPaintoutDayOf: DayOfInstruction[];
+  youthGoodToKnowHeading?: string;
+  youthRegisterHeading?: string;
+  youthReceptionCredit?: string;
 };
 
 export type OpenDivisionPage = {
@@ -116,6 +119,9 @@ export type SponsorsPage = {
   givingEyebrow?: string; givingTitle?: string; givingIntro?: string;
   thankYouEyebrow?: string; thankYouTitle?: string; thankYouBody?: string;
   partnersTitle?: string;
+  successPayTitle?: string;
+  paymentHint?: string;
+  payOnlineLabel?: string;
 };
 
 export type SchedulePage = {
@@ -128,6 +134,7 @@ export type ArtistsPage = {
   eyebrow?: string; title?: string;
   rosterEyebrow?: string; rosterTitle?: string; cardHint?: string;
   judgeEyebrow?: string; judgeTitle?: string;
+  judgeBadge?: string; viewBioLabel?: string;
 };
 
 export type FaqPage = {
@@ -158,6 +165,9 @@ export type SiteChrome = {
   signupPlaceholder?: string;
   signupFootnote?: string;
   signupSuccess?: string;
+  successRecapHeading?: string;
+  successContactEyebrow?: string;
+  successContactHeading?: string;
 };
 
 async function fetchSingleton<T>(id: string): Promise<T> {

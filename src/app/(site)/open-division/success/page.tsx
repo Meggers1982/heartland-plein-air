@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import OpenDivisionSuccess from "@/page-components/OpenDivisionSuccess";
-import { getContactInfo, getOpenDivisionPage } from "@/sanity/queries/pages";
+import { getContactInfo, getOpenDivisionPage, getSiteChrome } from "@/sanity/queries/pages";
 import { getQuickFacts } from "@/sanity/queries/openDivision";
 
 export const metadata: Metadata = {
@@ -15,5 +15,6 @@ export default async function OpenDivisionSuccessPage() {
   const quickFacts = await getQuickFacts();
   const page = await getOpenDivisionPage();
   const contactInfo = await getContactInfo();
-  return <OpenDivisionSuccess page={page} contactInfo={contactInfo} quickFacts={quickFacts} />;
+  const chrome = await getSiteChrome();
+  return <OpenDivisionSuccess chrome={chrome} page={page} contactInfo={contactInfo} quickFacts={quickFacts} />;
 }
