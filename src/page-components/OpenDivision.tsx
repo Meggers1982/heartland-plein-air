@@ -97,11 +97,16 @@ const OpenDivision = ({
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
                       <Icon className="h-6 w-6 text-primary" />
                     </div>
+                    {/* Quick facts quote the fee and the capacity, so they get
+                        the same {fee}/{capacity} substitution as the prose
+                        below. Without this they silently drift: the capacity
+                        card still read "40 artists" after the page itself was
+                        changed to 30. */}
                     <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
-                      {item.title}
+                      {fill(item.title)}
                     </h3>
                     <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                      {item.description}
+                      {fill(item.description)}
                     </p>
                   </div>
                 </AnimatedSection>

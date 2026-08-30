@@ -2836,6 +2836,52 @@ writing): `day-sep-12` event `ev0` needs `ctaLabel: "Register here"` and
 `ctaHref: "/tickets/youth-paintout"`. Until then the schedule renders exactly as
 before.
 
+## 2026-08-30 — Deb's Content Edits Applied; Quick Facts No Longer Drift
+
+Applied the four content changes from Deb's 8-23 and 8-26 emails, plus a fix for
+a fifth problem the first one exposed.
+
+1. **Plein Air Magazine restored to Platinum.** It had not been deleted: the
+   document had no `tier` reference *and* `hideFromPartnersGrid: true`, which
+   together meant it rendered nowhere — not in a tier, not in the funders grid.
+   Set its tier to Platinum; it now sits alongside Art of the West and Ralston
+   Keno. Its logo was already on file, so nothing needed uploading.
+2. **Open Division updated** from the revised 8-20 artist sheet: capacity
+   40 → 30, the full check-in window (10am Mon Sept 14 through noon Thu Sept 17,
+   during library hours, with the stamping rule spelled out), and the W-9 added
+   alongside the liability release.
+3. **FAQ volunteer link** now points at the volunteer Google Form instead of
+   `/contact`.
+4. **Youth Paintout has its "Register here" button**, using the `ctaLabel` /
+   `ctaHref` fields added earlier today.
+
+### The capacity number was in two places, and only one of them changed
+
+Changing `openDivisionPage.capacity` to 30 left the Quick Facts card still
+reading "Limited to 40 artists" — the page contradicted itself. The card is a
+separate `openDivisionQuickFact` document whose text was hardcoded, and quick
+facts were the one block on the page that did **not** run through `fill()`, so
+`{fee}` and `{capacity}` had no effect there.
+
+- **`src/page-components/OpenDivision.tsx`** — quick fact `title` and
+  `description` now go through `fill()`.
+- **Sanity** — `openDivisionQuickFact-registration` now reads `"{fee}
+  Registration"` and `"Limited to {capacity} artists..."`.
+
+Both numbers now come from the same fields that drive the prose and the PayPal
+amount. The 40% commission card is a genuine 40 and was left alone.
+
+### Access note
+
+The three-account confusion in the 2026-08-14 entry is worth restating: neither
+`meagan.lea.morris@gmail.com`, `hello@thebrandledger.com`, nor even
+`upsidemeagan1982@gmail.com` — which sanity.io/manage lists as the project's sole
+**Administrator** — could write via a `sanity login` CLI session token. The
+owner account could read the dataset but got `insufficientPermissionsError` on
+update and 401 on project metadata. An Editor API token worked immediately, as
+it did in August. Treat the CLI login as read-only for this project and reach
+for a token.
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
