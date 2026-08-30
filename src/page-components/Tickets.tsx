@@ -6,6 +6,7 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
+import CountdownBanner from "@/components/CountdownBanner";
 import YouthPaintoutForm from "@/components/YouthPaintoutForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import type { FormConfig } from "@/sanity/queries/formConfig";
@@ -334,6 +335,7 @@ const Tickets = ({
         </div>
       </section>
 
+      <CountdownBanner />
       <NewsletterCTA />
       <BackToTop />
     </div>

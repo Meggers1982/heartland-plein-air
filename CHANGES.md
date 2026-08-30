@@ -2978,6 +2978,28 @@ The library address was **not** changed to the sheet's 5500 S. 77th St. The
 library's own website gives 5555 South 77th Street, which is what the site and
 the schedule already had.
 
+## 2026-08-30 — Countdown Banner Added to the Five Pages Missing It
+
+Follow-up #2 from the QA pass below, now closed. `CountdownBanner` was on Home,
+About, Artists, Contact, Gallery and Schedule but not on Advertising, FAQ, Open
+Division, Sponsors or Tickets — so the pages where urgency matters most
+(Tickets, Open Division) were the ones without a clock on them.
+
+Added to all five, in the position the other interior pages already use: bottom
+of the page, immediately above `<NewsletterCTA />` and above `<BackToTop />`. On
+FAQ it sits just before the `<div id="contact">` wrapper that holds the
+newsletter block. Every one of the five already rendered `NewsletterCTA`, so the
+banner's "Subscribe for Updates" button — which anchors to `#newsletter` — has a
+target on each. *(files: `Advertising.tsx`, `Faq.tsx`, `OpenDivision.tsx`,
+`Sponsors.tsx`, `Tickets.tsx`)*
+
+**Schedule is still the odd one out, deliberately.** It puts the banner directly
+under the page header rather than at the foot, and has none at the bottom. Left
+as-is because moving it changes a page that reads fine today — say the word and
+it is a one-line move to match the other ten.
+
+---
+
 ## 2026-08-30 — Site-Wide QA Pass: One Broken Link, Two Contradicted Numbers, 9.5 MB of Dead Weight
 
 A consistency review across every route, both in code and against the live

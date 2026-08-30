@@ -12,6 +12,7 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
+import CountdownBanner from "@/components/CountdownBanner";
 import InquiryForm from "@/components/InquiryForm";
 import PayPalButton from "@/components/PayPalButton";
 import MailCheckOption from "@/components/MailCheckOption";
@@ -335,6 +336,7 @@ const OpenDivision = ({
         </div>
       </section>
 
+      <CountdownBanner />
       <NewsletterCTA />
       <BackToTop />
     </div>

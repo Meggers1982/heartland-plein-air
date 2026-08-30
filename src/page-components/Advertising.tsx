@@ -14,6 +14,7 @@ import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BackToTop from "@/components/BackToTop";
+import CountdownBanner from "@/components/CountdownBanner";
 import InquiryForm from "@/components/InquiryForm";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { getIcon } from "@/sanity/lib/iconMap";
@@ -250,6 +251,7 @@ const Advertising = ({
         </div>
       </section>
 
+      <CountdownBanner />
       <NewsletterCTA />
       <BackToTop />
     </div>

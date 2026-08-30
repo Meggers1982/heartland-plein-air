@@ -13,6 +13,7 @@ import SiteNav from "@/components/SiteNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import BrushStrokeDivider from "@/components/BrushStrokeDivider";
 import BackToTop from "@/components/BackToTop";
+import CountdownBanner from "@/components/CountdownBanner";
 import { cn } from "@/lib/utils";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import RichText from "@/components/RichText";
@@ -197,6 +198,7 @@ const Faq = ({
         </div>
       </section>
 
+      <CountdownBanner />
       <div id="contact">
         <NewsletterCTA />
       </div>
