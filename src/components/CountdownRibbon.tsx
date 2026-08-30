@@ -31,7 +31,13 @@ const CountdownRibbon = () => {
     <div className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         <div className="flex items-center gap-3 sm:gap-5">
-          <span className="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90 sm:hidden">
+          {/* Hidden below 360px. The label and the four countdown units
+              compete for one row, and on a 320px screen the "Sec" unit was
+              being clipped off the edge — pre-existing, but raising the unit
+              labels from 9px to 11px for legibility made it worse. Dropping
+              the label is what buys the room back: it is the decorative half
+              of the row, and the numbers are the point. */}
+          <span className="hidden font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90 min-[360px]:inline sm:hidden">
             {chrome?.ribbonLabelMobile}
           </span>
           <span className="hidden font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-foreground/90 sm:inline">
