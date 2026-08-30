@@ -95,6 +95,15 @@ export type OpenDivisionPage = {
   paintingRequirements: string[];
   paintingConduct: string[];
   salesInfo: string[];
+  festivalWeek?: OpenDivisionSection[];
+};
+
+export type OpenDivisionSection = {
+  _key: string;
+  eyebrow?: string;
+  title: string;
+  icon: string;
+  body: string[];
 };
 
 export type FileSpec = { _key: string; icon: string; text: string };

@@ -96,6 +96,15 @@ export const openDivisionPage = defineType({
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
+      name: "festivalWeek",
+      title: "Festival week sections",
+      type: "array",
+      of: [{ type: "openDivisionSection" }],
+      group: "rules",
+      description:
+        "Everything else artists need for the week (awards night, Quick Paint, payment timing, who to call). Renders in this order between Sales & Exhibition and the registration form. Drag to reorder.",
+    }),
+    defineField({
       name: "salesInfo",
       title: "Selling your work",
       type: "array",

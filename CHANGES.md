@@ -2916,6 +2916,68 @@ combination of no tier **and** `hideFromPartnersGrid: true` — two independentl
 harmless settings that together leave a sponsor with nowhere to render. Only the
 duplicate Art of the West shared that combination.
 
+## 2026-08-30 — The Rest of the Open Division Sheet Is on the Page
+
+The revised 8-20 artist sheet had seven sections the website had never carried.
+Artists were registering against a page that never mentioned the Quick Paint
+stamp window, where to park for awards night, or when they get paid.
+
+### A repeatable section instead of seven more field pairs
+
+Each new section could have been another `eyebrow`/`title`/`body` trio on
+`openDivisionPage`, which is how the page grew until now. That is what makes
+every future addition a schema change plus a deploy, so instead:
+
+1. **`src/sanity/schemaTypes/objects/openDivisionSection.ts`** (new) — a
+   section with `eyebrow`, `title`, `icon` (from the existing `ICON_MAP`), and a
+   `body` array of bullets. Registered in `schemaTypes/index.ts`.
+2. **`openDivisionPage.festivalWeek`** — an array of them, drag-to-reorder,
+   under the "Rules & conduct" group.
+3. **`src/page-components/OpenDivision.tsx`** — renders them between Sales &
+   Exhibition and the registration form, reusing the page's existing
+   eyebrow/heading/icon-list pattern. Bullets go through `fill()` and
+   `renderRichText()`, so `{fee}`, `{capacity}` and `[label](url)` all work.
+
+The alternating section backgrounds are computed from the section index, and the
+registration CTA below picks its background from the section count, so the
+stripe pattern stays unbroken no matter how many sections Deb adds or removes.
+
+Sections added: Third Thursday & the Judge's Lecture, Awards & the Collectors
+Reception, Quick Paint Competition, Public Exhibition & Sale, Online Exhibition,
+Getting Paid, Questions.
+
+### Three existing fields were also wrong
+
+The sheet changed things the page already covered, so these were corrected
+rather than duplicated into new sections:
+
+- **`paintingConduct`** said "Paint any or all days of the festival, anywhere
+  across the metro." It is Monday through Thursday, and one day is enough
+  provided a finished framed painting is turned in Friday. Also added the
+  volunteer-built location app and the invitation to join the Lunch Break
+  Paintouts.
+- **`turnInBody`** said unsold work is collected by **5pm** Saturday. The sheet
+  says **4pm**, and adds that the festival is not responsible for work left
+  after. Also documents the reserve system (submit one or two, extras held back,
+  sold pieces replaced from reserve).
+- **`salesInfo`** now mentions the postcards artists can hand to buyers.
+
+### Values still awaiting Deb's confirmation
+
+Written from the 8-20 sheet, but they contradict the Schedule page. If she comes
+back differently these are single-field edits in Studio, no deploy:
+
+- Quick Paint stamping at **7:45 to 8:45am**; the schedule has the artist
+  breakfast at 7:30 to 8:30.
+- The lecture is described as **free to Open Division artists with an RSVP**;
+  the schedule labels the same event "Ticketed".
+- The auction is described as **invited artists only**; the schedule calls it
+  "Live Auction, Quick Paint Pieces" without qualification.
+
+The library address was **not** changed to the sheet's 5500 S. 77th St. The
+library's own website gives 5555 South 77th Street, which is what the site and
+the schedule already had.
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**

@@ -239,10 +239,56 @@ const OpenDivision = ({
         </div>
       </section>
 
+      {/* Festival week: editor-managed sections (awards night, Quick Paint,
+          payment timing, contacts). Backgrounds alternate from this point,
+          picking up where Sales & Exhibition left off so the striping stays
+          unbroken however many sections are added. */}
+      {(page.festivalWeek ?? []).map((section, i) => {
+        const Icon = getIcon(section.icon);
+        return (
+          <div key={section._key}>
+            <BrushStrokeDivider />
+            <section className={i % 2 === 0 ? "bg-secondary/40 py-20" : "py-20"}>
+              <div className="mx-auto max-w-3xl px-6">
+                <AnimatedSection>
+                  {section.eyebrow && (
+                    <p className="mb-3 font-body text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                      {section.eyebrow}
+                    </p>
+                  )}
+                  <h2 className="mb-6 font-display text-4xl font-bold leading-tight text-foreground">
+                    {section.title}
+                  </h2>
+                  <ul className="space-y-4">
+                    {section.body.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <Icon
+                          className="mt-1 h-5 w-5 flex-shrink-0 text-primary"
+                          aria-hidden="true"
+                        />
+                        <span className="font-body text-sm leading-relaxed text-foreground/85">
+                          {renderRichText(fill(item))}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </AnimatedSection>
+              </div>
+            </section>
+          </div>
+        );
+      })}
+
       <BrushStrokeDivider />
 
       {/* Registration CTA */}
-      <section className="bg-secondary/40 py-20">
+      <section
+        className={
+          (page.festivalWeek?.length ?? 0) % 2 === 0
+            ? "bg-secondary/40 py-20"
+            : "py-20"
+        }
+      >
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
             <div className="mb-8 text-center">

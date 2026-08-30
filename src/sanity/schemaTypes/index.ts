@@ -19,6 +19,7 @@ import { homepage } from "./homepage";
 import { homepageHighlight } from "./homepageHighlight";
 import { artistPainting } from "./objects/artistPainting";
 import { locationEvent } from "./objects/locationEvent";
+import { openDivisionSection } from "./objects/openDivisionSection";
 import { paintoutSpot } from "./objects/paintoutSpot";
 import { scheduleEvent } from "./objects/scheduleEvent";
 import { openDivisionPage } from "./openDivisionPage";
@@ -81,6 +82,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     sponsorsSection,
     faqTeaserSection,
     newsletterCtaSection,
+    openDivisionSection,
     paintoutSpot,
     scheduleEvent,
     locationEvent,
