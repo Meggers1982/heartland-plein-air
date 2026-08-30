@@ -2882,6 +2882,40 @@ update and 401 on project metadata. An Editor API token worked immediately, as
 it did in August. Treat the CLI login as read-only for this project and reach
 for a token.
 
+## 2026-08-30 — Deleted the Orphaned Art of the West Sponsor Record
+
+Two `sponsor` documents existed for Art of the West, left over from the August
+migration:
+
+- `sponsor-platinum-art-of-the-west` — Platinum tier, renders correctly. **Kept.**
+- `sponsor-art-of-the-west` — no tier and `hideFromPartnersGrid: true`, so it
+  rendered nowhere. **Deleted.**
+
+Checked before deleting: nothing referenced it (`references()` count 0), and both
+documents pointed at the *same* image asset, so the Platinum record still holds
+the logo — the delete didn't orphan an upload. Verified after: one Art of the
+West record remains, Platinum still lists all three sponsors, and the logo asset
+still has a referencing document.
+
+The visible risk here wasn't the front end, which was always fine. It was Studio:
+an editor updating "Art of the West" had a 50/50 chance of editing the copy that
+renders nowhere and concluding the site was broken.
+
+### Correction to an earlier claim
+
+An intermediate note in this session described six untiered sponsors as
+"invisible for the same reason as Plein Air Magazine." That was wrong. Five of
+them — Nebraska Arts Council / Cultural Endowment, Ralston Archives Museum,
+Sherwood Foundation, Visit Nebraska, Wiebe Ralston Foundation — render fine under
+"Presented with Support From" and are *correctly* untiered: they are grant
+funders and media partners, not paid sponsorship tiers, which is exactly what the
+`tier` field's description says to leave empty.
+
+Missing a tier is not a defect. What made Plein Air Magazine disappear was the
+combination of no tier **and** `hideFromPartnersGrid: true` — two independently
+harmless settings that together leave a sponsor with nowhere to render. Only the
+duplicate Art of the West shared that combination.
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
