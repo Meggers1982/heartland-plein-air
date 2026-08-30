@@ -1,8 +1,8 @@
 # Heartland Plein Air Festival — Site Changes
 
 Documentation of all work completed on the site during the 2026-07-02 working
-session. Covers 34 commits from `7579927` (initial Next.js migration state)
-through `f6402f0`. All changes are live on `main` and deployed via Vercel.
+session. Covers 34 commits from `438e7f8` (initial Next.js migration state)
+through `7fea9ee`. All changes are live on `main` and deployed via Vercel.
 
 ---
 
@@ -10,26 +10,26 @@ through `f6402f0`. All changes are live on `main` and deployed via Vercel.
 
 **Contact email** — Site-wide contact address changed from
 `info@heartlandpleinair.org` to `ralstoncreativedistrict@gmail.com`
-(`src/page-components/Contact.tsx`). *(ba240a7)*
+(`src/page-components/Contact.tsx`). *(f2df1f5)*
 
 **Meta (Facebook) Pixel** — Added tracking pixel (ID `1819681512327549`) to
 `src/app/layout.tsx` via `next/script`, same pattern as the existing GA4 tag.
 Fires on every route since it's in the root layout. Includes the standard
-`<noscript>` fallback pixel. *(9d42000)*
+`<noscript>` fallback pixel. *(5f6b870)*
 
 **Homepage "About" photo** — Replaced the stock artist photo below the hero
 with a real photo of an artist painting at the Niobrara River. Converted to
 WebP (`public/assets/plein-air-painter-niobrara-river.webp`), old file
-removed. *(4da4adf)*
+removed. *(5ba8c36)*
 
 **Favicons** — The site had a generic, unbranded placeholder favicon.
 Generated a proper set from the Heartland logo's painter-and-sunset mark:
 `public/favicon.ico` (16/32/48px), `src/app/icon.png` (512px), and
-`src/app/apple-icon.png` (180px, for iOS home-screen icons). *(f0b10ca)*
+`src/app/apple-icon.png` (180px, for iOS home-screen icons). *(fbf327e)*
 
 **Ribbon copy** — The countdown ribbon (`CountdownRibbon.tsx`) and homepage
 countdown banner (`CountdownBanner.tsx`) now read "Sept 13–19, 2026 · Douglas
-& Sarpy County, **Nebraska**" (state name added). *(dcc2093)*
+& Sarpy County, **Nebraska**" (state name added). *(06e25f7)*
 
 ---
 
@@ -40,28 +40,28 @@ countdown banner (`CountdownBanner.tsx`) now read "Sept 13–19, 2026 · Douglas
   ($100–$249), each with real benefits (catalog ad size, logo placement,
   Collector's VIP Packages). Plus a separate "Award & Event Sponsorships"
   section (Artist Awards, Collectors Gala, Advertising match, General
-  Support). Data lives in `src/data/sponsorTiers.ts`. *(6cd582a)*
+  Support). Data lives in `src/data/sponsorTiers.ts`. *(fdaa9da)*
 - **Sponsor logos**: replaced text-only placeholder cards with real logos for
   all 7 sponsors (PleinAir Magazine, Art of the West, Visit Nebraska, Wiebe
   Ralston Foundation, Ralston Archives Museum, Nebraska Arts Council/Cultural
   Endowment, Sherwood Foundation). Logos converted to transparent PNGs
   (chroma-keyed from white-background source files) so they float directly on
   the card background with no white box artifacts. Shared list lives in
-  `src/data/sponsors.ts`. *(0612466, ce94d26)*
+  `src/data/sponsors.ts`. *(faee2c3, ed7f206)*
 - **Sponsor links**: 7 of 7 sponsor logos now link out (`target="_blank"`) —
   Ralston Archives Museum → ralstonarchivesmuseum.com, Sherwood Foundation →
   sherwoodfoundation.org, Nebraska Arts Council → artscouncil.nebraska.gov,
   Visit Nebraska → visitnebraska.com, Art of the West → aotw.com, PleinAir
   Magazine → pleinairmagazine.com. URLs centralized in `src/data/sponsors.ts`
   as the single source of truth (previously scattered/incomplete).
-  *(8deacf8)*
+  *(866b30b)*
 - **Removed the outdated "Advertise in the Catalog / form coming soon"
   section** — redundant once the dedicated Advertising page shipped with a
-  real form. *(c47e71d)*
+  real form. *(cde5a18)*
 - **Sponsorship inquiry form**: replaced the "email us to sponsor" CTA with a
   real form (Name, Organization, Email, Phone, Sponsorship Level dropdown,
   Message) submitting to Formspree, redirecting to `/sponsors/success` on
-  completion. *(f3fe37b, ed98836)*
+  completion. *(7d4f898, afa15f3)*
 
 ## 3. Advertising Page (`/advertising`) — New Page
 
@@ -70,66 +70,66 @@ Full/Half/Quarter Page ad pricing ($300/$200/$125) with exact dimensions,
 file specs (PDF, 300dpi, CMYK, no crop marks), July 15th deadline, and
 payment-by-check instructions (mailed to 5615 S. 77th St, Ralston, NE 68127 —
 this address was missing from the original copy and added afterward).
-*(233efb6)*
+*(125daf8)*
 
 - **Nav placement**: reachable only via a dropdown under "About" in the main
   nav (Radix `DropdownMenu`, hover + keyboard accessible) — not a standalone
   top-level nav item, per explicit design direction. Route itself is
-  top-level (`/advertising`, not `/about/advertising`). *(233efb6)*
+  top-level (`/advertising`, not `/about/advertising`). *(125daf8)*
 - **Ad reservation form**: Name, Business Name, Email, Phone, Ad Size
-  dropdown, Message → Formspree → `/advertising/success`. *(f3fe37b,
-  ed98836)*
+  dropdown, Message → Formspree → `/advertising/success`. *(7d4f898,
+  afa15f3)*
 
 ## 4. Open Division Page (`/open-division`)
 
 - **Full page content built** from the "Open Category Artist Registration"
   doc: registration fee/cap, check-in logistics, canvas stamping rules,
   painting requirements (medium, size, framing), conduct guidelines,
-  sales/commission terms, turn-in/pickup schedule. *(6b297d1)*
+  sales/commission terms, turn-in/pickup schedule. *(f720625)*
 - **Registration form**: Name, City/State, Email, Phone, Primary Medium
   dropdown (Oils/Acrylics/Watercolor/Gouache/Casein/Pastel/Oil Sticks),
   Message → Formspree → `/open-division/success`, which recaps the "Quick
   Facts" cards. Quick facts data extracted to
   `src/data/openDivisionQuickFacts.ts` so the page and its success screen
-  share one source. *(f6402f0)*
+  share one source. *(7fea9ee)*
 
 ## 5. Homepage (`/`)
 
 - **"Festival Highlights" cards**: fixed unequal card heights (cards now
   stretch to match the tallest in their row) and changed "25 National
   Artists" description to spell out "**Twenty-five** nationally recognized
-  painters..." *(136a080)*
+  painters..." *(b3b5390)*
 - **"Made Possible By / Our Sponsors" section** (`SponsorsSection.tsx`) was
   showing entirely fake placeholder sponsors (initials avatars for made-up
   companies like "First National Bank"). Replaced with the real 7 sponsor
-  logos and the same external links as the Sponsors page. *(9adb23e)*
+  logos and the same external links as the Sponsors page. *(e0de203)*
 - **Schedule timeline consolidated**: previously maintained a second,
   separately hand-typed schedule array that could drift from the real
   `/schedule` page. Now derives its condensed teaser cards from
   `src/data/schedule.ts` (linked to the canonical `days[]` array by ID), so
-  dates can never go out of sync between the two pages. *(dcc2093)*
+  dates can never go out of sync between the two pages. *(06e25f7)*
 - **District logos** (Ralston Hinge, Castle & Cathedral, Benson, Dundee) now
   appear on both the homepage timeline and the full `/schedule` page day
-  cards, sourced from the same place. *(0eb7f64)*
+  cards, sourced from the same place. *(da50a18)*
 
 ## 6. Footer (site-wide)
 
 - **Hinge Creative District logo** added next to "Presented by Ralston HINGE
   Creative District" in the copyright bar; now links to ralstonarts.org.
-  *(0122740, dcc2093)*
+  *(530649c, 06e25f7)*
 - **Sponsor logo strip** added (all 7 sponsors), scaled for the footer
-  context, sized up once for legibility after initial feedback. *(0122740,
-  b12de81)*
+  context, sized up once for legibility after initial feedback. *(530649c,
+  65568ad)*
 - **Newsletter signup** (`FooterSignup`) now actually submits to Formspree
-  instead of faking success. *(dcc2093)*
+  instead of faking success. *(06e25f7)*
 
 ## 7. Contact Page (`/contact`)
 
 - **Topic dropdown** added (Sponsorship / Advertising / Tickets / General
-  Questions) so inquiries can be triaged on the receiving end. *(7210089)*
+  Questions) so inquiries can be triaged on the receiving end. *(3d59ef9)*
 - **Form wired to Formspree** (`formspree.io/f/mojopwyp`) — previously faked
   success client-side like every other form on the site before this session.
-  *(434f8f0)*
+  *(065e8b2)*
 
 ## 8. Forms & Formspree — Summary
 
@@ -163,7 +163,7 @@ The "Painting Locations" map on the homepage was silently failing —
 allowlist doesn't cover the domains being tested from). Fixed the app to
 actually detect this failure mode (`window.gm_authFailure` wasn't being
 listened for) and show the existing "map couldn't load, browse the list
-below" fallback instead of a blank box. *(08de0e0)*
+below" fallback instead of a blank box. *(8ed50b7)*
 
 **Action needed (outside the codebase):**
 - In Google Cloud Console, add the production domain and any preview/dev
@@ -188,9 +188,9 @@ along the way (not just cosmetic):
   wrong street address, and referenced a nonexistent `og-image.jpg` — these
   were invisible bugs since the schema was defined but never actually
   rendered anywhere; became real once the QA sweep wired it into every page,
-  caught and fixed immediately after. *(75a16b9)*
+  caught and fixed immediately after. *(336cd0e)*
 - Root layout's Open Graph/Twitter metadata had **no preview image at all** —
-  shared links showed no image. Added the hero photo. *(75a16b9)*
+  shared links showed no image. Added the hero photo. *(336cd0e)*
 
 **Accessibility:**
 - Site-wide color contrast fix: the primary brand orange and the error-red
@@ -216,14 +216,14 @@ along the way (not just cosmetic):
   up in search results).
 - Added `Sitemap:` line to `public/robots.txt`.
 
-*(Sweep commits: 556b4fc, e312b1d, 0998717, plus follow-up fixes in 75a16b9)*
+*(Sweep commits: 14bc18a, 3613562, 4ba0a9a, plus follow-up fixes in 336cd0e)*
 
 ## 11. Jumplink & Navigation Polish
 
 - Added `scroll-mt-32` to the newsletter section (`#newsletter`) so CTA
   links ("Subscribe for Updates" on the countdown banner, "Notify me..." on
   the online-sales schedule entry) land with the heading fully visible below
-  the fixed nav, instead of being partially clipped. *(dcc2093)*
+  the fixed nav, instead of being partially clipped. *(06e25f7)*
 
 ---
 
@@ -250,7 +250,7 @@ along the way (not just cosmetic):
   and log updates here in `CHANGES.md` rather than the README (README is
   separately flagged as stale boilerplate, not yet rewritten).
 - Verified `next build` (all 22 routes) and `vitest` both pass after the
-  cleanup. *(bef6ae7)*
+  cleanup. *(53d683f)*
 
 ---
 
@@ -815,7 +815,7 @@ legitimate H3 sizes used elsewhere on the site. No changes needed.
 **"Our Silver Partners" → "Our Silver Sponsors"** (`Sponsors.tsx`) — matches
 the "Our Gold Sponsors" heading directly above it; the two tiers used
 different words ("Partners" vs. "Sponsors") for the same kind of heading.
-*(262ea14)*
+*(2b58123)*
 
 ---
 
@@ -836,7 +836,7 @@ site-wide and fixed the 7 genuine outliers:
 - `ArtistSpotlight.tsx` — "Artist Spotlight" intro
 - `Schedule.tsx` — "Festival Locations" intro, per-day narrative paragraph
 
-*(4548b97)*
+*(70a9a7a)*
 
 Left unchanged as distinct, internally-consistent tiers (not outliers):
 CTA sub-copy under a bold "Ready to...?" line (Advertising, OpenDivision,
@@ -862,7 +862,7 @@ dense paragraphs cramming 8 separate dated events together. Split
 into one paragraph per date/event plus a closing link to the
 Schedule page for the full itinerary.
 
-*(c0edd9f)*
+*(0e333af)*
 
 Known data drift (not fixed, flagging only): the homepage's FAQ
 section (`Index.tsx`'s own `faqs` array, separate from `src/data/faq.ts`)
@@ -909,7 +909,7 @@ same contact used everywhere else on the site. Grepped the full repo
 afterward; confirmed zero remaining mentions of Cheloha or
 cityofralston.com anywhere.
 
-*(6f800c8)*
+*(cd79b67)*
 
 Judgment call, not changed: `Sponsors.tsx`'s "Best of the Creative
 Districts (Ralston, Dundee, Benson, Castle & Cathedral) — $500 each"
@@ -1003,7 +1003,7 @@ WCAG contrast fixes (still had the old, less-accessible color
 values). Leftover from the Vite migration that should have been
 deleted with the other Vite artifacts.
 
-*(af75743)*
+*(7da95e7)*
 
 Judgment call, not changed: same as last session's flagged item —
 `Sponsors.tsx`'s "Best of the Creative Districts (Ralston, Dundee,
@@ -1060,7 +1060,7 @@ its own content beyond that shared graph.
   50th & Underwood — the same addresses verified against the Google
   Map in the previous session).
 
-*(3ebc036)*
+*(e7d45f6)*
 
 Not touched: the four post-submission success pages
 (`/advertising/success`, `/sponsors/success`, `/open-division/success`,
@@ -1119,7 +1119,7 @@ multiple incoming links from the FAQ page, and there was no existing
 content elsewhere natural enough to hang a link off without writing
 new copy just to create one.
 
-*(0f7f3dc)*
+*(6c53ebd)*
 
 ---
 
@@ -1148,7 +1148,7 @@ blank box with no indication to the visitor (or us) that anything failed.
 - `next build`, `npm test`, and `npm run lint` all pass. Verified manually via
   `npm run dev` that the button still renders normally.
 
-*(c4e64b1)*
+*(317270a)*
 
 ---
 
@@ -1172,7 +1172,7 @@ alternative.
 - `next build`, `npm test`, and `npm run lint` all pass. Verified visually via
   `npm run dev` on both pages.
 
-*(3c5e394)*
+*(f8027f3)*
 
 ---
 
