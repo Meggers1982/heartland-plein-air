@@ -2978,6 +2978,54 @@ The library address was **not** changed to the sheet's 5500 S. 77th St. The
 library's own website gives 5555 South 77th Street, which is what the site and
 the schedule already had.
 
+## 2026-08-30 — Mobile Tap Targets: the Only Nav Control on Phones Was 24×24
+
+A mobile audit at a real 386px viewport across all 13 routes. The headline is
+that the layout itself is sound — **zero horizontal overflow on any route**,
+which is the most common mobile defect. The mobile menu opens with all 11 links
+visible without scrolling, and the footer partner logos wrap 3 + 2 with the new
+`gap-y-8` doing its job. What needed work was touch targets.
+
+*A note on method, because the obvious one is broken:* the browser resize tool
+reports success but does not change the viewport when the window is maximized —
+it silently kept reporting 1728px. Measurements taken that way are worthless. A
+same-origin iframe sized to 390px does give a genuine viewport with working
+media queries, and is fully inspectable. That is how every number below was
+measured.
+
+**Fixed** — all four use padding plus an equal negative margin, so the hit area
+grows while the visible element stays exactly where and what it was:
+- **The hamburger button was 24×24** (`SiteNav.tsx`) — on all 13 pages, and it
+  is the *only* way to navigate on a phone. Exactly at the WCAG 2.5.8 floor with
+  no margin, against 44 from Apple and 48 from Google. `-m-3 p-3` → **48×48**;
+  the icon has not moved a pixel.
+- **Countdown ribbon unit labels were 9px** (`CountdownRibbon.tsx`) — "Days",
+  "Hrs", "Min", "Sec", on every interior page. Now `text-[11px] sm:text-[9px]`,
+  so mobile gets legible type and desktop is untouched. The "Festival in" label
+  went 10px → 11px; it only renders below `sm`, so no split was needed. Ribbon
+  still fits one line at 386px with room to spare.
+- **Youth Paintout checkbox was 16×16** (`YouthPaintoutForm.tsx`). The label
+  already toggled it — that part was fine — but the box itself was a small
+  target. A wrapping span gives it a **46×46** hit area, with the top margin
+  adjusted to preserve the input's original `mt-1` optical offset so it sits
+  exactly where it did.
+- **Footer social icons were 36×36** (`SiteFooter.tsx`). Padding had to go on a
+  wrapper rather than the anchor, since the anchor's `h-9 w-9` and border are
+  what draw the visible circle. Hit area **48×48**, circle unchanged at 36.
+
+**Left alone deliberately:** the inline "W-9" link on `/open-division` and "FAQ"
+on `/terms`. Both are inline links inside running prose, where block padding
+alters the line box and risks overlapping adjacent lines. There is no clean
+padding/negative-margin equivalent for an inline text run, and hacking one in
+would trade a small target for a broken paragraph.
+
+**Verified after the change:** each fixed control measures ≥44×44 at 386px; no
+horizontal overflow on `/`, `/tickets`, `/terms` or `/open-division`; and
+desktop at 1728px is byte-for-byte the same treatment as before — social icon
+still 36×36, ribbon labels still 9px, hamburger still hidden.
+
+---
+
 ## 2026-08-30 — Schedule Events Now Carry Real Times, Not Just Dates (Search Console)
 
 Search Console's "Improve item appearance" listed three warnings against the

@@ -74,27 +74,35 @@ const SiteFooter = ({
             </h3>
             <FooterSignup chrome={chrome} />
             <div className="mt-5 flex gap-3">
+              {/* Each link's visible 36x36 circle (h-9 w-9) is unchanged —
+                  the wrapping span adds padding plus an equal negative
+                  margin so the invisible tap area grows to 48x48 without
+                  resizing or moving the circle itself. */}
               {contactInfo.facebookUrl && (
-              <a
-                href={contactInfo.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
+              <span className="-m-1.5 inline-flex p-1.5">
+                <a
+                  href={contactInfo.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+              </span>
               )}
               {contactInfo.instagramUrl && (
-              <a
-                href={contactInfo.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
-              >
-                <Instagram className="h-4 w-4" />
-              </a>
+              <span className="-m-1.5 inline-flex p-1.5">
+                <a
+                  href={contactInfo.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 text-foreground/70 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+              </span>
               )}
             </div>
           </div>

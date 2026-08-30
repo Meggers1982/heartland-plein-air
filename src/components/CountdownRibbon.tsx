@@ -31,7 +31,7 @@ const CountdownRibbon = () => {
     <div className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         <div className="flex items-center gap-3 sm:gap-5">
-          <span className="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90 sm:hidden">
+          <span className="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90 sm:hidden">
             {chrome?.ribbonLabelMobile}
           </span>
           <span className="hidden font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-foreground/90 sm:inline">
@@ -50,7 +50,7 @@ const CountdownRibbon = () => {
                   >
                     {String(value).padStart(2, "0")}
                   </span>
-                  <span className="font-body text-[9px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90">
+                  <span className="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-foreground/90 sm:text-[9px]">
                     {label}
                   </span>
                 </span>

@@ -175,15 +175,24 @@ const YouthPaintoutForm = ({ config }: { config: FormConfig }) => {
   ) => (
     <div className="space-y-1.5">
       <label htmlFor={`youth-${key}`} className="flex cursor-pointer items-start gap-3">
-        <input
-          id={`youth-${key}`}
-          type="checkbox"
-          checked={form[key]}
-          onChange={(e) => update(key, e.target.checked)}
-          aria-invalid={errors[key] ? "true" : "false"}
-          aria-describedby={errors[key] ? `youth-${key}-error` : undefined}
-          className="mt-1 h-4 w-4 flex-shrink-0 accent-[hsl(var(--primary))]"
-        />
+        {/* The label already toggles the checkbox when clicked anywhere
+            (native <label htmlFor> behavior), but the checkbox's own
+            16x16 box was well under a 44x44 tap target on its own. The
+            wrapping span adds padding plus an equal-and-opposite negative
+            margin (with the top margin adjusted for the input's original
+            mt-1 optical offset) so the invisible hit area grows to 46x46
+            without moving or resizing the visible checkbox. */}
+        <span className="-ml-[15px] -mr-[15px] -mt-[11px] -mb-[15px] flex-shrink-0 p-[15px]">
+          <input
+            id={`youth-${key}`}
+            type="checkbox"
+            checked={form[key]}
+            onChange={(e) => update(key, e.target.checked)}
+            aria-invalid={errors[key] ? "true" : "false"}
+            aria-describedby={errors[key] ? `youth-${key}-error` : undefined}
+            className="block h-4 w-4 accent-[hsl(var(--primary))]"
+          />
+        </span>
         <span className="font-body text-sm leading-relaxed text-foreground/85">
           {label}
           {optional && (

@@ -121,7 +121,7 @@ const SiteNav = () => {
             ))}
           </div>
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden -m-3 p-3 text-foreground"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
             aria-expanded={open}
