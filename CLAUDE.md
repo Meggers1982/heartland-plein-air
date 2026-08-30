@@ -142,5 +142,5 @@ Every route must:
 
 ## Logging Updates
 - `CHANGES.md` is this repo's changelog — log notable updates there (what changed, which file, and the commit hash), following the existing numbered-section format
-- Only use the README for updates if they're about setup/usage/tech stack itself (README is currently stale Lovable boilerplate and needs a rewrite — see it as a target for cleanup, not a changelog)
+- Only use the README for updates if they're about setup/usage/tech stack itself — it was rewritten in full to document the real Next.js + Sanity stack, so treat it as current and keep it that way; it is not a changelog
 - Don't skip logging just because a change feels small — CHANGES.md's "Known follow-ups" section is also where open action items belong (e.g. things a human still needs to do, like rotating a key or checking a Cloud Console setting)

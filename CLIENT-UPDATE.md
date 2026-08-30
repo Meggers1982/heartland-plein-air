@@ -93,7 +93,7 @@ clicking a nav link wouldn't open it in a new tab like it's supposed to.
 
 We also caught and fixed a stale leftover from the old website platform: a
 few pages were still telling search engines their "official" address was the
-old Lovable-hosted site instead of heartlandpleinair.org, which could have
+old platform's address instead of heartlandpleinair.org, which could have
 hurt your search rankings.
 
 ## Behind-the-scenes search engine health
