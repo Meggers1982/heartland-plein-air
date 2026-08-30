@@ -105,7 +105,7 @@ const OpenDivision = ({
                     <h3 className="mb-2 font-display text-lg font-semibold text-foreground">
                       {fill(item.title)}
                     </h3>
-                    <p className="font-body text-sm leading-relaxed text-muted-foreground">
+                    <p className="font-body text-base leading-relaxed text-muted-foreground">
                       {fill(item.description)}
                     </p>
                   </div>
@@ -141,8 +141,8 @@ const OpenDivision = ({
             </div>
             <div className="mt-8 flex items-start gap-3 rounded-lg border border-border bg-card p-6">
               <ShieldCheck className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-              <p className="font-body text-sm leading-relaxed text-muted-foreground">
-                {fill(page.liabilityNote)}
+              <p className="font-body text-base leading-relaxed text-muted-foreground">
+                {renderRichText(fill(page.liabilityNote))}
               </p>
             </div>
           </AnimatedSection>
@@ -165,7 +165,7 @@ const OpenDivision = ({
               {paintingRequirements.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <span className="font-body text-sm leading-relaxed text-foreground/85">
+                  <span className="font-body text-base leading-relaxed text-foreground/85">
                     {renderRichText(item)}
                   </span>
                 </li>
@@ -191,7 +191,7 @@ const OpenDivision = ({
               {paintingConduct.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <span className="font-body text-sm leading-relaxed text-foreground/85">
+                  <span className="font-body text-base leading-relaxed text-foreground/85">
                     {renderRichText(item)}
                   </span>
                 </li>
@@ -217,7 +217,7 @@ const OpenDivision = ({
               {salesInfo.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <Percent className="mt-1 h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                  <span className="font-body text-sm leading-relaxed text-foreground/85">
+                  <span className="font-body text-base leading-relaxed text-foreground/85">
                     {renderRichText(item)}
                   </span>
                 </li>
@@ -231,7 +231,7 @@ const OpenDivision = ({
                   {page.turnInTitle}
                 </h3>
               </div>
-              <p className="font-body text-sm leading-relaxed text-foreground/85">
+              <p className="font-body text-base leading-relaxed text-foreground/85">
                 {renderRichText(fill(page.turnInBody))}
               </p>
             </div>
@@ -266,7 +266,7 @@ const OpenDivision = ({
                           className="mt-1 h-5 w-5 flex-shrink-0 text-primary"
                           aria-hidden="true"
                         />
-                        <span className="font-body text-sm leading-relaxed text-foreground/85">
+                        <span className="font-body text-base leading-relaxed text-foreground/85">
                           {renderRichText(fill(item))}
                         </span>
                       </li>
