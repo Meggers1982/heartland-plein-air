@@ -2752,6 +2752,40 @@ return 200.
 
 ---
 
+## 2026-08-30 — PayPal Button Rendered Nothing After Any In-Site Navigation
+
+Two Open Division artists reported on 8-26 that the PayPal button "would not
+work." Reproduced in Chrome against the live site: the button renders correctly
+on a direct load of `/open-division`, but after navigating to any other page and
+back, zero PayPal iframes render and the visitor instead sees "Something went
+wrong with PayPal."
+
+Not a browser problem, not an ad blocker, and not a missing key — the live
+client ID is set and the SDK itself loads fine (HTTP 200, `window.paypal` is
+present the whole time).
+
+**Cause.** `PayPalButton.tsx` set `sdkReady` only from `<Script onLoad>`. On a
+client-side navigation the SDK script is already in the document, so next/script
+never downloads it again and never re-fires `onLoad`. `sdkReady` stayed `false`,
+the render effect was gated on it and never ran, and the 6-second fallback timer
+flipped the component to its error state — all while the SDK sat loaded and
+usable on `window`.
+
+Anyone who browsed the site before paying hit this. Anyone who landed straight
+on `/open-division` and paid immediately did not, which is why it looked
+intermittent.
+
+1. **`src/components/PayPalButton.tsx`** — `onLoad` → `onReady` (fires on every
+   mount, not just first download), plus a mount effect that adopts an
+   already-present `window.paypal`. Either one fixes it; both are cheap.
+2. **`src/components/PayPalButton.test.tsx`** — added a regression test that
+   fails against the old code. Also fixed the existing blocked-script test,
+   which set `window.paypal` while claiming the script was blocked — an
+   impossible state that would have masked this bug.
+
+Not yet verified against production; needs a deploy and a re-test of the
+navigate-away-and-back path.
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**

@@ -6,10 +6,13 @@ import PayPalButton from "./PayPalButton";
 const { scriptShouldLoad } = vi.hoisted(() => ({ scriptShouldLoad: { value: true } }));
 
 vi.mock("next/script", () => ({
-  default: function MockScript({ onLoad }: { onLoad?: () => void }) {
+  default: function MockScript({ onLoad, onReady }: { onLoad?: () => void; onReady?: () => void }) {
     useEffect(() => {
-      if (scriptShouldLoad.value) onLoad?.();
-    }, [onLoad]);
+      if (scriptShouldLoad.value) {
+        onLoad?.();
+        onReady?.();
+      }
+    }, [onLoad, onReady]);
     return null;
   },
 }));
@@ -29,6 +32,9 @@ describe("PayPalButton", () => {
 
   it("shows a fallback message if the PayPal SDK script never loads (e.g. blocked by an ad blocker)", () => {
     scriptShouldLoad.value = false;
+    // A blocked script means the SDK never attaches itself to window, so the
+    // component can't fall back to an already-loaded SDK either.
+    delete window.paypal;
 
     render(<PayPalButton amount="30.00" description="Test registration" />);
     expect(screen.queryByText(/something went wrong with paypal/i)).not.toBeInTheDocument();
@@ -47,6 +53,25 @@ describe("PayPalButton", () => {
       vi.advanceTimersByTime(6000);
     });
 
+    expect(screen.queryByText(/something went wrong with paypal/i)).not.toBeInTheDocument();
+  });
+
+  // Regression: two artists reported a dead PayPal button in Aug 2026. On a
+  // client-side navigation the SDK is already in the document, so next/script
+  // fires neither callback again — the button has to notice the SDK itself
+  // rather than waiting for a load event that will never come.
+  it("renders the button when the SDK was already loaded by an earlier page", () => {
+    scriptShouldLoad.value = false;
+    const render_ = vi.fn();
+    window.paypal = { Buttons: () => ({ render: render_ }) };
+
+    render(<PayPalButton amount="30.00" description="Test registration" />);
+
+    act(() => {
+      vi.advanceTimersByTime(6000);
+    });
+
+    expect(render_).toHaveBeenCalled();
     expect(screen.queryByText(/something went wrong with paypal/i)).not.toBeInTheDocument();
   });
 

@@ -40,6 +40,14 @@ const PayPalButton = ({ amount, description }: PayPalButtonProps) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 
+  // On a client-side navigation back to this page the SDK script is already in
+  // the document, so next/script never re-fires its load callback and `sdkReady`
+  // would sit false until the timeout below flipped us to the error state — the
+  // button silently never rendered even though window.paypal was right there.
+  useEffect(() => {
+    if (window.paypal) setSdkReady(true);
+  }, []);
+
   useEffect(() => {
     if (sdkReady) return;
     const timeout = setTimeout(() => setStatus("error"), 6000);
@@ -103,7 +111,9 @@ const PayPalButton = ({ amount, description }: PayPalButtonProps) => {
       <Script
         src={`https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD`}
         strategy="afterInteractive"
-        onLoad={() => setSdkReady(true)}
+        // onReady fires on every mount, including when the script was already
+        // loaded by an earlier page; onLoad alone fires only on first download.
+        onReady={() => setSdkReady(true)}
       />
       <div ref={containerRef} className="mx-auto max-w-xs" />
       {status === "error" && (
