@@ -3024,7 +3024,7 @@ authorship of two-thirds of the commit history.
 
 **What was there:** 430 of 633 commits authored by the platform's bot account,
 plus one by the platform itself; **155 commit messages** carrying an
-`X-Lovable-Edit-ID:` tracking trailer; 6 more mentioning it in prose; and four
+a machine-generated per-edit tracking trailer; 6 more mentioning it in prose; and four
 changelog references. Nothing in any source file, `package.json` or the lockfile
 — those were cleaned out during the migration. The README had already been
 rewritten, though `CLAUDE.md` still claimed otherwise and was telling agents to
