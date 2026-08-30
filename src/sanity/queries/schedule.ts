@@ -18,6 +18,8 @@ export type ScheduleEvent = {
   location?: string;
   address?: string;
   spots?: PaintoutSpot[];
+  ctaLabel?: string;
+  ctaHref?: string;
   sponsor?: string;
   sponsorLogo?: Image;
   sponsorAlt?: string;

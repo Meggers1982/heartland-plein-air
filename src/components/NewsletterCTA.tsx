@@ -1,15 +1,5 @@
-'use client';
-import { useState } from "react";
-import { z } from "zod";
-import { Sparkles, Calendar, Users, Check } from "lucide-react";
+import { Sparkles, Calendar, Users } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
-
-const emailSchema = z
-  .string()
-  .trim()
-  .min(1, { message: "Please enter your email address." })
-  .email({ message: "Please enter a valid email address." })
-  .max(255, { message: "Email must be less than 255 characters." });
 
 // Icons stay in code and pair with the labels by position: an editor can
 // reword a perk, but can't pick a mismatched icon or break the row.
@@ -20,7 +10,11 @@ const DEFAULT_PERKS = [
   "Early collector access",
 ];
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpqgolwo";
+// Signups go straight into the district's FASO subscriber list. This used to be
+// an inline Formspree form, which meant someone had to export the addresses and
+// re-upload them by hand; sending people to FASO drops that step entirely.
+export const NEWSLETTER_SIGNUP_URL =
+  "https://ralstonhingecreativedistrict.faso.com/email-newsletter";
 
 const NewsletterCTA = ({
   // Fallbacks keep the heading intact for homepage documents saved before these
@@ -35,35 +29,6 @@ const NewsletterCTA = ({
   perks?: string[];
   footnote?: string;
 } = {}) => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const result = emailSchema.safeParse(email);
-    if (!result.success) {
-      setError(result.error.issues[0]?.message ?? "Invalid email.");
-      return;
-    }
-    setError(null);
-    setSubmitting(true);
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   return (
     <section
       id="newsletter"
@@ -110,69 +75,16 @@ const NewsletterCTA = ({
           })}
         </ul>
 
-        {submitted ? (
-          <div
-            role="status"
-            aria-live="polite"
-            className="mx-auto flex max-w-md items-center justify-center gap-3 rounded-full border border-primary/40 bg-primary/15 px-6 py-4 font-body text-base text-background animate-in fade-in slide-in-from-bottom-2 duration-500"
-          >
-            <Check className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span>Thanks — you're on the list.</span>
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            noValidate
-            className="mx-auto max-w-lg"
-          >
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:rounded-full sm:border sm:border-background/20 sm:bg-background/5 sm:p-1.5 sm:backdrop-blur-sm sm:focus-within:ring-2 sm:focus-within:ring-primary">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="newsletter-email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (error) setError(null);
-                }}
-                placeholder="your@email.com"
-                aria-invalid={error ? "true" : "false"}
-                aria-describedby={error ? "newsletter-error" : "newsletter-trust"}
-                maxLength={255}
-                className="flex-1 rounded-full border border-background/20 bg-background/10 px-6 py-3.5 font-body text-base text-background placeholder:text-background/40 focus:outline-none focus:ring-2 focus:ring-primary sm:border-0 sm:bg-transparent sm:focus:ring-0"
-              />
-              <button
-                type="submit"
-                disabled={submitting}
-                className="rounded-full bg-primary px-8 py-3.5 font-body text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:scale-[1.03] hover:opacity-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {submitting ? "Subscribing..." : "Subscribe"}
-              </button>
-            </div>
+        <a
+          href={NEWSLETTER_SIGNUP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block rounded-full bg-primary px-10 py-4 font-body text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:scale-[1.03] hover:opacity-95 active:scale-[0.98]"
+        >
+          Sign Up for Festival Updates
+        </a>
 
-            <div className="mt-4 min-h-[1.25rem]" aria-live="polite">
-              {error ? (
-                <p
-                  id="newsletter-error"
-                  className="font-body text-sm text-destructive-foreground"
-                  style={{ color: "hsl(var(--destructive))" }}
-                >
-                  {error}
-                </p>
-              ) : (
-                <p
-                  id="newsletter-trust"
-                  className="font-body text-xs text-background/80"
-                >
-                  {footnote}
-                </p>
-              )}
-            </div>
-          </form>
-        )}
+        <p className="mt-4 font-body text-xs text-background/80">{footnote}</p>
       </AnimatedSection>
     </section>
   );

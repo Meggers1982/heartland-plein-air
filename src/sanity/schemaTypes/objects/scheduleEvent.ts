@@ -18,6 +18,20 @@ export const scheduleEvent = defineType({
         "Individual painting spots within this event's district, distinct from the event's own location.",
     }),
     defineField({
+      name: "ctaLabel",
+      title: "Button label",
+      type: "string",
+      description:
+        'Optional button under this event, e.g. "Register here". Needs a link below to show up.',
+    }),
+    defineField({
+      name: "ctaHref",
+      title: "Button link",
+      type: "string",
+      description:
+        'Where the button goes — a path on this site like "/tickets/youth-paintout", or a full https:// address.',
+    }),
+    defineField({
       name: "sponsor",
       title: "Sponsor name",
       type: "string",

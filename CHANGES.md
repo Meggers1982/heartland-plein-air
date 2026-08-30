@@ -2786,6 +2786,56 @@ intermittent.
 Not yet verified against production; needs a deploy and a re-test of the
 navigate-away-and-back path.
 
+## 2026-08-30 — Newsletter Signups Go to FASO; Schedule Events Can Carry a Button
+
+Both from Deb's 8-26 list.
+
+### Newsletter signup now points at FASO
+
+`NewsletterCTA.tsx` (homepage, Open Division, and the inquiry success pages) and
+`FooterSignup.tsx` (every page footer) each posted to the same Formspree form,
+`xpqgolwo`. Addresses collected there had to be exported and re-uploaded into the
+district's mailing list by hand. Both now link to
+`https://ralstonhingecreativedistrict.faso.com/email-newsletter`, so subscribers
+land in the FASO list directly.
+
+The URL is exported once as `NEWSLETTER_SIGNUP_URL` from `NewsletterCTA.tsx` and
+imported by the footer, so the two can't drift apart the way the two copies of
+the Formspree endpoint did. Verified the FASO page loads and shows its signup
+form (it returns 403 to curl — that's bot filtering, not a broken page).
+
+`chrome.signupPlaceholder` and `chrome.signupSuccess` are no longer rendered
+anywhere: there is no field to place-hold and no success state to report. Left in
+the Sanity schema rather than removed, since `signupFootnote` still renders and
+dropping sibling fields mid-festival is a needless risk. Worth cleaning up after
+September.
+
+The other five Formspree forms (contact, sponsors, open division, advertising,
+youth paintout) are untouched.
+
+### Schedule events can now carry a button
+
+Deb asked for a "Register here" link under the Youth Paintout on Sept 12.
+`scheduleEvent` had no link field at all, so this needed schema plus rendering:
+
+1. **`src/sanity/schemaTypes/objects/scheduleEvent.ts`** — added optional
+   `ctaLabel` and `ctaHref`. Both must be filled for the button to appear.
+2. **`src/sanity/queries/schedule.ts`** — added the two fields to the
+   `ScheduleEvent` type. The GROQ query has no projection, so it already
+   returned them.
+3. **`src/page-components/Schedule.tsx`** — renders the button above "Add to
+   calendar". Paths starting with `/` use next/link; anything else is treated as
+   external and gets `target="_blank"` + `rel="noopener noreferrer"`. The href is
+   run through `stegaClean` — Visual Editing embeds invisible characters in
+   Sanity strings, which would otherwise turn a valid path into a 404.
+
+The field is generic, so any event can have a button, not just this one.
+
+**Still needs the content set in Sanity** (blocked on a write token at time of
+writing): `day-sep-12` event `ev0` needs `ctaLabel: "Register here"` and
+`ctaHref: "/tickets/youth-paintout"`. Until then the schedule renders exactly as
+before.
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**

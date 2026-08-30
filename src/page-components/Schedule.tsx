@@ -449,6 +449,28 @@ const Schedule = ({
                               ))}
                           </div>
                         )}
+                        {ev.ctaLabel && ev.ctaHref && (() => {
+                          // stegaClean matters here: Visual Editing embeds
+                          // invisible characters in Sanity strings, which turn a
+                          // perfectly good href into a 404.
+                          const href = stegaClean(ev.ctaHref);
+                          const className =
+                            "mt-2 inline-flex w-fit items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-body text-xs font-semibold uppercase tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-[1.02]";
+                          return href.startsWith("/") ? (
+                            <Link href={href} className={className}>
+                              {ev.ctaLabel}
+                            </Link>
+                          ) : (
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={className}
+                            >
+                              {ev.ctaLabel}
+                            </a>
+                          );
+                        })()}
                         {canDownload && (
                           <button
                             type="button"
