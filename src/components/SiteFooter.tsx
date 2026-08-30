@@ -105,13 +105,21 @@ const SiteFooter = ({
           <p className="mb-4 text-center font-body text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">
             {chrome.footerSponsorsHeading}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          {/* The grant and partner marks sat in the middle ~half of a max-w-6xl
+              row, reading as a cluster rather than a row. The gap scales with the
+              breakpoint so they spread into the space that is actually there,
+              while gap-y keeps wrapped rows from touching on narrow screens.
+              The ramp is deliberately not linear: the marks step up in height at
+              md and lg, so a gap that fits at 1280 forces a lopsided 4+1 wrap at
+              1024. Each step is sized against the widest the logos get at that
+              breakpoint. */}
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-12 lg:gap-x-20 xl:gap-x-28">
             {sponsors.map((sponsor) => {
               const img = sponsor.logo ? (
                 <img
                   src={urlFor(sponsor.logo).width(340).auto("format").url()}
                   alt={sponsor.alt ?? sponsor.name}
-                  className="h-10 w-auto max-w-[170px] object-contain md:h-14"
+                  className="h-11 w-auto max-w-[190px] object-contain md:h-14 lg:h-16"
                 />
               ) : (
                 <span className="font-body text-sm font-semibold text-foreground">
