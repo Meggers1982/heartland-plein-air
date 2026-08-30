@@ -180,7 +180,7 @@ along the way (not just cosmetic):
 
 **Bugs fixed:**
 - Stale canonical URLs on About, Artists, and Schedule pages still pointed at
-  the pre-migration `ralston-plein-air.lovable.app` domain instead of
+  the pre-migration preview domain instead of
   `heartlandpleinair.org`.
 - FAQ page had a second, drifting copy of its Q&A content hardcoded in the
   component instead of using `src/data/faq.ts` — consolidated.
@@ -236,7 +236,7 @@ along the way (not just cosmetic):
   it, since that wouldn't add real security and would require a disruptive
   force-push to `main`. The actual remaining fix is the Cloud Console
   referrer allowlist (§9, follow-up #2).
-- **Removed dead Vite/Lovable-era files** left over from the pre-migration
+- **Removed dead Vite-era files** left over from the pre-migration
   scaffold, now confirmed unused by `next build`: `index.html`,
   `vite.config.ts`, `src/vite-env.d.ts`, `tsconfig.app.json`,
   `tsconfig.node.json`.
@@ -484,8 +484,8 @@ Tailwind's unprefixed classes are the mobile styles). Findings and fixes:
 
 Working through the "Known follow-ups" backlog:
 
-- **Rewrote `README.md`** — was still the default Lovable scaffold
-  (mentioned Vite, the Lovable platform, a placeholder project URL). Now
+- **Rewrote `README.md`** — was still the default scaffold from the previous
+  platform (mentioned Vite, that platform, a placeholder project URL). Now
   documents the actual Next.js stack, real setup steps, and points to
   `CLAUDE.md` (conventions/content editing) and `CHANGES.md` (changelog)
   instead of duplicating them.
