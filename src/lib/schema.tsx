@@ -54,6 +54,19 @@ export function breadcrumbSchema(crumbs: Crumb[]) {
   };
 }
 
+/**
+ * The invited artists, as one performing group.
+ *
+ * Every event on the schedule is performed by the same roster, and Search
+ * Console flagged all 13 per-event nodes as missing `performer`. Declaring the
+ * group once here and referencing this @id from each event states the relation
+ * without repeating 25 names per event.
+ */
+export const PERFORMER_ID = `${SITE_URL}/#artists`;
+
+/** A schedule event's performer: a pointer to the group defined above. */
+export const performerRef = { "@id": PERFORMER_ID };
+
 export const ticketOffers = [
   {
     "@type": "Offer",
@@ -137,6 +150,7 @@ export function buildFestivalEventSchema(
   ],
   performer: {
     "@type": "PerformingGroup",
+    "@id": PERFORMER_ID,
     name: "Invited Plein Air Artists",
     description: `${invitedCount} nationally recognized plein air painters selected from across the United States, plus an Open Division of up to ${openDivisionCapacity} local and regional artists.`,
   },

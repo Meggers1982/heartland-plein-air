@@ -2978,6 +2978,69 @@ The library address was **not** changed to the sheet's 5500 S. 77th St. The
 library's own website gives 5555 South 77th Street, which is what the site and
 the schedule already had.
 
+## 2026-08-30 — Schedule Events Now Carry Real Times, Not Just Dates (Search Console)
+
+Search Console's "Improve item appearance" listed three warnings against the
+Event structured data. They were warnings, not errors — the items were valid and
+eligible the whole time — but the counts pointed at something worth fixing.
+
+**The diagnosis.** `/schedule` emits 14 Event nodes: one festival-wide block,
+complete, and 13 per-event blocks built by `buildScheduleEventsSchema()`. Search
+Console's numbers matched that split exactly: `endDate` missing on 13,
+`performer` missing on 13, `validFrom` missing on 11 of 17 offers (the free ones
+— the three paid offers already had it). The four rows reporting 0 items needed
+nothing.
+
+**Events had a date but no time.** `startDate` was `d._id.replace("day-",
+"2026-")` — a bare `2026-09-14`, with no clock time and no end. The real times
+were in Sanity the entire time as display strings ("11 AM – 1:30 PM"), never
+parsed, so search had no idea the Lunch Break Paintout runs midday or when the
+auction is over. New `src/lib/eventTimes.ts` reads those strings into ISO
+datetimes pinned to Central, and every event now publishes both `startDate` and
+`endDate` with real times.
+
+Editors keep writing the strings the way they read on the page, so the parser
+handles what they actually type: a meridiem on both ends ("11 AM – 1:30 PM") or
+only the last ("9 – 11 AM", "5 – 6:30 PM"), "Noon" on either side, hyphens and
+em dashes as well as the en dash, and a lone time ("3 PM") which gets a start
+and deliberately no end rather than an invented duration. It returns null on
+anything it can't read — including a range that ends before it starts — and the
+caller falls back to the bare date, because a wrong datetime in structured data
+is worse than an absent one: search would publish it as fact. 11 unit tests
+cover it, including every time string currently in the schedule.
+
+One trap worth naming: "11 – 1 PM" inheriting PM from its end would start at
+23:00 and finish at 13:00. The parser detects the impossible ordering and takes
+the other reading.
+
+**Also fixed:**
+- **`performer`** — `schema.tsx` now gives the invited-artists `PerformingGroup`
+  a stable `@id`, and each event references it. States the relation once instead
+  of restating 25 names thirteen times.
+- **`validFrom`** on `freeEventOffer`, matching the paid offers.
+- **`scheduleDayDate()` validates the id** it parses. The old inline
+  `.replace()` would have turned `day-online` into a `startDate` of
+  `2026-online`. No such node is emitted today — that day has no addressed
+  events — but nothing was stopping it.
+
+**Also: www served a second copy of the site.** Not from the same report, but
+found alongside it. `https://www.heartlandpleinair.org/` answered **200** with a
+full copy of every page rather than redirecting; only the `http://` variants
+redirected, and they redirected to `https://www.…`, not to the apex. Every page
+already canonicalised correctly, which is why Search Console filed it under
+"Alternate page with proper canonical tag" — working as intended. But a
+canonical is a hint and a redirect is not. `next.config.ts` now 308s
+`www.heartlandpleinair.org/:path*` to the apex, collapsing the duplicate origin
+at the edge.
+
+Nothing needed doing about "Page with redirect" (2 items: the two `http://`
+URLs). That entry means HTTP redirects to HTTPS, which is correct. Both reports
+show "Validation failed" only because a re-check found the URLs still
+redirecting and still canonicalising — which is the desired behaviour. There is
+nothing to validate away.
+
+---
+
 ## 2026-08-30 — Deb's Schedule Answers Applied; Three Timing Conflicts Resolved
 
 Answers came back on the six questions raised against the new Open Division

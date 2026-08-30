@@ -14,7 +14,8 @@ import LocationsMap from "@/components/LocationsMap";
 import RichText from "@/components/RichText";
 import { stegaClean } from "@sanity/client/stega";
 import { cn } from "@/lib/utils";
-import { JsonLd, breadcrumbSchema, ticketOffers, SITE_URL } from "@/lib/schema";
+import { JsonLd, breadcrumbSchema, performerRef, ticketOffers, SITE_URL } from "@/lib/schema";
+import { parseEventTimes, scheduleDayDate } from "@/lib/eventTimes";
 import { urlFor } from "@/sanity/lib/image";
 import { portableTextToPlainText } from "@/sanity/lib/portableText";
 import type { Audience, FestivalLocation, ScheduleDay } from "@/sanity/queries/schedule";
@@ -41,6 +42,10 @@ const freeEventOffer = {
   price: "0",
   priceCurrency: "USD",
   availability: "https://schema.org/InStock",
+  // Matches the paid offers in schema.tsx. Its absence here was the whole of
+  // Search Console's "Missing field validFrom (in offers)" on 11 items — the
+  // 11 free events, the paid ones already having it.
+  validFrom: "2026-01-01",
   url: `${SITE_URL}/schedule`,
 };
 
@@ -102,11 +107,19 @@ function buildScheduleEventsSchema(days: ScheduleDay[]) {
         // a raw `ev.name` matches neither the internal-events set nor the ticket
         // offer map — and a ticketed event would be published as free.
         .filter((ev) => ev.address && !internalOnlyEventNames.has(stegaClean(ev.name)))
-        .map((ev) => ({
+        .map((ev) => {
+          // The day supplies the date, the event its clock time. Falling back
+          // to the bare date keeps a readable startDate if an editor writes a
+          // time this can't parse, rather than dropping the event or guessing.
+          const date = scheduleDayDate(d._id);
+          const times = date ? parseEventTimes(date, stegaClean(ev.time)) : null;
+          return {
           "@type": "Event",
           name: ev.name,
           description: portableTextToPlainText(d.narrative),
-          startDate: d._id.replace("day-", "2026-").replace("sep-", "09-"),
+          startDate: times?.startDate ?? date ?? undefined,
+          ...(times?.endDate ? { endDate: times.endDate } : {}),
+          performer: performerRef,
           eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
           eventStatus: "https://schema.org/EventScheduled",
           location: {
@@ -125,7 +138,8 @@ function buildScheduleEventsSchema(days: ScheduleDay[]) {
             name: "Heartland Plein Air Festival",
             url: "https://heartlandpleinair.org",
           },
-        })),
+          };
+        }),
     );
 }
 

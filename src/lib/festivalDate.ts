@@ -16,7 +16,7 @@
  * mechanical detail rather than something an editor should be asked about.
  * Only revisit if the festival moves outside daylight saving.
  */
-const CENTRAL_OFFSET = "-05:00";
+export const CENTRAL_OFFSET = "-05:00";
 
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
