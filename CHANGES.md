@@ -2978,6 +2978,79 @@ The library address was **not** changed to the sheet's 5500 S. 77th St. The
 library's own website gives 5555 South 77th Street, which is what the site and
 the schedule already had.
 
+## 2026-08-30 — Deb's Schedule Answers Applied; Three Timing Conflicts Resolved
+
+Answers came back on the six questions raised against the new Open Division
+sheet. Three needed a change; three were confirmed as-is.
+
+**Saturday morning was two events that are actually one.** The schedule page had
+"Artist Breakfast" 7:30–8:30 AM at the gazebo; the Open Division sheet had canvas
+stamping at the same gazebo 7:45–8:45 AM. Same thing. Merged into **"Artist
+Breakfast & Canvas Stamping," 7:30–8:45 AM**, and the Open Division stamping time
+moved to match. *(Deb wrote it "Artist Breakfast/Canvas Stamping"; used "&" so it
+reads like every other event name on the site — "Public Exhibition & Sale",
+"Artist Check-In, Canvas Stamping & Orientation". Say the word if the slash is
+preferred.)*
+
+**Friday turn-in disagreed by half an hour.** The schedule page said 9 AM–12:30
+PM, the Open Division page said 9am to noon. **Noon is correct**, so the schedule
+page now reads "9 AM – Noon."
+
+**The Saturday auction now says whose work is in it.** It was "Live Auction —
+Quick Paint Pieces," which could read to an Open Division artist as though their
+piece might sell. Only the invited artists' work is auctioned. Renamed to **"Live
+Auction — Invited Artists' Quick Paint Pieces"** in all three places it appears:
+the Saturday schedule, the Granary location card, and the FAQ's day-by-day
+rundown.
+
+**Confirmed, no change:**
+- **Library address** — the sheet says 5500 S. 77th St., the site says 5555. The
+  library's own site says 5555, and Deb confirmed 5555 is right. The sheet has
+  the typo.
+- **Judge's Lecture "Ticketed" label** — it stays. It *is* ticketed for the
+  public; Open Division artists get it free by RSVP, and they have that from
+  their email and info packet. Adding a free-for-artists note to the public
+  schedule would confuse more people than it helps.
+- **Artist check-in (Mon 10am – Thu noon)** — deliberately not on the public
+  schedule. Artists have it; the public doesn't need it.
+
+---
+
+## 2026-08-30 — Removed the Original Platform's Fingerprints from the Repo
+
+The site was first scaffolded on a hosted AI builder before the Next.js
+migration, and its traces were still all over GitHub — most visibly in the
+authorship of two-thirds of the commit history.
+
+**What was there:** 430 of 633 commits authored by the platform's bot account,
+plus one by the platform itself; **155 commit messages** carrying an
+`X-Lovable-Edit-ID:` tracking trailer; 6 more mentioning it in prose; and four
+changelog references. Nothing in any source file, `package.json` or the lockfile
+— those were cleaned out during the migration. The README had already been
+rewritten, though `CLAUDE.md` still claimed otherwise and was telling agents to
+redo finished work.
+
+**What was done.** History rewritten with `git filter-repo`: all 634 commits are
+now authored *and* committed by `Meggers1982 <meagan.lea.morris@gmail.com>`, the
+tracking trailers are stripped, and prose mentions are reworded generically. The
+GitHub Contributors list is now one name. The 192 commits that carried a
+placeholder `REDACTED@example.com` address — which linked to no GitHub account —
+were folded into the same identity while the rewrite was happening anyway.
+
+**No file content changed.** Verified mechanically, not assumed: every one of
+the **1,164 resolvable commits has a byte-identical tree hash** before and after.
+Typecheck, tests and the deployed site were all re-checked after the force-push.
+
+**The cost, for the record:** every commit SHA changed. The **38 hashes cited in
+this file were remapped** via filter-repo's commit-map, and hashes quoted inside
+commit messages were rewritten by filter-repo itself. Any SHA written down
+outside this repo — in an email, a ticket, a bookmark — is now dead. A full
+pre-rewrite bundle is saved at
+`~/Documents/heartland-plein-air-BACKUP-20260830-172528.bundle` (63 MB) if
+anything needs recovering.
+
+---
+
 ## 2026-08-30 — Countdown Banner Added to the Five Pages Missing It
 
 Follow-up #2 from the QA pass below, now closed. `CountdownBanner` was on Home,
