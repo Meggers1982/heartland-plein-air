@@ -93,6 +93,10 @@ export const ticketOffers = [
 export function buildFestivalEventSchema(
   invitedCount: number,
   dates: { startDate: string; endDate: string; range: string },
+  // Open Division capacity, from `openDivisionPage.capacity` in Sanity. It was
+  // hardcoded here as 40 while the page itself said 30 — the number an editor
+  // changes in Studio has to be the only one anybody reads.
+  openDivisionCapacity: number,
 ) {
   return {
   "@type": "Event",
@@ -134,7 +138,7 @@ export function buildFestivalEventSchema(
   performer: {
     "@type": "PerformingGroup",
     name: "Invited Plein Air Artists",
-    description: `${invitedCount} nationally recognized plein air painters selected from across the United States, plus an Open Division of up to 40 local and regional artists.`,
+    description: `${invitedCount} nationally recognized plein air painters selected from across the United States, plus an Open Division of up to ${openDivisionCapacity} local and regional artists.`,
   },
   };
 }

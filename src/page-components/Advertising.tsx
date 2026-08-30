@@ -21,7 +21,7 @@ import { renderRichText } from "@/lib/richText";
 import type { AdSize } from "@/sanity/queries/advertising";
 import type { FormConfig } from "@/sanity/queries/formConfig";
 import type { AdvertisingPage } from "@/sanity/queries/pages";
-import { AD_DEADLINE } from "@/lib/adDeadline";
+import { AD_DEADLINE, AD_DEADLINE_LABEL } from "@/lib/adDeadline";
 
 
 const Advertising = ({
@@ -216,7 +216,7 @@ const Advertising = ({
                     {page.closedNote}
                   </p>
                   <p className="font-body text-base leading-relaxed text-muted-foreground">
-                    The July 17, 2026 deadline has passed and we're no longer accepting new ad reservations for this year's catalog. Questions? Email{" "}
+                    The {AD_DEADLINE_LABEL} deadline has passed and we're no longer accepting new ad reservations for this year's catalog. Questions? Email{" "}
                     <a
                       href="mailto:info@ralstonarts.org"
                       className="font-semibold text-primary hover:underline"

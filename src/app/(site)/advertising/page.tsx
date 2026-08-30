@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     route: "/advertising",
     fallbackTitle: "Advertise in the Plein Air Festival Catalog: Omaha",
-    fallbackDescription: "Place an ad in the Heartland Plein Air Festival catalog \u2014 3,000 printed copies plus digital. Full, half, and quarter-page options from $125. Deadline July 17.",
+    fallbackDescription: "Place an ad in the Heartland Plein Air Festival catalog \u2014 3,000 printed copies plus digital. Full, half, and quarter-page options from $125.",
   });
 }
 

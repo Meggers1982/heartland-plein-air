@@ -2978,6 +2978,125 @@ The library address was **not** changed to the sheet's 5500 S. 77th St. The
 library's own website gives 5555 South 77th Street, which is what the site and
 the schedule already had.
 
+## 2026-08-30 — Site-Wide QA Pass: One Broken Link, Two Contradicted Numbers, 9.5 MB of Dead Weight
+
+A consistency review across every route, both in code and against the live
+Sanity dataset. Everything below is fixed and deployed unless it is listed under
+"Left for you" at the end.
+
+**A "Register here" button on /schedule went to a 404.** The Saturday, September
+12 Youth Paintout event's `ctaHref` pointed at `/tickets/youth-paintout`, which
+is not a route — the only thing under that path is the post-submission
+`/tickets/youth-paintout/success` page. Verified against production: it returned
+404. Repointed at `/tickets#youth-paintout`, the anchor the rest of the site
+already uses. (Sanity: `day-sep-12`.)
+
+**Two places said the Open Division holds 40 artists; the Open Division page
+says 30.** `openDivisionPage.capacity` is 30 and drives every line of copy on
+that page through `fill()`, but the number was also typed out by hand in two
+places that never read it:
+- `src/lib/schema.tsx` — the festival's JSON-LD `performer` description said
+  "an Open Division of up to 40 local and regional artists." It now takes the
+  capacity as an argument, passed down from `src/app/layout.tsx`, so Studio
+  stays the only place the number lives.
+- The FAQ answer "How many artists participate in the festival?" said "up to 40
+  additional artists ... for a total of up to 65 participating artists."
+  Corrected to 30 and 55. (Sanity: `faqItem-artists-events-0`.)
+
+**Only one email address on the site now.** `ralstoncreativedistrict@gmail.com`
+appeared twice on the Open Division page while every other page, form,
+structured-data block and legal page used `info@ralstonarts.org`. Both switched
+to `info@ralstonarts.org`. (Sanity: `openDivisionPage.festivalWeek` — the
+"Third Thursday & the Judge's Lecture" and "Questions?" sections.)
+
+**"Ralston Hinge" vs "Ralston HINGE" — 18 strings across 15 documents.** The
+district's name was capitalised two ways, sometimes within the same page. All 18
+lowercase instances raised to `HINGE`, matching the footer, the org schema, and
+the district's own branding.
+
+**Smaller content fixes.** The Open Division "Questions?" phone numbers were
+written `402-592-6552`; the footer and contact page use `(402) 592-6552`, so
+they now match. A sponsorship opportunity was titled "Collectors Gala Reception"
+against 27 uses of "Collectors Preview Reception" elsewhere. One "Public
+Exhibition and Sale" became "Public Exhibition & Sale".
+
+**Two stale meta descriptions.** `/advertising` advertised "Deadline July 17" —
+a date six weeks past, on a page that already renders its closed state; the
+sentence is gone. `/artists` said "all 25 invited plein air artists — plus meet
+Rick J. Delanty," which reads as 26 people when the roster is 25 including him;
+"plus meet" became "including". Both fixed in the `page.tsx` fallbacks *and* in
+their `pageSeo` documents, since Sanity overrides the fallback.
+
+**The July 17 deadline was typed out in three places.** `AD_DEADLINE` is the
+timestamp that decides whether reservations are open, but the printed date was a
+literal in `AdvertisingDeadlineBanner.tsx` and again in `Advertising.tsx`'s
+closed-state copy — so moving the deadline could leave the banner contradicting
+the page. Added `AD_DEADLINE_LABEL` to `src/lib/adDeadline.ts`; both now read it.
+
+**Ticketed schedule events could publish as free under Visual Editing.**
+`Schedule.tsx` looks up each event's ticket offer by exact name
+(`ticketedEventOffers[ev.name]`), and filters internal events the same way. The
+file already calls `stegaClean()` on `d.audience` because Visual Editing embeds
+invisible characters in every Sanity string — but not on `ev.name`, so in draft
+mode both lookups missed and the Judge's Lecture went into the JSON-LD with
+`isAccessibleForFree: true`. All three call sites now clean the name.
+
+**`npx tsc --noEmit` reported 28 errors before this pass, all in test files.**
+`vitest.config.ts` sets `globals: true`, so tests call `describe`/`it`/`expect`
+without importing them, but TypeScript doesn't read that config. 28 "Cannot find
+name" errors is enough noise to bury a real one. Added
+`src/test/vitest-globals.d.ts` with a single `/// <reference types="vitest/globals" />`.
+Typecheck is now clean.
+
+**Deleted 9.5 MB of files nothing imports.** `src/assets/` (33 images) was
+superseded by `public/assets/` during the Vite → Next.js migration and never
+removed — no file in `src/` referenced it. Also removed `src/App.css` (never
+imported) and `src/components/ScrollToTop.tsx` (zero references; Next.js
+restores scroll position itself).
+
+**Checked and found consistent:** all 13 public routes return 200 and an unknown
+path returns the custom 404; `sitemap.xml` resolves; every internal `href` in
+code and in Sanity now points at a real route or a real anchor id; no `<img>` is
+missing `alt`; all 12 page headers share the same
+`bg-foreground pt-52 pb-16 md:pt-56` treatment; sponsor tier minimums (100 →
+5,000) match the "$100 to $5,000+" claim in the /sponsors description; ad sizes
+($300/$200/$125) match "from $125"; every ticket price in Sanity matches
+`ticketOffers` in `schema.tsx`; and every weekday label in the schedule matches
+the real 2026 calendar date.
+
+### Left for you (decisions, not bugs)
+
+1. **The Judge's Lecture still has two names** — this is follow-up #7 from the
+   2026-07-02 log, still open. `/tickets` and the JSON-LD offer call it
+   "Introduction to Impressionism"; `/schedule`, the FAQ, the Baright Library
+   location and the homepage highlight call it "Judge's Lecture — Impressionism
+   & Plein Air". Someone comparing the two pages sees two lectures. Not changed
+   here for the same reason as last time: the offer title is presumably what
+   Passage shows on the ticket itself. Say which is right and it is a quick
+   sweep. (A third variant, "Impressionism and Plein Air" with the word "and",
+   appears in four prose passages — worth folding into the same sweep.)
+2. **The countdown banner is on 6 pages and missing from 5.** Home, About,
+   Artists, Contact, Gallery and Schedule carry `CountdownBanner`; Advertising,
+   FAQ, Open Division, Sponsors and Tickets do not. Tickets in particular is
+   where urgency would help. One line per page either way — tell me which
+   direction.
+3. **Advertising is closed but still a top-level nav item.** The July 17
+   deadline has passed, so /advertising renders "Advertising reservations are
+   closed" while still sitting in the About dropdown and in `sitemap.ts` at
+   priority 0.5. Fine if you want the rate card discoverable year-round; worth
+   demoting if not.
+4. **Only /artists and /gallery wrap their content in `<main>`.** The other
+   pages rely on the visually hidden `#main-content` marker in `SiteNav` for the
+   skip link, which works, but a real `<main>` landmark on every page is better
+   for screen-reader navigation. Deliberate at the time (see the comment in
+   `SiteNav.tsx`) — flagging it as a known gap, not a regression.
+5. **Ticket offers are matched to schedule events by exact string.** Renaming an
+   event in Studio silently drops its price out of the structured data —
+   nothing errors, the event just publishes as free. A dedicated
+   `ticketOfferId` field on `scheduleEvent` would remove the trap.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**

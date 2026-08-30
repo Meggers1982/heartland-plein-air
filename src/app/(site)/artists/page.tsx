@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     route: "/artists",
     fallbackTitle: "Meet the Artists: 25 Plein Air Painters in Omaha 2026",
-    fallbackDescription: "Browse bios for all 25 invited plein air artists painting the Omaha metro in September 2026 \u2014 plus meet Rick J. Delanty, the 2026 Judge of Awards.",
+    fallbackDescription: "Browse bios for all 25 invited plein air artists painting the Omaha metro in September 2026 \u2014 including Rick J. Delanty, the 2026 Judge of Awards.",
   });
 }
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import { Clock } from "lucide-react";
-import { AD_DEADLINE } from "@/lib/adDeadline";
+import { AD_DEADLINE, AD_DEADLINE_LABEL } from "@/lib/adDeadline";
 
 const AdvertisingDeadlineBanner = () => {
   const [deadlinePassed, setDeadlinePassed] = useState(false);
@@ -25,7 +25,7 @@ const AdvertisingDeadlineBanner = () => {
         >
           {deadlinePassed
             ? "Advertising reservations are now closed"
-            : "Advertising deadline: July 17, 2026 — reserve your ad space now"}
+            : `Advertising deadline: ${AD_DEADLINE_LABEL} — reserve your ad space now`}
         </p>
       </div>
     </div>

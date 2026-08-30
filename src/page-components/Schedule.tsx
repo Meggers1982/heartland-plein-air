@@ -97,7 +97,11 @@ function buildScheduleEventsSchema(days: ScheduleDay[]) {
     .filter((d) => stegaClean(d.audience) !== "artists" && d.events && d.events.length > 0)
     .flatMap((d) =>
       d.events!
-        .filter((ev) => ev.address && !internalOnlyEventNames.has(ev.name))
+        // stegaClean for the same reason as `d.audience` above: under Visual
+        // Editing every Sanity string carries invisible metadata characters, so
+        // a raw `ev.name` matches neither the internal-events set nor the ticket
+        // offer map — and a ticketed event would be published as free.
+        .filter((ev) => ev.address && !internalOnlyEventNames.has(stegaClean(ev.name)))
         .map((ev) => ({
           "@type": "Event",
           name: ev.name,
@@ -111,11 +115,11 @@ function buildScheduleEventsSchema(days: ScheduleDay[]) {
             address: ev.address,
           },
           image: `${SITE_URL}/assets/hero-pleinair.jpg`,
-          offers: ticketedEventOffers[ev.name] ?? freeEventOffer,
+          offers: ticketedEventOffers[stegaClean(ev.name)] ?? freeEventOffer,
           // Derived per-event, not from the day's overall audience — a paid
           // sub-event (e.g. the Judge's Lecture) can fall on an otherwise
           // free/public day, and isAccessibleForFree must match its own offer.
-          isAccessibleForFree: !ticketedEventOffers[ev.name],
+          isAccessibleForFree: !ticketedEventOffers[stegaClean(ev.name)],
           organizer: {
             "@type": "Organization",
             name: "Heartland Plein Air Festival",

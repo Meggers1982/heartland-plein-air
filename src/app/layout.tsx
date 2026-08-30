@@ -3,7 +3,7 @@ import Script from "next/script";
 import Providers from "@/App";
 import { JsonLd, organizationSchema, buildFestivalEventSchema } from "@/lib/schema";
 import { getArtistCount } from "@/sanity/queries/artists";
-import { getFestivalInfo, getSiteChrome } from "@/sanity/queries/pages";
+import { getFestivalInfo, getOpenDivisionPage, getSiteChrome } from "@/sanity/queries/pages";
 import { formatFestivalRange } from "@/lib/festivalDate";
 import "./globals.css";
 
@@ -36,10 +36,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [invitedCount, festivalInfo, siteChrome] = await Promise.all([
+  const [invitedCount, festivalInfo, siteChrome, openDivision] = await Promise.all([
     getArtistCount(),
     getFestivalInfo(),
     getSiteChrome(),
+    getOpenDivisionPage(),
   ]);
   return (
     <html lang="en">
@@ -50,11 +51,15 @@ export default async function RootLayout({
         <JsonLd
           data={{
             "@context": "https://schema.org",
-            "@graph": [organizationSchema, buildFestivalEventSchema(invitedCount, {
-              startDate: festivalInfo.startDate,
-              endDate: festivalInfo.endDate,
-              range: formatFestivalRange(festivalInfo.startDate, festivalInfo.endDate),
-            })],
+            "@graph": [organizationSchema, buildFestivalEventSchema(
+              invitedCount,
+              {
+                startDate: festivalInfo.startDate,
+                endDate: festivalInfo.endDate,
+                range: formatFestivalRange(festivalInfo.startDate, festivalInfo.endDate),
+              },
+              openDivision.capacity,
+            )],
           }}
         />
       </head>
