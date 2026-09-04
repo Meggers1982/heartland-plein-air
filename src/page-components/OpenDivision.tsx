@@ -26,6 +26,12 @@ import type { ContactInfo, OpenDivisionPage } from "@/sanity/queries/pages";
 
 
 
+// Registration filled, so the form is switched off the same way the
+// advertising form is once its deadline passes: the CTA copy and the form are
+// replaced by a closed notice. Flip this back to false to reopen registration
+// — nothing else needs to change.
+const REGISTRATION_FULL = true;
+
 const OpenDivision = ({
   quickFacts,
   inquiryFormConfig,
@@ -131,7 +137,7 @@ const OpenDivision = ({
             </h2>
             <div className="space-y-5 font-body text-lg leading-relaxed text-foreground/85">
               <p>
-                Registration is {feeLabel} and limited to {capacity} artists, first come, first served. Once registration fills, a waiting list will open. We highly recommend some prior plein air painting experience.
+                Registration is {feeLabel} and limited to {capacity} artists, first come, first served. All {capacity} spots are now taken, so registration is closed and a waiting list is open. We highly recommend some prior plein air painting experience.
               </p>
               <p>
                 {fill(page.checkInBody)}
@@ -292,27 +298,49 @@ const OpenDivision = ({
       >
         <div className="mx-auto max-w-3xl px-6">
           <AnimatedSection>
-            <div className="mb-8 text-center">
-              <p className="mb-2 font-body text-lg font-semibold text-foreground">
-                {page.registerTitle}
-              </p>
-              <p className="font-body text-base leading-relaxed text-muted-foreground">
-                {fill(page.registerBody)}
-              </p>
-              <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
-                {fill(page.registerPaymentNote)}
-              </p>
-            </div>
-            <div className="rounded-lg border border-border bg-card p-8 md:p-12">
-              <InquiryForm
-                config={inquiryFormConfig}
-                formspreeEndpoint="https://formspree.io/f/xbdvpkdb"
-                levelPayloadKey="Primary Medium"
-                levelOptions={["Oils", "Acrylics", "Watercolor", "Gouache", "Casein", "Pastel", "Oil Sticks"]}
-                addressFields
-                successHref="/open-division/success"
-              />
-            </div>
+            {REGISTRATION_FULL ? (
+              <div className="rounded-lg border border-border bg-card p-8 text-center md:p-12">
+                <p className="mb-2 font-body text-lg font-semibold text-foreground">
+                  Registration Is Full
+                </p>
+                <p className="font-body text-base leading-relaxed text-muted-foreground">
+                  All {capacity} Open Division spots have been claimed and
+                  registration is now closed. To be added to the waiting list,
+                  email{" "}
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    {contactInfo.email}
+                  </a>
+                  .
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="mb-8 text-center">
+                  <p className="mb-2 font-body text-lg font-semibold text-foreground">
+                    {page.registerTitle}
+                  </p>
+                  <p className="font-body text-base leading-relaxed text-muted-foreground">
+                    {fill(page.registerBody)}
+                  </p>
+                  <p className="mt-4 font-body text-base leading-relaxed text-muted-foreground">
+                    {fill(page.registerPaymentNote)}
+                  </p>
+                </div>
+                <div className="rounded-lg border border-border bg-card p-8 md:p-12">
+                  <InquiryForm
+                    config={inquiryFormConfig}
+                    formspreeEndpoint="https://formspree.io/f/xbdvpkdb"
+                    levelPayloadKey="Primary Medium"
+                    levelOptions={["Oils", "Acrylics", "Watercolor", "Gouache", "Casein", "Pastel", "Oil Sticks"]}
+                    addressFields
+                    successHref="/open-division/success"
+                  />
+                </div>
+              </>
+            )}
             <div className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-card p-6 shadow-sm md:p-8">
               <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
                 Already Registered? Pay Your {feeLabel} Fee
