@@ -22,15 +22,13 @@ import { getIcon } from "@/sanity/lib/iconMap";
 import type { OpenDivisionQuickFact } from "@/sanity/queries/openDivision";
 import type { FormConfig } from "@/sanity/queries/formConfig";
 import type { ContactInfo, OpenDivisionPage } from "@/sanity/queries/pages";
+// Registration filled, so the form is switched off the same way the advertising
+// form is once its deadline passes: the CTA copy and the form are replaced by a
+// closed notice, and the nav shows a matching banner.
+import { REGISTRATION_FULL } from "@/lib/openDivisionRegistration";
 
 
 
-
-// Registration filled, so the form is switched off the same way the
-// advertising form is once its deadline passes: the CTA copy and the form are
-// replaced by a closed notice. Flip this back to false to reopen registration
-// — nothing else needs to change.
-const REGISTRATION_FULL = true;
 
 const OpenDivision = ({
   quickFacts,

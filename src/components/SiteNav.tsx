@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import CountdownRibbon from "@/components/CountdownRibbon";
 import AdvertisingDeadlineBanner from "@/components/AdvertisingDeadlineBanner";
+import OpenDivisionFullBanner from "@/components/OpenDivisionFullBanner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +32,7 @@ const SiteNav = () => {
   const pathname = usePathname();
   const showRibbon = pathname !== "/";
   const showAdBanner = pathname === "/advertising";
+  const showOpenDivisionBanner = pathname === "/open-division";
 
   const closeMenus = () => {
     setOpen(false);
@@ -131,6 +133,7 @@ const SiteNav = () => {
         </div>
         {showRibbon && <CountdownRibbon />}
         {showAdBanner && <AdvertisingDeadlineBanner />}
+        {showOpenDivisionBanner && <OpenDivisionFullBanner />}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ${
             open ? "max-h-[32rem] border-t border-border" : "max-h-0"
