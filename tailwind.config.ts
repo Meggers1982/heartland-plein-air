@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import plugin from "tailwindcss/plugin";
 
 export default {
   darkMode: ["class"],
@@ -98,5 +99,15 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [
+    tailwindcssAnimate,
+    // `phase-live:` / `phase-after:` style an element by festival phase, read
+    // from the attribute the root layout's inline script stamps on <html>
+    // before first paint (see src/lib/festivalDate.ts). "before" is the
+    // default, so there is no `phase-before:` — unprefixed classes are it.
+    plugin(({ addVariant }) => {
+      addVariant("phase-live", 'html[data-festival-phase="live"] &');
+      addVariant("phase-after", 'html[data-festival-phase="after"] &');
+    }),
+  ],
 } satisfies Config;

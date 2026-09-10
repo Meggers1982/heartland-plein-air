@@ -1,8 +1,9 @@
 import { defineField, defineType } from "sanity";
 
 // Singleton (_id: "siteChrome") — the furniture that surrounds every page:
-// the countdown labels, the newsletter prompt inside the countdown banner, and
-// the footer's blurb and column headings.
+// the countdown labels, the newsletter prompt inside the countdown banner, what
+// that banner and ribbon say during and after the festival, and the footer's
+// blurb and column headings.
 //
 // It lives in one document rather than being split across the pages it appears
 // on, because it appears on all of them: editing "Stay in Touch" in six places
@@ -13,6 +14,8 @@ export const siteChrome = defineType({
   type: "document",
   groups: [
     { name: "countdown", title: "Countdown", default: true },
+    { name: "live", title: "During the festival" },
+    { name: "after", title: "After the festival" },
     { name: "footer", title: "Footer" },
     { name: "signup", title: "Email sign-up" },
     { name: "success", title: "Confirmation pages" },
@@ -52,6 +55,73 @@ export const siteChrome = defineType({
       type: "text",
       rows: 2,
       group: "countdown",
+    }),
+    // During / after the festival. The countdown banner and ribbon switch to
+    // these automatically at midnight Central on the first day and on the day
+    // after the last day (the dates on "Festival Dates"). Every field has a
+    // built-in fallback, so leaving one empty shows sensible text, not a gap.
+    defineField({
+      name: "liveLabel",
+      title: "Small label",
+      type: "string",
+      group: "live",
+      description: 'Replaces the countdown label on the homepage banner and the strip under the menu, e.g. "Happening now". Keep it short — it has to fit a phone screen.',
+    }),
+    defineField({
+      name: "liveHeading",
+      title: "Heading",
+      type: "string",
+      group: "live",
+      description: "The large line where the clock used to be.",
+    }),
+    defineField({
+      name: "liveCtaTitle",
+      title: "Schedule prompt — heading",
+      type: "string",
+      group: "live",
+      description: "Replaces the newsletter prompt beside the banner while the festival is on.",
+    }),
+    defineField({
+      name: "liveCtaBody",
+      title: "Schedule prompt — text",
+      type: "text",
+      rows: 2,
+      group: "live",
+    }),
+    defineField({
+      name: "liveCtaButton",
+      title: "Schedule prompt — button",
+      type: "string",
+      group: "live",
+      description: "Links to the schedule, scrolled to that day.",
+    }),
+    defineField({
+      name: "afterLabel",
+      title: "Small label",
+      type: "string",
+      group: "after",
+      description: "Above the heading on the banner. The strip under the menu is hidden once the festival is over.",
+    }),
+    defineField({
+      name: "afterHeading",
+      title: "Heading",
+      type: "string",
+      group: "after",
+      description: "The large line where the clock used to be.",
+    }),
+    defineField({
+      name: "afterNewsletterTitle",
+      title: "Newsletter prompt — heading",
+      type: "string",
+      group: "after",
+      description: "Replaces the usual newsletter heading once the festival is over.",
+    }),
+    defineField({
+      name: "afterNewsletterBody",
+      title: "Newsletter prompt — text",
+      type: "text",
+      rows: 2,
+      group: "after",
     }),
     defineField({
       name: "footerBlurb",

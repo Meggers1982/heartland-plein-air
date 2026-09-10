@@ -3303,6 +3303,66 @@ the real 2026 calendar date.
 
 ---
 
+## 2026-09-10 — The Countdown No Longer Freezes at Zero When the Festival Opens
+
+Closes MEA-484, MEA-485 and MEA-486. Before this change, at midnight Central on
+Sept 13 the homepage/interior countdown banner would have frozen at
+"00 : 00 : 00 : 00" for the whole festival and afterward (`getTimeLeft` clamps
+at zero and the banner had no end state). The ribbon under the menu would have
+disappeared, and on every later page load it would have painted first and then
+collapsed ~45px once JS ran.
+
+**Three phases instead of one.** `src/lib/festivalDate.ts` now derives a
+before / live / after phase from the Sanity "Festival Dates" document: live from
+midnight CT on the first day, after from midnight CT following the last day.
+
+- **Banner** (`CountdownBanner.tsx`, all 12 pages that carry it): before shows
+  the clock and newsletter prompt, as it did. During shows "Happening now", a
+  heading, and a "See today's schedule" button in place of the newsletter
+  prompt. After shows a thank-you heading and the newsletter prompt reworded
+  for next year.
+- **Ribbon** (`CountdownRibbon.tsx`): during the festival it reads "Happening
+  now · Day N of 7" and links to that day's card on `/schedule`. It is still
+  hidden after the festival. Its height is unchanged (44px desktop, 40px on
+  phones), so the `scroll-mt` offsets sized for nav + ribbon still hold.
+- **Copy** lives in Studio under Site-wide Text → "During the festival" / "After
+  the festival" (9 new `siteChrome` fields). Until someone fills them in, the
+  fallbacks in `src/lib/festivalPhaseCopy.ts` show. **That copy is placeholder
+  and hasn't been reviewed by the client.**
+
+**No flash on load (MEA-486).** Pages are prerendered and refreshed hourly or on
+publish, so the HTML is often older than the clock. Every page now renders all
+three variants, and a one-line inline script in the root layout's `<head>`
+(`festivalPhaseScript()`) stamps `data-festival-phase` on `<html>` before first
+paint. New `phase-live:` / `phase-after:` Tailwind variants (`tailwind.config.ts`)
+show the matching variant. `<html>` carries `suppressHydrationWarning` for that
+one attribute. `useFestivalPhase()` keeps the attribute current, so a page left
+open across either midnight switches over without a reload. The ticket had
+proposed a 5-minute ISR `revalidate` instead. That was dropped because it would
+multiply Sanity API requests for every page on every visit window, and still
+flash for up to 5 minutes.
+
+**`/schedule#day-sep-15` now actually scrolls to that day.** `Schedule.tsx`
+reset `window.scrollTo(0, 0)` on mount unconditionally, which discarded any
+anchor, including a direct load. The new live links are the first cross-page
+anchors on the site. It now aligns the named card just below the fixed nav,
+re-aligning once images load, and still starts at the top otherwise.
+
+Also: `isExpired()` in `useCountdown.ts` lost its only caller and was removed.
+The banner's date line is centered on phones in every phase (it wrapped
+left-aligned under a centered layout before).
+
+**Verified** with 17 new unit tests (`src/lib/festivalDate.test.ts`: both
+boundaries, month rollover, Central-vs-UTC day rollover, and the inline script
+agreeing with `festivalPhase()` at each boundary) plus a production build driven
+in headless Chrome with the clock faked *before* page scripts run. The checks
+covered each phase on `/` and `/about` at 1280px and 320px, what the parser
+paints before React loads (matches the final state in every phase), pages left
+open across both midnights, the ribbon link landing on the Sept 15 card, and a
+console free of hydration errors.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
@@ -3451,3 +3511,10 @@ the real 2026 calendar date.
    text-xs`. It reads as intentional given the hero image and the three-button
    row, so it was left alone. If you want strict site-wide uniformity, both are
    one-line changes in `Index.tsx`.
+
+9. **Review the during/after-festival copy before Sept 13.** The countdown
+   banner and ribbon switch to placeholder text at midnight Central on opening
+   day ("Happening now" / "The artists are out painting" / "Find them today"),
+   then to a thank-you after Sept 19. Edit it in Studio → Site-wide Text →
+   "During the festival" and "After the festival"; any field left empty keeps
+   the placeholder.

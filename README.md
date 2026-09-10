@@ -130,6 +130,8 @@ src/
 
 **Payments** run PayPal Smart Buttons entirely client-side. Because a captured amount is whatever the browser reported, `onApprove` fires a follow-up POST to `/api/verify-paypal-payment`, which re-checks the amount against PayPal's own records server-side. It can only *detect* a mismatch and log it — the capture has already happened — so treat a mismatch in the Vercel logs as a prompt for manual follow-up.
 
+**The countdown changes with the festival.** The countdown banner and the ribbon under the menu each have three states: the clock before opening, "Happening now" (with a link to that day on `/schedule`) from midnight Central on the first day, and a thank-you after the last day, when the ribbon hides. The boundaries come from the dates on the Sanity "Festival Dates" document; the during/after copy is in Studio under **Site-wide Text → During the festival / After the festival**, with code fallbacks in `src/lib/festivalPhaseCopy.ts`. Every page renders all three states, and a tiny inline script in the root layout's `<head>` stamps `data-festival-phase` on `<html>` before first paint. The `phase-live:` / `phase-after:` Tailwind variants key off that attribute. This way a prerendered page that's up to an hour old still paints the right state first time, without a flash. Phase logic and its tests are in `src/lib/festivalDate.ts`.
+
 **Legal pages** (`/privacy`, `/terms`) are the one deliberate exception to "content lives in Sanity". Their "last updated" dates are derived from git by `scripts/stamp-legal-updated.mjs` on every build, so editing the page moves its own date — `new Date()` is deliberately *not* used, since it would restamp both pages on every unrelated deploy and claim a revision that never happened.
 
 ---
@@ -149,6 +151,7 @@ Things that have already cost someone a debugging session:
 - **`not-found.tsx` cannot export `metadata`.** The 404's title is set client-side by `SetDocumentTitle.tsx`, which re-asserts on `<head>` mutation because Next streams its own title in afterwards. On React 19 this file can be deleted in favour of a rendered `<title>`.
 - **`scripts/migrate-to-sanity.mjs` is a historical record, not a sync tool.** Re-running overwrites Studio edits, and its `sponsors` section no longer works — the local logo files it uploads were deleted once the images moved into Sanity.
 - **The Google Maps key is domain-restricted.** The map won't render on `localhost` until `http://localhost:8080/*` is added to the key's allowed referrers in Google Cloud Console.
+- **Don't pick the festival phase in React state.** Reading the clock during render causes hydration error #418 on these prerendered pages, and deciding it after mount flashes the wrong state. Render every variant and use the `phase-live:` / `phase-after:` classes; `useFestivalPhase()` is only for details CSS can't pick (today's day number, today's schedule anchor).
 - **Don't edit `src/components/ui/`** — shadcn primitives, managed by the CLI.
 
 ---

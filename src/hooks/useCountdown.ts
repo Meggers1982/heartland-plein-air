@@ -41,8 +41,3 @@ export function useCountdown(target: number): TimeLeft | null {
 
   return timeLeft;
 }
-
-/** True only once the countdown has mounted AND reached zero. */
-export function isExpired(t: TimeLeft | null): boolean {
-  return t !== null && t.days === 0 && t.hours === 0 && t.minutes === 0 && t.seconds === 0;
-}

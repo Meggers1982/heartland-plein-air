@@ -185,7 +185,29 @@ const Schedule = ({
   }, [eventFilter, days]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Arriving with a day in the URL (/schedule#day-sep-15 — the countdown
+    // banner and ribbon link to today's card during the festival) lands on
+    // that card; anything else starts at the top, as before.
+    const target = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
+    if (!target) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    const alignToDay = () => {
+      // Summed offsetTop rather than getBoundingClientRect: the card sits in an
+      // AnimatedSection that is still translated 40px down until it scrolls
+      // into view, and offsetTop ignores that transform.
+      let y = 0;
+      for (let el: HTMLElement | null = target; el; el = el.offsetParent as HTMLElement | null) y += el.offsetTop;
+      const nav = document.querySelector("nav")?.getBoundingClientRect().height ?? 0;
+      window.scrollTo(0, y - nav - 24);
+    };
+    alignToDay();
+    // Logos above the card may still be loading and push it down; re-align once they have.
+    if (document.readyState !== "complete") {
+      window.addEventListener("load", alignToDay, { once: true });
+      return () => window.removeEventListener("load", alignToDay);
+    }
   }, []);
 
   const weekItems = filteredDays.map((d) => {

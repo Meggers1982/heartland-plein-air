@@ -4,7 +4,12 @@ import Providers from "@/App";
 import { JsonLd, organizationSchema, buildFestivalEventSchema } from "@/lib/schema";
 import { getArtistCount } from "@/sanity/queries/artists";
 import { getFestivalInfo, getOpenDivisionPage, getSiteChrome } from "@/sanity/queries/pages";
-import { formatFestivalRange } from "@/lib/festivalDate";
+import {
+  festivalEndTimestamp,
+  festivalPhaseScript,
+  festivalStartTimestamp,
+  formatFestivalRange,
+} from "@/lib/festivalDate";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -42,9 +47,20 @@ export default async function RootLayout({
     getSiteChrome(),
     getOpenDivisionPage(),
   ]);
+  const phaseScript = festivalPhaseScript(
+    festivalStartTimestamp(festivalInfo.startDate),
+    festivalEndTimestamp(festivalInfo.endDate),
+  );
   return (
-    <html lang="en">
+    // suppressHydrationWarning: the phase script below adds data-festival-phase
+    // to <html> before React hydrates, so the attribute is (correctly) absent
+    // from React's own render. Only silences this element's attributes.
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Runs during HTML parse, before first paint, so the countdown banner
+            and ribbon show the right before/during/after variant even when this
+            prerendered page is older than the clock. See src/lib/festivalDate.ts. */}
+        {phaseScript && <script dangerouslySetInnerHTML={{ __html: phaseScript }} />}
         {/* Each route's own metadata (see src/app/*\/page.tsx) sets alternates.canonical,
             which Next.js renders into <head> automatically. A second, hardcoded canonical
             here would conflict with those per-page values on every route but "/". */}

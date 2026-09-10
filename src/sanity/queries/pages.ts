@@ -170,6 +170,15 @@ export type SiteChrome = {
   ribbonLabelMobile?: string;
   newsletterTitle?: string;
   newsletterBody?: string;
+  liveLabel?: string;
+  liveHeading?: string;
+  liveCtaTitle?: string;
+  liveCtaBody?: string;
+  liveCtaButton?: string;
+  afterLabel?: string;
+  afterHeading?: string;
+  afterNewsletterTitle?: string;
+  afterNewsletterBody?: string;
   footerBlurb?: string;
   footerVisitHeading?: string;
   footerStayHeading?: string;
