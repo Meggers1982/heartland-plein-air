@@ -3377,6 +3377,19 @@ console free of hydration errors.
 
 ---
 
+## 2026-09-11 — Homepage Sponsor Logos Centred
+
+- **The "Our Sponsors" strip on the homepage no longer packs its logos to the
+  left** (`d47a88f`, `src/components/SponsorsSection.tsx`). It was a
+  seven-column grid holding five logos, so two empty columns sat on the right
+  and each logo was squeezed to ~130px wide.
+- It now uses the same pattern as the footer strip: a centred wrapping row with
+  one shared logo height (48px, 56px from `md`, 80px from `lg`). All five sit on
+  one row from 640px up; phones wrap to centred 3+2 or 2+3 rows. Adding or
+  removing a sponsor in Studio keeps the row centred.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
