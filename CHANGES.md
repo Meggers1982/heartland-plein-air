@@ -3157,7 +3157,7 @@ this file were remapped** via filter-repo's commit-map, and hashes quoted inside
 commit messages were rewritten by filter-repo itself. Any SHA written down
 outside this repo — in an email, a ticket, a bookmark — is now dead. A full
 pre-rewrite bundle is saved at
-`~/Documents/heartland-plein-air-BACKUP-20260830-172528.bundle` (63 MB) if
+`~/repo-backups/heartland-plein-air-BACKUP-20260830-172528.bundle` (63 MB) if
 anything needs recovering.
 
 ---
