@@ -3363,6 +3363,20 @@ console free of hydration errors.
 
 ---
 
+## 2026-09-11 — Youth Paintout Registration Closed
+
+- **The Youth Paintout registration form on `/tickets#youth-paintout` is
+  replaced by a "Registration Is Full" notice** (`3d244ef`). The event
+  description, price and Good to Know list still show; only the form and its
+  heading are hidden.
+- The switch is `YOUTH_REGISTRATION_FULL` in
+  `src/lib/youthPaintoutRegistration.ts`, read by
+  `src/page-components/Tickets.tsx`. Set it to `false` to bring the form back.
+  It is separate from the Open Division's `REGISTRATION_FULL` so each can close
+  and reopen on its own.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
