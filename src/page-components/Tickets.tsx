@@ -12,6 +12,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import type { FormConfig } from "@/sanity/queries/formConfig";
 import type { TicketsPage, TicketSection } from "@/sanity/queries/pages";
 import { renderRichText } from "@/lib/richText";
+import { YOUTH_REGISTRATION_FULL } from "@/lib/youthPaintoutRegistration";
 
 
 
@@ -284,12 +285,24 @@ const Tickets = ({
                 ))}
               </ul>
             </div>
-            <div className="rounded-lg border border-border bg-card p-8 md:p-12">
-              <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
-                {page.youthRegisterHeading}
-              </p>
-              <YouthPaintoutForm config={youthPaintoutFormConfig} />
-            </div>
+            {YOUTH_REGISTRATION_FULL ? (
+              <div className="rounded-lg border border-border bg-card p-8 text-center md:p-12">
+                <p className="mb-2 font-body text-lg font-semibold text-foreground">
+                  Registration Is Full
+                </p>
+                <p className="font-body text-base leading-relaxed text-muted-foreground">
+                  All Youth Paintout spots have been claimed and registration
+                  is now closed.
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-lg border border-border bg-card p-8 md:p-12">
+                <p className="mb-6 text-center font-body text-base font-semibold uppercase tracking-wide text-foreground">
+                  {page.youthRegisterHeading}
+                </p>
+                <YouthPaintoutForm config={youthPaintoutFormConfig} />
+              </div>
+            )}
           </AnimatedSection>
         </div>
       </section>
