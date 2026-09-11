@@ -26,14 +26,21 @@ const SponsorsSection = ({
           </h2>
         </AnimatedSection>
         <AnimatedSection delay={100}>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-7">
+          {/* A seven-column grid left five logos bunched on the left with an
+              empty two columns on the right, each squeezed to ~130px wide.
+              A centred wrapping row (same pattern as the footer strip) holds
+              the group in the middle for any count, and one shared height
+              keeps the marks level. Heights and gaps step together so the
+              current five stay on one row from sm up — at sm, a 48px gap
+              would push the last logo onto a row of its own. */}
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 md:gap-x-12 lg:gap-x-16 xl:gap-x-20">
             {sponsors.map((sponsor) => {
               const href = sponsor.url;
               const img = sponsor.logo ? (
                 <img
-                  src={urlFor(sponsor.logo).width(240).auto("format").url()}
+                  src={urlFor(sponsor.logo).width(400).auto("format").url()}
                   alt={sponsor.alt ?? sponsor.name}
-                  className="max-h-12 w-auto max-w-full object-contain sm:max-h-16"
+                  className="h-12 w-auto max-w-full object-contain md:h-14 lg:h-20"
                 />
               ) : (
                 <span className="font-body text-sm font-semibold text-foreground">
@@ -44,7 +51,7 @@ const SponsorsSection = ({
               return (
                 <div
                   key={sponsor._id}
-                  className="flex items-center justify-center px-2 py-2"
+                  className="flex max-w-full items-center justify-center"
                 >
                   {href ? (
                     <a
