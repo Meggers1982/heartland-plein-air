@@ -3390,6 +3390,40 @@ console free of hydration errors.
 
 ---
 
+## 2026-09-15 — Homepage Hero Text Now Passes WCAG AA Contrast
+
+The last open item from the WCAG 2.1 audit (Linear MEA-100). The hero text
+sits on a photograph, so its contrast depends on which part of the painting is
+behind each letter. You can't check that from the CSS; it has to be measured on
+the rendered page.
+
+- **How it was measured:** headless Chrome rendered the live homepage at 12
+  viewport sizes (1920×1080 down to 360×780, including 1024 and 1023 on either
+  side of the breakpoint), at the top of the page and 250px scrolled, since the
+  photo moves with the parallax effect. Each state was captured with the text
+  shown and hidden. Contrast was then computed for every pixel a letter covers,
+  against the exact spot of photo behind it. The pass bar was the single worst
+  pixel, not an average.
+- **Before:** the heading passed its 3:1 large-text bar everywhere (lowest
+  3.5:1). Three things failed the 4.5:1 bar: the intro paragraph at every size
+  (as low as 3.3:1 on phones, where the barn's white roof sits behind it), the
+  "September 13–19, 2026" date on short phones (3.0:1), and "Buy Tickets" /
+  "Meet the Artists" on small screens (4.1–4.2:1).
+- **Fix: a stronger scrim, only where the text sits** (`--hero-overlay` in
+  `src/app/globals.css`). From 1024px up, a second gradient darkens the left
+  side where the text column is and fades out by 70% of the width, so the right
+  side of the painting looks the same as before. Below 1024px the text spans
+  the full width and starts about 20% down the photo, so the overlay is even
+  from the top (60% → 70% → 80% instead of 30% → 55% → 75%).
+- **After:** every hero text element passes at all 12 sizes and both scroll
+  positions. The lowest values: intro paragraph 4.67:1, date 5.04:1, heading
+  5.44:1, outline buttons 5.11:1. "View Schedule" is white on the solid orange
+  button, so the photo never affects it (5.72:1).
+- **If the hero photo is swapped in Studio**, these numbers no longer apply. A
+  brighter photo can drop the text back below AA. See the README gotcha.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**

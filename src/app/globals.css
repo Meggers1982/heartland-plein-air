@@ -45,12 +45,23 @@
 
     --radius: 0.375rem;
 
-    --hero-overlay: linear-gradient(
-      to bottom,
-      hsla(194, 16%, 14%, 0.3) 0%,
-      hsla(194, 16%, 14%, 0.55) 50%,
-      hsla(194, 16%, 14%, 0.75) 100%
-    );
+    /* Homepage hero scrim. The left-side layer darkens only the column the
+       text sits in, so the painting stays bright on the right. Measured
+       per-pixel against the live hero photo for WCAG AA (MEA-100): the
+       lighter single-gradient version failed 4.5:1 on the subtitle and date. */
+    --hero-overlay:
+      linear-gradient(
+        to right,
+        hsla(194, 16%, 14%, 0.5) 0%,
+        hsla(194, 16%, 14%, 0.35) 40%,
+        hsla(194, 16%, 14%, 0) 70%
+      ),
+      linear-gradient(
+        to bottom,
+        hsla(194, 16%, 14%, 0.3) 0%,
+        hsla(194, 16%, 14%, 0.55) 50%,
+        hsla(194, 16%, 14%, 0.75) 100%
+      );
 
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
@@ -63,6 +74,19 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Below lg the hero text spans the full width and starts about 20% down
+     the photo, so the scrim has to be even and dark from the top. */
+  @media (max-width: 1023px) {
+    :root {
+      --hero-overlay: linear-gradient(
+        to bottom,
+        hsla(194, 16%, 14%, 0.6) 0%,
+        hsla(194, 16%, 14%, 0.7) 45%,
+        hsla(194, 16%, 14%, 0.8) 100%
+      );
+    }
   }
 
   .dark {

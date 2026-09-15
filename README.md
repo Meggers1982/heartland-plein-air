@@ -152,6 +152,7 @@ Things that have already cost someone a debugging session:
 - **`scripts/migrate-to-sanity.mjs` is a historical record, not a sync tool.** Re-running overwrites Studio edits, and its `sponsors` section no longer works — the local logo files it uploads were deleted once the images moved into Sanity.
 - **The Google Maps key is domain-restricted.** The map won't render on `localhost` until `http://localhost:8080/*` is added to the key's allowed referrers in Google Cloud Console.
 - **Don't pick the festival phase in React state.** Reading the clock during render causes hydration error #418 on these prerendered pages, and deciding it after mount flashes the wrong state. Render every variant and use the `phase-live:` / `phase-after:` classes; `useFestivalPhase()` is only for details CSS can't pick (today's day number, today's schedule anchor).
+- **The hero scrim was tuned to the current hero photo.** `--hero-overlay` in `globals.css` was measured pixel by pixel against the barn painting to pass WCAG AA (MEA-100). An editor can swap the photo in Studio → Homepage → Hero, and a lighter one can push the tan hero text back under 4.5:1 without anything looking broken. Re-measure after any photo change, or after changing the hero text color or the overlay itself.
 - **Don't edit `src/components/ui/`** — shadcn primitives, managed by the CLI.
 
 ---
