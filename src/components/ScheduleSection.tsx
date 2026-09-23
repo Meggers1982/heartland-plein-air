@@ -4,6 +4,8 @@ import { Calendar, MapPin } from "lucide-react";
 import { renderRichText } from "@/lib/richText";
 import { urlFor } from "@/sanity/lib/image";
 import type { HomepageHighlight } from "@/sanity/queries/schedule";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
+import { ONLINE_SALE_HIGHLIGHT_ID } from "@/lib/onlineSale";
 
 const ScheduleSection = ({
   homepageHighlights,
@@ -96,6 +98,9 @@ const ScheduleSection = ({
                               {event.ticketLabel}
                             </Link>
                           </div>
+                        )}
+                        {event._id === ONLINE_SALE_HIGHLIGHT_ID && (
+                          <OnlineSaleLink className={`mt-3 ${isLeft ? "md:text-right" : ""}`} />
                         )}
                         {event.sponsor && (
                           <div

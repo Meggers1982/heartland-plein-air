@@ -20,6 +20,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { portableTextToPlainText } from "@/sanity/lib/portableText";
 import type { Audience, FestivalLocation, ScheduleDay } from "@/sanity/queries/schedule";
 import type { SchedulePage } from "@/sanity/queries/pages";
+import { ONLINE_SALE_URL } from "@/lib/onlineSale";
 
 // Events that are internal logistics, not something the public attends —
 // excluded from Event schema entirely (see the address filter below for
@@ -361,7 +362,7 @@ const Schedule = ({
                 </p>
                 {d._id === "day-online" && (
                   <a
-                    href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+                    href={ONLINE_SALE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mb-2 inline-flex items-center gap-2 rounded bg-primary px-5 py-2.5 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"

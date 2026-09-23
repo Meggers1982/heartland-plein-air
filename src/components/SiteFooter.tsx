@@ -5,6 +5,7 @@ import FooterSignup from "@/components/FooterSignup";
 import { urlFor } from "@/sanity/lib/image";
 import type { Sponsor } from "@/sanity/queries/sponsors";
 import type { ContactInfo, SiteChrome } from "@/sanity/queries/pages";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
 
 const SiteFooter = ({
   sponsors,
@@ -36,6 +37,9 @@ const SiteFooter = ({
             <p className="mt-4 font-body text-sm leading-relaxed text-foreground/80">
               {chrome.footerBlurb}
             </p>
+            <OnlineSaleLink variant="prose" className="mt-3">
+              Shop the online painting sale →
+            </OnlineSaleLink>
           </div>
 
           {/* Visit */}

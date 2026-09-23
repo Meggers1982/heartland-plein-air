@@ -20,6 +20,8 @@ import RichText from "@/components/RichText";
 import { portableTextToPlainText } from "@/sanity/lib/portableText";
 import type { FaqCategory } from "@/sanity/queries/faq";
 import type { FaqPage } from "@/sanity/queries/pages";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
+import { ONLINE_SALE_FAQ_IDS, isStaleOnlineSaleBlock } from "@/lib/onlineSale";
 
 function buildFaqPageSchema(categories: FaqCategory[]) {
   return {
@@ -182,11 +184,15 @@ const Faq = ({
                           {item.question}
                         </AccordionTrigger>
                         <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
-                          {item.answer.map((block) => (
-                            <p key={block._key}>
+                          {item.answer.map((block, bi) => (
+                            <p
+                              key={block._key}
+                              className={isStaleOnlineSaleBlock(item._id, bi) ? "phase-after:hidden" : undefined}
+                            >
                               <RichText value={[block]} />
                             </p>
                           ))}
+                          {ONLINE_SALE_FAQ_IDS.has(item._id) && <OnlineSaleLink variant="prose" />}
                         </AccordionContent>
                       </AccordionItem>
                     ))}

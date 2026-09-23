@@ -26,6 +26,7 @@ import type { ContactInfo, OpenDivisionPage } from "@/sanity/queries/pages";
 // form is once its deadline passes: the CTA copy and the form are replaced by a
 // closed notice, and the nav shows a matching banner.
 import { REGISTRATION_FULL } from "@/lib/openDivisionRegistration";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
 
 
 
@@ -277,6 +278,11 @@ const OpenDivision = ({
                       </li>
                     ))}
                   </ul>
+                  {section._key === "online" && (
+                    <OnlineSaleLink variant="prose" className="mt-6">
+                      View the online exhibition →
+                    </OnlineSaleLink>
+                  )}
                 </AnimatedSection>
               </div>
             </section>

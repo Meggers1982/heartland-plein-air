@@ -9,6 +9,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 import RichText from "@/components/RichText";
 import type { FaqItem } from "@/sanity/queries/faq";
 import type { FaqTeaserSection as FaqTeaserSectionData } from "@/sanity/queries/homepage";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
+import { ONLINE_SALE_FAQ_IDS, isStaleOnlineSaleBlock } from "@/lib/onlineSale";
 
 type Props = FaqTeaserSectionData & { faqs: FaqItem[] };
 
@@ -32,11 +34,15 @@ const FaqTeaserSection = ({ eyebrow, title, linkLabel, linkHref, faqs }: Props) 
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="font-body text-base leading-relaxed text-muted-foreground space-y-4">
-                  {faq.answer.map((block) => (
-                    <p key={block._key}>
+                  {faq.answer.map((block, bi) => (
+                    <p
+                      key={block._key}
+                      className={isStaleOnlineSaleBlock(faq._id, bi) ? "phase-after:hidden" : undefined}
+                    >
                       <RichText value={[block]} />
                     </p>
                   ))}
+                  {ONLINE_SALE_FAQ_IDS.has(faq._id) && <OnlineSaleLink variant="prose" />}
                 </AccordionContent>
               </AccordionItem>
             ))}

@@ -13,6 +13,7 @@ import {
 } from "@/lib/festivalDate";
 import { phaseCopy } from "@/lib/festivalPhaseCopy";
 import { useFestivalInfo, useSiteChrome } from "@/components/SiteContext";
+import { ONLINE_SALE_URL } from "@/lib/onlineSale";
 
 const FALLBACK_START = festivalStartTimestamp("2026-09-13");
 const FALLBACK_END = festivalEndTimestamp("2026-09-19");
@@ -125,7 +126,7 @@ const CountdownRibbon = () => {
             hide after the festival; keeping it visible with the same padding
             keeps the nav + ribbon height the scroll-mt offsets were sized for. */}
         <a
-          href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+          href={ONLINE_SALE_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="group mx-auto hidden items-center gap-2 phase-after:flex"

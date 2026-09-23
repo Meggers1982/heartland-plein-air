@@ -14,6 +14,7 @@ import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import { urlFor } from "@/sanity/lib/image";
 import type { Artist } from "@/sanity/queries/artists";
 import type { GalleryPage } from "@/sanity/queries/pages";
+import { ONLINE_SALE_URL } from "@/lib/onlineSale";
 
 type MediumFilter = string;
 
@@ -131,7 +132,7 @@ const Gallery = ({
               Original paintings from the festival are on sale online through October 4.
             </p>
             <a
-              href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+              href={ONLINE_SALE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"

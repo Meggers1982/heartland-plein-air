@@ -3450,6 +3450,23 @@ hardcoded as a stopgap because Sanity write access was unavailable that day:
   hero button cover it), the **Gallery page header** (`Gallery.tsx`, one line
   and a button under the title), and a **"Shop the Online Sale" button first in
   the homepage hero row** (`HeroSection.tsx`).
+- **Links inside existing copy, same day.** Searched every Sanity document for
+  mentions of the sale and linked each one to the FASO show, after the festival
+  only, via one shared `OnlineSaleLink` component and the `ONLINE_SALE_URL`
+  constant in `src/lib/onlineSale.ts` (all earlier literals now use it too):
+  the homepage "Online Sales" card in Week at a Glance (`ScheduleSection.tsx`);
+  three FAQ answers, "How can I purchase a painting?", "How does the online
+  sale work?" and "What is the schedule?", on `/faq` and the homepage teaser;
+  the Open Division "Online Exhibition" section; the Tickets page "Public
+  Exhibition & Sale" section (an event that has passed, so "Missed it? Shop the
+  online sale"); the About page "Festival Week" section; and the footer.
+- **One stale sentence hidden after the festival.** The FAQ "How does the online
+  sale work?" says details "will be published closer to the event. Sign up for
+  the newsletter in the footer to be notified when the online sale opens."
+  That was wrong once the sale opened. The second paragraph is hidden with
+  `phase-after:hidden` (`isStaleOnlineSaleBlock` in `onlineSale.ts`). It is only
+  hidden on screen: the FAQ structured data (JSON-LD) still contains it, so fix
+  the text in Studio too.
 - The link is `https://ralstonhingecreativedistrict.faso.com/collections/232389`.
   It is a code literal in both files, not a Sanity string, so `stegaClean()` does
   not apply.
@@ -3616,7 +3633,12 @@ hardcoded as a stopgap because Sanity write access was unavailable that day:
    FASO URL and the "Festival paintings are on sale" copy are code literals in
    `Schedule.tsx` (`day-online` button), `CountdownBanner.tsx` (after-festival
    CTA card), `CountdownRibbon.tsx`, `Gallery.tsx` (header) and
-   `HeroSection.tsx` (extra button). Consequences until fixed: editors can't change them in Studio, and
+   `HeroSection.tsx` (extra button). To remove them all: delete
+   `src/lib/onlineSale.ts` and `src/components/OnlineSaleLink.tsx`, then fix
+   every file the compiler reports (search for `OnlineSaleLink` and
+   `ONLINE_SALE_URL`). The Studio copy that needs fixing at the same time:
+   FAQ "How does the online sale work?" (stale second paragraph), and the "Online
+   Sales" day and homepage highlight, which could carry the link themselves. Consequences until fixed: editors can't change them in Studio, and
    the Studio fields "After the festival → newsletter title/body"
    (`afterNewsletterTitle`/`afterNewsletterBody`) no longer show anywhere, so
    editing them does nothing. After Oct 4, either restore the newsletter card in

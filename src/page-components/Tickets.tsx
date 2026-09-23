@@ -13,6 +13,7 @@ import type { FormConfig } from "@/sanity/queries/formConfig";
 import type { TicketsPage, TicketSection } from "@/sanity/queries/pages";
 import { renderRichText } from "@/lib/richText";
 import { YOUTH_REGISTRATION_FULL } from "@/lib/youthPaintoutRegistration";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
 
 
 
@@ -246,6 +247,9 @@ const Tickets = ({
             >
               {exhibition.ctaLabel}
             </a>
+            <OnlineSaleLink variant="prose" className="mt-6">
+              Missed it? Shop the online sale →
+            </OnlineSaleLink>
           </AnimatedSection>
         </div>
       </section>

@@ -9,6 +9,7 @@ import BackToTop from "@/components/BackToTop";
 import RichText from "@/components/RichText";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 import type { AboutPage } from "@/sanity/queries/pages";
+import OnlineSaleLink from "@/components/OnlineSaleLink";
 
 const About = ({ page }: { page: AboutPage }) => {
   useEffect(() => {
@@ -77,6 +78,11 @@ const About = ({ page }: { page: AboutPage }) => {
                         <RichText value={[b]} />
                       </p>
                     ))}
+                    {section._key === "experience" && (
+                      <OnlineSaleLink variant="prose">
+                        Shop paintings from the festival online →
+                      </OnlineSaleLink>
+                    )}
                   </div>
                 </AnimatedSection>
               </div>

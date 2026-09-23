@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import type { HeroSection as HeroSectionData } from "@/sanity/queries/homepage";
+import { ONLINE_SALE_URL } from "@/lib/onlineSale";
 
 type Props = HeroSectionData & { scrollY: number; heroLoaded: boolean };
 
@@ -55,7 +56,7 @@ const HeroSection = ({
         >
           {/* After the festival only. Hardcoded — see CHANGES.md follow-up #10. */}
           <a
-            href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+            href={ONLINE_SALE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden w-full items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl phase-after:inline-flex sm:w-auto"
