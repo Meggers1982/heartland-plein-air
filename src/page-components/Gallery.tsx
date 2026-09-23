@@ -125,6 +125,20 @@ const Gallery = ({
           <h1 className="font-display text-5xl font-bold leading-tight text-secondary md:text-6xl">
             {page.title}
           </h1>
+          {/* After the festival only. Hardcoded — see CHANGES.md follow-up #10. */}
+          <div className="mt-8 hidden flex-col items-center gap-2 phase-after:flex">
+            <p className="font-body text-base text-secondary/90">
+              Original paintings from the festival are on sale online through October 4.
+            </p>
+            <a
+              href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 font-body text-sm font-semibold uppercase tracking-[0.15em] text-primary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              Shop the Online Sale
+            </a>
+          </div>
         </div>
       </header>
 

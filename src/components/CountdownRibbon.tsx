@@ -19,7 +19,8 @@ const FALLBACK_END = festivalEndTimestamp("2026-09-19");
 
 /**
  * Before the festival: the countdown. During: "Happening now · Day N of 7",
- * linking to today on the schedule. After: hidden. CSS picks the variant from
+ * linking to today on the schedule. After: a link to the online painting sale
+ * (hardcoded, see CHANGES.md follow-up #10). CSS picks the variant from
  * an attribute set on <html> before first paint — see the phase notes in
  * src/lib/festivalDate.ts — so a returning visitor never sees the ribbon
  * render and then collapse.
@@ -49,10 +50,10 @@ const CountdownRibbon = () => {
   ];
 
   return (
-    <div className="bg-primary text-primary-foreground phase-after:hidden">
+    <div className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
         {/* Before: the countdown */}
-        <div className="flex items-center gap-3 phase-live:hidden sm:gap-5">
+        <div className="flex items-center gap-3 phase-live:hidden phase-after:hidden sm:gap-5">
           {/* Hidden below 360px. The label and the four countdown units
               compete for one row, and on a 320px screen the "Sec" unit was
               being clipped off the edge — pre-existing, but raising the unit
@@ -120,7 +121,28 @@ const CountdownRibbon = () => {
           />
         </Link>
 
-        <p className="hidden font-display text-sm italic text-primary-foreground md:block">
+        {/* After: the online painting sale, through Oct 4. The ribbon used to
+            hide after the festival; keeping it visible with the same padding
+            keeps the nav + ribbon height the scroll-mt offsets were sized for. */}
+        <a
+          href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mx-auto hidden items-center gap-2 phase-after:flex"
+        >
+          <span className="font-body text-[13px] font-semibold leading-none group-hover:underline sm:hidden">
+            Paintings on sale online
+          </span>
+          <span className="hidden font-display text-lg font-bold leading-none group-hover:underline sm:inline sm:text-xl">
+            Festival paintings are on sale online through October 4
+          </span>
+          <ArrowRight
+            aria-hidden
+            className="h-4 w-4 self-center transition-transform group-hover:translate-x-0.5"
+          />
+        </a>
+
+        <p className="hidden font-display text-sm italic text-primary-foreground phase-after:hidden md:block">
           {festival && formatFestivalLine(festival.startDate, festival.endDate, festival.location, "short")}
         </p>
       </div>

@@ -3441,6 +3441,15 @@ hardcoded as a stopgap because Sanity write access was unavailable that day:
   plainest callout the site has. The newsletter card is unchanged before the
   festival; after it, newsletter signup is still available in the homepage
   newsletter section.
+- **Three more spots, same day**, all shown only after the festival (the
+  `phase-after:` variant, so before and during the festival nothing changes):
+  the **nav ribbon** (`CountdownRibbon.tsx`, which used to hide after the
+  festival and now reads "Festival paintings are on sale online through October
+  4 →"; it keeps its padding so the nav + ribbon height the scroll offsets
+  assume still holds; it does not show on the homepage, where the banner and
+  hero button cover it), the **Gallery page header** (`Gallery.tsx`, one line
+  and a button under the title), and a **"Shop the Online Sale" button first in
+  the homepage hero row** (`HeroSection.tsx`).
 - The link is `https://ralstonhingecreativedistrict.faso.com/collections/232389`.
   It is a code literal in both files, not a Sanity string, so `stegaClean()` does
   not apply.
@@ -3605,8 +3614,9 @@ hardcoded as a stopgap because Sanity write access was unavailable that day:
 
 10. **Move the online-sale link into Studio, then revert the hardcoding.** The
    FASO URL and the "Festival paintings are on sale" copy are code literals in
-   `Schedule.tsx` (`day-online` button) and `CountdownBanner.tsx` (after-festival
-   CTA card). Consequences until fixed: editors can't change them in Studio, and
+   `Schedule.tsx` (`day-online` button), `CountdownBanner.tsx` (after-festival
+   CTA card), `CountdownRibbon.tsx`, `Gallery.tsx` (header) and
+   `HeroSection.tsx` (extra button). Consequences until fixed: editors can't change them in Studio, and
    the Studio fields "After the festival → newsletter title/body"
    (`afterNewsletterTitle`/`afterNewsletterBody`) no longer show anywhere, so
    editing them does nothing. After Oct 4, either restore the newsletter card in
