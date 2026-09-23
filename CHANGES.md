@@ -3424,6 +3424,29 @@ the rendered page.
 
 ---
 
+## 2026-09-23 — Online Sale Link Added (Schedule Page and Site-Wide Banner)
+
+Deb Groesser asked for the link to the online show of festival paintings (FASO
+collection, open through Oct 4) to go on the site ASAP. Two places, both
+hardcoded as a stopgap because Sanity write access was unavailable that day:
+
+- **Schedule → Online Sales entry** (`src/page-components/Schedule.tsx`): the
+  button read "Notify me when online sales open" and jumped to the newsletter
+  form, which was stale once the sale opened. It is now "Shop the online sale →"
+  and opens the FASO collection in a new tab.
+- **Countdown banner, after the festival** (`src/components/CountdownBanner.tsx`):
+  the call-to-action card that used to say "See you next year / Subscribe for
+  Updates" now says "Festival paintings are on sale" with a "Shop the Online
+  Sale" button to the same link. The banner shows on every page, so this is the
+  plainest callout the site has. The newsletter card is unchanged before the
+  festival; after it, newsletter signup is still available in the homepage
+  newsletter section.
+- The link is `https://ralstonhingecreativedistrict.faso.com/collections/232389`.
+  It is a code literal in both files, not a Sanity string, so `stegaClean()` does
+  not apply.
+
+---
+
 ## Known follow-ups (not code — need your action)
 
 0. **Have a lawyer read `/privacy` and `/terms`, and confirm three clauses.**
@@ -3579,3 +3602,17 @@ the rendered page.
    then to a thank-you after Sept 19. Edit it in Studio → Site-wide Text →
    "During the festival" and "After the festival"; any field left empty keeps
    the placeholder.
+
+10. **Move the online-sale link into Studio, then revert the hardcoding.** The
+   FASO URL and the "Festival paintings are on sale" copy are code literals in
+   `Schedule.tsx` (`day-online` button) and `CountdownBanner.tsx` (after-festival
+   CTA card). Consequences until fixed: editors can't change them in Studio, and
+   the Studio fields "After the festival → newsletter title/body"
+   (`afterNewsletterTitle`/`afterNewsletterBody`) no longer show anywhere, so
+   editing them does nothing. After Oct 4, either restore the newsletter card in
+   the banner's after-state (the previous markup is in git history) or point it
+   at next year's dates. The Online Sales schedule entry's own paragraph ("Unsold
+   works remain available for purchase online through October 4...") still comes
+   from Sanity (`scheduleDay` `day-online` narrative) and is unchanged.
+   Sanity write access: OAuth logins (CLI and MCP) cannot write to this project;
+   an Editor API token from sanity.io/manage is required (see CLAUDE.md).

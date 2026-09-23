@@ -133,18 +133,34 @@ const CountdownBanner = () => {
           </p>
         </div>
 
-        {/* CTA — the newsletter before and after; the schedule while it's on */}
-        <div className="flex max-w-sm flex-col items-center gap-4 phase-live:hidden lg:items-start">
+        {/* CTA — the newsletter before the festival; the schedule while it's
+            on; the online sale after (through Oct 4), since that's the one
+            thing that's actually time-sensitive and actionable post-festival. */}
+        <div className="flex max-w-sm flex-col items-center gap-4 phase-live:hidden phase-after:hidden lg:items-start">
           <p className="font-display text-xl text-primary-foreground sm:text-2xl">
-            <span className="phase-after:hidden">{chrome?.newsletterTitle}</span>
-            <span className="hidden phase-after:inline">{copy.afterNewsletterTitle}</span>
+            {chrome?.newsletterTitle}
           </p>
           <p className="text-center font-body text-sm text-primary-foreground/90 lg:text-left">
-            <span className="phase-after:hidden">{chrome?.newsletterBody}</span>
-            <span className="hidden phase-after:inline">{copy.afterNewsletterBody}</span>
+            {chrome?.newsletterBody}
           </p>
           <a href="#newsletter" className={BUTTON_CLASS}>
             Subscribe for Updates
+          </a>
+        </div>
+        <div className="hidden max-w-sm flex-col items-center gap-4 phase-after:flex lg:items-start">
+          <p className="font-display text-xl text-primary-foreground sm:text-2xl">
+            Festival paintings are on sale
+          </p>
+          <p className="text-center font-body text-sm text-primary-foreground/90 lg:text-left">
+            Original works painted during the festival are available to buy online through October 4.
+          </p>
+          <a
+            href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={BUTTON_CLASS}
+          >
+            Shop the Online Sale
           </a>
         </div>
         <div className="hidden max-w-sm flex-col items-center gap-4 phase-live:flex lg:items-start">

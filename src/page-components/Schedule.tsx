@@ -361,10 +361,12 @@ const Schedule = ({
                 </p>
                 {d._id === "day-online" && (
                   <a
-                    href="#newsletter"
+                    href="https://ralstonhingecreativedistrict.faso.com/collections/232389"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mb-2 inline-flex items-center gap-2 rounded bg-primary px-5 py-2.5 font-body text-sm font-semibold tracking-wide text-primary-foreground transition-all hover:opacity-90 hover:scale-105"
                   >
-                    Notify me when online sales open
+                    Shop the online sale →
                   </a>
                 )}
                 {["day-sep-13", "day-sep-17", "day-sep-18", "day-sep-19"].includes(d._id) && (
